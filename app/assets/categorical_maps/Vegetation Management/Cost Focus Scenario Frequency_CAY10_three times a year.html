@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3293dd467e49268da522c4dbb91d20b2 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div id='maplegend Cost Focus Scenario Frequency' class='maplegend'>
+        <div class='legend-title'>Cost Focus Scenario Frequency</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:green'></span>one time a year</li>
+                <li><span style='background:yellow'></span>two times a year</li>
+                <li><span style='background:red'></span>three times a year</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#1f77b4'></span>Source</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#8B4513'></span>Fuse</li>
+                <li><span style='background:#FF8C00'></span>Switch</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_3293dd467e49268da522c4dbb91d20b2" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3293dd467e49268da522c4dbb91d20b2 = L.map(
+                "map_3293dd467e49268da522c4dbb91d20b2",
+                {
+                    center: [9.276695215505708, 99.16204463681413],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_3293dd467e49268da522c4dbb91d20b2);
+
+            
+
+        
+    
+            var tile_layer_59aeb07f64e03125c3a6be4ad83fd0cd = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_59aeb07f64e03125c3a6be4ad83fd0cd.addTo(map_3293dd467e49268da522c4dbb91d20b2);
+        
+    
+            map_3293dd467e49268da522c4dbb91d20b2.fitBounds(
+                [[9.169973247675173, 99.13552621840381], [9.38341718333624, 99.18856305522445]],
+                {}
+            );
+        
+    
+        function geo_json_e342f53b99118a7f5c73ddefd98d0c7c_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "red", "fillColor": "red", "fillOpacity": 0.5, "weight": 5};
+            }
+        }
+        function geo_json_e342f53b99118a7f5c73ddefd98d0c7c_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_e342f53b99118a7f5c73ddefd98d0c7c_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_e342f53b99118a7f5c73ddefd98d0c7c_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_e342f53b99118a7f5c73ddefd98d0c7c_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_e342f53b99118a7f5c73ddefd98d0c7c.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_e342f53b99118a7f5c73ddefd98d0c7c_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_e342f53b99118a7f5c73ddefd98d0c7c = L.geoJson(null, {
+                onEachFeature: geo_json_e342f53b99118a7f5c73ddefd98d0c7c_onEachFeature,
+            
+                style: geo_json_e342f53b99118a7f5c73ddefd98d0c7c_styler,
+                pointToLayer: geo_json_e342f53b99118a7f5c73ddefd98d0c7c_pointToLayer,
+        });
+
+        function geo_json_e342f53b99118a7f5c73ddefd98d0c7c_add (data) {
+            geo_json_e342f53b99118a7f5c73ddefd98d0c7c
+                .addData(data);
+        }
+            geo_json_e342f53b99118a7f5c73ddefd98d0c7c_add({"bbox": [99.13552621840381, 9.169973247675173, 99.18856305522445, 9.38341718333624], "features": [{"bbox": [99.17244969903582, 9.371167030792897, 99.17255656150756, 9.371194945490245], "geometry": {"coordinates": [[[99.17244969903582, 9.371167030792897], [99.17255656150756, 9.371194945490245]]], "type": "MultiLineString"}, "id": "953", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-201-42SWKA000035956", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.04, "__folium_color": "red", "corridor length (km)": 0.01, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.1512266564352, 9.2609030225454, 99.15135436657111, 9.260988740998815], "geometry": {"coordinates": [[[99.1512266564352, 9.260988740998815], [99.15131246097961, 9.26093115188605]], [[99.15131246097961, 9.26093115188605], [99.15135436657111, 9.2609030225454]]], "type": "MultiLineString"}, "id": "1148", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.49, "Cost to Trim (BHT) [MJM]": 25.68, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-9999991-42SWKA000069245", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.13751455104813, 9.184485337567642, 99.13793653684493, 9.184759692546262], "geometry": {"coordinates": [[[99.13790159036982, 9.184485337567642], [99.13791031185724, 9.184488291944852]], [[99.13751455104813, 9.184759692546262], [99.13793653684493, 9.18455951110422], [99.13790159036982, 9.184485337567642]]], "type": "MultiLineString"}, "id": "1718", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 9.03, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 32.16, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10-18/04-42SWKA000022407", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.56, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.06, "density distribution meta": "{\u0027open\u0027: \u00270.06 km\u0027}"}, "type": "Feature"}, {"bbox": [99.14865426423353, 9.293792857517255, 99.14993838191576, 9.295428362158505], "geometry": {"coordinates": [[[99.14993838191576, 9.293792857517255], [99.1499351668881, 9.293812377793056]], [[99.1490211016212, 9.293952251034975], [99.14888581749477, 9.294674941890937], [99.14872183543235, 9.29542663357896], [99.14865426423353, 9.295428362158505]], [[99.1499351668881, 9.293812377793056], [99.14990997357474, 9.293965726808196], [99.14951334972794, 9.293903790682513], [99.1491352054644, 9.293852419903727], [99.1490211016212, 9.293952251034975]]], "type": "MultiLineString"}, "id": "1921", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.52, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-08-4284SW000001078", "Probability of Outage (%)": 0.15, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.18, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.23, "__folium_color": "red", "corridor length (km)": 0.3, "density distribution meta": "{\u0027open\u0027: \u00270.0 km\u0027}"}, "type": "Feature"}, {"bbox": [99.15134202449455, 9.272288593109725, 99.15259948960859, 9.27295384708593], "geometry": {"coordinates": [[[99.15242783520142, 9.272638867422017], [99.15224541721722, 9.272361754298394], [99.15134202449455, 9.272288593109725]], [[99.15259948960859, 9.27295384708593], [99.15245727247117, 9.272683582036363], [99.15242783520142, 9.272638867422017]]], "type": "MultiLineString"}, "id": "1956", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 24.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 24.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-11-4284SW000001052", "Probability of Outage (%)": 0.29, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 13.89, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": -2.64, "__folium_color": "red", "corridor length (km)": 0.18, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.15007514005777, 9.27756812737522, 99.15804912795583, 9.280491307358727], "geometry": {"coordinates": [[[99.15007514005777, 9.280491307358727], [99.1508103202594, 9.280036255646618], [99.15155523757767, 9.279827699554383], [99.1522822458483, 9.279622785605447], [99.1523928043451, 9.279590954665709]], [[99.15772247139242, 9.277619737130005], [99.15804912795583, 9.27756812737522]], [[99.1523928043451, 9.279590954665709], [99.1524406323068, 9.279714940150889], [99.15256842724138, 9.280063377413915], [99.15258555588504, 9.280109996672874]], [[99.1523928043451, 9.279590954665709], [99.15291425494298, 9.279448500737539], [99.15364671522377, 9.279263760922637], [99.15434357968766, 9.27907151865012], [99.1547352172954, 9.278907464536816], [99.15535563988531, 9.27858312517246], [99.15596393668545, 9.278245638717204], [99.156646719973, 9.277968086451956], [99.15732078519672, 9.277703226753019], [99.15767069468914, 9.277627909425748], [99.15772247139242, 9.277619737130005]], [[99.15258555588504, 9.280109996672874], [99.15269638629384, 9.280411742191127]]], "type": "MultiLineString"}, "id": "1958", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.5, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 38.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 38.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-10-4284SW000001079", "Probability of Outage (%)": 0.53, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 42.83, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.63, "__folium_color": "red", "corridor length (km)": 1.04, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.15288743605902, 9.26025233119198, 99.18363490043755, 9.267296106901522], "geometry": {"coordinates": [[[99.157724360649, 9.265720109240428], [99.15796098376093, 9.265516892117807], [99.15826270741935, 9.265318286131563], [99.15849960248693, 9.265235565038596], [99.15871369108831, 9.265175267221629], [99.15943205144147, 9.265009715523465], [99.15977920863997, 9.264937129086444]], [[99.17146625793956, 9.262684542240326], [99.1714593828011, 9.262663434683803], [99.17145044694854, 9.262636005713098]], [[99.15977920863997, 9.264937129086444], [99.15982921183851, 9.265400604926494], [99.15994443612047, 9.265912568604513], [99.15995251656935, 9.26596286382275]], [[99.15995251656935, 9.26596286382275], [99.16001184641476, 9.266332376763746]], [[99.18363490043755, 9.26025233119198], [99.18335138183359, 9.260388973189903], [99.18307984368352, 9.260506171320007], [99.18271386830708, 9.26066802693716], [99.18240075298397, 9.260792861574188]], [[99.18035840222763, 9.2616694885124], [99.18070525221258, 9.261510077997883], [99.18098589162658, 9.261401035563685], [99.18145830844988, 9.261181900614847], [99.18175717763548, 9.261060710073668], [99.1820005651349, 9.260960983921013], [99.1823765212678, 9.260802000227805], [99.18240075298397, 9.260792861574188]], [[99.15288743605902, 9.267196041158835], [99.1535649806786, 9.267267984065315], [99.15406539126785, 9.267296106901522], [99.15440640677627, 9.267266591163741], [99.15445506912964, 9.267260510079725], [99.15473597240626, 9.2672253849596], [99.15509319443962, 9.26717550143856], [99.15581928133841, 9.267030241334309], [99.15618772088769, 9.266899779646929], [99.15651133264903, 9.266696833050965], [99.1567892153225, 9.266483405028424], [99.15711939935068, 9.26621759277888], [99.1576958191466, 9.265744624510917], [99.157724360649, 9.265720109240428]], [[99.1778308268205, 9.262309304918588], [99.17778772596448, 9.262527589237074]], [[99.17137091370991, 9.262383192979977], [99.17198514701222, 9.262285258764313], [99.17278689889203, 9.262056660647971], [99.17337912905155, 9.261854935154847], [99.17373928035245, 9.261798609850612], [99.17412752906428, 9.261799117860349], [99.17481492376943, 9.261882403467146], [99.17552873611235, 9.261975389053527], [99.1762659506375, 9.262092529724649], [99.17694937901793, 9.26219859731841], [99.17740491863476, 9.262268090309115], [99.1778308268205, 9.262309304918588]], [[99.15977920863997, 9.264937129086444], [99.15980524565397, 9.264931690517043], [99.16010045895835, 9.264876176623252], [99.16078604109106, 9.264730680429162], [99.16143091028327, 9.264613593298614], [99.16223834506711, 9.264440579019917], [99.16285150944763, 9.2640638781937], [99.1633836500856, 9.263707084989509], [99.16404395879275, 9.263532822232063], [99.16473687128993, 9.263496740670789], [99.16530806255105, 9.263478559588092], [99.16625776143827, 9.263516895731014], [99.16710006265623, 9.263595619815097], [99.16715113180702, 9.263597821043799]], [[99.16715113180702, 9.263597821043799], [99.16778673289376, 9.263625183317856], [99.16809761443815, 9.263592086939067], [99.16834041320594, 9.263544107210425], [99.16859090712764, 9.26346166254353], [99.16881248634614, 9.263383066375061], [99.16927908159178, 9.263172388979408], [99.16982451255762, 9.262921866924321], [99.1700942748707, 9.26279043383188], [99.17042362492917, 9.262636025235325], [99.17077615549476, 9.262482401245656], [99.17105617619248, 9.262422444564827], [99.17133766635592, 9.262388952404539], [99.17137091370991, 9.262383192979977]], [[99.18035840222763, 9.2616694885124], [99.18031339044434, 9.261690178801393], [99.17973141963223, 9.261951751711464], [99.17936804032766, 9.262068296658539], [99.17861315135927, 9.262200548642324], [99.1778308268205, 9.262309304918588]], [[99.17145044694854, 9.262636005713098], [99.17137091370991, 9.262383192979977]]], "type": "MultiLineString"}, "id": "1968", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.3, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 243.22, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 240.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-12-4284SW000001053", "Probability of Outage (%)": 0.73, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 473.63, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": -0.48, "__folium_color": "red", "corridor length (km)": 3.78, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.13768743273648, 9.182265410885407, 99.14768345883952, 9.18390715265007], "geometry": {"coordinates": [[[99.13768743273648, 9.182317103612952], [99.13773413991946, 9.182298019003992], [99.13790271658735, 9.182265410885407], [99.13811369714934, 9.182290213031076], [99.13839212001655, 9.182317865530997], [99.13861948234704, 9.182335009056825], [99.13902314147597, 9.182369315329357], [99.13922117562113, 9.182387338076047]], [[99.13922117562113, 9.182387338076047], [99.1393478064297, 9.182398866830846], [99.1394521127943, 9.182397940182552]], [[99.14471517344485, 9.183026160505484], [99.14499576593876, 9.18303681152773], [99.14533415339274, 9.183053426860305], [99.14558825260372, 9.183074869684345], [99.14566050251055, 9.183080819290614], [99.14576374492934, 9.183104385030667]], [[99.14391897789497, 9.183187234828468], [99.14416249220778, 9.183122104393657], [99.14430096685724, 9.183090943454479], [99.14449844221224, 9.18305376205431], [99.14471517344485, 9.183026160505484]], [[99.14758755722916, 9.183198734418859], [99.14768345883952, 9.183168059914003]], [[99.14640117594593, 9.18326442229429], [99.14646061202245, 9.183276735546798], [99.14663885078707, 9.183299637477578], [99.14684366410675, 9.183310082639474], [99.1470112880967, 9.183308096938609], [99.14720684724163, 9.183304191290265], [99.14752761530112, 9.183217907103588], [99.14758755722916, 9.183198734418859]], [[99.1394521127943, 9.182397940182552], [99.13969172804134, 9.182416923477868], [99.14003950956257, 9.18243593706836], [99.14025627735282, 9.182454992157437], [99.1403140833973, 9.182466456831898], [99.14040851217204, 9.18250854259573], [99.14067349814559, 9.182670217935659], [99.14090284419827, 9.18284626135026], [99.14096741124806, 9.182897928191096], [99.14103677997598, 9.182915131795285], [99.14108302050069, 9.182913205253078], [99.14112540720565, 9.182902651305204], [99.14122365627875, 9.182868151566515], [99.14139800126817, 9.182805863005312], [99.1416137600277, 9.182735897038764], [99.1417958182165, 9.1826822251239], [99.14199328591708, 9.18262567076102], [99.1420973203166, 9.182604564118982], [99.14215030315357, 9.182595932463789], [99.14221580779214, 9.182601650245644], [99.14226205475249, 9.18261598641314], [99.14232179903888, 9.182648515745175], [99.14256366915569, 9.182819768369704], [99.1426330541089, 9.182877411735811], [99.14269689837835, 9.182919264753076], [99.14277638670869, 9.18295274497694], [99.1430172634918, 9.183051963515895], [99.14317866157387, 9.183118904753128], [99.14333523292478, 9.183179869104926], [99.14343158038497, 9.18321573036651], [99.1434652998607, 9.183224092623602], [99.14351828814239, 9.18322885636976], [99.14358933409991, 9.18322882814145], [99.14363629500268, 9.183230003411458], [99.14374226145206, 9.183214412960567], [99.14391897789497, 9.183187234828468]], [[99.14576374492934, 9.183104385030667], [99.14554768283678, 9.183812575848018]], [[99.14576374492934, 9.183104385030667], [99.14579659023966, 9.18311187910493], [99.14607960649286, 9.183172791214384], [99.14640117594593, 9.18326442229429]], [[99.14554768283678, 9.183812575848018], [99.14551882964987, 9.18390715265007]]], "type": "MultiLineString"}, "id": "1985", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 20.34, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 133.0, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 133.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-18-4284SW000001085", "Probability of Outage (%)": 0.21, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 49.0, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.5, "__folium_color": "red", "corridor length (km)": 1.24, "density distribution meta": "{\u0027open\u0027: \u00270.13 km\u0027}"}, "type": "Feature"}, {"bbox": [99.13906858505058, 9.224012312280303, 99.14433220558568, 9.227059730806856], "geometry": {"coordinates": [[[99.141106726569, 9.225535540853471], [99.14117602110949, 9.225528331971116], [99.14131251888895, 9.225543220633977], [99.14141432612081, 9.225567312556537], [99.14177062339473, 9.225603949079668], [99.14213964174048, 9.225625647006149], [99.14248435633327, 9.225632402875865], [99.14255953553646, 9.225611687282829], [99.14268789817476, 9.2255219918676], [99.14301629806059, 9.225210398528802], [99.14350773743705, 9.22476887246754], [99.14381534093573, 9.224519353163458], [99.1441113585344, 9.22425604468884], [99.14416589240429, 9.224195855818262]], [[99.14416589240429, 9.224195855818262], [99.14401065106449, 9.224069903722555]], [[99.14416589240429, 9.224195855818262], [99.14433220558568, 9.224012312280303]], [[99.13906858505058, 9.227059730806856], [99.13972563506594, 9.226749632249117], [99.14025412970577, 9.226415333138604], [99.14075361455605, 9.225840448878534], [99.1407745456706, 9.225821717635538]], [[99.1407745456706, 9.225821717635538], [99.14079519466473, 9.225803230715478], [99.141106726569, 9.225535540853471]]], "type": "MultiLineString"}, "id": "1989", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.5, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 43.96, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 43.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-17-4284SW000001094", "Probability of Outage (%)": 0.2, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 16.2, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.67, "__folium_color": "red", "corridor length (km)": 0.73, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.14077218695385, 9.240016307600804, 99.1541836897739, 9.243964699246055], "geometry": {"coordinates": [[[99.15375760172338, 9.240063120328871], [99.15381617374946, 9.240054864353286], [99.15386630757058, 9.240049542543945], [99.1541836897739, 9.240019440547295]], [[99.14871514914485, 9.240265390127526], [99.14895076553353, 9.2401853442433], [99.14926056922765, 9.240101251427763], [99.14992095910851, 9.24007596710614], [99.1503170201488, 9.240069723360797], [99.15102020559068, 9.240081250107748], [99.1513388668541, 9.240082264681066], [99.15172836142217, 9.240070432372884], [99.15206302337519, 9.240061526288493], [99.15241028043067, 9.24004119078762], [99.15275223691111, 9.240016307600804], [99.15307386076167, 9.240068387110203], [99.15345952523704, 9.24010514397811], [99.15375760172338, 9.240063120328871]], [[99.14841305345865, 9.240429608434471], [99.14829927107066, 9.240496009132798], [99.14794548711012, 9.240694374957869], [99.14763011559783, 9.24083355263682]], [[99.14841305345486, 9.24042959938953], [99.1483316378815, 9.240260935805255], [99.14837045498238, 9.24021098264452]], [[99.14871514914485, 9.240265390127526], [99.14866802378367, 9.240280804129638], [99.14841305345865, 9.240429608434471]], [[99.14837045498238, 9.24021098264452], [99.14842986350884, 9.2401345373789]], [[99.1426911466672, 9.242583493421705], [99.14334099182541, 9.24238233735246], [99.14401192786107, 9.242152273064509], [99.14467074396245, 9.241940944492884], [99.14539106330142, 9.241787929706192], [99.14572837752655, 9.241670986584781], [99.14639895071672, 9.241341061852342], [99.14703792760307, 9.241067788248492], [99.14763011559783, 9.24083355263682]], [[99.14077218695385, 9.243964699246055], [99.14120929411524, 9.243386845141732], [99.14124420168244, 9.243346689951371], [99.14140879483388, 9.24316164702276], [99.14199796204514, 9.242822690408367], [99.14262949198957, 9.242602575613686], [99.1426911466672, 9.242583493421705]]], "type": "MultiLineString"}, "id": "1992", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.27, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 63.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 63.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-15-4284SW000001099", "Probability of Outage (%)": 0.34, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 45.59, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.42, "__folium_color": "red", "corridor length (km)": 1.62, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.13953575202795, 9.227794070088526, 99.16138701819553, 9.233864862168117], "geometry": {"coordinates": [[[99.14962711108761, 9.22933795848594], [99.14964468350037, 9.229083779105846]], [[99.14962711108761, 9.22933795848594], [99.14962971910819, 9.229413021418516]], [[99.14886611983185, 9.229522293819008], [99.14962971910819, 9.229413021418516]], [[99.13953575202795, 9.233864862168117], [99.13972350909066, 9.233789987493715], [99.13991321138562, 9.233684612397214], [99.14053700174766, 9.233337911297552], [99.1412342801826, 9.232952124168067], [99.14159199296715, 9.232753121186576]], [[99.14159199296715, 9.232753121186576], [99.14182389031907, 9.232624112106263], [99.14211096873485, 9.232387934603302], [99.142370690555, 9.232131389440397], [99.142854260009, 9.231653968003545], [99.14312764925923, 9.23138382230945], [99.14329169752419, 9.2312631787439], [99.14347627673416, 9.23116969793705], [99.14379075808148, 9.231052385931198], [99.14403914511647, 9.230957007006158], [99.14409720037465, 9.230934706032032], [99.1441449523371, 9.230917971823402], [99.14438723833817, 9.230819474598873], [99.14478375589972, 9.230685151405623], [99.14511703370009, 9.230562738373019], [99.14609123073112, 9.230198899710858], [99.146744113128, 9.22996086927296], [99.14700901855511, 9.229857169264054], [99.14732008853487, 9.22975174065394], [99.14749784309912, 9.229714303096351], [99.14768073782885, 9.229690457896877], [99.14839520758585, 9.229588263343297], [99.14886611983185, 9.229522293819008]], [[99.14962971910819, 9.229413021418516], [99.15023807267261, 9.229329653717983]], [[99.15023807267261, 9.229329653717983], [99.15097135960438, 9.229230204911605], [99.15166632613094, 9.229168442984061], [99.15236164070217, 9.22917581009441], [99.15305095993848, 9.22931925962473], [99.15368379490889, 9.22970387022092], [99.15450773688688, 9.229770947157968], [99.15482289577972, 9.229674021628066], [99.15541270739416, 9.22932816886625], [99.15613903322293, 9.229012267022508], [99.15679648592733, 9.228733704162861], [99.15748345472386, 9.228440718591377], [99.15812881252403, 9.22815551962854], [99.15883019408295, 9.22789129714113], [99.15959276314089, 9.227794070088526], [99.15969469891118, 9.227978451244232], [99.1602586070949, 9.228529625367239], [99.1605879804335, 9.22874825751092], [99.1610612057348, 9.229273647486737], [99.16125495755554, 9.230005739691494]], [[99.16125495755554, 9.230005739691494], [99.16126755992927, 9.230051745660148], [99.16138701819553, 9.230467813662601]]], "type": "MultiLineString"}, "id": "1993", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.8, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 117.0, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 117.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-16-4284SW000001100", "Probability of Outage (%)": 0.59, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 131.88, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.31, "__folium_color": "red", "corridor length (km)": 2.8, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.14002399154086, 9.189596251323024, 99.14053631202013, 9.189859522962054], "geometry": {"coordinates": [[[99.1404953932534, 9.18961680798968], [99.14047310500902, 9.189697479710595]], [[99.14002399154086, 9.189859522962054], [99.1404953932534, 9.18961680798968]], [[99.1404953932534, 9.18961680798968], [99.1405353190749, 9.189596251323024], [99.14053631202013, 9.189598132290444]]], "type": "MultiLineString"}, "id": "2095", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 10.69, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 10.13, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-18/01-42SWKA000013778", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.18, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.07, "density distribution meta": "{\u0027open\u0027: \u00270.07 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17006925831839, 9.353109761837674, 99.17257932325974, 9.354902261505469], "geometry": {"coordinates": [[[99.17233393340535, 9.353882149712671], [99.17234641682963, 9.353877512675467], [99.17257932325974, 9.353774432653713]], [[99.17111582949074, 9.354430433379033], [99.17118415375651, 9.354400109144951], [99.17141449208012, 9.354295746744894], [99.17170917594916, 9.354163666711278], [99.17187394076738, 9.354090902347659], [99.17210605429302, 9.353986032131496], [99.17232082170865, 9.353887013176335], [99.17233393340535, 9.353882149712671]], [[99.17111582949074, 9.354430433379033], [99.17049997968225, 9.353109761837674]], [[99.17012104784071, 9.35487323313785], [99.17043328717052, 9.354733177200428], [99.17073891625405, 9.354596624538294], [99.17096798171602, 9.354496061884504], [99.17111582949074, 9.354430433379033]], [[99.17008947153161, 9.354887403502273], [99.17009516154029, 9.354902261505469]], [[99.17006925831839, 9.354896467109214], [99.17008947153161, 9.354887403502273]], [[99.17008947153161, 9.354887403502273], [99.17012104784071, 9.35487323313785]]], "type": "MultiLineString"}, "id": "2203", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 19.07, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 15.28, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-04-4284SW000003216", "Probability of Outage (%)": 0.15, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 2.75, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.19, "__folium_color": "red", "corridor length (km)": 0.46, "density distribution meta": "{\u0027open\u0027: \u00270.13 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17431170594415, 9.364694255114458, 99.18856305522445, 9.37564489903899], "geometry": {"coordinates": [[[99.18365088544532, 9.373750438836366], [99.18444235147012, 9.374069283987394], [99.18530458164685, 9.374451503823863], [99.18609858846476, 9.3748326267643], [99.18700087430544, 9.375175213905946], [99.18790997805783, 9.375440072639222], [99.18856305522445, 9.37564489903899]], [[99.18031293612538, 9.372096093873768], [99.18071193504784, 9.372554573595215], [99.18119516210632, 9.372821638593077], [99.18178861760417, 9.373052928209416], [99.18181174589459, 9.373061273791025], [99.18271006084605, 9.373385458764476], [99.18357724467117, 9.373720773690762], [99.18365088544532, 9.373750438836366]], [[99.1771023771265, 9.368915494979305], [99.17756311274412, 9.369384665776751], [99.17824742927725, 9.370035579581355], [99.17893235342115, 9.370640887486926], [99.17908680809792, 9.370768405340328]], [[99.17908680809792, 9.370768405340328], [99.17965326741152, 9.371306966279533], [99.18026122053696, 9.372036677358567], [99.18031293612538, 9.372096093873768]], [[99.17707664464916, 9.36888945862648], [99.17695903940515, 9.368994546343172]], [[99.17707664464916, 9.36888945862648], [99.1771023771265, 9.368915494979305]], [[99.17514375674371, 9.36640321650932], [99.17559637946124, 9.367268504935378], [99.17624383222304, 9.368067044254747], [99.17690378885578, 9.368714599171497], [99.17707664464916, 9.36888945862648]], [[99.17492621359484, 9.365991900042363], [99.17514375674371, 9.36640321650932]], [[99.17431170594415, 9.364694255114458], [99.17471041516798, 9.365535322044781], [99.17490242098344, 9.365946913565917], [99.17492621359484, 9.365991900042363]]], "type": "MultiLineString"}, "id": "2295", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 3.85, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 127.61, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 126.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-02-4284SW000003031", "Probability of Outage (%)": 0.2, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 47.01, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.08, "__folium_color": "red", "corridor length (km)": 2.08, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.16510197335597, 9.262527589237074, 99.17778772596448, 9.275802757025998], "geometry": {"coordinates": [[[99.17012815002482, 9.27273266552984], [99.17016261626344, 9.27268461159254], [99.1705777715304, 9.272078938206473], [99.17094357278334, 9.271483436311405], [99.17139702330012, 9.27082752631449], [99.17178778468202, 9.270282663149965], [99.17224664268248, 9.269743546512979], [99.1727085918282, 9.269142207817804], [99.17316529653435, 9.268915520600713], [99.1737949186692, 9.26861404695392], [99.17439513708354, 9.268121458388563], [99.17469783792052, 9.267869898328675], [99.17472177375116, 9.26783178041487]], [[99.17005747965369, 9.272831207302938], [99.17012815002482, 9.27273266552984]], [[99.16903275739844, 9.274997733190098], [99.1692594321732, 9.274631668735863], [99.16936981977686, 9.274269096260069], [99.16957285320584, 9.27359102030435], [99.16974398915535, 9.273268316045165], [99.17005747965369, 9.272831207302938]], [[99.17005747965369, 9.272831207302938], [99.17008291861005, 9.272849782519877]], [[99.16604020664235, 9.275591205473587], [99.16670750209686, 9.275437773811957], [99.16705222997852, 9.275408379873138], [99.1677838014609, 9.27547592874211], [99.16861211293346, 9.27535137078792], [99.16886867603132, 9.275224593842884]], [[99.16886867603132, 9.275224593842884], [99.16890269326947, 9.275207781378876], [99.16903275739844, 9.274997733190098]], [[99.16903275739844, 9.274997733190098], [99.16898801134168, 9.274969814576918]], [[99.16898801134168, 9.274969814576918], [99.16892390235738, 9.274929812045587]], [[99.17472177375116, 9.26783178041487], [99.17482080125495, 9.267674070133447], [99.17525747063516, 9.26696684265258], [99.17553885272388, 9.26619603265043], [99.17580000158866, 9.265532369400399], [99.17596933861098, 9.264998618000098], [99.17639610540989, 9.264345618275993], [99.1769491880761, 9.26378203706075], [99.17745194446246, 9.263194194329136], [99.17778772596448, 9.262527589237074]], [[99.16510197335597, 9.275802757025998], [99.16599262004549, 9.275602153811697], [99.16604020664235, 9.275591205473587]]], "type": "MultiLineString"}, "id": "2411", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 7.4, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 67.22, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 64.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-13-4284SW000002574", "Probability of Outage (%)": 0.63, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 75.77, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.24, "__folium_color": "red", "corridor length (km)": 2.19, "density distribution meta": "{\u0027open\u0027: \u00270.05 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17083752688052, 9.379633237688555, 99.18223613143682, 9.381283783137432], "geometry": {"coordinates": [[[99.17204340121071, 9.380771471670629], [99.172062641261, 9.380928571558576], [99.17206601559019, 9.380956129610373]], [[99.18091886386586, 9.379758608160012], [99.18188275720146, 9.379654767687105]], [[99.18188275720146, 9.379654767687105], [99.1820825956651, 9.379633237688555]], [[99.18188275720146, 9.379654767687105], [99.18196986825212, 9.379892014748236], [99.18200043353528, 9.380066546686875], [99.18198400925418, 9.380252743512376], [99.18206616118242, 9.380777737114252], [99.18212416025189, 9.381146665063996]], [[99.18212416025189, 9.381146665063996], [99.18214552563211, 9.381283783137432], [99.18223613143682, 9.381270630501449]], [[99.1794253968062, 9.379937407274868], [99.17946467582284, 9.37993270212693]], [[99.17946467582284, 9.37993270212693], [99.18091886386586, 9.379758608160012]], [[99.17083752688052, 9.38091082200517], [99.1716662992984, 9.380814075161492], [99.17204340121071, 9.380771471670629]], [[99.17947807360075, 9.380270041411428], [99.17947648386885, 9.380260328039828]], [[99.17947648386885, 9.380260328039828], [99.17946995128706, 9.380220289764901], [99.1794253968062, 9.379937407274868]], [[99.17204340121071, 9.380771471670629], [99.17255717474242, 9.3807134249143], [99.17338470000502, 9.380619930820336], [99.1742122247894, 9.38052643479923], [99.17496735610897, 9.380441122061027], [99.17531498631998, 9.380401849128068], [99.17596293470442, 9.380328635096653], [99.17674749901886, 9.380239089038259], [99.17752256503942, 9.380152413231547], [99.17829239223794, 9.380062825928405], [99.17898422799534, 9.379987259751687], [99.1794253968062, 9.379937407274868]]], "type": "MultiLineString"}, "id": "2487", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 28.87, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 2.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 2.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-01-4284SW000003009", "Probability of Outage (%)": 0.2, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.48, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.15, "__folium_color": "red", "corridor length (km)": 1.49, "density distribution meta": "{\u0027open\u0027: \u00270.19 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17291546573186, 9.355601611105072, 99.18235376388867, 9.359347575227643], "geometry": {"coordinates": [[[99.174985716444, 9.358427899637206], [99.17497126423962, 9.358393074965583]], [[99.17497126423962, 9.358393074965583], [99.17496236496272, 9.358371624919585]], [[99.17437955434038, 9.358681734891604], [99.17433592977443, 9.358587508770519]], [[99.182075398793, 9.355620874887626], [99.18208609919033, 9.355620136763031], [99.18235376388867, 9.355601611105072]], [[99.17291546573186, 9.359347575227643], [99.1735745355158, 9.359006053665945], [99.17437955434038, 9.358681734891604]], [[99.17437955434038, 9.358681734891604], [99.17440687024997, 9.358670731944981], [99.174985716444, 9.358427899637206]], [[99.1764647507186, 9.357797598815942], [99.17693137109748, 9.357598523987452], [99.17762259748682, 9.357306246374751], [99.17822582097692, 9.35704982933276], [99.17889382671714, 9.356766560582134], [99.17956080877568, 9.356478244069509], [99.1801852516065, 9.356209530064888], [99.18087567931505, 9.355915681834572], [99.18161604507492, 9.355649574473881], [99.18203522905472, 9.35562366322513], [99.182075398793, 9.355620874887626]], [[99.174985716444, 9.358427899637206], [99.17500599375734, 9.35841939650105], [99.17562722239481, 9.358155956122417], [99.17631053678704, 9.357863386471443], [99.1764647507186, 9.357797598815942]], [[99.1764647507186, 9.357797598815942], [99.17646303164032, 9.357747708162554]]], "type": "MultiLineString"}, "id": "2543", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.4, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 62.96, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 62.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-03-4284SW000003215", "Probability of Outage (%)": 0.1, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 4.14, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": -0.04, "__folium_color": "red", "corridor length (km)": 1.14, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.14597765294037, 9.252738525521485, 99.14606998483826, 9.252794686945046], "geometry": {"coordinates": [[[99.14597765294037, 9.252794686945046], [99.1460685649063, 9.252739385368752], [99.14606998483826, 9.252738525521485]]], "type": "MultiLineString"}, "id": "2668", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.75, "Cost to Trim (BHT) [MJM]": 26.85, "Customers Affected (Adjusted)": 0.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "HY03F-77-42SWKA000022105", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.0, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.01, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.14964468350037, 9.227268215391721, 99.14977133415532, 9.229083779105846], "geometry": {"coordinates": [[[99.14964468350037, 9.229083779105846], [99.1497455033028, 9.227626758851821]], [[99.14975603835849, 9.22748046147283], [99.14968025650047, 9.227475183637175]], [[99.1497455033028, 9.227626758851821], [99.14975603835849, 9.22748046147283]], [[99.14975603835849, 9.22748046147283], [99.14977133415532, 9.227268215391721]]], "type": "MultiLineString"}, "id": "2715", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.4, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-16/02-42SWKA000022569", "Probability of Outage (%)": 0.05, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.03, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.55, "__folium_color": "red", "corridor length (km)": 0.21, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.13924347061783, 9.222887515535044, 99.13935335820202, 9.222904513685958], "geometry": {"coordinates": [[[99.13924347061783, 9.222887515535044], [99.13935335820202, 9.222904513685958]]], "type": "MultiLineString"}, "id": "2768", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.8, "Cost to Trim (BHT) [MJM]": 27.58, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-17/01-42SWKA000021281", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.01, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17008291861005, 9.272849782519877, 99.17020246260499, 9.27293705436626], "geometry": {"coordinates": [[[99.17008291861005, 9.272849782519877], [99.17020246260499, 9.27293705436626]]], "type": "MultiLineString"}, "id": "2849", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 3.22, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-13/01-42SWKA000020530", "Probability of Outage (%)": 0.09, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.21, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.4, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.14934439188274, 9.320517530789227, 99.14970164472555, 9.32064528623849], "geometry": {"coordinates": [[[99.14934439188274, 9.32064528623849], [99.14966445176613, 9.320530833380134]], [[99.14966445176613, 9.320530833380134], [99.14970164472555, 9.320517530789227]]], "type": "MultiLineString"}, "id": "2881", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 6.13, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 10.13, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CHY09-99999-42SWKA000020209", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.18, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.04, "density distribution meta": "{\u0027open\u0027: \u00270.04 km\u0027}"}, "type": "Feature"}, {"bbox": [99.1388546240722, 9.169973247675173, 99.1390010045435, 9.170026637357452], "geometry": {"coordinates": [[[99.13895134022873, 9.170020894781615], [99.13899535176685, 9.17002597924553], [99.1390010045435, 9.170026637357452]], [[99.1388546240722, 9.170009698046192], [99.13895134022873, 9.170020894781615]], [[99.13895134022873, 9.170020894781615], [99.13897006330464, 9.169973247675173]]], "type": "MultiLineString"}, "id": "3020", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 3.21, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-22-42SWKA000007614", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.14912228667906, 9.290076204991252, 99.14922290393709, 9.290118868079931], "geometry": {"coordinates": [[[99.14918178256882, 9.290115222060649], [99.14920478372548, 9.290117600314137], [99.14922290393709, 9.290118868079931]], [[99.14918178256882, 9.290115222060649], [99.14912228667906, 9.290111818873918]], [[99.14917531035674, 9.290076204991252], [99.14918178256882, 9.290115222060649]]], "type": "MultiLineString"}, "id": "3113", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.27, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 0.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-09-42SWKA000016680", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.0, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17057804525766, 9.382483491374058, 99.17275672383393, 9.38341718333624], "geometry": {"coordinates": [[[99.17057804525766, 9.383364890372574], [99.17061657311397, 9.383368905806302]], [[99.17062600892717, 9.383369226871679], [99.17081678359939, 9.383375746626143], [99.17117678545182, 9.383410395376616], [99.17154143685705, 9.38341718333624], [99.17169567233982, 9.383333534026736], [99.17188032667747, 9.383303270731377], [99.172064977595, 9.383284611897237], [99.17242729383906, 9.383284435539379], [99.17275221356873, 9.383284277068812], [99.17275672383393, 9.382956959480786], [99.17275663650392, 9.382780530485798], [99.17275187575221, 9.382601788286225], [99.17263733549923, 9.382599519651022], [99.17263825121157, 9.382572674059485]], [[99.17062600892717, 9.383369226871679], [99.17060571977193, 9.383338040929702]], [[99.17061657311397, 9.383368905806302], [99.17062600892717, 9.383369226871679]], [[99.17263825121157, 9.382572674059485], [99.17263964289249, 9.38253219763148], [99.17256481683143, 9.382483491374058], [99.17253560827686, 9.382483505615282]], [[99.17253560827686, 9.382483505615282], [99.17251338536659, 9.382483516448902]]], "type": "MultiLineString"}, "id": "3114", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.13, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 48.24, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-01/1-42SWKA000013082", "Probability of Outage (%)": 0.05, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 1.27, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.18, "__folium_color": "red", "corridor length (km)": 0.36, "density distribution meta": "{\u0027open\u0027: \u00270.0 km\u0027}"}, "type": "Feature"}, {"bbox": [99.18223613143682, 9.381250552045458, 99.18237443072299, 9.381270630501449], "geometry": {"coordinates": [[[99.18232674634197, 9.381257477837698], [99.18237443072299, 9.381250552045458]], [[99.18223613143682, 9.381270630501449], [99.18232674634197, 9.381257477837698]]], "type": "MultiLineString"}, "id": "3121", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CHY00F-000000-42SWKA000019386", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.51, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.13552621840381, 9.1796680761124, 99.13617297762458, 9.17972407459063], "geometry": {"coordinates": [[[99.13552621840381, 9.17972407459063], [99.13558009604262, 9.179723357920974]], [[99.13557718043475, 9.1796680761124], [99.13558009604262, 9.179723357920974]], [[99.13598285391974, 9.179718023843309], [99.13611101697687, 9.179716329415813], [99.13617297762458, 9.17971551011902]], [[99.13558009604262, 9.179723357920974], [99.13598285391974, 9.179718023843309]]], "type": "MultiLineString"}, "id": "3149", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 11.35, "Cost to Trim (BHT) [MJM]": 13.37, "Customers Affected (Adjusted)": 16.08, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-19-42SWKA000016682", "Probability of Outage (%)": 0.11, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 2.26, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.08, "density distribution meta": "{\u0027open\u0027: \u00270.08 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17163630970275, 9.374573631658224, 99.17327820537767, 9.376549098674737], "geometry": {"coordinates": [[[99.17187654035189, 9.374612480438854], [99.17186816996252, 9.374666889360746], [99.17186162437176, 9.374709475758985]], [[99.17186162437176, 9.374709475758985], [99.17185689446886, 9.374740230593298]], [[99.17163630970275, 9.374573631658224], [99.17187654035189, 9.374612480438854]], [[99.17187654035189, 9.374612480438854], [99.17233266841797, 9.37467574470053], [99.17275005545615, 9.37472531525567], [99.17307876145611, 9.374773020197885], [99.173219504588, 9.374799751323572], [99.17324749743409, 9.3748839724483], [99.17318686566752, 9.375062059289391], [99.17313873870063, 9.375203752519973], [99.17310219680475, 9.375382777278194], [99.1730849204166, 9.375531157663643], [99.1730970650789, 9.375723554063367], [99.17314778065011, 9.375953277844484], [99.17321386039502, 9.376255660529623]], [[99.17321386039502, 9.376255660529623], [99.17322386501426, 9.376301431687873], [99.17327820537767, 9.376549098674737]]], "type": "MultiLineString"}, "id": "3167", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 9.11, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 37.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 37.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-01/01-1-42SWKA000020007", "Probability of Outage (%)": 0.06, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 2.27, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.2, "__folium_color": "red", "corridor length (km)": 0.39, "density distribution meta": "{\u0027open\u0027: \u00270.06 km\u0027}"}, "type": "Feature"}, {"bbox": [99.1709910133848, 9.378686118788536, 99.17149346839565, 9.378749822936857], "geometry": {"coordinates": [[[99.1709910133848, 9.378686118788536], [99.17149346839565, 9.378749822936857]]], "type": "MultiLineString"}, "id": "3307", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 8.18, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-01/01-42SWKA000037290", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.06, "density distribution meta": "{\u0027open\u0027: \u00270.06 km\u0027}"}, "type": "Feature"}, {"bbox": [99.1403255395062, 9.186081018560065, 99.14431475239175, 9.186923704166803], "geometry": {"coordinates": [[[99.14035809838565, 9.186177610419811], [99.1407661538466, 9.186130661976993], [99.14106518697102, 9.186200725251242], [99.14141356260669, 9.186124620301404], [99.14170320220909, 9.186081018560065], [99.14192428695083, 9.186328754941346], [99.14215059080436, 9.186583896957046], [99.1424094849333, 9.18682183148284], [99.14277098230839, 9.186915946406607], [99.14323498731302, 9.186923704166803], [99.14366163629666, 9.186867446842923], [99.1437097496372, 9.186858482225212]], [[99.1403255395062, 9.186181358644369], [99.14035809838565, 9.186177610419811]], [[99.1437097496372, 9.186858482225212], [99.14431475239175, 9.18674578486239]]], "type": "MultiLineString"}, "id": "3547", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.73, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 24.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 24.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-18/02-42SWKA000043170", "Probability of Outage (%)": 0.21, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 8.84, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.16, "__folium_color": "red", "corridor length (km)": 0.48, "density distribution meta": "{\u0027open\u0027: \u00270.0 km\u0027}"}, "type": "Feature"}, {"bbox": [99.14886315200168, 9.25692284927781, 99.14940463630845, 9.257285260796195], "geometry": {"coordinates": [[[99.14886315200168, 9.257285260796195], [99.14937892288438, 9.256940054410741]], [[99.14937892288438, 9.256940054410741], [99.1494046358578, 9.25692284927781], [99.14940463630845, 9.256923916579783]]], "type": "MultiLineString"}, "id": "3842", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 154.24, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-9999993-42SWKA000062882", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.51, "__folium_color": "red", "corridor length (km)": 0.07, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.14907947374068, 9.257271029811871, 99.14955206097969, 9.257531492195314], "geometry": {"coordinates": [[[99.14907947374068, 9.257411094472753], [99.14928439383675, 9.257271029811871], [99.14939407378925, 9.257352144311684], [99.14951238996954, 9.257531492195314], [99.14955206097969, 9.257516099261972]]], "type": "MultiLineString"}, "id": "3843", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-9999992-42SWKA000062883", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.97, "__folium_color": "red", "corridor length (km)": 0.07, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.17124538553344, 9.376782296345086, 99.17137351959978, 9.376799193475602], "geometry": {"coordinates": [[[99.17124538553344, 9.376782296345086], [99.1713735188941, 9.376797755342622], [99.17137351959978, 9.376799193475602]]], "type": "MultiLineString"}, "id": "3877", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.11, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "XXX77F-89-42SWKA000065704", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.01, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.13632052900785, 9.176400687135278, 99.13698455448016, 9.17657111491097], "geometry": {"coordinates": [[[99.13632052900785, 9.176400687135278], [99.13633189912468, 9.176403712916091], [99.13663497602137, 9.176479467790697]], [[99.13663497602137, 9.176479467790697], [99.13667089773735, 9.176488444922663], [99.13698455448016, 9.17657111491097]]], "type": "MultiLineString"}, "id": "3925", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 8.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 8.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "PUP999999999998-42SWKA000070008", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.14, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.48, "__folium_color": "red", "corridor length (km)": 0.08, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.13792319461234, 9.172174726281598, 99.13813124943329, 9.172251990517468], "geometry": {"coordinates": [[[99.13792319461234, 9.172174726281598], [99.13802606584824, 9.17221292921931]], [[99.13802606584824, 9.17221292921931], [99.13813124943329, 9.172251990517468]]], "type": "MultiLineString"}, "id": "3929", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 3.59, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-9999994-42SWKA000070202", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.16291766377128, 9.344971366648048, 99.16309091484477, 9.345080952543999], "geometry": {"coordinates": [[[99.16291766377128, 9.345080952543999], [99.16309091484477, 9.344971366648048]]], "type": "MultiLineString"}, "id": "3979", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 88.62, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "64477F-77-42SWKA000075279", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.03, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": -0.71, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.17645194971192, 9.353833363270597, 99.17932477011993, 9.357747708162554], "geometry": {"coordinates": [[[99.17646303164032, 9.357747708162554], [99.17645194971192, 9.357425390647835], [99.1764607562663, 9.356955740371276], [99.17646356553786, 9.356566854723761], [99.17646038978981, 9.356228831358147], [99.17648240872354, 9.355701133536348], [99.17650617293995, 9.355040619925463], [99.17665555987763, 9.35503096707776], [99.17681458148657, 9.355002170417707], [99.1768627377757, 9.354944711483848], [99.17678542254403, 9.354518772694886], [99.17672744800525, 9.354231626862491], [99.17722378024044, 9.354159590226686], [99.17763335829439, 9.354068448333917], [99.17807184842844, 9.353972497685644], [99.17848143025388, 9.353871785344722], [99.17873199896297, 9.353833363270597], [99.17887180145833, 9.353924239031688], [99.17902119028278, 9.353919369933653], [99.17932477011993, 9.353861781752101]]], "type": "MultiLineString"}, "id": "4058", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-05-42SWKA000077979", "Probability of Outage (%)": 0.11, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.14, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.89, "__folium_color": "red", "corridor length (km)": 0.72, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.15128333510435, 9.324969565895131, 99.15560884534769, 9.32593214821238], "geometry": {"coordinates": [[[99.15128333510435, 9.325481173639094], [99.15172848306581, 9.325642019548823], [99.15189889625397, 9.325701055280312], [99.15245143271034, 9.325877095086755], [99.15260505884964, 9.325926034514353], [99.15266986186454, 9.32593214821238], [99.15277220561433, 9.325927916516136], [99.1528319411368, 9.325902999316499], [99.15290130187275, 9.325835964930464], [99.15296098893995, 9.325678947003457], [99.15308426327331, 9.325475953647613], [99.15319796407853, 9.325433791691838], [99.15361233224007, 9.325341716970533], [99.15396696317157, 9.325270724132114], [99.15434087108562, 9.325197814112075], [99.15499459383436, 9.325078182675949], [99.15542874665107, 9.325001410248499]], [[99.15542874665107, 9.325001410248499], [99.15560884534769, 9.324969565895131]]], "type": "MultiLineString"}, "id": "4161", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 73.18, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 8.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 8.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CAY10F-041-42SWKA000089171", "Probability of Outage (%)": 0.1, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.53, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.18, "__folium_color": "red", "corridor length (km)": 0.52, "density distribution meta": "{\u0027open\u0027: \u00270.5 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17051792881853, 9.382795183562864, 99.17067420195681, 9.382818244983373], "geometry": {"coordinates": [[[99.17051792881853, 9.382795183562864], [99.17067420195681, 9.382818244983373]]], "type": "MultiLineString"}, "id": "4381", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.55, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 8.04, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "CHY08F-65565622-42SWKA000099760", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.14, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.14220758996505, 9.203979074134457, 99.14236975394658, 9.204002861698287], "geometry": {"coordinates": [[[99.14220758996505, 9.203979074134457], [99.14230836778161, 9.203993859062003]], [[99.14230836778161, 9.203993859062003], [99.14236975394658, 9.204002861698287]]], "type": "MultiLineString"}, "id": "4416", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.75, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "SRC0111F0000000-42SWKA000104989", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.01, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.15302298552531, 9.264161744676302, 99.15441636378702, 9.264257042659297], "geometry": {"coordinates": [[[99.15302298552531, 9.264161744676302], [99.15395766572108, 9.264165170227686], [99.15401359034733, 9.264257042659297], [99.15436891012389, 9.264256889729834]], [[99.15436891012389, 9.264256889729834], [99.15441636378702, 9.264256869279123]]], "type": "MultiLineString"}, "id": "4449", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.87, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "DRD01DF11111111-42SWKA000108670", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.16, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.13905633841485, 9.188172342353015, 99.13919219317191, 9.18822874486835], "geometry": {"coordinates": [[[99.13905633841485, 9.18822874486835], [99.13919219317191, 9.188172342353015]]], "type": "MultiLineString"}, "id": "4452", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.38, "Cost to Trim (BHT) [MJM]": 36.52, "Customers Affected (Adjusted)": 8.04, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY10", "Nearest Upstream Device": "ESR012000000000-42SWKA000109289", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.14, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "red", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_e342f53b99118a7f5c73ddefd98d0c7c.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["Nearest Upstream Device", "Feeder ID", "corridor length (km)", "Vegetation Density (%) [META + Sentinel-2]", "density distribution meta", "Probability of Outage (%)", "Probability of Outage (%) [Category]", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Risk (Customer Interruptions)", "Risk (Customer Interruptions) [Category]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Customers Affected (Adjusted) [Category]", "Cost Focus Scenario Frequency", "Reliability Focus Scenario Frequency", "Chosen Scenario"];
+    let aliases = ["Nearest Upstream Device", "Feeder ID", "corridor length (km)", "Vegetation Density (%) [META + Sentinel-2]", "density distribution meta", "Probability of Outage (%)", "Probability of Outage (%) [Category]", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Risk (Customer Interruptions)", "Risk (Customer Interruptions) [Category]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Customers Affected (Adjusted) [Category]", "Cost Focus Scenario Frequency", "Reliability Focus Scenario Frequency", "Chosen Scenario"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_e342f53b99118a7f5c73ddefd98d0c7c.addTo(map_3293dd467e49268da522c4dbb91d20b2);
+        
+    
+            var tile_layer_2eef1eb9f8dc765553d30b224b570b33 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {"attribution": "Google Satellite", "detectRetina": false, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_2eef1eb9f8dc765553d30b224b570b33.addTo(map_3293dd467e49268da522c4dbb91d20b2);
+        
+    
+            var tile_layer_364abd4add2f0b8ebf8e58166d9c773d = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_364abd4add2f0b8ebf8e58166d9c773d.addTo(map_3293dd467e49268da522c4dbb91d20b2);
+        
+    
+        function geo_json_8a51e902c10515f4108b3837af52aa2d_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1f77b4", "fillColor": "#1f77b4", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_8a51e902c10515f4108b3837af52aa2d_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_8a51e902c10515f4108b3837af52aa2d_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_8a51e902c10515f4108b3837af52aa2d_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_8a51e902c10515f4108b3837af52aa2d_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_8a51e902c10515f4108b3837af52aa2d.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_8a51e902c10515f4108b3837af52aa2d_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_8a51e902c10515f4108b3837af52aa2d = L.geoJson(null, {
+                onEachFeature: geo_json_8a51e902c10515f4108b3837af52aa2d_onEachFeature,
+            
+                style: geo_json_8a51e902c10515f4108b3837af52aa2d_styler,
+                pointToLayer: geo_json_8a51e902c10515f4108b3837af52aa2d_pointToLayer,
+        });
+
+        function geo_json_8a51e902c10515f4108b3837af52aa2d_add (data) {
+            geo_json_8a51e902c10515f4108b3837af52aa2d
+                .addData(data);
+        }
+            geo_json_8a51e902c10515f4108b3837af52aa2d_add({"bbox": [99.16780891637, 9.39211069673074, 99.16835565863653, 9.39265364784843], "features": [{"bbox": [99.16780891637, 9.39211069673074, 99.16835565863653, 9.39265364784843], "geometry": {"coordinates": [[[99.16780891637, 9.392110956535422], [99.16835539658477, 9.39211069673074], [99.16835565863653, 9.392653388028474], [99.16780917757116, 9.39265364784843], [99.16780891637, 9.392110956535422]]], "type": "Polygon"}, "id": "2530", "properties": {"FACILITYID": "CAY10WB-01", "FEEDERID": "CAY10", "__folium_color": "#1f77b4", "connector_id": "4284CB000000060", "device_type": "Source", "full_nearest_upstream_device": "CAY10WB-01-4284CB000000060"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_8a51e902c10515f4108b3837af52aa2d.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_8a51e902c10515f4108b3837af52aa2d.addTo(map_3293dd467e49268da522c4dbb91d20b2);
+        
+    
+        function geo_json_d4a63d3417d5ac8af645cea78ae7423c_styler(feature) {
+            switch(feature.id) {
+                case "52227": case "53005": case "53006": case "53021": case "53022": case "53025": case "53032": case "53037": case "53038": case "54120": case "54140": case "54462": case "54479": case "54621": case "54622": case "57378": case "57379": case "58835": case "58880": case "59205": case "59206": case "59552": case "59633": case "59654": case "59691": case "59774": case "59861": case "59895": case "59917": case "61508": case "61630": case "62999": case "66161": case "66162": case "66474": case "66764": case "66869": case "66919": case "67596": case "67968": case "69978": case "70326": case "70997": case "71745": case "72451": case "72789": case "72844": 
+                    return {"color": "#8B4513", "fillColor": "#8B4513", "fillOpacity": 0.5, "weight": 10};
+                default:
+                    return {"color": "#FF8C00", "fillColor": "#FF8C00", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_d4a63d3417d5ac8af645cea78ae7423c_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_d4a63d3417d5ac8af645cea78ae7423c_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_d4a63d3417d5ac8af645cea78ae7423c_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_d4a63d3417d5ac8af645cea78ae7423c_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_d4a63d3417d5ac8af645cea78ae7423c.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_d4a63d3417d5ac8af645cea78ae7423c_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_d4a63d3417d5ac8af645cea78ae7423c = L.geoJson(null, {
+                onEachFeature: geo_json_d4a63d3417d5ac8af645cea78ae7423c_onEachFeature,
+            
+                style: geo_json_d4a63d3417d5ac8af645cea78ae7423c_styler,
+                pointToLayer: geo_json_d4a63d3417d5ac8af645cea78ae7423c_pointToLayer,
+        });
+
+        function geo_json_d4a63d3417d5ac8af645cea78ae7423c_add (data) {
+            geo_json_d4a63d3417d5ac8af645cea78ae7423c
+                .addData(data);
+        }
+            geo_json_d4a63d3417d5ac8af645cea78ae7423c_add({"bbox": [99.13552621840381, 9.163015433877748, 99.18223613143682, 9.39226305046539], "features": [{"bbox": [99.13561446318182, 9.178634745780668, 99.13561446318182, 9.178634745780668], "geometry": {"coordinates": [99.13561446318182, 9.178634745780668], "type": "Point"}, "id": "52227", "properties": {"FACILITYID": "CAY10F-20", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000000017", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-20-4284SW000000017"}, "type": "Feature"}, {"bbox": [99.14013456271283, 9.166766334497883, 99.14013456271283, 9.166766334497883], "geometry": {"coordinates": [99.14013456271283, 9.166766334497883], "type": "Point"}, "id": "52779", "properties": {"FACILITYID": "CAY10WS-108", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "4284SW000000743", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-108-4284SW000000743"}, "type": "Feature"}, {"bbox": [99.15134202449455, 9.272288593109725, 99.15134202449455, 9.272288593109725], "geometry": {"coordinates": [99.15134202449455, 9.272288593109725], "type": "Point"}, "id": "53005", "properties": {"FACILITYID": "CAY10F-11", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001052", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-11-4284SW000001052"}, "type": "Feature"}, {"bbox": [99.15288743605902, 9.267196041158835, 99.15288743605902, 9.267196041158835], "geometry": {"coordinates": [99.15288743605902, 9.267196041158835], "type": "Point"}, "id": "53006", "properties": {"FACILITYID": "CAY10F-12", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001053", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-12-4284SW000001053"}, "type": "Feature"}, {"bbox": [99.14865426423353, 9.295428362158505, 99.14865426423353, 9.295428362158505], "geometry": {"coordinates": [99.14865426423353, 9.295428362158505], "type": "Point"}, "id": "53021", "properties": {"FACILITYID": "CAY10F-08", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001078", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-08-4284SW000001078"}, "type": "Feature"}, {"bbox": [99.15007514005777, 9.280491307358727, 99.15007514005777, 9.280491307358727], "geometry": {"coordinates": [99.15007514005777, 9.280491307358727], "type": "Point"}, "id": "53022", "properties": {"FACILITYID": "CAY10F-10", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001079", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-10-4284SW000001079"}, "type": "Feature"}, {"bbox": [99.13768743273648, 9.182317103612952, 99.13768743273648, 9.182317103612952], "geometry": {"coordinates": [99.13768743273648, 9.182317103612952], "type": "Point"}, "id": "53025", "properties": {"FACILITYID": "CAY10F-18", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001085", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-18-4284SW000001085"}, "type": "Feature"}, {"bbox": [99.13906858505058, 9.227059730806856, 99.13906858505058, 9.227059730806856], "geometry": {"coordinates": [99.13906858505058, 9.227059730806856], "type": "Point"}, "id": "53032", "properties": {"FACILITYID": "CAY10F-17", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001094", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-17-4284SW000001094"}, "type": "Feature"}, {"bbox": [99.14077218695385, 9.243964699246055, 99.14077218695385, 9.243964699246055], "geometry": {"coordinates": [99.14077218695385, 9.243964699246055], "type": "Point"}, "id": "53037", "properties": {"FACILITYID": "CAY10F-15", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001099", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-15-4284SW000001099"}, "type": "Feature"}, {"bbox": [99.13953575202795, 9.233864862168117, 99.13953575202795, 9.233864862168117], "geometry": {"coordinates": [99.13953575202795, 9.233864862168117], "type": "Point"}, "id": "53038", "properties": {"FACILITYID": "CAY10F-16", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000001100", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-16-4284SW000001100"}, "type": "Feature"}, {"bbox": [99.14829742721862, 9.255901231391638, 99.14829742721862, 9.255901231391638], "geometry": {"coordinates": [99.14829742721862, 9.255901231391638], "type": "Point"}, "id": "54120", "properties": {"FACILITYID": "CAY10F-14", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000002551", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-14-4284SW000002551"}, "type": "Feature"}, {"bbox": [99.17778772596448, 9.262527589237074, 99.17778772596448, 9.262527589237074], "geometry": {"coordinates": [99.17778772596448, 9.262527589237074], "type": "Point"}, "id": "54140", "properties": {"FACILITYID": "CAY10F-13", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000002574", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-13-4284SW000002574"}, "type": "Feature"}, {"bbox": [99.17083752688052, 9.38091082200517, 99.17083752688052, 9.38091082200517], "geometry": {"coordinates": [99.17083752688052, 9.38091082200517], "type": "Point"}, "id": "54462", "properties": {"FACILITYID": "CAY10F-01", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000003009", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-01-4284SW000003009"}, "type": "Feature"}, {"bbox": [99.17431170594415, 9.364694255114458, 99.17431170594415, 9.364694255114458], "geometry": {"coordinates": [99.17431170594415, 9.364694255114458], "type": "Point"}, "id": "54479", "properties": {"FACILITYID": "CAY10F-02", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000003031", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-02-4284SW000003031"}, "type": "Feature"}, {"bbox": [99.16929792141443, 9.39226305046539, 99.16929792141443, 9.39226305046539], "geometry": {"coordinates": [99.16929792141443, 9.39226305046539], "type": "Point"}, "id": "54482", "properties": {"FACILITYID": "CAY10WS-101", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "4284SW000003034", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-101-4284SW000003034"}, "type": "Feature"}, {"bbox": [99.17291546573186, 9.359347575227643, 99.17291546573186, 9.359347575227643], "geometry": {"coordinates": [99.17291546573186, 9.359347575227643], "type": "Point"}, "id": "54621", "properties": {"FACILITYID": "CAY10F-03", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000003215", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-03-4284SW000003215"}, "type": "Feature"}, {"bbox": [99.17006925831839, 9.354896467109214, 99.17006925831839, 9.354896467109214], "geometry": {"coordinates": [99.17006925831839, 9.354896467109214], "type": "Point"}, "id": "54622", "properties": {"FACILITYID": "CAY10F-04", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "4284SW000003216", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-04-4284SW000003216"}, "type": "Feature"}, {"bbox": [99.1388546240722, 9.170009698046192, 99.1388546240722, 9.170009698046192], "geometry": {"coordinates": [99.1388546240722, 9.170009698046192], "type": "Point"}, "id": "57378", "properties": {"FACILITYID": "CAY10F-22", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000007614", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-22-42SWKA000007614"}, "type": "Feature"}, {"bbox": [99.14691325170728, 9.31452969011985, 99.14691325170728, 9.31452969011985], "geometry": {"coordinates": [99.14691325170728, 9.31452969011985], "type": "Point"}, "id": "57379", "properties": {"FACILITYID": "CAY10F-07", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000007615", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-07-42SWKA000007615"}, "type": "Feature"}, {"bbox": [99.17057804525766, 9.383364890372574, 99.17057804525766, 9.383364890372574], "geometry": {"coordinates": [99.17057804525766, 9.383364890372574], "type": "Point"}, "id": "58835", "properties": {"FACILITYID": "CAY10F-01/1", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000013082", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-01/1-42SWKA000013082"}, "type": "Feature"}, {"bbox": [99.14002399154086, 9.189859522962054, 99.14002399154086, 9.189859522962054], "geometry": {"coordinates": [99.14002399154086, 9.189859522962054], "type": "Point"}, "id": "58880", "properties": {"FACILITYID": "CAY10F-18/01", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000013778", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-18/01-42SWKA000013778"}, "type": "Feature"}, {"bbox": [99.14912228667906, 9.290111818873918, 99.14912228667906, 9.290111818873918], "geometry": {"coordinates": [99.14912228667906, 9.290111818873918], "type": "Point"}, "id": "59205", "properties": {"FACILITYID": "CAY10F-09", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000016680", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-09-42SWKA000016680"}, "type": "Feature"}, {"bbox": [99.13552621840381, 9.17972407459063, 99.13552621840381, 9.17972407459063], "geometry": {"coordinates": [99.13552621840381, 9.17972407459063], "type": "Point"}, "id": "59206", "properties": {"FACILITYID": "CAY10F-19", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000016682", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-19-42SWKA000016682"}, "type": "Feature"}, {"bbox": [99.18223613143682, 9.381270630501449, 99.18223613143682, 9.381270630501449], "geometry": {"coordinates": [99.18223613143682, 9.381270630501449], "type": "Point"}, "id": "59552", "properties": {"FACILITYID": "CHY00F-000000", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000019386", "device_type": "Fuse", "full_nearest_upstream_device": "CHY00F-000000-42SWKA000019386"}, "type": "Feature"}, {"bbox": [99.17163630970275, 9.374573631658224, 99.17163630970275, 9.374573631658224], "geometry": {"coordinates": [99.17163630970275, 9.374573631658224], "type": "Point"}, "id": "59633", "properties": {"FACILITYID": "CAY10F-01/01-1", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000020007", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-01/01-1-42SWKA000020007"}, "type": "Feature"}, {"bbox": [99.14934439188274, 9.32064528623849, 99.14934439188274, 9.32064528623849], "geometry": {"coordinates": [99.14934439188274, 9.32064528623849], "type": "Point"}, "id": "59654", "properties": {"FACILITYID": "CHY09-99999", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000020209", "device_type": "Fuse", "full_nearest_upstream_device": "CHY09-99999-42SWKA000020209"}, "type": "Feature"}, {"bbox": [99.17008291861005, 9.272849782519877, 99.17008291861005, 9.272849782519877], "geometry": {"coordinates": [99.17008291861005, 9.272849782519877], "type": "Point"}, "id": "59691", "properties": {"FACILITYID": "CAY10F-13/01", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000020530", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-13/01-42SWKA000020530"}, "type": "Feature"}, {"bbox": [99.13924347061783, 9.222887515535044, 99.13924347061783, 9.222887515535044], "geometry": {"coordinates": [99.13924347061783, 9.222887515535044], "type": "Point"}, "id": "59774", "properties": {"FACILITYID": "CAY10F-17/01", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000021281", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-17/01-42SWKA000021281"}, "type": "Feature"}, {"bbox": [99.14597765294037, 9.252794686945046, 99.14597765294037, 9.252794686945046], "geometry": {"coordinates": [99.14597765294037, 9.252794686945046], "type": "Point"}, "id": "59861", "properties": {"FACILITYID": "HY03F-77", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000022105", "device_type": "Fuse", "full_nearest_upstream_device": "HY03F-77-42SWKA000022105"}, "type": "Feature"}, {"bbox": [99.13751455104813, 9.184759692546262, 99.13751455104813, 9.184759692546262], "geometry": {"coordinates": [99.13751455104813, 9.184759692546262], "type": "Point"}, "id": "59895", "properties": {"FACILITYID": "CAY10-18/04", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000022407", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10-18/04-42SWKA000022407"}, "type": "Feature"}, {"bbox": [99.14964468350037, 9.229083779105846, 99.14964468350037, 9.229083779105846], "geometry": {"coordinates": [99.14964468350037, 9.229083779105846], "type": "Point"}, "id": "59917", "properties": {"FACILITYID": "CAY10F-16/02", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000022569", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-16/02-42SWKA000022569"}, "type": "Feature"}, {"bbox": [99.17244969903582, 9.371167030792897, 99.17244969903582, 9.371167030792897], "geometry": {"coordinates": [99.17244969903582, 9.371167030792897], "type": "Point"}, "id": "61508", "properties": {"FACILITYID": "CAY10F-201", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000035956", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-201-42SWKA000035956"}, "type": "Feature"}, {"bbox": [99.1709910133848, 9.378686118788536, 99.1709910133848, 9.378686118788536], "geometry": {"coordinates": [99.1709910133848, 9.378686118788536], "type": "Point"}, "id": "61630", "properties": {"FACILITYID": "CAY10F-01/01", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000037290", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-01/01-42SWKA000037290"}, "type": "Feature"}, {"bbox": [99.1403255395062, 9.186181358644369, 99.1403255395062, 9.186181358644369], "geometry": {"coordinates": [99.1403255395062, 9.186181358644369], "type": "Point"}, "id": "62999", "properties": {"FACILITYID": "CAY10F-18/02", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000043170", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-18/02-42SWKA000043170"}, "type": "Feature"}, {"bbox": [99.14229227619427, 9.163015433877748, 99.14229227619427, 9.163015433877748], "geometry": {"coordinates": [99.14229227619427, 9.163015433877748], "type": "Point"}, "id": "63705", "properties": {"FACILITYID": "PPA10WS-11", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000045745", "device_type": "Switch", "full_nearest_upstream_device": "PPA10WS-11-42SWKA000045745"}, "type": "Feature"}, {"bbox": [99.1408349758251, 9.165261049920323, 99.1408349758251, 9.165261049920323], "geometry": {"coordinates": [99.1408349758251, 9.165261049920323], "type": "Point"}, "id": "64163", "properties": {"FACILITYID": "PPA10WS-0101", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000049293", "device_type": "Switch", "full_nearest_upstream_device": "PPA10WS-0101-42SWKA000049293"}, "type": "Feature"}, {"bbox": [99.14201697949362, 9.19352543029218, 99.14201697949362, 9.19352543029218], "geometry": {"coordinates": [99.14201697949362, 9.19352543029218], "type": "Point"}, "id": "65820", "properties": {"FACILITYID": "CAY10WS-107", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000061118", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-107-42SWKA000061118"}, "type": "Feature"}, {"bbox": [99.14886315200168, 9.257285260796195, 99.14886315200168, 9.257285260796195], "geometry": {"coordinates": [99.14886315200168, 9.257285260796195], "type": "Point"}, "id": "66161", "properties": {"FACILITYID": "CAY10F-9999993", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000062882", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-9999993-42SWKA000062882"}, "type": "Feature"}, {"bbox": [99.14907947374068, 9.257411094472753, 99.14907947374068, 9.257411094472753], "geometry": {"coordinates": [99.14907947374068, 9.257411094472753], "type": "Point"}, "id": "66162", "properties": {"FACILITYID": "CAY10F-9999992", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000062883", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-9999992-42SWKA000062883"}, "type": "Feature"}, {"bbox": [99.14068292584147, 9.213797118233835, 99.14068292584147, 9.213797118233835], "geometry": {"coordinates": [99.14068292584147, 9.213797118233835], "type": "Point"}, "id": "66376", "properties": {"FACILITYID": "CAY10WS-106", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000064375", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-106-42SWKA000064375"}, "type": "Feature"}, {"bbox": [99.17124538553344, 9.376782296345086, 99.17124538553344, 9.376782296345086], "geometry": {"coordinates": [99.17124538553344, 9.376782296345086], "type": "Point"}, "id": "66474", "properties": {"FACILITYID": "XXX77F-89", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000065704", "device_type": "Fuse", "full_nearest_upstream_device": "XXX77F-89-42SWKA000065704"}, "type": "Feature"}, {"bbox": [99.14874422177765, 9.28129966532222, 99.14874422177765, 9.28129966532222], "geometry": {"coordinates": [99.14874422177765, 9.28129966532222], "type": "Point"}, "id": "66535", "properties": {"FACILITYID": "CAY10WS-103", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000066606", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-103-42SWKA000066606"}, "type": "Feature"}, {"bbox": [99.1512266564352, 9.260988740998815, 99.1512266564352, 9.260988740998815], "geometry": {"coordinates": [99.1512266564352, 9.260988740998815], "type": "Point"}, "id": "66764", "properties": {"FACILITYID": "CAY10F-9999991", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000069245", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-9999991-42SWKA000069245"}, "type": "Feature"}, {"bbox": [99.13632052900785, 9.176400687135278, 99.13632052900785, 9.176400687135278], "geometry": {"coordinates": [99.13632052900785, 9.176400687135278], "type": "Point"}, "id": "66869", "properties": {"FACILITYID": "PUP999999999998", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000070008", "device_type": "Fuse", "full_nearest_upstream_device": "PUP999999999998-42SWKA000070008"}, "type": "Feature"}, {"bbox": [99.13792319461234, 9.172174726281598, 99.13792319461234, 9.172174726281598], "geometry": {"coordinates": [99.13792319461234, 9.172174726281598], "type": "Point"}, "id": "66919", "properties": {"FACILITYID": "CAY10F-9999994", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000070202", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-9999994-42SWKA000070202"}, "type": "Feature"}, {"bbox": [99.16291766377128, 9.345080952543999, 99.16291766377128, 9.345080952543999], "geometry": {"coordinates": [99.16291766377128, 9.345080952543999], "type": "Point"}, "id": "67596", "properties": {"FACILITYID": "64477F-77", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000075279", "device_type": "Fuse", "full_nearest_upstream_device": "64477F-77-42SWKA000075279"}, "type": "Feature"}, {"bbox": [99.16376338508456, 9.346370843368355, 99.16376338508456, 9.346370843368355], "geometry": {"coordinates": [99.16376338508456, 9.346370843368355], "type": "Point"}, "id": "67965", "properties": {"FACILITYID": "CAY10WS-102", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000077920", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-102-42SWKA000077920"}, "type": "Feature"}, {"bbox": [99.17646303164032, 9.357747708162554, 99.17646303164032, 9.357747708162554], "geometry": {"coordinates": [99.17646303164032, 9.357747708162554], "type": "Point"}, "id": "67968", "properties": {"FACILITYID": "CAY10F-05", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000077979", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-05-42SWKA000077979"}, "type": "Feature"}, {"bbox": [99.13977726391118, 9.284957042923125, 99.13977726391118, 9.284957042923125], "geometry": {"coordinates": [99.13977726391118, 9.284957042923125], "type": "Point"}, "id": "69327", "properties": {"FACILITYID": "CAY10WS-104", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000085841", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-104-42SWKA000085841"}, "type": "Feature"}, {"bbox": [99.13975120312833, 9.284930017836853, 99.13975120312833, 9.284930017836853], "geometry": {"coordinates": [99.13975120312833, 9.284930017836853], "type": "Point"}, "id": "69328", "properties": {"FACILITYID": "CAY10WS-105", "FEEDERID": "CAY10", "__folium_color": "#FF8C00", "connector_id": "42SWKA000085842", "device_type": "Switch", "full_nearest_upstream_device": "CAY10WS-105-42SWKA000085842"}, "type": "Feature"}, {"bbox": [99.15128333510435, 9.325481173639094, 99.15128333510435, 9.325481173639094], "geometry": {"coordinates": [99.15128333510435, 9.325481173639094], "type": "Point"}, "id": "69978", "properties": {"FACILITYID": "CAY10F-041", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000089171", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-041-42SWKA000089171"}, "type": "Feature"}, {"bbox": [99.15778665513358, 9.252635425126824, 99.15778665513358, 9.252635425126824], "geometry": {"coordinates": [99.15778665513358, 9.252635425126824], "type": "Point"}, "id": "70326", "properties": {"FACILITYID": "CAY10F15", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000091152", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F15-42SWKA000091152"}, "type": "Feature"}, {"bbox": [99.1480355879198, 9.30174764872564, 99.1480355879198, 9.30174764872564], "geometry": {"coordinates": [99.1480355879198, 9.30174764872564], "type": "Point"}, "id": "70997", "properties": {"FACILITYID": "CAY10F-99999991", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000096117", "device_type": "Fuse", "full_nearest_upstream_device": "CAY10F-99999991-42SWKA000096117"}, "type": "Feature"}, {"bbox": [99.17051792881853, 9.382795183562864, 99.17051792881853, 9.382795183562864], "geometry": {"coordinates": [99.17051792881853, 9.382795183562864], "type": "Point"}, "id": "71745", "properties": {"FACILITYID": "CHY08F-65565622", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000099760", "device_type": "Fuse", "full_nearest_upstream_device": "CHY08F-65565622-42SWKA000099760"}, "type": "Feature"}, {"bbox": [99.14220758996505, 9.203979074134457, 99.14220758996505, 9.203979074134457], "geometry": {"coordinates": [99.14220758996505, 9.203979074134457], "type": "Point"}, "id": "72451", "properties": {"FACILITYID": "SRC0111F0000000", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000104989", "device_type": "Fuse", "full_nearest_upstream_device": "SRC0111F0000000-42SWKA000104989"}, "type": "Feature"}, {"bbox": [99.15302298552531, 9.264161744676302, 99.15302298552531, 9.264161744676302], "geometry": {"coordinates": [99.15302298552531, 9.264161744676302], "type": "Point"}, "id": "72789", "properties": {"FACILITYID": "DRD01DF11111111", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000108670", "device_type": "Fuse", "full_nearest_upstream_device": "DRD01DF11111111-42SWKA000108670"}, "type": "Feature"}, {"bbox": [99.13905633841485, 9.18822874486835, 99.13905633841485, 9.18822874486835], "geometry": {"coordinates": [99.13905633841485, 9.18822874486835], "type": "Point"}, "id": "72844", "properties": {"FACILITYID": "ESR012000000000", "FEEDERID": "CAY10", "__folium_color": "#8B4513", "connector_id": "42SWKA000109289", "device_type": "Fuse", "full_nearest_upstream_device": "ESR012000000000-42SWKA000109289"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_d4a63d3417d5ac8af645cea78ae7423c.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_d4a63d3417d5ac8af645cea78ae7423c.addTo(map_3293dd467e49268da522c4dbb91d20b2);
+        
+    
+            var layer_control_1da4a02f793a025de3914ddf7feab8e3_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_59aeb07f64e03125c3a6be4ad83fd0cd,
+                    "Google Satellite" : tile_layer_2eef1eb9f8dc765553d30b224b570b33,
+                    "cartodbpositron" : tile_layer_364abd4add2f0b8ebf8e58166d9c773d,
+                },
+                overlays :  {
+                    "Cost Focus Scenario Frequency" : geo_json_e342f53b99118a7f5c73ddefd98d0c7c,
+                    "sources" : geo_json_8a51e902c10515f4108b3837af52aa2d,
+                    "devices" : geo_json_d4a63d3417d5ac8af645cea78ae7423c,
+                },
+            };
+            let layer_control_1da4a02f793a025de3914ddf7feab8e3 = L.control.layers(
+                layer_control_1da4a02f793a025de3914ddf7feab8e3_layers.base_layers,
+                layer_control_1da4a02f793a025de3914ddf7feab8e3_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_3293dd467e49268da522c4dbb91d20b2);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var asset = {'type' : 'asset_selector', 'value' : e['layer']['feature']['properties']['Nearest Upstream Device']};
+                            window.top.postMessage(asset, '*');
+                        }
+
+            geo_json_e342f53b99118a7f5c73ddefd98d0c7c.on('click', send_cluster_id_on_click);</script>
+</html>
