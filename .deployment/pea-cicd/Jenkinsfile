@@ -77,7 +77,7 @@ podTemplate(cloud: 'kubernetes', containers: [
         def mode = 'develop'
         def tag = 'latest'
         def gitRevision = ''
-        def workspace = 'vegx_thailand_front_end'
+        def workspace = 'front'
 
         stage("git clone") {
             container("git") {
@@ -185,7 +185,7 @@ podTemplate(cloud: 'kubernetes', containers: [
                     script {
                         try {
                             def image = ''
-                            def preImage = "tcc-harbor.pea.co.th/operation/vegx/vegx_thailand_front_end"
+                            def preImage = "tcc-harbor.pea.co.th/operation/vegx/front"
                             def tagName = 'latest' 
                             def buildMode = ''
                             
@@ -209,7 +209,7 @@ podTemplate(cloud: 'kubernetes', containers: [
                             }
 
                             cmd = [
-                                "--dockerfile ${workspace}/.kaniko/web/Dockerfile",
+                                "--dockerfile ${workspace}/.kaniko/web/TCCDockerfile",
                                 //"--dockerfile ${workspace}/Dockerfile",
                                 "--context ${workspace}",
                                 "--destination=${image}:${tag}",
