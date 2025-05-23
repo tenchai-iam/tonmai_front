@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1b2cfb6ae66654846e3a2c54cea237bb {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#1f77b4'></span>Source</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#8B4513'></span>Fuse</li>
+                <li><span style='background:#FF8C00'></span>Switch</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_1b2cfb6ae66654846e3a2c54cea237bb" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1b2cfb6ae66654846e3a2c54cea237bb = L.map(
+                "map_1b2cfb6ae66654846e3a2c54cea237bb",
+                {
+                    center: [0.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 1,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+
+            
+
+        
+    
+            var tile_layer_445fab9cd1ba66807ab4c0ea36a2bd7a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_445fab9cd1ba66807ab4c0ea36a2bd7a.addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+        
+    
+            var tile_layer_ca11f192c21bdc6050cc778b65bb7fa4 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {"attribution": "Google Satellite", "detectRetina": false, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_ca11f192c21bdc6050cc778b65bb7fa4.addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+        
+    
+            var tile_layer_3f565dd6f81eeaf50503409330c71185 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_3f565dd6f81eeaf50503409330c71185.addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+        
+    
+        function geo_json_3559e7a03792decd57bbe3364515e2b3_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1f77b4", "fillColor": "#1f77b4", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_3559e7a03792decd57bbe3364515e2b3_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_3559e7a03792decd57bbe3364515e2b3_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_3559e7a03792decd57bbe3364515e2b3_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_3559e7a03792decd57bbe3364515e2b3_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_3559e7a03792decd57bbe3364515e2b3.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_3559e7a03792decd57bbe3364515e2b3_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_3559e7a03792decd57bbe3364515e2b3 = L.geoJson(null, {
+                onEachFeature: geo_json_3559e7a03792decd57bbe3364515e2b3_onEachFeature,
+            
+                style: geo_json_3559e7a03792decd57bbe3364515e2b3_styler,
+                pointToLayer: geo_json_3559e7a03792decd57bbe3364515e2b3_pointToLayer,
+        });
+
+        function geo_json_3559e7a03792decd57bbe3364515e2b3_add (data) {
+            geo_json_3559e7a03792decd57bbe3364515e2b3
+                .addData(data);
+        }
+            geo_json_3559e7a03792decd57bbe3364515e2b3_add({"bbox": [99.48409122429267, 16.506013209024836, 99.48465478392141, 16.50655689117567], "features": [{"bbox": [99.48409122429267, 16.506013209024836, 99.48465478392141, 16.50655689117567], "geometry": {"coordinates": [[[99.48409122429267, 16.506014511789736], [99.48465343271928, 16.506013209024836], [99.48465478392141, 16.50655558836559], [99.48409257392753, 16.50655689117567], [99.48409122429267, 16.506014511789736]]], "type": "Polygon"}, "id": "54", "properties": {"FACILITYID": "KPA04VB-01", "FEEDERID": "KPA04", "__folium_color": "#1f77b4", "connector_id": "1262CB000000039", "device_type": "Source", "full_nearest_upstream_device": "KPA04VB-01-1262CB000000039"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_3559e7a03792decd57bbe3364515e2b3.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_3559e7a03792decd57bbe3364515e2b3.addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+        
+    
+        function geo_json_dd0ab34f8b48c9c64890389c803be53a_styler(feature) {
+            switch(feature.id) {
+                case "1179": case "8508": case "8509": case "8510": case "8511": case "9416": case "11509": 
+                    return {"color": "#8B4513", "fillColor": "#8B4513", "fillOpacity": 0.5, "weight": 10};
+                default:
+                    return {"color": "#FF8C00", "fillColor": "#FF8C00", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_dd0ab34f8b48c9c64890389c803be53a_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_dd0ab34f8b48c9c64890389c803be53a_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_dd0ab34f8b48c9c64890389c803be53a_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_dd0ab34f8b48c9c64890389c803be53a_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_dd0ab34f8b48c9c64890389c803be53a.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_dd0ab34f8b48c9c64890389c803be53a_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_dd0ab34f8b48c9c64890389c803be53a = L.geoJson(null, {
+                onEachFeature: geo_json_dd0ab34f8b48c9c64890389c803be53a_onEachFeature,
+            
+                style: geo_json_dd0ab34f8b48c9c64890389c803be53a_styler,
+                pointToLayer: geo_json_dd0ab34f8b48c9c64890389c803be53a_pointToLayer,
+        });
+
+        function geo_json_dd0ab34f8b48c9c64890389c803be53a_add (data) {
+            geo_json_dd0ab34f8b48c9c64890389c803be53a
+                .addData(data);
+        }
+            geo_json_dd0ab34f8b48c9c64890389c803be53a_add({"bbox": [99.48354486147723, 16.448054969038367, 99.50442370931516, 16.505578760668985], "features": [{"bbox": [99.49602785026664, 16.47276673406054, 99.49602785026664, 16.47276673406054], "geometry": {"coordinates": [99.49602785026664, 16.47276673406054], "type": "Point"}, "id": "915", "properties": {"FACILITYID": "KPA04VS-02", "FEEDERID": "KPA04", "__folium_color": "#FF8C00", "connector_id": "1262SW000000295", "device_type": "Switch", "full_nearest_upstream_device": "KPA04VS-02-1262SW000000295"}, "type": "Feature"}, {"bbox": [99.49667036525715, 16.45408897344382, 99.49667036525715, 16.45408897344382], "geometry": {"coordinates": [99.49667036525715, 16.45408897344382], "type": "Point"}, "id": "1179", "properties": {"FACILITYID": "KPA04VF-03", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "1262SW000000740", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-03-1262SW000000740"}, "type": "Feature"}, {"bbox": [99.49660231034464, 16.47281354520109, 99.49660231034464, 16.47281354520109], "geometry": {"coordinates": [99.49660231034464, 16.47281354520109], "type": "Point"}, "id": "1182", "properties": {"FACILITYID": "KPA04VS-03", "FEEDERID": "KPA04", "__folium_color": "#FF8C00", "connector_id": "1262SW000000746", "device_type": "Switch", "full_nearest_upstream_device": "KPA04VS-03-1262SW000000746"}, "type": "Feature"}, {"bbox": [99.48354486147723, 16.505578760668985, 99.48354486147723, 16.505578760668985], "geometry": {"coordinates": [99.48354486147723, 16.505578760668985], "type": "Point"}, "id": "1255", "properties": {"FACILITYID": "KPA04VS-01", "FEEDERID": "KPA04", "__folium_color": "#FF8C00", "connector_id": "1262SW000000839", "device_type": "Switch", "full_nearest_upstream_device": "KPA04VS-01-1262SW000000839"}, "type": "Feature"}, {"bbox": [99.50442370931516, 16.448054969038367, 99.50442370931516, 16.448054969038367], "geometry": {"coordinates": [99.50442370931516, 16.448054969038367], "type": "Point"}, "id": "8076", "properties": {"FACILITYID": "KPB09VS-03", "FEEDERID": "KPA04", "__folium_color": "#FF8C00", "connector_id": "12SWBA000039618", "device_type": "Switch", "full_nearest_upstream_device": "KPB09VS-03-12SWBA000039618"}, "type": "Feature"}, {"bbox": [99.4964577131895, 16.470170799256273, 99.4964577131895, 16.470170799256273], "geometry": {"coordinates": [99.4964577131895, 16.470170799256273], "type": "Point"}, "id": "8508", "properties": {"FACILITYID": "KPA04VF-01", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "12SWBA000045342", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-01-12SWBA000045342"}, "type": "Feature"}, {"bbox": [99.49639846260013, 16.46905393692909, 99.49639846260013, 16.46905393692909], "geometry": {"coordinates": [99.49639846260013, 16.46905393692909], "type": "Point"}, "id": "8509", "properties": {"FACILITYID": "KPA04VF-02", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "12SWBA000045344", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-02-12SWBA000045344"}, "type": "Feature"}, {"bbox": [99.49747895327411, 16.453055215047723, 99.49747895327411, 16.453055215047723], "geometry": {"coordinates": [99.49747895327411, 16.453055215047723], "type": "Point"}, "id": "8510", "properties": {"FACILITYID": "KPA04VF-05", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "12SWBA000045345", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-05-12SWBA000045345"}, "type": "Feature"}, {"bbox": [99.49705052355355, 16.453580897800602, 99.49705052355355, 16.453580897800602], "geometry": {"coordinates": [99.49705052355355, 16.453580897800602], "type": "Point"}, "id": "8511", "properties": {"FACILITYID": "KPA04VF-04", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "12SWBA000045346", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-04-12SWBA000045346"}, "type": "Feature"}, {"bbox": [99.50049339554367, 16.45010443922468, 99.50049339554367, 16.45010443922468], "geometry": {"coordinates": [99.50049339554367, 16.45010443922468], "type": "Point"}, "id": "9416", "properties": {"FACILITYID": "KPA04VF-06", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "12SWBA000053442", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-06-12SWBA000053442"}, "type": "Feature"}, {"bbox": [99.49584637173987, 16.47468957847644, 99.49584637173987, 16.47468957847644], "geometry": {"coordinates": [99.49584637173987, 16.47468957847644], "type": "Point"}, "id": "10926", "properties": {"FACILITYID": "KPA04VS-04", "FEEDERID": "KPA04", "__folium_color": "#FF8C00", "connector_id": "12SWBA000061944", "device_type": "Switch", "full_nearest_upstream_device": "KPA04VS-04-12SWBA000061944"}, "type": "Feature"}, {"bbox": [99.49585424964145, 16.47458967992944, 99.49585424964145, 16.47458967992944], "geometry": {"coordinates": [99.49585424964145, 16.47458967992944], "type": "Point"}, "id": "10927", "properties": {"FACILITYID": "KPA04VS-05", "FEEDERID": "KPA04", "__folium_color": "#FF8C00", "connector_id": "12SWBA000061945", "device_type": "Switch", "full_nearest_upstream_device": "KPA04VS-05-12SWBA000061945"}, "type": "Feature"}, {"bbox": [99.4978942178354, 16.452815471573633, 99.4978942178354, 16.452815471573633], "geometry": {"coordinates": [99.4978942178354, 16.452815471573633], "type": "Point"}, "id": "11509", "properties": {"FACILITYID": "KPA04VF-77", "FEEDERID": "KPA04", "__folium_color": "#8B4513", "connector_id": "12SWBA000068290", "device_type": "Fuse", "full_nearest_upstream_device": "KPA04VF-77-12SWBA000068290"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_dd0ab34f8b48c9c64890389c803be53a.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_dd0ab34f8b48c9c64890389c803be53a.addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+        
+    
+            var layer_control_7dcc7989ad868332f45de4800f6afbbb_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_445fab9cd1ba66807ab4c0ea36a2bd7a,
+                    "Google Satellite" : tile_layer_ca11f192c21bdc6050cc778b65bb7fa4,
+                    "cartodbpositron" : tile_layer_3f565dd6f81eeaf50503409330c71185,
+                },
+                overlays :  {
+                    "sources" : geo_json_3559e7a03792decd57bbe3364515e2b3,
+                    "devices" : geo_json_dd0ab34f8b48c9c64890389c803be53a,
+                },
+            };
+            let layer_control_7dcc7989ad868332f45de4800f6afbbb = L.control.layers(
+                layer_control_7dcc7989ad868332f45de4800f6afbbb_layers.base_layers,
+                layer_control_7dcc7989ad868332f45de4800f6afbbb_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_1b2cfb6ae66654846e3a2c54cea237bb);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var asset = {'type' : 'asset_selector', 'value' : e['layer']['feature']['properties']['Nearest Upstream Device']};
+                            window.top.postMessage(asset, '*');
+                        }
+
+            geo_json_3559e7a03792decd57bbe3364515e2b3.on('click', send_cluster_id_on_click);</script>
+</html>
