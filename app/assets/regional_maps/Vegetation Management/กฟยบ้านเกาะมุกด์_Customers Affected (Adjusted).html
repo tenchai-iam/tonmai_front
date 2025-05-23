@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0e511e6313ea8ad2dfe214d4432e9489 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0e511e6313ea8ad2dfe214d4432e9489" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0e511e6313ea8ad2dfe214d4432e9489 = L.map(
+                "map_0e511e6313ea8ad2dfe214d4432e9489",
+                {
+                    center: [7.3760766079243005, 99.43364861215562],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_0e511e6313ea8ad2dfe214d4432e9489);
+
+            
+
+        
+    
+            var tile_layer_15e175f00170b96f6b52685940e4a367 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_15e175f00170b96f6b52685940e4a367.addTo(map_0e511e6313ea8ad2dfe214d4432e9489);
+        
+    
+            map_0e511e6313ea8ad2dfe214d4432e9489.fitBounds(
+                [[7.223487813571075, 99.29818784034128], [7.528665402277526, 99.56910938396996]],
+                {}
+            );
+        
+    
+        function geo_json_aaf7d831e346f1a168559bad9767e438_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#b40426", "fillColor": "#b40426", "fillOpacity": 0.5, "weight": 2};
+            }
+        }
+        function geo_json_aaf7d831e346f1a168559bad9767e438_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_aaf7d831e346f1a168559bad9767e438_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_aaf7d831e346f1a168559bad9767e438_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_aaf7d831e346f1a168559bad9767e438_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_aaf7d831e346f1a168559bad9767e438.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_aaf7d831e346f1a168559bad9767e438_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_aaf7d831e346f1a168559bad9767e438 = L.geoJson(null, {
+                onEachFeature: geo_json_aaf7d831e346f1a168559bad9767e438_onEachFeature,
+            
+                style: geo_json_aaf7d831e346f1a168559bad9767e438_styler,
+                pointToLayer: geo_json_aaf7d831e346f1a168559bad9767e438_pointToLayer,
+        });
+
+        function geo_json_aaf7d831e346f1a168559bad9767e438_add (data) {
+            geo_json_aaf7d831e346f1a168559bad9767e438
+                .addData(data);
+        }
+            geo_json_aaf7d831e346f1a168559bad9767e438_add({"bbox": [99.29818784034128, 7.223487813571075, 99.56910938396996, 7.528665402277526], "features": [{"bbox": [99.29818784034128, 7.223487813571075, 99.56910938396996, 7.528665402277526], "geometry": {"coordinates": [[[99.36568657547349, 7.223487813571075], [99.29818784034128, 7.3624391908858255], [99.30211147051034, 7.378029243144655], [99.30217058537963, 7.378216105291631], [99.3021998885754, 7.378308731466099], [99.34835267389607, 7.424456849771937], [99.52384040749675, 7.524872809375872], [99.52476056391033, 7.525027823258258], [99.56908689568945, 7.528665402277526], [99.56910938396996, 7.528596402502833], [99.48539308529962, 7.295672858239094], [99.48517361118007, 7.295156286476562], [99.39661442406323, 7.228279943780589], [99.38934242594966, 7.225566837610347], [99.36568657547349, 7.223487813571075]]], "type": "Polygon"}, "id": "194", "properties": {"Area of Jurisdiction": "\u0e01\u0e1f\u0e22\u0e1a\u0e49\u0e32\u0e19\u0e40\u0e01\u0e32\u0e30\u0e21\u0e38\u0e01\u0e14\u0e4c", "Avg. Prob. Outage (%)": 0.4128269897224448, "Cost to Trim (BHT) [META + Sentinel-2]": 2264.61, "Cost to Trim (BHT) [MJM]": 492683.29, "Customers Affected (Adjusted)": 2921.14, "Customers Affected (Original)": 8275.0, "Feeder ID": "TRA10", "Risk (Customer Interruptions)": 11268.92, "__folium_color": "#b40426"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_aaf7d831e346f1a168559bad9767e438.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["Area of Jurisdiction", "Feeder ID", "Avg. Prob. Outage (%)", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Risk (Customer Interruptions)"];
+    let aliases = ["Area of Jurisdiction", "Feeder ID", "Avg. Prob. Outage (%)", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Risk (Customer Interruptions)"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_aaf7d831e346f1a168559bad9767e438.addTo(map_0e511e6313ea8ad2dfe214d4432e9489);
+        
+    
+    var color_map_20ddba12454ed1f4e9b6a841b04c789c = {};
+
+    
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.color = d3.scale.threshold()
+              .domain([2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14, 2921.14])
+              .range(['#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff']);
+    
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.x = d3.scale.linear()
+              .domain([2921.14, 2921.14])
+              .range([0, 450 - 50]);
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.legend = L.control({position: 'topright'});
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.legend.addTo(map_0e511e6313ea8ad2dfe214d4432e9489);
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.xAxis = d3.svg.axis()
+        .scale(color_map_20ddba12454ed1f4e9b6a841b04c789c.x)
+        .orient("top")
+        .tickSize(1)
+        .tickValues([2921.14, 2921.14]);
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.svg = d3.select(".legend.leaflet-control").append("svg")
+        .attr("id", 'legend')
+        .attr("width", 450)
+        .attr("height", 40);
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.g = color_map_20ddba12454ed1f4e9b6a841b04c789c.svg.append("g")
+        .attr("class", "key")
+        .attr("fill", "black")
+        .attr("transform", "translate(25,16)");
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.g.selectAll("rect")
+        .data(color_map_20ddba12454ed1f4e9b6a841b04c789c.color.range().map(function(d, i) {
+          return {
+            x0: i ? color_map_20ddba12454ed1f4e9b6a841b04c789c.x(color_map_20ddba12454ed1f4e9b6a841b04c789c.color.domain()[i - 1]) : color_map_20ddba12454ed1f4e9b6a841b04c789c.x.range()[0],
+            x1: i < color_map_20ddba12454ed1f4e9b6a841b04c789c.color.domain().length ? color_map_20ddba12454ed1f4e9b6a841b04c789c.x(color_map_20ddba12454ed1f4e9b6a841b04c789c.color.domain()[i]) : color_map_20ddba12454ed1f4e9b6a841b04c789c.x.range()[1],
+            z: d
+          };
+        }))
+      .enter().append("rect")
+        .attr("height", 40 - 30)
+        .attr("x", function(d) { return d.x0; })
+        .attr("width", function(d) { return d.x1 - d.x0; })
+        .style("fill", function(d) { return d.z; });
+
+    color_map_20ddba12454ed1f4e9b6a841b04c789c.g.call(color_map_20ddba12454ed1f4e9b6a841b04c789c.xAxis).append("text")
+        .attr("class", "caption")
+        .attr("y", 21)
+        .attr("fill", "black")
+        .text("Customers Affected (Adjusted)");
+    
+            var tile_layer_864907ffdf991a1b4f89d0e83fc6a4db = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_864907ffdf991a1b4f89d0e83fc6a4db.addTo(map_0e511e6313ea8ad2dfe214d4432e9489);
+        
+    
+            var layer_control_9e62cacb815a6af9830e7b982c7413ff_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_15e175f00170b96f6b52685940e4a367,
+                    "cartodbpositron" : tile_layer_864907ffdf991a1b4f89d0e83fc6a4db,
+                },
+                overlays :  {
+                    "Customers Affected (Adjusted)" : geo_json_aaf7d831e346f1a168559bad9767e438,
+                },
+            };
+            let layer_control_9e62cacb815a6af9830e7b982c7413ff = L.control.layers(
+                layer_control_9e62cacb815a6af9830e7b982c7413ff_layers.base_layers,
+                layer_control_9e62cacb815a6af9830e7b982c7413ff_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_0e511e6313ea8ad2dfe214d4432e9489);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var cluster = {'type' : 'region_selector', 'value' : e['layer']['feature']['properties']['Feeder ID']};
+                            window.top.postMessage(cluster, '*');
+                        }
+
+            geo_json_aaf7d831e346f1a168559bad9767e438.on('click', send_cluster_id_on_click);</script>
+</html>

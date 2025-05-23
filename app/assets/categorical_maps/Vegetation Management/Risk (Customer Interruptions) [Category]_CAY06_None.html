@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_77bc56726df580da3e1c69dde1c9a046 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#1f77b4'></span>Source</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#8B4513'></span>Fuse</li>
+                <li><span style='background:#FF8C00'></span>Switch</li>
+                <li><span style='background:#800080'></span>recloser</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_77bc56726df580da3e1c69dde1c9a046" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_77bc56726df580da3e1c69dde1c9a046 = L.map(
+                "map_77bc56726df580da3e1c69dde1c9a046",
+                {
+                    center: [0.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 1,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_77bc56726df580da3e1c69dde1c9a046);
+
+            
+
+        
+    
+            var tile_layer_a751940f433399d29d3ffd113712d767 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_a751940f433399d29d3ffd113712d767.addTo(map_77bc56726df580da3e1c69dde1c9a046);
+        
+    
+            var tile_layer_ab68753773330fbee67082c04dddb96f = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {"attribution": "Google Satellite", "detectRetina": false, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_ab68753773330fbee67082c04dddb96f.addTo(map_77bc56726df580da3e1c69dde1c9a046);
+        
+    
+            var tile_layer_785739284d1d6ad364ef7a9e8779b135 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_785739284d1d6ad364ef7a9e8779b135.addTo(map_77bc56726df580da3e1c69dde1c9a046);
+        
+    
+        function geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1f77b4", "fillColor": "#1f77b4", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84 = L.geoJson(null, {
+                onEachFeature: geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_onEachFeature,
+            
+                style: geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_styler,
+                pointToLayer: geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_pointToLayer,
+        });
+
+        function geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_add (data) {
+            geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84
+                .addData(data);
+        }
+            geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84_add({"bbox": [99.16780676641852, 9.392128660840852, 99.16835350871042, 9.392671611955222], "features": [{"bbox": [99.16780676641852, 9.392128660840852, 99.16835350871042, 9.392671611955222], "geometry": {"coordinates": [[[99.16780676641852, 9.392128920642707], [99.1683532466615, 9.392128660840852], [99.16835350871042, 9.392671352138098], [99.16780702761683, 9.392671611955222], [99.16780676641852, 9.392128920642707]]], "type": "Polygon"}, "id": "2528", "properties": {"FACILITYID": "CAY06WB-01", "FEEDERID": "CAY06", "__folium_color": "#1f77b4", "connector_id": "4284CB000000058", "device_type": "Source", "full_nearest_upstream_device": "CAY06WB-01-4284CB000000058"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84.addTo(map_77bc56726df580da3e1c69dde1c9a046);
+        
+    
+        function geo_json_fa4475dc4c6ad269e284a02490beb573_styler(feature) {
+            switch(feature.id) {
+                case "52193": case "52195": case "55950": case "55996": 
+                    return {"color": "#800080", "fillColor": "#800080", "fillOpacity": 0.5, "weight": 10};
+                case "53287": case "53288": case "53289": case "53290": case "53291": case "53302": case "53303": case "53304": case "53570": case "53571": case "53572": case "53573": case "53589": case "53591": case "53595": case "53596": case "53597": case "53598": case "53599": case "53603": case "53604": case "53630": case "53631": case "53632": case "53633": case "53634": case "53639": case "53640": case "53650": case "53652": case "53653": case "53657": case "53658": case "53659": case "53660": case "53685": case "53686": case "53687": case "53688": case "53689": case "54467": case "54468": case "54471": case "54473": case "54474": case "54480": case "54481": case "54487": case "54488": case "54489": case "54588": case "54589": case "54590": case "54591": case "54592": case "54593": case "54594": case "54595": case "54596": case "54610": case "54611": case "54612": case "54613": case "54616": case "54638": case "54639": case "57365": case "57366": case "57367": case "57368": case "57369": case "57370": case "57371": case "57372": case "57373": case "57724": case "57803": case "58769": case "58968": case "58990": case "59197": case "59198": case "59422": case "59498": case "59839": case "60333": case "60536": case "60537": case "60739": case "60770": case "61497": case "61600": case "61604": case "61642": case "61649": case "61786": case "61859": case "62583": case "62916": case "63395": case "63539": case "63596": case "63714": case "63725": case "64821": case "64822": case "64823": case "64824": case "65533": case "65849": case "66434": case "67060": case "67436": case "67437": case "68530": case "68849": case "68859": case "68866": case "69955": case "70415": case "70822": case "71475": case "72002": case "72045": case "72221": case "72537": case "72723": case "73229": 
+                    return {"color": "#8B4513", "fillColor": "#8B4513", "fillOpacity": 0.5, "weight": 10};
+                default:
+                    return {"color": "#FF8C00", "fillColor": "#FF8C00", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_fa4475dc4c6ad269e284a02490beb573_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_fa4475dc4c6ad269e284a02490beb573_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_fa4475dc4c6ad269e284a02490beb573_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_fa4475dc4c6ad269e284a02490beb573_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_fa4475dc4c6ad269e284a02490beb573.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_fa4475dc4c6ad269e284a02490beb573_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_fa4475dc4c6ad269e284a02490beb573 = L.geoJson(null, {
+                onEachFeature: geo_json_fa4475dc4c6ad269e284a02490beb573_onEachFeature,
+            
+                style: geo_json_fa4475dc4c6ad269e284a02490beb573_styler,
+                pointToLayer: geo_json_fa4475dc4c6ad269e284a02490beb573_pointToLayer,
+        });
+
+        function geo_json_fa4475dc4c6ad269e284a02490beb573_add (data) {
+            geo_json_fa4475dc4c6ad269e284a02490beb573
+                .addData(data);
+        }
+            geo_json_fa4475dc4c6ad269e284a02490beb573_add({"bbox": [99.12430405066385, 9.348933339074097, 99.26738346015392, 9.692158868389393], "features": [{"bbox": [99.16540000298583, 9.600702658584535, 99.16540000298583, 9.600702658584535], "geometry": {"coordinates": [99.16540000298583, 9.600702658584535], "type": "Point"}, "id": "52193", "properties": {"FACILITYID": "CAY06WR-104", "FEEDERID": "CAY06", "__folium_color": "#800080", "connector_id": "4284RC000000030", "device_type": "recloser", "full_nearest_upstream_device": "CAY06WR-104-4284RC000000030"}, "type": "Feature"}, {"bbox": [99.20445418338336, 9.478720654538503, 99.20445418338336, 9.478720654538503], "geometry": {"coordinates": [99.20445418338336, 9.478720654538503], "type": "Point"}, "id": "52195", "properties": {"FACILITYID": "CAY06WR-101", "FEEDERID": "CAY06", "__folium_color": "#800080", "connector_id": "4284RC000000032", "device_type": "recloser", "full_nearest_upstream_device": "CAY06WR-101-4284RC000000032"}, "type": "Feature"}, {"bbox": [99.16547102638758, 9.598133327284764, 99.16547102638758, 9.598133327284764], "geometry": {"coordinates": [99.16547102638758, 9.598133327284764], "type": "Point"}, "id": "53287", "properties": {"FACILITYID": "CAY06F-50", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001455", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-50-4284SW000001455"}, "type": "Feature"}, {"bbox": [99.16549234565922, 9.596636763281724, 99.16549234565922, 9.596636763281724], "geometry": {"coordinates": [99.16549234565922, 9.596636763281724], "type": "Point"}, "id": "53288", "properties": {"FACILITYID": "CAY06F-49", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001456", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-49-4284SW000001456"}, "type": "Feature"}, {"bbox": [99.16475416931924, 9.593260545716335, 99.16475416931924, 9.593260545716335], "geometry": {"coordinates": [99.16475416931924, 9.593260545716335], "type": "Point"}, "id": "53289", "properties": {"FACILITYID": "CAY06F-48", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001457", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-48-4284SW000001457"}, "type": "Feature"}, {"bbox": [99.16520922492083, 9.593279711899816, 99.16520922492083, 9.593279711899816], "geometry": {"coordinates": [99.16520922492083, 9.593279711899816], "type": "Point"}, "id": "53290", "properties": {"FACILITYID": "CAY06F-47", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001458", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-47-4284SW000001458"}, "type": "Feature"}, {"bbox": [99.1655805699389, 9.581394017338589, 99.1655805699389, 9.581394017338589], "geometry": {"coordinates": [99.1655805699389, 9.581394017338589], "type": "Point"}, "id": "53291", "properties": {"FACILITYID": "CAY06F-46", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001460", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-46-4284SW000001460"}, "type": "Feature"}, {"bbox": [99.1248050945377, 9.671092436642141, 99.1248050945377, 9.671092436642141], "geometry": {"coordinates": [99.1248050945377, 9.671092436642141], "type": "Point"}, "id": "53302", "properties": {"FACILITYID": "CAY06F-67", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001472", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-67-4284SW000001472"}, "type": "Feature"}, {"bbox": [99.14893409823992, 9.66503468604791, 99.14893409823992, 9.66503468604791], "geometry": {"coordinates": [99.14893409823992, 9.66503468604791], "type": "Point"}, "id": "53303", "properties": {"FACILITYID": "CAY06F-62", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001473", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-62-4284SW000001473"}, "type": "Feature"}, {"bbox": [99.1509471824595, 9.658834861491716, 99.1509471824595, 9.658834861491716], "geometry": {"coordinates": [99.1509471824595, 9.658834861491716], "type": "Point"}, "id": "53304", "properties": {"FACILITYID": "CAY06F-61", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001474", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-61-4284SW000001474"}, "type": "Feature"}, {"bbox": [99.21700858635559, 9.540071140643416, 99.21700858635559, 9.540071140643416], "geometry": {"coordinates": [99.21700858635559, 9.540071140643416], "type": "Point"}, "id": "53570", "properties": {"FACILITYID": "CAY06F-33/02", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001827", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-33/02-4284SW000001827"}, "type": "Feature"}, {"bbox": [99.2204795447626, 9.53328757309485, 99.2204795447626, 9.53328757309485], "geometry": {"coordinates": [99.2204795447626, 9.53328757309485], "type": "Point"}, "id": "53571", "properties": {"FACILITYID": "CAY06F-34", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001828", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-34-4284SW000001828"}, "type": "Feature"}, {"bbox": [99.20904267688854, 9.514034290780462, 99.20904267688854, 9.514034290780462], "geometry": {"coordinates": [99.20904267688854, 9.514034290780462], "type": "Point"}, "id": "53572", "properties": {"FACILITYID": "CAY06F-220", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001829", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-220-4284SW000001829"}, "type": "Feature"}, {"bbox": [99.21860952022796, 9.511128046076495, 99.21860952022796, 9.511128046076495], "geometry": {"coordinates": [99.21860952022796, 9.511128046076495], "type": "Point"}, "id": "53573", "properties": {"FACILITYID": "CAY06F-23/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001830", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-23/01-4284SW000001830"}, "type": "Feature"}, {"bbox": [99.20410122581863, 9.573734784914123, 99.20410122581863, 9.573734784914123], "geometry": {"coordinates": [99.20410122581863, 9.573734784914123], "type": "Point"}, "id": "53589", "properties": {"FACILITYID": "CAY06F-39", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001849", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-39-4284SW000001849"}, "type": "Feature"}, {"bbox": [99.19823185713116, 9.511274213015843, 99.19823185713116, 9.511274213015843], "geometry": {"coordinates": [99.19823185713116, 9.511274213015843], "type": "Point"}, "id": "53591", "properties": {"FACILITYID": "CAY06F-29", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001852", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-29-4284SW000001852"}, "type": "Feature"}, {"bbox": [99.18799988741688, 9.57803472875858, 99.18799988741688, 9.57803472875858], "geometry": {"coordinates": [99.18799988741688, 9.57803472875858], "type": "Point"}, "id": "53595", "properties": {"FACILITYID": "CAY06F-42", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001856", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-42-4284SW000001856"}, "type": "Feature"}, {"bbox": [99.19830131195151, 9.539984475775833, 99.19830131195151, 9.539984475775833], "geometry": {"coordinates": [99.19830131195151, 9.539984475775833], "type": "Point"}, "id": "53596", "properties": {"FACILITYID": "CAY06F-31", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001857", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-31-4284SW000001857"}, "type": "Feature"}, {"bbox": [99.19924359947753, 9.544362128907482, 99.19924359947753, 9.544362128907482], "geometry": {"coordinates": [99.19924359947753, 9.544362128907482], "type": "Point"}, "id": "53597", "properties": {"FACILITYID": "CAY06F-36", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001858", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-36-4284SW000001858"}, "type": "Feature"}, {"bbox": [99.20010560609505, 9.55884912374857, 99.20010560609505, 9.55884912374857], "geometry": {"coordinates": [99.20010560609505, 9.55884912374857], "type": "Point"}, "id": "53598", "properties": {"FACILITYID": "CAY06F-38", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001859", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-38-4284SW000001859"}, "type": "Feature"}, {"bbox": [99.17299688821694, 9.569117018695684, 99.17299688821694, 9.569117018695684], "geometry": {"coordinates": [99.17299688821694, 9.569117018695684], "type": "Point"}, "id": "53599", "properties": {"FACILITYID": "CAY06F-44", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001860", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-44-4284SW000001860"}, "type": "Feature"}, {"bbox": [99.17241311414695, 9.568958247811597, 99.17241311414695, 9.568958247811597], "geometry": {"coordinates": [99.17241311414695, 9.568958247811597], "type": "Point"}, "id": "53600", "properties": {"FACILITYID": "CAY06WS-119", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001861", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-119-4284SW000001861"}, "type": "Feature"}, {"bbox": [99.15289678227002, 9.62822672122825, 99.15289678227002, 9.62822672122825], "geometry": {"coordinates": [99.15289678227002, 9.62822672122825], "type": "Point"}, "id": "53603", "properties": {"FACILITYID": "CAY06F-58", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001864", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-58-4284SW000001864"}, "type": "Feature"}, {"bbox": [99.15055448961573, 9.638325615126154, 99.15055448961573, 9.638325615126154], "geometry": {"coordinates": [99.15055448961573, 9.638325615126154], "type": "Point"}, "id": "53604", "properties": {"FACILITYID": "CAY06F-57", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001865", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-57-4284SW000001865"}, "type": "Feature"}, {"bbox": [99.18512680504489, 9.57723958468112, 99.18512680504489, 9.57723958468112], "geometry": {"coordinates": [99.18512680504489, 9.57723958468112], "type": "Point"}, "id": "53630", "properties": {"FACILITYID": "CAY06F-43", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001896", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-43-4284SW000001896"}, "type": "Feature"}, {"bbox": [99.17738021138604, 9.571946830577984, 99.17738021138604, 9.571946830577984], "geometry": {"coordinates": [99.17738021138604, 9.571946830577984], "type": "Point"}, "id": "53631", "properties": {"FACILITYID": "CAY06F-43/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001897", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-43/01-4284SW000001897"}, "type": "Feature"}, {"bbox": [99.16608622307105, 9.579425318955975, 99.16608622307105, 9.579425318955975], "geometry": {"coordinates": [99.16608622307105, 9.579425318955975], "type": "Point"}, "id": "53632", "properties": {"FACILITYID": "CAY06F-45", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001900", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-45-4284SW000001900"}, "type": "Feature"}, {"bbox": [99.2019538339413, 9.491050854127476, 99.2019538339413, 9.491050854127476], "geometry": {"coordinates": [99.2019538339413, 9.491050854127476], "type": "Point"}, "id": "53633", "properties": {"FACILITYID": "CAY06F-24", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001901", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-24-4284SW000001901"}, "type": "Feature"}, {"bbox": [99.1918068233668, 9.478411020003515, 99.1918068233668, 9.478411020003515], "geometry": {"coordinates": [99.1918068233668, 9.478411020003515], "type": "Point"}, "id": "53634", "properties": {"FACILITYID": "CAY06F-25", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001902", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-25-4284SW000001902"}, "type": "Feature"}, {"bbox": [99.1653982544276, 9.600742781935141, 99.1653982544276, 9.600742781935141], "geometry": {"coordinates": [99.1653982544276, 9.600742781935141], "type": "Point"}, "id": "53635", "properties": {"FACILITYID": "CAY06WS-122", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001903", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-122-4284SW000001903"}, "type": "Feature"}, {"bbox": [99.16540178738788, 9.600661277996325, 99.16540178738788, 9.600661277996325], "geometry": {"coordinates": [99.16540178738788, 9.600661277996325], "type": "Point"}, "id": "53637", "properties": {"FACILITYID": "CAY06WS-121", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001905", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-121-4284SW000001905"}, "type": "Feature"}, {"bbox": [99.16536358458181, 9.600701047929148, 99.16536358458181, 9.600701047929148], "geometry": {"coordinates": [99.16536358458181, 9.600701047929148], "type": "Point"}, "id": "53638", "properties": {"FACILITYID": "CAY06WS-123", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001906", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-123-4284SW000001906"}, "type": "Feature"}, {"bbox": [99.18222015215916, 9.607945255347518, 99.18222015215916, 9.607945255347518], "geometry": {"coordinates": [99.18222015215916, 9.607945255347518], "type": "Point"}, "id": "53639", "properties": {"FACILITYID": "CAY06F-52", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001907", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-52-4284SW000001907"}, "type": "Feature"}, {"bbox": [99.16531121361837, 9.605877753989054, 99.16531121361837, 9.605877753989054], "geometry": {"coordinates": [99.16531121361837, 9.605877753989054], "type": "Point"}, "id": "53640", "properties": {"FACILITYID": "CAY06F-51", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001908", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-51-4284SW000001908"}, "type": "Feature"}, {"bbox": [99.14369292114978, 9.689219122611632, 99.14369292114978, 9.689219122611632], "geometry": {"coordinates": [99.14369292114978, 9.689219122611632], "type": "Point"}, "id": "53650", "properties": {"FACILITYID": "CAY06F-64", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001918", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-64-4284SW000001918"}, "type": "Feature"}, {"bbox": [99.2012947824428, 9.588756224942626, 99.2012947824428, 9.588756224942626], "geometry": {"coordinates": [99.2012947824428, 9.588756224942626], "type": "Point"}, "id": "53652", "properties": {"FACILITYID": "CAY06F-41", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001921", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-41-4284SW000001921"}, "type": "Feature"}, {"bbox": [99.20338302885315, 9.580916498665816, 99.20338302885315, 9.580916498665816], "geometry": {"coordinates": [99.20338302885315, 9.580916498665816], "type": "Point"}, "id": "53653", "properties": {"FACILITYID": "CAY06F-40", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001922", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-40-4284SW000001922"}, "type": "Feature"}, {"bbox": [99.2044226949432, 9.478714947552994, 99.2044226949432, 9.478714947552994], "geometry": {"coordinates": [99.2044226949432, 9.478714947552994], "type": "Point"}, "id": "53654", "properties": {"FACILITYID": "CAY06WS-106", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001924", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-106-4284SW000001924"}, "type": "Feature"}, {"bbox": [99.20448389731065, 9.478729718175618, 99.20448389731065, 9.478729718175618], "geometry": {"coordinates": [99.20448389731065, 9.478729718175618], "type": "Point"}, "id": "53655", "properties": {"FACILITYID": "CAY06WS-107", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001925", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-107-4284SW000001925"}, "type": "Feature"}, {"bbox": [99.20446247189383, 9.478686785989588, 99.20446247189383, 9.478686785989588], "geometry": {"coordinates": [99.20446247189383, 9.478686785989588], "type": "Point"}, "id": "53656", "properties": {"FACILITYID": "CAY06WS-108", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000001926", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-108-4284SW000001926"}, "type": "Feature"}, {"bbox": [99.19872444136618, 9.511464280529806, 99.19872444136618, 9.511464280529806], "geometry": {"coordinates": [99.19872444136618, 9.511464280529806], "type": "Point"}, "id": "53657", "properties": {"FACILITYID": "CAY06F-28", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001927", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-28-4284SW000001927"}, "type": "Feature"}, {"bbox": [99.20045836189303, 9.502777205033908, 99.20045836189303, 9.502777205033908], "geometry": {"coordinates": [99.20045836189303, 9.502777205033908], "type": "Point"}, "id": "53658", "properties": {"FACILITYID": "CAY06F-27", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001928", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-27-4284SW000001928"}, "type": "Feature"}, {"bbox": [99.20103526237187, 9.497698570174066, 99.20103526237187, 9.497698570174066], "geometry": {"coordinates": [99.20103526237187, 9.497698570174066], "type": "Point"}, "id": "53659", "properties": {"FACILITYID": "CAY06F-26", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001929", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-26-4284SW000001929"}, "type": "Feature"}, {"bbox": [99.2022878612874, 9.491697815939178, 99.2022878612874, 9.491697815939178], "geometry": {"coordinates": [99.2022878612874, 9.491697815939178], "type": "Point"}, "id": "53660", "properties": {"FACILITYID": "CAY06F-23", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001930", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-23-4284SW000001930"}, "type": "Feature"}, {"bbox": [99.15803771880186, 9.64611351696741, 99.15803771880186, 9.64611351696741], "geometry": {"coordinates": [99.15803771880186, 9.64611351696741], "type": "Point"}, "id": "53685", "properties": {"FACILITYID": "CAY06F-60", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001960", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-60-4284SW000001960"}, "type": "Feature"}, {"bbox": [99.16005095250988, 9.635996941225, 99.16005095250988, 9.635996941225], "geometry": {"coordinates": [99.16005095250988, 9.635996941225], "type": "Point"}, "id": "53686", "properties": {"FACILITYID": "CAY06F-56", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001961", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-56-4284SW000001961"}, "type": "Feature"}, {"bbox": [99.16086459197759, 9.627814422668742, 99.16086459197759, 9.627814422668742], "geometry": {"coordinates": [99.16086459197759, 9.627814422668742], "type": "Point"}, "id": "53687", "properties": {"FACILITYID": "CAY06F-55", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001963", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-55-4284SW000001963"}, "type": "Feature"}, {"bbox": [99.16441436731867, 9.61862214613749, 99.16441436731867, 9.61862214613749], "geometry": {"coordinates": [99.16441436731867, 9.61862214613749], "type": "Point"}, "id": "53688", "properties": {"FACILITYID": "CAY06F-54", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001964", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-54-4284SW000001964"}, "type": "Feature"}, {"bbox": [99.18372563700937, 9.608082427424574, 99.18372563700937, 9.608082427424574], "geometry": {"coordinates": [99.18372563700937, 9.608082427424574], "type": "Point"}, "id": "53689", "properties": {"FACILITYID": "CAY06F-53", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000001966", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-53-4284SW000001966"}, "type": "Feature"}, {"bbox": [99.20658724868083, 9.382358193395989, 99.20658724868083, 9.382358193395989], "geometry": {"coordinates": [99.20658724868083, 9.382358193395989], "type": "Point"}, "id": "54467", "properties": {"FACILITYID": "CAY08F-23/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003015", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-23/01-4284SW000003015"}, "type": "Feature"}, {"bbox": [99.20870373926489, 9.381199745394213, 99.20870373926489, 9.381199745394213], "geometry": {"coordinates": [99.20870373926489, 9.381199745394213], "type": "Point"}, "id": "54468", "properties": {"FACILITYID": "CAY08F-23", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003016", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-23-4284SW000003016"}, "type": "Feature"}, {"bbox": [99.19504221277853, 9.393161342693057, 99.19504221277853, 9.393161342693057], "geometry": {"coordinates": [99.19504221277853, 9.393161342693057], "type": "Point"}, "id": "54471", "properties": {"FACILITYID": "CAY06F-01/06", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003020", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-01/06-4284SW000003020"}, "type": "Feature"}, {"bbox": [99.18233026017545, 9.3991274619358, 99.18233026017545, 9.3991274619358], "geometry": {"coordinates": [99.18233026017545, 9.3991274619358], "type": "Point"}, "id": "54473", "properties": {"FACILITYID": "CAY06F-01/05", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003022", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-01/05-4284SW000003022"}, "type": "Feature"}, {"bbox": [99.18424530840501, 9.397677438763356, 99.18424530840501, 9.397677438763356], "geometry": {"coordinates": [99.18424530840501, 9.397677438763356], "type": "Point"}, "id": "54474", "properties": {"FACILITYID": "CAY06F-253", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003023", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-253-4284SW000003023"}, "type": "Feature"}, {"bbox": [99.20133139262656, 9.348933339074097, 99.20133139262656, 9.348933339074097], "geometry": {"coordinates": [99.20133139262656, 9.348933339074097], "type": "Point"}, "id": "54480", "properties": {"FACILITYID": "CAY08F-28", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003032", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-28-4284SW000003032"}, "type": "Feature"}, {"bbox": [99.20654377565533, 9.367737892794537, 99.20654377565533, 9.367737892794537], "geometry": {"coordinates": [99.20654377565533, 9.367737892794537], "type": "Point"}, "id": "54481", "properties": {"FACILITYID": "CAY08F-25", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003033", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-25-4284SW000003033"}, "type": "Feature"}, {"bbox": [99.16922988096049, 9.39281850959322, 99.16922988096049, 9.39281850959322], "geometry": {"coordinates": [99.16922988096049, 9.39281850959322], "type": "Point"}, "id": "54485", "properties": {"FACILITYID": "CAY06WS-101", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "4284SW000003037", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-101-4284SW000003037"}, "type": "Feature"}, {"bbox": [99.20836033272481, 9.39286419144672, 99.20836033272481, 9.39286419144672], "geometry": {"coordinates": [99.20836033272481, 9.39286419144672], "type": "Point"}, "id": "54487", "properties": {"FACILITYID": "CAY08F-02", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003039", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-02-4284SW000003039"}, "type": "Feature"}, {"bbox": [99.2062833636287, 9.465323920738, 99.2062833636287, 9.465323920738], "geometry": {"coordinates": [99.2062833636287, 9.465323920738], "type": "Point"}, "id": "54488", "properties": {"FACILITYID": "CAY06F-100", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003040", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-100-4284SW000003040"}, "type": "Feature"}, {"bbox": [99.20709676019237, 9.451726541394853, 99.20709676019237, 9.451726541394853], "geometry": {"coordinates": [99.20709676019237, 9.451726541394853], "type": "Point"}, "id": "54489", "properties": {"FACILITYID": "CAY06F-05", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003041", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-05-4284SW000003041"}, "type": "Feature"}, {"bbox": [99.23379703691371, 9.473624630666313, 99.23379703691371, 9.473624630666313], "geometry": {"coordinates": [99.23379703691371, 9.473624630666313], "type": "Point"}, "id": "54588", "properties": {"FACILITYID": "CAY06F-16", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003171", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-16-4284SW000003171"}, "type": "Feature"}, {"bbox": [99.22076276633311, 9.480463829560204, 99.22076276633311, 9.480463829560204], "geometry": {"coordinates": [99.22076276633311, 9.480463829560204], "type": "Point"}, "id": "54589", "properties": {"FACILITYID": "CAY06F-11", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003172", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-11-4284SW000003172"}, "type": "Feature"}, {"bbox": [99.23194174645471, 9.48216182864925, 99.23194174645471, 9.48216182864925], "geometry": {"coordinates": [99.23194174645471, 9.48216182864925], "type": "Point"}, "id": "54590", "properties": {"FACILITYID": "CAY06F-14", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003173", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-14-4284SW000003173"}, "type": "Feature"}, {"bbox": [99.22280600299771, 9.497629735828385, 99.22280600299771, 9.497629735828385], "geometry": {"coordinates": [99.22280600299771, 9.497629735828385], "type": "Point"}, "id": "54591", "properties": {"FACILITYID": "CAY06F-13", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003175", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-13-4284SW000003175"}, "type": "Feature"}, {"bbox": [99.22165802250618, 9.481181980997524, 99.22165802250618, 9.481181980997524], "geometry": {"coordinates": [99.22165802250618, 9.481181980997524], "type": "Point"}, "id": "54592", "properties": {"FACILITYID": "CAY06F-12", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003176", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-12-4284SW000003176"}, "type": "Feature"}, {"bbox": [99.24228896086095, 9.476458969812402, 99.24228896086095, 9.476458969812402], "geometry": {"coordinates": [99.24228896086095, 9.476458969812402], "type": "Point"}, "id": "54593", "properties": {"FACILITYID": "CAY06F-17", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003177", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-17-4284SW000003177"}, "type": "Feature"}, {"bbox": [99.24962256391736, 9.460686793847255, 99.24962256391736, 9.460686793847255], "geometry": {"coordinates": [99.24962256391736, 9.460686793847255], "type": "Point"}, "id": "54594", "properties": {"FACILITYID": "CAY06F-19", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003178", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-19-4284SW000003178"}, "type": "Feature"}, {"bbox": [99.25510711990613, 9.453713173384166, 99.25510711990613, 9.453713173384166], "geometry": {"coordinates": [99.25510711990613, 9.453713173384166], "type": "Point"}, "id": "54595", "properties": {"FACILITYID": "CAY06F-21", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003179", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-21-4284SW000003179"}, "type": "Feature"}, {"bbox": [99.26322107722136, 9.444059814490794, 99.26322107722136, 9.444059814490794], "geometry": {"coordinates": [99.26322107722136, 9.444059814490794], "type": "Point"}, "id": "54596", "properties": {"FACILITYID": "CAY06F-22", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003180", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-22-4284SW000003180"}, "type": "Feature"}, {"bbox": [99.20606743433922, 9.45849055427772, 99.20606743433922, 9.45849055427772], "geometry": {"coordinates": [99.20606743433922, 9.45849055427772], "type": "Point"}, "id": "54610", "properties": {"FACILITYID": "CAY06F-07", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003199", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-07-4284SW000003199"}, "type": "Feature"}, {"bbox": [99.20452497531966, 9.475220774635218, 99.20452497531966, 9.475220774635218], "geometry": {"coordinates": [99.20452497531966, 9.475220774635218], "type": "Point"}, "id": "54611", "properties": {"FACILITYID": "CAY06F-10", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003200", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-10-4284SW000003200"}, "type": "Feature"}, {"bbox": [99.20654159687646, 9.451695862539388, 99.20654159687646, 9.451695862539388], "geometry": {"coordinates": [99.20654159687646, 9.451695862539388], "type": "Point"}, "id": "54612", "properties": {"FACILITYID": "CAY06F-06", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003201", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-06-4284SW000003201"}, "type": "Feature"}, {"bbox": [99.20610003414143, 9.460289320581298, 99.20610003414143, 9.460289320581298], "geometry": {"coordinates": [99.20610003414143, 9.460289320581298], "type": "Point"}, "id": "54613", "properties": {"FACILITYID": "CAY06F-08", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003202", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-08-4284SW000003202"}, "type": "Feature"}, {"bbox": [99.20758381530507, 9.424512614713128, 99.20758381530507, 9.424512614713128], "geometry": {"coordinates": [99.20758381530507, 9.424512614713128], "type": "Point"}, "id": "54616", "properties": {"FACILITYID": "CAY06F-04", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003205", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-04-4284SW000003205"}, "type": "Feature"}, {"bbox": [99.20797463609027, 9.419682792865418, 99.20797463609027, 9.419682792865418], "geometry": {"coordinates": [99.20797463609027, 9.419682792865418], "type": "Point"}, "id": "54638", "properties": {"FACILITYID": "CAY06F-03", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003237", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-03-4284SW000003237"}, "type": "Feature"}, {"bbox": [99.22120234084285, 9.414155801909356, 99.22120234084285, 9.414155801909356], "geometry": {"coordinates": [99.22120234084285, 9.414155801909356], "type": "Point"}, "id": "54639", "properties": {"FACILITYID": "CAY06F-02", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "4284SW000003238", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-02-4284SW000003238"}, "type": "Feature"}, {"bbox": [99.19967733353712, 9.543881693873086, 99.19967733353712, 9.543881693873086], "geometry": {"coordinates": [99.19967733353712, 9.543881693873086], "type": "Point"}, "id": "55950", "properties": {"FACILITYID": "CAY06WR-103", "FEEDERID": "CAY06", "__folium_color": "#800080", "connector_id": "42RCKA000001747", "device_type": "recloser", "full_nearest_upstream_device": "CAY06WR-103-42RCKA000001747"}, "type": "Feature"}, {"bbox": [99.20387954027368, 9.481244405679657, 99.20387954027368, 9.481244405679657], "geometry": {"coordinates": [99.20387954027368, 9.481244405679657], "type": "Point"}, "id": "55996", "properties": {"FACILITYID": "CAY06WR-102", "FEEDERID": "CAY06", "__folium_color": "#800080", "connector_id": "42RCKA000003786", "device_type": "recloser", "full_nearest_upstream_device": "CAY06WR-102-42RCKA000003786"}, "type": "Feature"}, {"bbox": [99.16488779308062, 9.603711557761857, 99.16488779308062, 9.603711557761857], "geometry": {"coordinates": [99.16488779308062, 9.603711557761857], "type": "Point"}, "id": "57365", "properties": {"FACILITYID": "CAY06F-210", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007593", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-210-42SWKA000007593"}, "type": "Feature"}, {"bbox": [99.2264688519347, 9.517799802293615, 99.2264688519347, 9.517799802293615], "geometry": {"coordinates": [99.2264688519347, 9.517799802293615], "type": "Point"}, "id": "57366", "properties": {"FACILITYID": "CAY06F-35/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007595", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-35/01-42SWKA000007595"}, "type": "Feature"}, {"bbox": [99.21639169794038, 9.540698715054553, 99.21639169794038, 9.540698715054553], "geometry": {"coordinates": [99.21639169794038, 9.540698715054553], "type": "Point"}, "id": "57367", "properties": {"FACILITYID": "CAY06F-33", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007596", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-33-42SWKA000007596"}, "type": "Feature"}, {"bbox": [99.20450390529494, 9.542991284360165, 99.20450390529494, 9.542991284360165], "geometry": {"coordinates": [99.20450390529494, 9.542991284360165], "type": "Point"}, "id": "57368", "properties": {"FACILITYID": "CAY06F-32", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007597", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-32-42SWKA000007597"}, "type": "Feature"}, {"bbox": [99.20660164252851, 9.542370316941183, 99.20660164252851, 9.542370316941183], "geometry": {"coordinates": [99.20660164252851, 9.542370316941183], "type": "Point"}, "id": "57369", "properties": {"FACILITYID": "CAY06F-32/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007598", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-32/01-42SWKA000007598"}, "type": "Feature"}, {"bbox": [99.19756804537661, 9.533610076142326, 99.19756804537661, 9.533610076142326], "geometry": {"coordinates": [99.19756804537661, 9.533610076142326], "type": "Point"}, "id": "57370", "properties": {"FACILITYID": "CAY06F-30", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007601", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-30-42SWKA000007601"}, "type": "Feature"}, {"bbox": [99.22252361214137, 9.500630591909768, 99.22252361214137, 9.500630591909768], "geometry": {"coordinates": [99.22252361214137, 9.500630591909768], "type": "Point"}, "id": "57371", "properties": {"FACILITYID": "CAY06F-13/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007602", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-13/01-42SWKA000007602"}, "type": "Feature"}, {"bbox": [99.26162101838258, 9.445944302992979, 99.26162101838258, 9.445944302992979], "geometry": {"coordinates": [99.26162101838258, 9.445944302992979], "type": "Point"}, "id": "57372", "properties": {"FACILITYID": "CAY06F-20", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007603", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-20-42SWKA000007603"}, "type": "Feature"}, {"bbox": [99.2537255184293, 9.455468797485313, 99.2537255184293, 9.455468797485313], "geometry": {"coordinates": [99.2537255184293, 9.455468797485313], "type": "Point"}, "id": "57373", "properties": {"FACILITYID": "CAY06F-18", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000007606", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-18-42SWKA000007606"}, "type": "Feature"}, {"bbox": [99.17274617132882, 9.405900403666315, 99.17274617132882, 9.405900403666315], "geometry": {"coordinates": [99.17274617132882, 9.405900403666315], "type": "Point"}, "id": "57724", "properties": {"FACILITYID": "CAY08F-01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000008433", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-01-42SWKA000008433"}, "type": "Feature"}, {"bbox": [99.23488499410311, 9.483030807099317, 99.23488499410311, 9.483030807099317], "geometry": {"coordinates": [99.23488499410311, 9.483030807099317], "type": "Point"}, "id": "57803", "properties": {"FACILITYID": "CAY06F-252", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000008710", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-252-42SWKA000008710"}, "type": "Feature"}, {"bbox": [99.20030041312737, 9.551870899521047, 99.20030041312737, 9.551870899521047], "geometry": {"coordinates": [99.20030041312737, 9.551870899521047], "type": "Point"}, "id": "58769", "properties": {"FACILITYID": "CAY06F-37", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000012105", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-37-42SWKA000012105"}, "type": "Feature"}, {"bbox": [99.2074344977551, 9.434384615880594, 99.2074344977551, 9.434384615880594], "geometry": {"coordinates": [99.2074344977551, 9.434384615880594], "type": "Point"}, "id": "58968", "properties": {"FACILITYID": "CAY06F-250", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000014727", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-250-42SWKA000014727"}, "type": "Feature"}, {"bbox": [99.20480939815405, 9.550445063240042, 99.20480939815405, 9.550445063240042], "geometry": {"coordinates": [99.20480939815405, 9.550445063240042], "type": "Point"}, "id": "58990", "properties": {"FACILITYID": "CAY06F-205", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000014970", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-205-42SWKA000014970"}, "type": "Feature"}, {"bbox": [99.2379158780575, 9.48507393853374, 99.2379158780575, 9.48507393853374], "geometry": {"coordinates": [99.2379158780575, 9.48507393853374], "type": "Point"}, "id": "59197", "properties": {"FACILITYID": "CAY06F-15", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000016667", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-15-42SWKA000016667"}, "type": "Feature"}, {"bbox": [99.22338684968508, 9.528229693080064, 99.22338684968508, 9.528229693080064], "geometry": {"coordinates": [99.22338684968508, 9.528229693080064], "type": "Point"}, "id": "59198", "properties": {"FACILITYID": "CAY06F-35", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000016669", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-35-42SWKA000016669"}, "type": "Feature"}, {"bbox": [99.1995910648297, 9.543903541224749, 99.1995910648297, 9.543903541224749], "geometry": {"coordinates": [99.1995910648297, 9.543903541224749], "type": "Point"}, "id": "59286", "properties": {"FACILITYID": "CAY06WS-116", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000017266", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-116-42SWKA000017266"}, "type": "Feature"}, {"bbox": [99.19975206823528, 9.543862901203887, 99.19975206823528, 9.543862901203887], "geometry": {"coordinates": [99.19975206823528, 9.543862901203887], "type": "Point"}, "id": "59287", "properties": {"FACILITYID": "CAY06WS-115", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000017267", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-115-42SWKA000017267"}, "type": "Feature"}, {"bbox": [99.19965227871555, 9.543808825533805, 99.19965227871555, 9.543808825533805], "geometry": {"coordinates": [99.19965227871555, 9.543808825533805], "type": "Point"}, "id": "59288", "properties": {"FACILITYID": "CAY06WS-117", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000017268", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-117-42SWKA000017268"}, "type": "Feature"}, {"bbox": [99.25295140186066, 9.455731563904044, 99.25295140186066, 9.455731563904044], "geometry": {"coordinates": [99.25295140186066, 9.455731563904044], "type": "Point"}, "id": "59422", "properties": {"FACILITYID": "CAY06F-9999992", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000018588", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-9999992-42SWKA000018588"}, "type": "Feature"}, {"bbox": [99.20672418680495, 9.448730767429044, 99.20672418680495, 9.448730767429044], "geometry": {"coordinates": [99.20672418680495, 9.448730767429044], "type": "Point"}, "id": "59498", "properties": {"FACILITYID": "CAY06F-9999991", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000019026", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-9999991-42SWKA000019026"}, "type": "Feature"}, {"bbox": [99.20509018363596, 9.594864062755159, 99.20509018363596, 9.594864062755159], "geometry": {"coordinates": [99.20509018363596, 9.594864062755159], "type": "Point"}, "id": "59839", "properties": {"FACILITYID": "CAY06F-208-1", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000021990", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-208-1-42SWKA000021990"}, "type": "Feature"}, {"bbox": [99.25687520904651, 9.451678592127594, 99.25687520904651, 9.451678592127594], "geometry": {"coordinates": [99.25687520904651, 9.451678592127594], "type": "Point"}, "id": "60333", "properties": {"FACILITYID": "CAY06F-20/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000025623", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-20/01-42SWKA000025623"}, "type": "Feature"}, {"bbox": [99.19431073238155, 9.392970510372374, 99.19431073238155, 9.392970510372374], "geometry": {"coordinates": [99.19431073238155, 9.392970510372374], "type": "Point"}, "id": "60536", "properties": {"FACILITYID": "CAY06F-2/2", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000026673", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-2/2-42SWKA000026673"}, "type": "Feature"}, {"bbox": [99.18853585854089, 9.403525705815433, 99.18853585854089, 9.403525705815433], "geometry": {"coordinates": [99.18853585854089, 9.403525705815433], "type": "Point"}, "id": "60537", "properties": {"FACILITYID": "CAY06F-204", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000026674", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-204-42SWKA000026674"}, "type": "Feature"}, {"bbox": [99.16530667251708, 9.598862638931932, 99.16530667251708, 9.598862638931932], "geometry": {"coordinates": [99.16530667251708, 9.598862638931932], "type": "Point"}, "id": "60739", "properties": {"FACILITYID": "CAY06F-222", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000029023", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-222-42SWKA000029023"}, "type": "Feature"}, {"bbox": [99.24430582104719, 9.458448079285995, 99.24430582104719, 9.458448079285995], "geometry": {"coordinates": [99.24430582104719, 9.458448079285995], "type": "Point"}, "id": "60770", "properties": {"FACILITYID": "CAY06F-19/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000029327", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-19/01-42SWKA000029327"}, "type": "Feature"}, {"bbox": [99.20387364731296, 9.481277675861854, 99.20387364731296, 9.481277675861854], "geometry": {"coordinates": [99.20387364731296, 9.481277675861854], "type": "Point"}, "id": "61325", "properties": {"FACILITYID": "CAY06WS-111", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000034373", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-111-42SWKA000034373"}, "type": "Feature"}, {"bbox": [99.20388507754082, 9.481210475434342, 99.20388507754082, 9.481210475434342], "geometry": {"coordinates": [99.20388507754082, 9.481210475434342], "type": "Point"}, "id": "61326", "properties": {"FACILITYID": "CAY06WS-112", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000034374", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-112-42SWKA000034374"}, "type": "Feature"}, {"bbox": [99.20385112269805, 9.481240234476052, 99.20385112269805, 9.481240234476052], "geometry": {"coordinates": [99.20385112269805, 9.481240234476052], "type": "Point"}, "id": "61327", "properties": {"FACILITYID": "CAY06WS-113", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000034375", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-113-42SWKA000034375"}, "type": "Feature"}, {"bbox": [99.20607325546116, 9.465389673263674, 99.20607325546116, 9.465389673263674], "geometry": {"coordinates": [99.20607325546116, 9.465389673263674], "type": "Point"}, "id": "61329", "properties": {"FACILITYID": "CAY06WS-105", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000034422", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-105-42SWKA000034422"}, "type": "Feature"}, {"bbox": [99.20756417162306, 9.42082887822468, 99.20756417162306, 9.42082887822468], "geometry": {"coordinates": [99.20756417162306, 9.42082887822468], "type": "Point"}, "id": "61497", "properties": {"FACILITYID": "CAY06F-03/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000035908", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-03/01-42SWKA000035908"}, "type": "Feature"}, {"bbox": [99.19955730340412, 9.545091219468663, 99.19955730340412, 9.545091219468663], "geometry": {"coordinates": [99.19955730340412, 9.545091219468663], "type": "Point"}, "id": "61558", "properties": {"FACILITYID": "CAY06WS-118", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000036602", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-118-42SWKA000036602"}, "type": "Feature"}, {"bbox": [99.16565300070627, 9.571541757104207, 99.16565300070627, 9.571541757104207], "geometry": {"coordinates": [99.16565300070627, 9.571541757104207], "type": "Point"}, "id": "61600", "properties": {"FACILITYID": "CAY06F-209", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000037113", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-209-42SWKA000037113"}, "type": "Feature"}, {"bbox": [99.18179651651263, 9.608007416637337, 99.18179651651263, 9.608007416637337], "geometry": {"coordinates": [99.18179651651263, 9.608007416637337], "type": "Point"}, "id": "61604", "properties": {"FACILITYID": "CAY06F-211", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000037119", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-211-42SWKA000037119"}, "type": "Feature"}, {"bbox": [99.19955302704457, 9.5494703883319, 99.19955302704457, 9.5494703883319], "geometry": {"coordinates": [99.19955302704457, 9.5494703883319], "type": "Point"}, "id": "61642", "properties": {"FACILITYID": "CAY06F-205/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000037374", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-205/01-42SWKA000037374"}, "type": "Feature"}, {"bbox": [99.1576854127553, 9.68806713034637, 99.1576854127553, 9.68806713034637], "geometry": {"coordinates": [99.1576854127553, 9.68806713034637], "type": "Point"}, "id": "61649", "properties": {"FACILITYID": "CAY06F-64/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000037468", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-64/01-42SWKA000037468"}, "type": "Feature"}, {"bbox": [99.17487314334241, 9.569832813042236, 99.17487314334241, 9.569832813042236], "geometry": {"coordinates": [99.17487314334241, 9.569832813042236], "type": "Point"}, "id": "61786", "properties": {"FACILITYID": "CAY06F-44/1", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000038389", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-44/1-42SWKA000038389"}, "type": "Feature"}, {"bbox": [99.12430405066385, 9.674203869271308, 99.12430405066385, 9.674203869271308], "geometry": {"coordinates": [99.12430405066385, 9.674203869271308], "type": "Point"}, "id": "61859", "properties": {"FACILITYID": "CAY06F-213", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000038955", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-213-42SWKA000038955"}, "type": "Feature"}, {"bbox": [99.17200962351112, 9.566584016166527, 99.17200962351112, 9.566584016166527], "geometry": {"coordinates": [99.17200962351112, 9.566584016166527], "type": "Point"}, "id": "62583", "properties": {"FACILITYID": "CAY06F-44/01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000040330", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-44/01-42SWKA000040330"}, "type": "Feature"}, {"bbox": [99.19539987586118, 9.483761556954613, 99.19539987586118, 9.483761556954613], "geometry": {"coordinates": [99.19539987586118, 9.483761556954613], "type": "Point"}, "id": "62916", "properties": {"FACILITYID": "CAY06F-219", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000042956", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-219-42SWKA000042956"}, "type": "Feature"}, {"bbox": [99.17390585349955, 9.560623412009587, 99.17390585349955, 9.560623412009587], "geometry": {"coordinates": [99.17390585349955, 9.560623412009587], "type": "Point"}, "id": "63395", "properties": {"FACILITYID": "CAY06F-70/1", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000044330", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-70/1-42SWKA000044330"}, "type": "Feature"}, {"bbox": [99.22203243318711, 9.431950951682412, 99.22203243318711, 9.431950951682412], "geometry": {"coordinates": [99.22203243318711, 9.431950951682412], "type": "Point"}, "id": "63539", "properties": {"FACILITYID": "CAY04F-234", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000044787", "device_type": "Fuse", "full_nearest_upstream_device": "CAY04F-234-42SWKA000044787"}, "type": "Feature"}, {"bbox": [99.18313848814309, 9.60569500894157, 99.18313848814309, 9.60569500894157], "geometry": {"coordinates": [99.18313848814309, 9.60569500894157], "type": "Point"}, "id": "63596", "properties": {"FACILITYID": "CAY06F-51/03", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000044979", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-51/03-42SWKA000044979"}, "type": "Feature"}, {"bbox": [99.20748529864814, 9.437933364472684, 99.20748529864814, 9.437933364472684], "geometry": {"coordinates": [99.20748529864814, 9.437933364472684], "type": "Point"}, "id": "63714", "properties": {"FACILITYID": "CAY06F-251", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000045770", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-251-42SWKA000045770"}, "type": "Feature"}, {"bbox": [99.22592303000135, 9.519240127421849, 99.22592303000135, 9.519240127421849], "geometry": {"coordinates": [99.22592303000135, 9.519240127421849], "type": "Point"}, "id": "63725", "properties": {"FACILITYID": "CAY06F-203", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000045847", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-203-42SWKA000045847"}, "type": "Feature"}, {"bbox": [99.14430342247162, 9.668713557840716, 99.14430342247162, 9.668713557840716], "geometry": {"coordinates": [99.14430342247162, 9.668713557840716], "type": "Point"}, "id": "64821", "properties": {"FACILITYID": "CAY06F-66", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000054734", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-66-42SWKA000054734"}, "type": "Feature"}, {"bbox": [99.1428119178069, 9.692158868389393, 99.1428119178069, 9.692158868389393], "geometry": {"coordinates": [99.1428119178069, 9.692158868389393], "type": "Point"}, "id": "64822", "properties": {"FACILITYID": "CAY06F-65", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000054735", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-65-42SWKA000054735"}, "type": "Feature"}, {"bbox": [99.16059081071063, 9.643299090884742, 99.16059081071063, 9.643299090884742], "geometry": {"coordinates": [99.16059081071063, 9.643299090884742], "type": "Point"}, "id": "64823", "properties": {"FACILITYID": "CAY06F-59", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000054736", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-59-42SWKA000054736"}, "type": "Feature"}, {"bbox": [99.20416819176312, 9.587423285156396, 99.20416819176312, 9.587423285156396], "geometry": {"coordinates": [99.20416819176312, 9.587423285156396], "type": "Point"}, "id": "64824", "properties": {"FACILITYID": "CAY06F-207", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000054740", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-207-42SWKA000054740"}, "type": "Feature"}, {"bbox": [99.22449829437359, 9.516031629948753, 99.22449829437359, 9.516031629948753], "geometry": {"coordinates": [99.22449829437359, 9.516031629948753], "type": "Point"}, "id": "65533", "properties": {"FACILITYID": "CAY6F-204", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000059674", "device_type": "Fuse", "full_nearest_upstream_device": "CAY6F-204-42SWKA000059674"}, "type": "Feature"}, {"bbox": [99.24001172205023, 9.477502910699501, 99.24001172205023, 9.477502910699501], "geometry": {"coordinates": [99.24001172205023, 9.477502910699501], "type": "Point"}, "id": "65849", "properties": {"FACILITYID": "CAY06F-99", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000061327", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-99-42SWKA000061327"}, "type": "Feature"}, {"bbox": [99.2596407992022, 9.453799648643054, 99.2596407992022, 9.453799648643054], "geometry": {"coordinates": [99.2596407992022, 9.453799648643054], "type": "Point"}, "id": "66434", "properties": {"FACILITYID": "XXX77F-899", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000065021", "device_type": "Fuse", "full_nearest_upstream_device": "XXX77F-899-42SWKA000065021"}, "type": "Feature"}, {"bbox": [99.20815659973655, 9.396195796008877, 99.20815659973655, 9.396195796008877], "geometry": {"coordinates": [99.20815659973655, 9.396195796008877], "type": "Point"}, "id": "66454", "properties": {"FACILITYID": "CAY06WS-103", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000065460", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-103-42SWKA000065460"}, "type": "Feature"}, {"bbox": [99.20830852447077, 9.396259680611038, 99.20830852447077, 9.396259680611038], "geometry": {"coordinates": [99.20830852447077, 9.396259680611038], "type": "Point"}, "id": "66493", "properties": {"FACILITYID": "CAY06WS-104", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000066058", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-104-42SWKA000066058"}, "type": "Feature"}, {"bbox": [99.19702792308178, 9.528673609687942, 99.19702792308178, 9.528673609687942], "geometry": {"coordinates": [99.19702792308178, 9.528673609687942], "type": "Point"}, "id": "66681", "properties": {"FACILITYID": "CAY06WS-114", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000068736", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-114-42SWKA000068736"}, "type": "Feature"}, {"bbox": [99.26738346015392, 9.441604862111225, 99.26738346015392, 9.441604862111225], "geometry": {"coordinates": [99.26738346015392, 9.441604862111225], "type": "Point"}, "id": "66807", "properties": {"FACILITYID": "CAY06WS-110", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000069531", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-110-42SWKA000069531"}, "type": "Feature"}, {"bbox": [99.22652045710045, 9.51904319749403, 99.22652045710045, 9.51904319749403], "geometry": {"coordinates": [99.22652045710045, 9.51904319749403], "type": "Point"}, "id": "67060", "properties": {"FACILITYID": "CAY6F-35/2", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000071034", "device_type": "Fuse", "full_nearest_upstream_device": "CAY6F-35/2-42SWKA000071034"}, "type": "Feature"}, {"bbox": [99.23207263162463, 9.456409161084233, 99.23207263162463, 9.456409161084233], "geometry": {"coordinates": [99.23207263162463, 9.456409161084233], "type": "Point"}, "id": "67436", "properties": {"FACILITYID": "CAY06F-50/1", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000073779", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-50/1-42SWKA000073779"}, "type": "Feature"}, {"bbox": [99.22975751937378, 9.46130602247832, 99.22975751937378, 9.46130602247832], "geometry": {"coordinates": [99.22975751937378, 9.46130602247832], "type": "Point"}, "id": "67437", "properties": {"FACILITYID": "CAY06F-50/2", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000073780", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-50/2-42SWKA000073780"}, "type": "Feature"}, {"bbox": [99.20908568739307, 9.396967513621949, 99.20908568739307, 9.396967513621949], "geometry": {"coordinates": [99.20908568739307, 9.396967513621949], "type": "Point"}, "id": "68530", "properties": {"FACILITYID": "CAY06F-01", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000080765", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-01-42SWKA000080765"}, "type": "Feature"}, {"bbox": [99.25675987612493, 9.457027141911135, 99.25675987612493, 9.457027141911135], "geometry": {"coordinates": [99.25675987612493, 9.457027141911135], "type": "Point"}, "id": "68849", "properties": {"FACILITYID": "CAY04F-287", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000082349", "device_type": "Fuse", "full_nearest_upstream_device": "CAY04F-287-42SWKA000082349"}, "type": "Feature"}, {"bbox": [99.20640856120991, 9.550440473103126, 99.20640856120991, 9.550440473103126], "geometry": {"coordinates": [99.20640856120991, 9.550440473103126], "type": "Point"}, "id": "68859", "properties": {"FACILITYID": "CAY06F-206", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000082360", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-206-42SWKA000082360"}, "type": "Feature"}, {"bbox": [99.12907080802576, 9.67184781460332, 99.12907080802576, 9.67184781460332], "geometry": {"coordinates": [99.12907080802576, 9.67184781460332], "type": "Point"}, "id": "68866", "properties": {"FACILITYID": "CAY06F-214", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000082368", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-214-42SWKA000082368"}, "type": "Feature"}, {"bbox": [99.26614205745662, 9.44259688485986, 99.26614205745662, 9.44259688485986], "geometry": {"coordinates": [99.26614205745662, 9.44259688485986], "type": "Point"}, "id": "69955", "properties": {"FACILITYID": "CAY08SDRFE", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000089050", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08SDRFE-42SWKA000089050"}, "type": "Feature"}, {"bbox": [99.19584298725094, 9.408514424718602, 99.19584298725094, 9.408514424718602], "geometry": {"coordinates": [99.19584298725094, 9.408514424718602], "type": "Point"}, "id": "70415", "properties": {"FACILITYID": "CHY54545444", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000092099", "device_type": "Fuse", "full_nearest_upstream_device": "CHY54545444-42SWKA000092099"}, "type": "Feature"}, {"bbox": [99.14527585334474, 9.669638649630416, 99.14527585334474, 9.669638649630416], "geometry": {"coordinates": [99.14527585334474, 9.669638649630416], "type": "Point"}, "id": "70590", "properties": {"FACILITYID": "CAY06WS-124", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000093773", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-124-42SWKA000093773"}, "type": "Feature"}, {"bbox": [99.25654771234242, 9.451653379372441, 99.25654771234242, 9.451653379372441], "geometry": {"coordinates": [99.25654771234242, 9.451653379372441], "type": "Point"}, "id": "70822", "properties": {"FACILITYID": "CAY06F-255", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000094829", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-255-42SWKA000094829"}, "type": "Feature"}, {"bbox": [99.23528101837188, 9.48352110278085, 99.23528101837188, 9.48352110278085], "geometry": {"coordinates": [99.23528101837188, 9.48352110278085], "type": "Point"}, "id": "71475", "properties": {"FACILITYID": "CAY06F-00", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000098329", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-00-42SWKA000098329"}, "type": "Feature"}, {"bbox": [99.20589931631461, 9.466102831301852, 99.20589931631461, 9.466102831301852], "geometry": {"coordinates": [99.20589931631461, 9.466102831301852], "type": "Point"}, "id": "72002", "properties": {"FACILITYID": "CAY06F-09-1", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000101553", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-09-1-42SWKA000101553"}, "type": "Feature"}, {"bbox": [99.22345487644574, 9.476265596144048, 99.22345487644574, 9.476265596144048], "geometry": {"coordinates": [99.22345487644574, 9.476265596144048], "type": "Point"}, "id": "72045", "properties": {"FACILITYID": "CHY04F-66", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000101773", "device_type": "Fuse", "full_nearest_upstream_device": "CHY04F-66-42SWKA000101773"}, "type": "Feature"}, {"bbox": [99.2005777099646, 9.556033056133385, 99.2005777099646, 9.556033056133385], "geometry": {"coordinates": [99.2005777099646, 9.556033056133385], "type": "Point"}, "id": "72221", "properties": {"FACILITYID": "CAY06F-223", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000102756", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-223-42SWKA000102756"}, "type": "Feature"}, {"bbox": [99.23260576616056, 9.48103135195768, 99.23260576616056, 9.48103135195768], "geometry": {"coordinates": [99.23260576616056, 9.48103135195768], "type": "Point"}, "id": "72246", "properties": {"FACILITYID": "CAY06WS-109", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000102931", "device_type": "Switch", "full_nearest_upstream_device": "CAY06WS-109-42SWKA000102931"}, "type": "Feature"}, {"bbox": [99.20702656586657, 9.44706742987911, 99.20702656586657, 9.44706742987911], "geometry": {"coordinates": [99.20702656586657, 9.44706742987911], "type": "Point"}, "id": "72537", "properties": {"FACILITYID": "CHY06F-263232", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000106310", "device_type": "Fuse", "full_nearest_upstream_device": "CHY06F-263232-42SWKA000106310"}, "type": "Feature"}, {"bbox": [99.17232862692903, 9.566472317992352, 99.17232862692903, 9.566472317992352], "geometry": {"coordinates": [99.17232862692903, 9.566472317992352], "type": "Point"}, "id": "72723", "properties": {"FACILITYID": "CAY06F-44-2", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000107889", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06F-44-2-42SWKA000107889"}, "type": "Feature"}, {"bbox": [99.22083449889578, 9.533059185290583, 99.22083449889578, 9.533059185290583], "geometry": {"coordinates": [99.22083449889578, 9.533059185290583], "type": "Point"}, "id": "72733", "properties": {"FACILITYID": "CAY06F-118", "FEEDERID": "CAY06", "__folium_color": "#FF8C00", "connector_id": "42SWKA000107989", "device_type": "Switch", "full_nearest_upstream_device": "CAY06F-118-42SWKA000107989"}, "type": "Feature"}, {"bbox": [99.147312478131, 9.630991902488612, 99.147312478131, 9.630991902488612], "geometry": {"coordinates": [99.147312478131, 9.630991902488612], "type": "Point"}, "id": "73229", "properties": {"FACILITYID": "CAY06WF-212", "FEEDERID": "CAY06", "__folium_color": "#8B4513", "connector_id": "42SWKA000112549", "device_type": "Fuse", "full_nearest_upstream_device": "CAY06WF-212-42SWKA000112549"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_fa4475dc4c6ad269e284a02490beb573.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_fa4475dc4c6ad269e284a02490beb573.addTo(map_77bc56726df580da3e1c69dde1c9a046);
+        
+    
+            var layer_control_1dd0a49a31126872e4c64afd0052f00f_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_a751940f433399d29d3ffd113712d767,
+                    "Google Satellite" : tile_layer_ab68753773330fbee67082c04dddb96f,
+                    "cartodbpositron" : tile_layer_785739284d1d6ad364ef7a9e8779b135,
+                },
+                overlays :  {
+                    "sources" : geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84,
+                    "devices" : geo_json_fa4475dc4c6ad269e284a02490beb573,
+                },
+            };
+            let layer_control_1dd0a49a31126872e4c64afd0052f00f = L.control.layers(
+                layer_control_1dd0a49a31126872e4c64afd0052f00f_layers.base_layers,
+                layer_control_1dd0a49a31126872e4c64afd0052f00f_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_77bc56726df580da3e1c69dde1c9a046);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var asset = {'type' : 'asset_selector', 'value' : e['layer']['feature']['properties']['Nearest Upstream Device']};
+                            window.top.postMessage(asset, '*');
+                        }
+
+            geo_json_e68ec1ffdf7a1d1545d2598fb86c7a84.on('click', send_cluster_id_on_click);</script>
+</html>
