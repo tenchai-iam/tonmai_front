@@ -1,0 +1,175 @@
+local_path: 'app/assets'
+
+raw_data_processing_parameters:
+  columns_to_categorize:
+    - "probability of outage (%)"
+    - "risk (customer interruptions)"
+    - "customers affected (adjusted)"
+
+  frequency_mapping:
+    T1: "one time a year"
+    T2: "one time a year"
+    T3: "two times a year"
+    T4: "three times a year"
+    T5: "three times a year"
+
+  columns_to_drop:
+    - "line type"
+    - "number lines"
+    - "count of outages last year"
+    - "count of outages last two years"
+    - "count of outages last three years"
+    - "criticality"
+
+  output_columns:
+    - "feeder id"
+    - "nearest upstream device"
+    - "nearest upstream device list"
+    # - "full nearest upstream device"
+    - "geometry"
+    - "corridor length (km)"
+    - "density_distribution_meta"
+    - "average vegetation density (%) [META + Sentinel-2]"
+    - "probability of outage (%)"
+    - "probability of outage (%) [bins]"
+    - "cost to trim (BHT) [META + Sentinel-2]"
+    - "cost to trim (BHT) [MJM]"
+    - "risk (customer interruptions)"
+    - "risk (customer interruptions) [bins]"
+    - "customers affected (original)"
+    - "customers affected (adjusted)"
+    - "customers affected (adjusted) [bins]"
+    - "scenario 1 frequency"
+    - "scenario 2 frequency"
+    - "scenario chosen frequency"
+
+  rename_columns:
+    average vegetation density (%) [META + Sentinel-2]: "vegetation density (%) [META + Sentinel-2]"
+    average vegetation density MJM: "vegetation density (%) [MJM]"
+    scenario 1 frequency: "cost focus scenario frequency"
+    scenario 2 frequency: "reliability focus scenario frequency"
+    scenario chosen frequency: "chosen scenario frequency"
+    density_distribution_meta : "density distribution meta"
+
+  frequency_columns:
+    - "scenario chosen frequency"
+    - "scenario 1 frequency"
+    - "scenario 2 frequency"
+
+  veg_units_columns:
+    - "Area of Jurisdiction"
+    - "feeder id"
+    - "polygon"
+    - "average probability of outage (%)"
+    - "cost to trim (BHT) [META + Sentinel-2]"
+    - "cost to trim (BHT) [MJM]"
+    - "customers affected (original)"
+    - "customers affected (adjusted)"
+    - "risk (customer interruptions)"
+
+  agg_columns:
+    risk: "risk (customer interruptions)"
+    average_probability_of_outage: "average probability of outage (%)"
+    cost_to_trim_meta: "cost to trim (BHT) [META + Sentinel-2]"
+    cost_to_trim_mjm: "cost to trim (BHT) [MJM]"
+    total_original_customer_count: "customers affected (original)"
+    total_adjusted_customer_count: "customers affected (adjusted)"
+
+
+  column_renames:
+    nearest_upstream_device: "nearest upstream device"
+    nearest_upstream_device_list: "nearest upstream device list"
+    full_nearest_upstream_device: "full nearest upstream device"
+    feeder_id_traced: "feeder id"
+    line_type: "line type"
+    corridor_length: "corridor length"
+    number_lines: "number lines"
+    outages_lag_1: "count of outages last year"
+    outages_lag_2: "count of outages last two years"
+    outages_lag_3: "count of outages last three years"
+    density_mean: "average vegetation density (%) [META + Sentinel-2]"
+    trimming_cost_meta: "cost to trim (BHT) [META + Sentinel-2]"
+    trimming_cost_mjm: "cost to trim (BHT) [MJM]"
+    health_score: "probability of outage (%)"
+    risk: "risk (customer interruptions)"
+    raw_customers: "customers affected (original)"
+    adjusted_area_customers: "customers affected (adjusted)"
+
+pregenerate_maps_parameters:
+  veg_clusters_round:
+    - "Customers Affected (Original)"
+    - "Customers Affected (Adjusted)"
+    - "Cost to Trim (BHT) [META + Sentinel-2]"
+    - "Cost to Trim (BHT) [MJM]"
+  veg_features_round:
+    - "Customers Affected (Original)"
+    - "Customers Affected (Adjusted)"
+    - "Cost to Trim (BHT) [META + Sentinel-2]"
+    - "Cost to Trim (BHT) [MJM]"
+    - "Risk (Customer Interruptions)"
+  veg_clusters_rename:
+    feeder id: "Feeder ID"
+    risk (customer interruptions): "Risk (Customer Interruptions)"
+    average probability of outage (%): "Avg. Prob. Outage (%)"
+    cost to trim (BHT) [META + Sentinel-2]: "Cost to Trim (BHT) [META + Sentinel-2]"
+    cost to trim (BHT) [MJM]: "Cost to Trim (BHT) [MJM]"
+    customers affected (original): "Customers Affected (Original)"
+    customers affected (adjusted): "Customers Affected (Adjusted)"
+
+  veg_features_rename:
+    nearest upstream device: "Nearest Upstream Device"
+    feeder id: "Feeder ID"
+    count of outages last year: "# Outages in Past Year"
+    count of outages last two years: "# Outages in Past 2 Years"
+    count of outages last three years: "# Outages in Past 3 Years"
+    vegetation density (%) [META + Sentinel-2]: "Vegetation Density (%) [META + Sentinel-2]"
+    probability of outage (%): "Probability of Outage (%)"
+    customers affected (original): "Customers Affected (Original)"
+    customers affected (adjusted): "Customers Affected (Adjusted)"
+    cost to trim (BHT) [META + Sentinel-2]: "Cost to Trim (BHT) [META + Sentinel-2]"
+    cost to trim (BHT) [MJM]: "Cost to Trim (BHT) [MJM]"
+    risk (customer interruptions): "Risk (Customer Interruptions)"
+    risk (customer interruptions) [bins]: "Risk (Customer Interruptions, Binned)"
+    customers affected (adjusted) [bins]: "Customers Affected (Adjusted) [Binned]"
+    probability of outage (%) [bins]: "Probability of Outage (%, Binned)"
+    corridor length: "Length (km)"
+    cost focus scenario frequency: "Cost Focus Scenario Frequency"
+    reliability focus scenario frequency: "Reliability Focus Scenario Frequency"
+    chosen scenario frequency: "Chosen Scenario"
+#    corridor length (km): "Length (km)"
+
+  corridors_columns:
+    - "Nearest Upstream Device"
+    - "Feeder ID"
+    - "corridor length (km)"
+    - "geometry"
+    - "Vegetation Density (%) [META + Sentinel-2]"
+    - "density distribution meta"
+    - "Probability of Outage (%)"
+    - "Probability of Outage (%, Binned)"
+    - "Cost to Trim (BHT) [META + Sentinel-2]"
+    - "Cost to Trim (BHT) [MJM]"
+    - "Risk (Customer Interruptions)"
+    - "Risk (Customer Interruptions, Binned)"
+    - "Customers Affected (Original)"
+    - "Customers Affected (Adjusted)"
+    - "Customers Affected (Adjusted) [Binned]"
+    - "Cost Focus Scenario Frequency"
+    - "Reliability Focus Scenario Frequency"
+    - "Chosen Scenario"
+
+  feeder_level_map_views_exclude:
+    - "Feeder ID"
+    - "polygon"
+    - "Length (km)"
+    - "Area of Jurisdiction"
+
+  corridor_level_map_views_exclude:
+    - "Nearest Upstream Device"
+    - "Feeder ID"
+    - "nearest_upstream_device_list"
+    - "geometry"
+    - "density distribution meta"
+
+
+crs_thailand : EPSG:32647
