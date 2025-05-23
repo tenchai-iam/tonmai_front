@@ -20,15 +20,13 @@ app/assets/temp/*
 src/assets/temp/**
 .ipynb_checkpoints/**
 
-# # ignore png files
-# *.png
+# ignore png files
+*.png
+# ignore html files
+*.html
 
-# # ignore html files
-# *.html
-
-# #ignore db files
-# *.sqlite
-
+#ignore db files
+*.sqlite
 # except their sub-folders
 !data/**/
 !logs/**/
@@ -170,7 +168,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-.chart
-.deployment
-.kaniko
