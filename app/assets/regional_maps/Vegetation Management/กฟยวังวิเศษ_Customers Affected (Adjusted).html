@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8b4c109a045cf998be674fff4a78d37d {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_8b4c109a045cf998be674fff4a78d37d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8b4c109a045cf998be674fff4a78d37d = L.map(
+                "map_8b4c109a045cf998be674fff4a78d37d",
+                {
+                    center: [7.583174255953015, 99.44564129920894],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_8b4c109a045cf998be674fff4a78d37d);
+
+            
+
+        
+    
+            var tile_layer_5a90bf8ee9404d4d27fa4f7b3bdf8251 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_5a90bf8ee9404d4d27fa4f7b3bdf8251.addTo(map_8b4c109a045cf998be674fff4a78d37d);
+        
+    
+            map_8b4c109a045cf998be674fff4a78d37d.fitBounds(
+                [[7.507631757694531, 99.30412302968689], [7.6587167542114996, 99.58715956873098]],
+                {}
+            );
+        
+    
+        function geo_json_15537328a2bdc986aa2fcaa7f7631370_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#b40426", "fillColor": "#b40426", "fillOpacity": 0.5, "weight": 2};
+            }
+        }
+        function geo_json_15537328a2bdc986aa2fcaa7f7631370_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_15537328a2bdc986aa2fcaa7f7631370_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_15537328a2bdc986aa2fcaa7f7631370_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_15537328a2bdc986aa2fcaa7f7631370_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_15537328a2bdc986aa2fcaa7f7631370.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_15537328a2bdc986aa2fcaa7f7631370_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_15537328a2bdc986aa2fcaa7f7631370 = L.geoJson(null, {
+                onEachFeature: geo_json_15537328a2bdc986aa2fcaa7f7631370_onEachFeature,
+            
+                style: geo_json_15537328a2bdc986aa2fcaa7f7631370_styler,
+                pointToLayer: geo_json_15537328a2bdc986aa2fcaa7f7631370_pointToLayer,
+        });
+
+        function geo_json_15537328a2bdc986aa2fcaa7f7631370_add (data) {
+            geo_json_15537328a2bdc986aa2fcaa7f7631370
+                .addData(data);
+        }
+            geo_json_15537328a2bdc986aa2fcaa7f7631370_add({"bbox": [99.30412302968689, 7.507631757694531, 99.58715956873098, 7.6587167542114996], "features": [{"bbox": [99.30412302968689, 7.507631757694531, 99.58715956873098, 7.6587167542114996], "geometry": {"coordinates": [[[99.43185086475012, 7.507631757694531], [99.31154271187779, 7.5425675390606814], [99.30444341232517, 7.552854099650814], [99.30443016455533, 7.552874045430235], [99.30412302968689, 7.553336499609047], [99.30461678812833, 7.5577890604026425], [99.3072854309441, 7.562436599884145], [99.31467584888235, 7.571047832421355], [99.43543160344367, 7.65550000526491], [99.43555765006185, 7.65555391543802], [99.4592899650611, 7.6587167542114996], [99.58475960345756, 7.558446230155947], [99.58715956873098, 7.540592990944006], [99.58498176956451, 7.536690576423433], [99.58480135208802, 7.536375263410303], [99.5845024195452, 7.535956548990434], [99.58417058951964, 7.535507332254555], [99.58355193891711, 7.534754412847864], [99.58337180583543, 7.534541853262454], [99.58293602609714, 7.534068007848367], [99.58277271462396, 7.5339287015239265], [99.58233092308045, 7.5336014695891755], [99.58190672787525, 7.533398342406498], [99.58038483159656, 7.532769741773384], [99.57018008263208, 7.528966592282495], [99.57002661037043, 7.528916789444572], [99.43185086475012, 7.507631757694531]]], "type": "Polygon"}, "id": "174", "properties": {"Area of Jurisdiction": "\u0e01\u0e1f\u0e22\u0e27\u0e31\u0e07\u0e27\u0e34\u0e40\u0e28\u0e29", "Avg. Prob. Outage (%)": 0.3577261253355599, "Cost to Trim (BHT) [META + Sentinel-2]": 1669.94, "Cost to Trim (BHT) [MJM]": 39176.82, "Customers Affected (Adjusted)": 1897.29, "Customers Affected (Original)": 4178.0, "Feeder ID": "TRA02", "Risk (Customer Interruptions)": 5713.26, "__folium_color": "#b40426"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_15537328a2bdc986aa2fcaa7f7631370.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["Area of Jurisdiction", "Feeder ID", "Avg. Prob. Outage (%)", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Risk (Customer Interruptions)"];
+    let aliases = ["Area of Jurisdiction", "Feeder ID", "Avg. Prob. Outage (%)", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Risk (Customer Interruptions)"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_15537328a2bdc986aa2fcaa7f7631370.addTo(map_8b4c109a045cf998be674fff4a78d37d);
+        
+    
+    var color_map_5b2b81ab021996bad4742c3df267e4b4 = {};
+
+    
+    color_map_5b2b81ab021996bad4742c3df267e4b4.color = d3.scale.threshold()
+              .domain([1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29, 1897.29])
+              .range(['#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff', '#b40426ff']);
+    
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.x = d3.scale.linear()
+              .domain([1897.29, 1897.29])
+              .range([0, 450 - 50]);
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.legend = L.control({position: 'topright'});
+    color_map_5b2b81ab021996bad4742c3df267e4b4.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_5b2b81ab021996bad4742c3df267e4b4.legend.addTo(map_8b4c109a045cf998be674fff4a78d37d);
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.xAxis = d3.svg.axis()
+        .scale(color_map_5b2b81ab021996bad4742c3df267e4b4.x)
+        .orient("top")
+        .tickSize(1)
+        .tickValues([1897.29, 1897.29]);
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.svg = d3.select(".legend.leaflet-control").append("svg")
+        .attr("id", 'legend')
+        .attr("width", 450)
+        .attr("height", 40);
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.g = color_map_5b2b81ab021996bad4742c3df267e4b4.svg.append("g")
+        .attr("class", "key")
+        .attr("fill", "black")
+        .attr("transform", "translate(25,16)");
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.g.selectAll("rect")
+        .data(color_map_5b2b81ab021996bad4742c3df267e4b4.color.range().map(function(d, i) {
+          return {
+            x0: i ? color_map_5b2b81ab021996bad4742c3df267e4b4.x(color_map_5b2b81ab021996bad4742c3df267e4b4.color.domain()[i - 1]) : color_map_5b2b81ab021996bad4742c3df267e4b4.x.range()[0],
+            x1: i < color_map_5b2b81ab021996bad4742c3df267e4b4.color.domain().length ? color_map_5b2b81ab021996bad4742c3df267e4b4.x(color_map_5b2b81ab021996bad4742c3df267e4b4.color.domain()[i]) : color_map_5b2b81ab021996bad4742c3df267e4b4.x.range()[1],
+            z: d
+          };
+        }))
+      .enter().append("rect")
+        .attr("height", 40 - 30)
+        .attr("x", function(d) { return d.x0; })
+        .attr("width", function(d) { return d.x1 - d.x0; })
+        .style("fill", function(d) { return d.z; });
+
+    color_map_5b2b81ab021996bad4742c3df267e4b4.g.call(color_map_5b2b81ab021996bad4742c3df267e4b4.xAxis).append("text")
+        .attr("class", "caption")
+        .attr("y", 21)
+        .attr("fill", "black")
+        .text("Customers Affected (Adjusted)");
+    
+            var tile_layer_0497ada10aa81db1da3469726ccbcde2 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_0497ada10aa81db1da3469726ccbcde2.addTo(map_8b4c109a045cf998be674fff4a78d37d);
+        
+    
+            var layer_control_1a693ff1f5317fc7e8d1bd2b95bc14d9_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_5a90bf8ee9404d4d27fa4f7b3bdf8251,
+                    "cartodbpositron" : tile_layer_0497ada10aa81db1da3469726ccbcde2,
+                },
+                overlays :  {
+                    "Customers Affected (Adjusted)" : geo_json_15537328a2bdc986aa2fcaa7f7631370,
+                },
+            };
+            let layer_control_1a693ff1f5317fc7e8d1bd2b95bc14d9 = L.control.layers(
+                layer_control_1a693ff1f5317fc7e8d1bd2b95bc14d9_layers.base_layers,
+                layer_control_1a693ff1f5317fc7e8d1bd2b95bc14d9_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_8b4c109a045cf998be674fff4a78d37d);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var cluster = {'type' : 'region_selector', 'value' : e['layer']['feature']['properties']['Feeder ID']};
+                            window.top.postMessage(cluster, '*');
+                        }
+
+            geo_json_15537328a2bdc986aa2fcaa7f7631370.on('click', send_cluster_id_on_click);</script>
+</html>
