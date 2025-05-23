@@ -1,5 +1,0 @@
-gitUrl=https://git.thepostway.com/simpitec/analytics/spend/web.git
-gitCred=git-pongpat.lim-password
-gitBranch=develop
-
-kubeContextName=pw-local
