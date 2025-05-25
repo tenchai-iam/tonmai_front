@@ -1,0 +1,70 @@
+.menu-card {
+  position: relative;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s; /* Add some hover effect */
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.menu-card-image {
+  width: 50%;
+  height: auto; /* Make sure the image scales */
+}
+
+.menu-card-title {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.menu-card-description {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.menu-card-button {
+  background-color: #4a0072;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Make the button full width on small screens */
+  font-size: 0.9rem;
+  min-height: 75px;
+}
+
+@media (max-width: 768px) {
+  .menu-card {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+
+  .menu-card-title {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+
+  .menu-card-description {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-card-title {
+    font-size: 14px; /* Further reduce font size for mobile */
+  }
+
+  .menu-card-description {
+    font-size: 12px;
+  }
+
+  .menu-card-button {
+    padding: 8px 10px; /* Adjust button padding for smaller screens */
+  }
+}

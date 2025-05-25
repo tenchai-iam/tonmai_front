@@ -1,0 +1,64 @@
+/* NavbarStyles.css */
+
+/* Navbar Styling */
+.gradient-navbar {
+  background: #fff;
+  color: #2e073f;
+  border: none;
+  font-family: "NotoSansThai";
+  width: 100%;
+  z-index: 100;
+  padding: 5px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #3e3e3e;
+  font-family: "NotoSansThai";
+  font-size: 0.9rem;
+}
+
+.nav-link:active {
+  background-color: #f7ecff; /* Add a background color during click */
+}
+
+/* Highlight for active dropdown items */
+.navbar.active .nav-link.active .dropdown-item.active {
+  background-color: #f7ecff !important; /* Change hover background color */
+  color: #3e3e3e !important; /* Change hover text color */
+}
+
+.navbar-nav .nav-link.show {
+  background-color: #f7ecff !important; /* Change hover background color */
+  color: #3e3e3e !important; /* Change hover text color */
+}
+
+/* Highlight on hover */
+.dropdown-item:hover {
+  background-color: #f7ecff !important; /* Change hover background color */
+  color: #3e3e3e !important; /* Change hover text color */
+}
+
+.dropdown-item-custom {
+  font-size: 0.9rem; /* Adjust the size as needed */
+}
+
+.logout-button {
+  background-color: transparent;
+  color: #3e3e3e; /* Yellowish text color */
+  font-size: 0.9rem; /* Adjust text size */
+  border: 2px solid #2e073f; /* Border color matches text */
+  border-radius: 10px; /* Rounded corners */
+  padding: 5px 10px; /* Spacing inside the button */
+  cursor: pointer; /* Cursor pointer on hover */
+  text-transform: capitalize; /* Ensure "Download" has first-letter caps */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover Effect */
+.logout-button:hover {
+  background-color: #ffffff; /* Yellowish background on hover */
+  color: #2e073f; /* Purple text on hover */
+  border: 2px solid #2e073f; /* Purple border */
+}

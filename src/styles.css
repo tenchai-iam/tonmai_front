@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("./fonts/NotoSansThai-VariableFont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply the font to your application */
+.App {
+  font-family: "NotoSansThai";
+  z-index: 2;
+}

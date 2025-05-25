@@ -1,0 +1,35 @@
+.data-date {
+  font-size: 0.8rem;
+  color: #3e3e3e;
+}
+
+.year-dropdown-container {
+  display: flex;
+  justify-content: flex-end; /* This moves the dropdown to the right */
+  color: white;
+}
+
+.dropdown-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.dashboard-container {
+  position: relative;
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  padding: 20px;
+}
+
+.header-title {
+  font-size: 1rem;
+}
+
+.text-title {
+  font-size: 1rem;
+}
