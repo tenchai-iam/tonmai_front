@@ -2,17 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import NavbarComponent from "../ComponentsPage/NavbarComponent.js";
-import TableUser from "./TableUser.js";
+import NavbarComponent from "../Sub/NavbarComponent.js";
+import TableUser from "../TableUser.js";
 
-import { getUsers } from "../services/api.js";
+import { getUsers } from "../../services/api.js";
 
-import File from "../pic/File.svg";
-import UploadButton from "../pic/Upload.svg";
+import File from "../../pic/File.svg";
+import UploadButton from "../../pic/Upload.svg";
 
-import "../ComponentsStyles/Dashboard.css";
-import "../ComponentsStyles/upload.css";
-import "../ComponentsStyles/Admin.css";
+import "../../ComponentsStyles/Dashboard.css";
+import "../../ComponentsStyles/upload.css";
+import "../../ComponentsStyles/Admin.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -127,7 +127,7 @@ const Admin = () => {
       employeeId: user.emp_id || "Not Required", // Default "None" for missing values
       level: user.user_level,
       name: user.name,
-      department: user.department
+      department: user.department,
     })) || [];
 
   console.log(dataUserLevel); // Debugging output

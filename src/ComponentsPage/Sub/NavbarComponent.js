@@ -2,10 +2,10 @@ import React from "react";
 import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "bootstrap/dist/css/bootstrap.min.css";
-import assetintelligence from "../pic/Asset_Intelligence_Logo.png"; // Replace with your image path
-import workd from "../pic/w-logo.svg";
+import tonmAI from "../../pic/Tonmai_logo.svg"; // Replace with your image path
+import workd from "../../pic/w-logo.svg";
 
-import "../ComponentsStyles/NavbarStyles.css"; // Import your custom CSS file
+import "../../ComponentsStyles/NavbarStyles.css"; // Import your custom CSS file
 
 const workd_url = process.env.REACT_APP_WORKD_URL;
 
@@ -30,11 +30,11 @@ function NavbarComponent() {
           className="d-flex align-items-center custom-brand"
         >
           <img
-            src={assetintelligence} // Replace with your logo path
-            width="45"
-            height="34"
+            src={tonmAI} // Replace with your logo path
+            width="89"
+            height="40"
             className="d-inline-block align-top"
-            alt="Asset Intelligence"
+            alt="TonmAI"
           />
         </Navbar.Brand>
 
@@ -50,32 +50,15 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/home">
               หน้าหลัก
             </Nav.Link>
-            {/* Dropdown for General Employees */}
-            {(userLevel === "B" || userLevel === "C") && (
-              <NavDropdown title="สำหรับส่วนกลาง" id="admin-dropdown">
-                <NavDropdown.Item as={Link} to="/transformerHQ">
-                  Dashboard Power Transformer
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/circuitBreakerHQ">
-                  Dashboard Circuit Breaker
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/UploadHQ">
-                  จัดการข้อมูล
-                </NavDropdown.Item>
-              </NavDropdown>
-            )}
-            {/* Dropdown for Procurement Planners */}
-            <NavDropdown title="สำหรับการไฟฟ้าเขต" id="planning-dropdown">
-              <NavDropdown.Item as={Link} to="/transformerDistrict">
-                Dashboard Power Transformer
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/circuitBreakerDistrict">
-                Dashboard Circuit Breaker
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/UploadDistrict">
-                จัดการข้อมูล
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link as={Link} to="/map">
+              แผนการตัดต้นไม้
+            </Nav.Link>
+            <Nav.Link as={Link} to="/run">
+              ปรับปรุงแผน
+            </Nav.Link>
+            <Nav.Link as={Link} to="/data">
+              จัดการข้อมูล
+            </Nav.Link>
             <Nav.Link as={Link} to="/admin">
               จัดการระบบ
             </Nav.Link>
@@ -96,7 +79,7 @@ function NavbarComponent() {
               src={workd}
               height="15"
               className="d-inline-block align-center"
-              alt="Spend Insight"
+              alt="WorkD"
             />
           </Button>
         </Navbar.Collapse>
