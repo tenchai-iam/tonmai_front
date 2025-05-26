@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_de3035e59982468893a59b4d274cd35e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#1f77b4'></span>Source</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#8B4513'></span>Fuse</li>
+                <li><span style='background:#FF8C00'></span>Switch</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_de3035e59982468893a59b4d274cd35e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_de3035e59982468893a59b4d274cd35e = L.map(
+                "map_de3035e59982468893a59b4d274cd35e",
+                {
+                    center: [9.378015487994205, 99.18880290364822],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_de3035e59982468893a59b4d274cd35e);
+
+            
+
+        
+    
+            var tile_layer_a9106525a678ca9a8e7d147809c9d0b7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_a9106525a678ca9a8e7d147809c9d0b7.addTo(map_de3035e59982468893a59b4d274cd35e);
+        
+    
+            map_de3035e59982468893a59b4d274cd35e.fitBounds(
+                [[9.363539370373942, 99.16921937234225], [9.392491605614468, 99.20838643495418]],
+                {}
+            );
+        
+    
+        function geo_json_1456c7ab9f96696a13cf5d01b9a454fc_styler(feature) {
+            switch(feature.id) {
+                case "1158": 
+                    return {"color": "#abc8fd", "fillColor": "#abc8fd", "fillOpacity": 0.5, "weight": 5};
+                case "1305": 
+                    return {"color": "#455cce", "fillColor": "#455cce", "fillOpacity": 0.5, "weight": 5};
+                case "1330": case "2479": case "2580": case "3200": case "3833": case "4245": case "4396": 
+                    return {"color": "#3b4cc0", "fillColor": "#3b4cc0", "fillOpacity": 0.5, "weight": 5};
+                case "2470": case "4274": 
+                    return {"color": "#6180e9", "fillColor": "#6180e9", "fillOpacity": 0.5, "weight": 5};
+                case "2488": 
+                    return {"color": "#f0cdbb", "fillColor": "#f0cdbb", "fillOpacity": 0.5, "weight": 5};
+                case "2489": 
+                    return {"color": "#9abbff", "fillColor": "#9abbff", "fillOpacity": 0.5, "weight": 5};
+                case "2490": 
+                    return {"color": "#3f53c6", "fillColor": "#3f53c6", "fillOpacity": 0.5, "weight": 5};
+                case "2492": case "2807": 
+                    return {"color": "#5572df", "fillColor": "#5572df", "fillOpacity": 0.5, "weight": 5};
+                case "2493": 
+                    return {"color": "#e26952", "fillColor": "#e26952", "fillOpacity": 0.5, "weight": 5};
+                case "2496": 
+                    return {"color": "#7a9df8", "fillColor": "#7a9df8", "fillOpacity": 0.5, "weight": 5};
+                case "3148": case "3834": 
+                    return {"color": "#8caffe", "fillColor": "#8caffe", "fillOpacity": 0.5, "weight": 5};
+                case "3225": case "4499": 
+                    return {"color": "#506bda", "fillColor": "#506bda", "fillOpacity": 0.5, "weight": 5};
+                case "4457": 
+                    return {"color": "#b40426", "fillColor": "#b40426", "fillOpacity": 0.5, "weight": 5};
+                default:
+                    return {"color": "#86a9fc", "fillColor": "#86a9fc", "fillOpacity": 0.5, "weight": 5};
+            }
+        }
+        function geo_json_1456c7ab9f96696a13cf5d01b9a454fc_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_1456c7ab9f96696a13cf5d01b9a454fc_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_1456c7ab9f96696a13cf5d01b9a454fc_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_1456c7ab9f96696a13cf5d01b9a454fc_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_1456c7ab9f96696a13cf5d01b9a454fc.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_1456c7ab9f96696a13cf5d01b9a454fc_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_1456c7ab9f96696a13cf5d01b9a454fc = L.geoJson(null, {
+                onEachFeature: geo_json_1456c7ab9f96696a13cf5d01b9a454fc_onEachFeature,
+            
+                style: geo_json_1456c7ab9f96696a13cf5d01b9a454fc_styler,
+                pointToLayer: geo_json_1456c7ab9f96696a13cf5d01b9a454fc_pointToLayer,
+        });
+
+        function geo_json_1456c7ab9f96696a13cf5d01b9a454fc_add (data) {
+            geo_json_1456c7ab9f96696a13cf5d01b9a454fc
+                .addData(data);
+        }
+            geo_json_1456c7ab9f96696a13cf5d01b9a454fc_add({"bbox": [99.16921937234225, 9.363539370373942, 99.20838643495418, 9.392491605614468], "features": [{"bbox": [99.17851318142435, 9.385370524330302, 99.17866303809961, 9.38609302616906], "geometry": {"coordinates": [[[99.17866303809961, 9.38609302616906], [99.17854556325074, 9.385786790485007], [99.17851521381992, 9.385640233912058], [99.17851318142435, 9.38537057160312], [99.17860684627095, 9.385370524330302]]], "type": "MultiLineString"}, "id": "5", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-202-42SWKA000037168", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.13, "__folium_color": "#86a9fc", "corridor length (km)": 0.09, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.18608197334493, 9.385796926238758, 99.1860919631852, 9.38594788861061], "geometry": {"coordinates": [[[99.18608197334493, 9.385796926238758], [99.18608276230574, 9.385807589704461]], [[99.18608276230574, 9.385807589704461], [99.18608566110903, 9.385846453909323], [99.1860919631852, 9.38594788861061]]], "type": "MultiLineString"}, "id": "1158", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.27, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 5.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 5.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-04-42SWKA000007608", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.09, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.19, "__folium_color": "#abc8fd", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.0 km\u0027}"}, "type": "Feature"}, {"bbox": [99.20702894126683, 9.385143782918359, 99.20747849628454, 9.386401309614975], "geometry": {"coordinates": [[[99.20714546232308, 9.385167403156258], [99.20706429291063, 9.385150952879457]], [[99.20706429291063, 9.385150952879457], [99.20702894126683, 9.385143782918359]], [[99.20717267088759, 9.385173383954907], [99.20714546232308, 9.385167403156258]], [[99.20722198599272, 9.386225342474047], [99.20747849628454, 9.385240570720892], [99.20730310257005, 9.385202033971284]], [[99.20730310257005, 9.385202033971284], [99.20717267088759, 9.385173383954907]], [[99.20723375263933, 9.38625487603204], [99.2072157794738, 9.386249134041426]], [[99.20722198599272, 9.386225342474047], [99.20722006860292, 9.386232688008088], [99.2072157794738, 9.386249134041426]], [[99.2072157794738, 9.386249134041426], [99.20717606860912, 9.386401309614975]]], "type": "MultiLineString"}, "id": "1305", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 7.88, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 31.36, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY08F-22-42SWKA000007618", "Probability of Outage (%)": 0.05, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.83, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": 0.02, "__folium_color": "#455cce", "corridor length (km)": 0.19, "density distribution meta": "{\u0027open\u0027: \u00270.05 km\u0027}"}, "type": "Feature"}, {"bbox": [99.19487879834783, 9.38587831490503, 99.19488271568339, 9.386010494150995], "geometry": {"coordinates": [[[99.19487879834783, 9.38587831490503], [99.19488271568339, 9.386010494150995]]], "type": "MultiLineString"}, "id": "1330", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.15, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 3.22, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CHY08F-63232633-42SWKA000113981", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.06, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "#3b4cc0", "corridor length (km)": 0.01, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.18869887976872, 9.37812719743075, 99.18893421083699, 9.378179620281902], "geometry": {"coordinates": [[[99.18893421083699, 9.37812719743075], [99.18874733527178, 9.378168134622525], [99.18871303121662, 9.378176266143127]], [[99.18871303121662, 9.378176266143127], [99.18869887976872, 9.378179620281902]]], "type": "MultiLineString"}, "id": "2470", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 19.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 19.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-05/02-4284SW000003010", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.33, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.07, "__folium_color": "#6180e9", "corridor length (km)": 0.03, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.17643947176461, 9.387126050536889, 99.17723513023408, 9.390183294288745], "geometry": {"coordinates": [[[99.17723513023408, 9.390183294288745], [99.17707632076645, 9.389602920320819], [99.17706050414442, 9.389556709033636]], [[99.17706050414442, 9.389556709033636], [99.17684916022444, 9.388939295414735], [99.17662071642106, 9.38825781641871], [99.17643947176461, 9.387524649475614], [99.17645997235233, 9.387126050536889]]], "type": "MultiLineString"}, "id": "2479", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 69.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 69.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-01-4284SW000003027", "Probability of Outage (%)": 0.09, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 4.54, "Risk (Customer Interruptions) [Category]": "medium", "Vegetation Density (%) [META + Sentinel-2]": -0.08, "__folium_color": "#3b4cc0", "corridor length (km)": 0.35, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.20083041887727, 9.38348814797493, 99.20243927702943, 9.385768772745422], "geometry": {"coordinates": [[[99.20089003927865, 9.384425136218317], [99.20089118973608, 9.38406625418876], [99.20090112206152, 9.383900646472538], [99.20091642027135, 9.383690037600763], [99.20096942776347, 9.383674694575705], [99.20107063795679, 9.383666976095286], [99.20124026982434, 9.3836506079877], [99.20151978933401, 9.383622690281847], [99.20174436718715, 9.383604373130487], [99.20202966394588, 9.383565923529794], [99.20210035937484, 9.383551836515846]], [[99.20210035937484, 9.383551836515846], [99.20211769855885, 9.383548380526454], [99.20223687812832, 9.383524642073686], [99.20243927702943, 9.38348814797493]], [[99.20104466202005, 9.384424804184603], [99.20109606629062, 9.384424648345115]], [[99.20109606629062, 9.384424648345115], [99.20143812546885, 9.384421107179314]], [[99.20143812546885, 9.384421107179314], [99.20146461075788, 9.384420829799422]], [[99.20101839518632, 9.384424855287826], [99.20101917992525, 9.384443215877855]], [[99.20089003927865, 9.384425136218317], [99.20101839518632, 9.384424855287826]], [[99.20083041887727, 9.385768772745422], [99.20083162808693, 9.385654309549315], [99.20083850062649, 9.385473544425166], [99.20084319507167, 9.385337950491067], [99.20084789990321, 9.385157114235547], [99.20085398265631, 9.385012519890116], [99.20086224997264, 9.384786547831645], [99.20087797276415, 9.384569797279813], [99.20089003927865, 9.384425136218317]], [[99.20101839518632, 9.384424855287826], [99.20102794014076, 9.384424840820117], [99.20104466202005, 9.384424804184603]]], "type": "MultiLineString"}, "id": "2488", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.15, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 88.13, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 78.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-07/01-4284SW000003014", "Probability of Outage (%)": 0.36, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 76.92, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.33, "__folium_color": "#f0cdbb", "corridor length (km)": 0.46, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.18883039486244, 9.363539370373942, 99.1909259201221, 9.385583157031256], "geometry": {"coordinates": [[[99.19020550428023, 9.38298375645791], [99.1902246362505, 9.382977469047253], [99.19028982957974, 9.382893959062466]], [[99.18915943404168, 9.378077873165017], [99.18893421083699, 9.37812719743075]], [[99.19019205453753, 9.38298818661912], [99.19020550428023, 9.38298375645791]], [[99.19028982957974, 9.382893959062466], [99.19024754289529, 9.382711302930216], [99.19017380757946, 9.382429025603551], [99.19012423446505, 9.382212265228082], [99.19007518962302, 9.382012156130852], [99.19001769925254, 9.38175685082463], [99.19001286921917, 9.381734720664275], [99.1900225009068, 9.381693389563063], [99.18998924759124, 9.381540920249378], [99.18994333637512, 9.381308058029923], [99.1898355368011, 9.380821122904992], [99.18972259505637, 9.380357128231744], [99.18960969746678, 9.37990678216471], [99.1895245997706, 9.379529069427186], [99.18940131007234, 9.379026847543624], [99.18927062621431, 9.37849263789948], [99.18916835020983, 9.378111126331538]], [[99.18916835020983, 9.378111126331538], [99.18915943404168, 9.378077873165017]], [[99.18916835020983, 9.378111126331538], [99.18950032837803, 9.378086862356694]], [[99.18915943404168, 9.378077873165017], [99.18914884577559, 9.378017830032158]], [[99.18914884577559, 9.378017830032158], [99.18905101371715, 9.377601095376091], [99.18900404312733, 9.37741116945345]], [[99.1889401349901, 9.37714178446258], [99.18894163445525, 9.377152537995249], [99.18900404312733, 9.37741116945345]], [[99.18955850185782, 9.36817175055899], [99.18957967085683, 9.367808687621158], [99.18961868376323, 9.36743370304964], [99.18965875123314, 9.367105742129958], [99.18967779801562, 9.366944009842532], [99.18971346344708, 9.366509638485597], [99.18975992991942, 9.366410590484966], [99.18983485968396, 9.366333723323631], [99.19016785291272, 9.366203778234677], [99.19048957336116, 9.365994524516784], [99.19069270741191, 9.365685533334553], [99.19070850900592, 9.365285533981758], [99.19069690432819, 9.36481428490601], [99.19065688788582, 9.36459888498191], [99.19053394167348, 9.364385311462307], [99.19034967888275, 9.364176320383086], [99.19012360547325, 9.36398517904449], [99.19007045282588, 9.363745663433475], [99.18994346822353, 9.363557263700589]], [[99.18994346822353, 9.363557263700589], [99.18993141872116, 9.363539370373942]], [[99.1895316130256, 9.368567739835527], [99.18953502941612, 9.368519420370447], [99.18955850185782, 9.36817175055899]], [[99.18885543321545, 9.375691351386221], [99.18883435049878, 9.376165439701435], [99.18883039486244, 9.376597966805152], [99.18893614622831, 9.377125632479615], [99.1889401349901, 9.37714178446258]], [[99.18940184178398, 9.370012843007338], [99.1894080991377, 9.369963454734977], [99.18944431977742, 9.369645020169164], [99.1894881597943, 9.36925301063906], [99.18950835809191, 9.368896722843362], [99.1895316130256, 9.368567739835527]], [[99.18940184178398, 9.370012843007338], [99.18936532544134, 9.370323535322925], [99.1893218915808, 9.370709213201676], [99.18927763949033, 9.37116497106581], [99.1892568144836, 9.371390470499646], [99.18921919179988, 9.371760886568163], [99.18919604683883, 9.372125596634866], [99.1891770771084, 9.372497775516148], [99.18915737364321, 9.372843706605517], [99.1891286400159, 9.37319797282254], [99.18908528715876, 9.37359972328922], [99.18905534282617, 9.373904822292939], [99.18902617554366, 9.374265881402911], [99.18899476421842, 9.374687741226385], [99.18897385451059, 9.374942500761623], [99.18891790419909, 9.375341761517273], [99.18885543321545, 9.375691351386221]], [[99.1909259201221, 9.385583157031256], [99.19086964171073, 9.38533128832715], [99.19081170724303, 9.38511543709544], [99.1907670188764, 9.384938896672622], [99.19072456326096, 9.38473139451509], [99.19066740462375, 9.384484898876963], [99.19062041106328, 9.384273030481836], [99.19057430728972, 9.384055969853247], [99.19052545499109, 9.383859189250623], [99.19046845026192, 9.38361045940168], [99.19040020865344, 9.383348738133504], [99.19034268684456, 9.383120160460972], [99.19028982957974, 9.382893959062466]]], "type": "MultiLineString"}, "id": "2489", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 16.61, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 361.0, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 361.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-05-4284SW000003011", "Probability of Outage (%)": 0.45, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 391.08, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.16, "__folium_color": "#9abbff", "corridor length (km)": 2.63, "density distribution meta": "{\u0027open\u0027: \u00270.1 km\u0027}"}, "type": "Feature"}, {"bbox": [99.20596645012014, 9.38541029559404, 99.2059797155554, 9.385958167484844], "geometry": {"coordinates": [[[99.20596645012014, 9.385958167484844], [99.20597355867079, 9.385657141962765], [99.20597414588778, 9.385633597897197]], [[99.2059797155554, 9.38541029559404], [99.20597414588778, 9.385633597897197]]], "type": "MultiLineString"}, "id": "2490", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 5.38, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 23.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 23.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-10-4284SW000003013", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.4, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.01, "__folium_color": "#3f53c6", "corridor length (km)": 0.06, "density distribution meta": "{\u0027open\u0027: \u00270.04 km\u0027}"}, "type": "Feature"}, {"bbox": [99.1994042632318, 9.38614157514419, 99.20220408640876, 9.387141676120391], "geometry": {"coordinates": [[[99.20195905751119, 9.38680220915056], [99.20194358890124, 9.387016472234466]], [[99.20194358890124, 9.387016472234466], [99.20212334128895, 9.387031745803156]], [[99.20194358890124, 9.387016472234466], [99.20193454441196, 9.387141676120391], [99.20188086119924, 9.387139101847788]], [[99.20212334128895, 9.387031745803156], [99.20220408640876, 9.38703860087147]], [[99.20076070242185, 9.3867411059596], [99.20078674324385, 9.386743678005065], [99.2010893858993, 9.386771680782848]], [[99.2010893858993, 9.386771680782848], [99.20117668929767, 9.386779753413164], [99.20140260233389, 9.386798854199851], [99.20177507459204, 9.38682620157501], [99.20195905751119, 9.38680220915056]], [[99.2010893858993, 9.386771680782848], [99.20110114332672, 9.386643879497411]], [[99.20110114332672, 9.386643879497411], [99.20110173164521, 9.386637475413346]], [[99.20044028830125, 9.386709449807713], [99.20054160976528, 9.38671945929368]], [[99.20054160976528, 9.38671945929368], [99.20076070242185, 9.3867411059596]], [[99.20054160976528, 9.38671945929368], [99.20054648881043, 9.38666712305825]], [[99.20044028830125, 9.386709449807713], [99.2001358630724, 9.386685752826871], [99.19988859470327, 9.386655022580769], [99.19973894171565, 9.386635724009967], [99.19958206402727, 9.386644432291472], [99.19942158988073, 9.386671087503442], [99.1994042632318, 9.386712730692102], [99.19940433340228, 9.386835496332484]], [[99.20195905751119, 9.38680220915056], [99.20199830591531, 9.386476500011842], [99.20203584575103, 9.38614157514419]]], "type": "MultiLineString"}, "id": "2492", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 10.87, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 115.27, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 86.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-08-4284SW000003018", "Probability of Outage (%)": 0.2, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 27.81, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.05, "__folium_color": "#5572df", "corridor length (km)": 0.47, "density distribution meta": "{\u0027open\u0027: \u00270.07 km\u0027}"}, "type": "Feature"}, {"bbox": [99.20252101042888, 9.386222839447179, 99.20268983936924, 9.386966866972111], "geometry": {"coordinates": [[[99.20259571500475, 9.386222839447179], [99.20256325460035, 9.386536433712706], [99.20253505817591, 9.386821335286864], [99.20252101042888, 9.386956608959794], [99.20266250673893, 9.38696658578732], [99.20267690642004, 9.386966866972111]], [[99.20267690642004, 9.386966866972111], [99.20268983936924, 9.386966515857736]]], "type": "MultiLineString"}, "id": "2493", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.2, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-09-4284SW000003019", "Probability of Outage (%)": 0.06, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.06, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.48, "__folium_color": "#e26952", "corridor length (km)": 0.1, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.19172115538684, 9.385969215665654, 99.19338895916948, 9.389659571186543], "geometry": {"coordinates": [[[99.19315547464959, 9.389177698907151], [99.1930959884379, 9.38909109984757], [99.19302910865525, 9.388810673739016], [99.19294601610284, 9.388561696345715], [99.19287562790082, 9.38832686718555], [99.19287966719112, 9.38810439791283], [99.19288245329845, 9.38785569021756], [99.19287912439339, 9.387666311010344], [99.19278424674042, 9.387598779631404], [99.19263494166745, 9.38759939462192], [99.19248010529401, 9.387611409067986], [99.19239802479403, 9.387528268256377], [99.19232447177521, 9.387251373093568], [99.1923149247048, 9.386966836398997], [99.19223466409133, 9.386714999082415], [99.19216986856614, 9.386479415979123], [99.19216560003888, 9.386319604864083], [99.19216721746388, 9.386296223051156]], [[99.19315547464959, 9.389177698907151], [99.19308665694732, 9.38921370784284], [99.19285463289681, 9.389279888964358], [99.19260453072495, 9.38934823245492], [99.1925763365679, 9.389355420372695], [99.19240646199724, 9.389383515682633], [99.19230598064821, 9.38939505729255], [99.19205079332039, 9.389425351487244], [99.19191634611158, 9.389449112929912], [99.19186501939082, 9.389459189605706], [99.19183523753438, 9.389461114225002]], [[99.19331406848093, 9.38943641245271], [99.19330459872265, 9.389408025855259], [99.19325411973692, 9.389287775071379], [99.19319343062685, 9.38923296027878], [99.19315547464959, 9.389177698907151]], [[99.19183523753438, 9.389461114225002], [99.19177537326887, 9.389464981708771], [99.19172115538684, 9.389467887367564]], [[99.19338895916948, 9.389659571186543], [99.19331406848093, 9.38943641245271]], [[99.19216721746388, 9.386296223051156], [99.19220036291293, 9.385969215665654]]], "type": "MultiLineString"}, "id": "2496", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "one time a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.6, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 0.0, "Customers Affected (Adjusted) [Category]": null, "Customers Affected (Original)": 201.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-06-4284SW000003021", "Probability of Outage (%)": 0.29, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.0, "Risk (Customer Interruptions) [Category]": null, "Vegetation Density (%) [META + Sentinel-2]": 0.11, "__folium_color": "#7a9df8", "corridor length (km)": 0.63, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.20054648881043, 9.386572174312915, 99.20055533259436, 9.38666712305825], "geometry": {"coordinates": [[[99.20054648881043, 9.38666712305825], [99.20055533259436, 9.386572174312915]]], "type": "MultiLineString"}, "id": "2580", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.55, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 6.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 6.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-08/01-42SWKA000037488", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.1, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "#3b4cc0", "corridor length (km)": 0.01, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.17202628704013, 9.387754791290421, 99.17276959227789, 9.388105458542062], "geometry": {"coordinates": [[[99.1727038598094, 9.387809588136193], [99.17276959227789, 9.388105458542062]], [[99.1727038598094, 9.387809588136193], [99.17202628704013, 9.387956734456761]], [[99.1726916827545, 9.387754791290421], [99.1727038598094, 9.387809588136193]]], "type": "MultiLineString"}, "id": "2807", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.11, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 2.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 2.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-01/01-42SWKA000028784", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.04, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.05, "__folium_color": "#5572df", "corridor length (km)": 0.12, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.19660901051834, 9.36554265029453, 99.19900575452965, 9.382750036439186], "geometry": {"coordinates": [[[99.19724266667727, 9.373068864466378], [99.19724256238042, 9.373029311382178], [99.19725133434746, 9.372983485272314], [99.19731648117437, 9.372646473943716], [99.1979815876771, 9.372719945040881]], [[99.19721077983971, 9.373372771189194], [99.19724267781704, 9.373072464311674], [99.19724266667727, 9.373068864466378]], [[99.1979815876771, 9.372719945040881], [99.19803896090887, 9.372327375401978]], [[99.1979815876771, 9.372719945040881], [99.19786538067046, 9.373435493993385]], [[99.19803896090887, 9.372327375401978], [99.19809400233956, 9.371870244889628], [99.19811832842026, 9.371484802954855], [99.19813809332663, 9.371118421068287], [99.19814046877305, 9.37090678825549], [99.19820954838997, 9.37045664151757], [99.19837068361693, 9.36968210381438], [99.19848710255991, 9.368974640572146], [99.19850656113357, 9.368791344741904], [99.19854974210972, 9.36837952641154], [99.19861974100034, 9.368010212903542], [99.19868979709395, 9.367645647893847], [99.19881877615326, 9.366990348173077], [99.19889855588316, 9.366461125106566]], [[99.19889855588316, 9.366461125106566], [99.19892532447015, 9.366256841067978], [99.19900575452965, 9.36554265029453], [99.19900346491693, 9.365552184857934]], [[99.19695376357569, 9.382750036439186], [99.19660901051834, 9.382285603316856], [99.19675103329217, 9.38131036305769], [99.19686068429104, 9.380476357943438], [99.19697595452071, 9.379481423671393], [99.19711006635376, 9.378483837733523], [99.19717318591023, 9.37773219360114], [99.19728020677036, 9.377066342521026]], [[99.19728020677036, 9.377066342521026], [99.19728866532725, 9.377013723910244], [99.19743534996532, 9.376268518274877], [99.19754279135205, 9.375607035508393], [99.19765323120166, 9.374853329709838], [99.19774987953049, 9.374176024376187], [99.1978573031572, 9.373485227104283], [99.19786538067046, 9.373435493993385]], [[99.19695376357569, 9.382750036439186], [99.19664597954956, 9.382335401803262]]], "type": "MultiLineString"}, "id": "3148", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 110.33, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 101.0, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 101.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-07-42SWKA000016676", "Probability of Outage (%)": 0.22, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 37.21, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.14, "__folium_color": "#8caffe", "corridor length (km)": 2.15, "density distribution meta": "{\u0027open\u0027: \u00270.75 km\u0027}"}, "type": "Feature"}, {"bbox": [99.18329380120538, 9.385865666456056, 99.18333390145645, 9.386001381792676], "geometry": {"coordinates": [[[99.18331023363835, 9.385921283790578], [99.18329380120538, 9.385865666456056]], [[99.18333390145645, 9.386001381792676], [99.18331023363835, 9.385921283790578]]], "type": "MultiLineString"}, "id": "3200", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.3, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-02/01-42SWKA000026564", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "#3b4cc0", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.18950032837803, 9.378064940196044, 99.19022083009733, 9.378093945897737], "geometry": {"coordinates": [[[99.19017911920521, 9.378068698127837], [99.19022083009733, 9.378064940196044]], [[99.18950032837803, 9.378086862356694], [99.18968347754605, 9.378093945897737], [99.18988348103201, 9.378093838690972], [99.19015463909845, 9.378070900130933], [99.19017911920521, 9.378068698127837]]], "type": "MultiLineString"}, "id": "3225", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 11.65, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-05/201-42SWKA000027516", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.04, "__folium_color": "#506bda", "corridor length (km)": 0.08, "density distribution meta": "{\u0027open\u0027: \u00270.08 km\u0027}"}, "type": "Feature"}, {"bbox": [99.20176806634687, 9.387133703118916, 99.20188086119924, 9.387175623537692], "geometry": {"coordinates": [[[99.20176806634687, 9.387133703118916], [99.20183770696724, 9.387137037115417]], [[99.20183770696724, 9.387137037115417], [99.20183574377904, 9.387175623537692]], [[99.20188086119924, 9.387139101847788], [99.20183770696724, 9.387137037115417]]], "type": "MultiLineString"}, "id": "3833", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 2.45, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 24.12, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-77-42SWKA000062362", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.42, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "#3b4cc0", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.20079950005191, 9.387086081427201, 99.20176806634687, 9.387133703118916], "geometry": {"coordinates": [[[99.20176806634687, 9.387133703118916], [99.20131847177338, 9.387112179299775]], [[99.20089456185956, 9.387091445312949], [99.20079950005191, 9.387086081427201]], [[99.20131847177338, 9.387112179299775], [99.20094650566361, 9.387094373472578]], [[99.20094650566361, 9.387094373472578], [99.20089456185956, 9.387091445312949]]], "type": "MultiLineString"}, "id": "3834", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.84, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 24.12, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CAY05F-78-42SWKA000062363", "Probability of Outage (%)": 0.05, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.63, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.14, "__folium_color": "#8caffe", "corridor length (km)": 0.11, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [99.19336122428734, 9.385927564688869, 99.19336879932412, 9.386136360873799], "geometry": {"coordinates": [[[99.19336291637937, 9.385956887162688], [99.19336879932412, 9.386136360873799]], [[99.19336122428734, 9.385927564688869], [99.19336291637937, 9.385956887162688]]], "type": "MultiLineString"}, "id": "4245", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 3.4, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CHY08F-55555555-42SWKA000089952", "Probability of Outage (%)": 0.02, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.02, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.0, "__folium_color": "#3b4cc0", "corridor length (km)": 0.02, "density distribution meta": "{\u0027open\u0027: \u00270.02 km\u0027}"}, "type": "Feature"}, {"bbox": [99.18533359400114, 9.385217928128652, 99.18545191261128, 9.385935706636777], "geometry": {"coordinates": [[[99.18545191261128, 9.385935706636777], [99.18544800284914, 9.385571155907055], [99.18544637607488, 9.385217928128652], [99.18533359400114, 9.385217987226316]]], "type": "MultiLineString"}, "id": "4274", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 10.13, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CHY08F-563-42SWKA000092849", "Probability of Outage (%)": 0.03, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.18, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 0.07, "__folium_color": "#6180e9", "corridor length (km)": 0.09, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.17971110037645, 9.386225572265182, 99.17971259766036, 9.38637400661919], "geometry": {"coordinates": [[[99.17971110037645, 9.386225572265182], [99.17971259766036, 9.38637400661919]]], "type": "MultiLineString"}, "id": "4396", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 5.15, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 0.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CHY08F-11-42SWKA000102089", "Probability of Outage (%)": 0.04, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.14, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": -1.53, "__folium_color": "#3b4cc0", "corridor length (km)": 0.02, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.1959327049518, 9.389418934814472, 99.19626869445021, 9.389464397838042], "geometry": {"coordinates": [[[99.1959327049518, 9.389418934814472], [99.19626869445021, 9.389464397838042]]], "type": "MultiLineString"}, "id": "4457", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 0.1, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 1.0, "Customers Affected (Adjusted) [Category]": "low", "Customers Affected (Original)": 1.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "CHY08F-88-42SWKA000110910", "Probability of Outage (%)": 0.05, "Probability of Outage (%) [Category]": "low", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.03, "Risk (Customer Interruptions) [Category]": "low", "Vegetation Density (%) [META + Sentinel-2]": 1.0, "__folium_color": "#b40426", "corridor length (km)": 0.04, "density distribution meta": "{}"}, "type": "Feature"}, {"bbox": [99.16921937234225, 9.382750036439186, 99.20838643495418, 9.392491605614468], "geometry": {"coordinates": [[[99.17970999667558, 9.386116274797802], [99.17958121315259, 9.38611897224809], [99.17918544297538, 9.386158481871504], [99.17901939153548, 9.38618167554475], [99.17877814180736, 9.386232837664327], [99.17871720976072, 9.386249547165342]], [[99.17989583111161, 9.386112381507656], [99.17970999667558, 9.386116274797802]], [[99.17970999667558, 9.386116274797802], [99.17971110037645, 9.386225572265182]], [[99.17646224617921, 9.386903772063706], [99.17635336300064, 9.38692447577015], [99.17602950717841, 9.386963936979155], [99.17565779463601, 9.387031831555086], [99.17564298665093, 9.387034633768826]], [[99.17564298665093, 9.387034633768826], [99.17564035479603, 9.387035268215596], [99.17563229530785, 9.3870372078166], [99.17556833617147, 9.387048002946509]], [[99.19663661547088, 9.385711215531655], [99.1970318226478, 9.38569588170988], [99.19729064547931, 9.38569002112557]], [[99.19730875160242, 9.385689613054748], [99.19730863299247, 9.385657033583586], [99.19730915376803, 9.385643809727453]], [[99.19729064547931, 9.38569002112557], [99.19730875160242, 9.385689613054748]], [[99.19589305515198, 9.389413566051836], [99.19589800939514, 9.389380305411022], [99.19595250194467, 9.389023410843707], [99.19597158762744, 9.388853302902275]], [[99.19582465696375, 9.389855634567654], [99.19585343940618, 9.389679678298721], [99.19589305515198, 9.389413566051836]], [[99.19589305515198, 9.389413566051836], [99.1959327049518, 9.389418934814472]], [[99.19557209727907, 9.391371871242399], [99.19561371820276, 9.391123856669196], [99.19562107671163, 9.391090088193044]], [[99.19487590308222, 9.38573339090446], [99.19487799082597, 9.385851207941254]], [[99.19487590308222, 9.38573339090446], [99.19481119309731, 9.385735398320193], [99.19456846469153, 9.385743066255333], [99.19453624197209, 9.385744449747474]], [[99.19550708223586, 9.385713026415432], [99.19499703507648, 9.385729642906384], [99.19487590308222, 9.38573339090446]], [[99.19487799082597, 9.385851207941254], [99.19487879834783, 9.38587831490503]], [[99.18609397502854, 9.385980186719035], [99.18628062634855, 9.38597139638292], [99.18656803571318, 9.385958980109729], [99.18657983032406, 9.385958910575463]], [[99.18561938297331, 9.385995667581449], [99.18587016288268, 9.385987404589018], [99.18605657007797, 9.385981943004769], [99.18609397502854, 9.385980186719035]], [[99.18545260283226, 9.386000530731888], [99.18510021591982, 9.386008918965123], [99.18470174362419, 9.386017882647682], [99.18435801787015, 9.386025614390793], [99.18395684052112, 9.386034632913791], [99.18365797030533, 9.38604136380581], [99.18334777914961, 9.386048326434377]], [[99.18184124372267, 9.386068867025772], [99.18179858310867, 9.386069856750703], [99.18141997470015, 9.386078643723721], [99.18106899000541, 9.386086764924762], [99.18067518414287, 9.386102478193324], [99.18029474952226, 9.386102446162502], [99.17995605116846, 9.386110433370408]], [[99.18657983032406, 9.385958910575463], [99.18659426619705, 9.385958821557994], [99.1868609499868, 9.385953660904367], [99.18711641302573, 9.385948714016468], [99.1874499111792, 9.385942260339185], [99.18781373808969, 9.385935220422219], [99.18800817923572, 9.385931463022354], [99.1880515594022, 9.385930625929227]], [[99.1880515594022, 9.385930625929227], [99.18829327880854, 9.385925938753251]], [[99.1855209654033, 9.385998912039247], [99.18549392457189, 9.385999550313535], [99.1854830590589, 9.385999809266394], [99.18545260283226, 9.386000530731888]], [[99.1855209654033, 9.385998912039247], [99.18561938297331, 9.385995667581449]], [[99.18334777914961, 9.386048326434377], [99.183290345785, 9.386049613430359], [99.18291344218643, 9.386043992665648], [99.18254767576228, 9.38605249381399], [99.1820976901103, 9.386062919274925], [99.18184124372267, 9.386068867025772]], [[99.19874359001082, 9.38580329957349], [99.19873675921379, 9.385675508784717]], [[99.20203584575103, 9.38614157514419], [99.20207609093997, 9.385980309726243]], [[99.18909862080974, 9.385892251282847], [99.18912404961812, 9.385891767357542], [99.18944932173437, 9.385882485156396], [99.18978952142763, 9.385872950437658], [99.19004648546036, 9.385864961560902], [99.19031563600956, 9.385857436274312], [99.19060293816914, 9.385849394492535], [99.19095159882511, 9.385839627977672], [99.19097305707169, 9.385839987233709]], [[99.17646224617921, 9.386903772063706], [99.17675080951608, 9.38684752275387], [99.1769348975903, 9.386793496247565], [99.1770839710211, 9.386749599325343]], [[99.17556833617147, 9.387048002946509], [99.17531531367037, 9.38709069353419], [99.17500970891781, 9.38714667876599], [99.17496127770285, 9.387155557639094]], [[99.17496127770285, 9.387155557639094], [99.17462347943582, 9.387217419528454], [99.17422949970656, 9.387289601821479], [99.1738212433563, 9.387371224480201], [99.17353334459881, 9.3874287825928], [99.17316903818711, 9.387501609427549], [99.1731458062863, 9.38750626081229]], [[99.1731458062863, 9.38750626081229], [99.17285252506652, 9.387564888302125]], [[99.20642222211426, 9.386447652870313], [99.2064672630325, 9.386452139960992], [99.2064672624651, 9.386451181208145]], [[99.20589163200617, 9.38639484172732], [99.20642222211426, 9.386447652870313]], [[99.20590782169289, 9.386326254314833], [99.20589163200617, 9.38639484172732]], [[99.19750426276889, 9.38567815267911], [99.1975236528643, 9.385741690944768], [99.19752279328448, 9.385751695024824]], [[99.19752279328448, 9.385751695024824], [99.19752162602025, 9.38576519963222]], [[99.19222892270835, 9.385816134167824], [99.1919935905306, 9.385825288719683], [99.1917782031279, 9.385831972104931], [99.19158523019817, 9.385838860297882], [99.19139201145154, 9.385845938460536], [99.19097305707169, 9.385839987233709]], [[99.19595377543979, 9.3857290871402], [99.1963041087127, 9.38571425835943], [99.19642961196098, 9.385709675319823]], [[99.20261769220215, 9.386034630800834], [99.20259571500475, 9.386222839447179]], [[99.19642961196098, 9.385709675319823], [99.1965109542298, 9.385710181882455]], [[99.20375195310125, 9.386126670895777], [99.20373966937244, 9.386209338789872], [99.20373428358636, 9.38632887853504]], [[99.20589163200617, 9.38639484172732], [99.20586354989953, 9.386513842962152], [99.20586169104402, 9.38652782736901]], [[99.19550708223586, 9.385713026415432], [99.19595377543979, 9.3857290871402]], [[99.20375195310125, 9.386126670895777], [99.2036169679253, 9.386114492852778], [99.20332627941379, 9.386093793591758], [99.2029632691329, 9.386063430474012], [99.20261769220215, 9.386034630800834]], [[99.19607879959455, 9.388112986166492], [99.19612763949964, 9.387827476613179], [99.19616919891284, 9.387503838016334]], [[99.19616919891284, 9.387503838016334], [99.19617242720435, 9.387478745822504], [99.19623338740435, 9.387092325219625], [99.19627913970531, 9.386823378461084], [99.19633846997483, 9.386486560673895], [99.19636887948424, 9.386257202662115], [99.19641151616541, 9.385971117622626]], [[99.19641151616541, 9.385971117622626], [99.19642961196098, 9.385709675319823]], [[99.17995605116846, 9.386110433370408], [99.17992076781174, 9.386111265353756], [99.17989583111161, 9.386112381507656]], [[99.20373428358636, 9.38632887853504], [99.20373378010244, 9.386340103474964]], [[99.20586169104402, 9.38652782736901], [99.20585995906298, 9.386540735365875]], [[99.19220036291293, 9.385969215665654], [99.19222892270835, 9.385816134167824]], [[99.20590782169289, 9.386326254314833], [99.20591055349894, 9.386309899651], [99.20596597919516, 9.385978138769769], [99.20596645012014, 9.385958167484844]], [[99.20179543458946, 9.385951236991659], [99.20167613295244, 9.385938606061405], [99.20150398489754, 9.38592111193454], [99.20129551312738, 9.385900644549947], [99.2011322468407, 9.385885930999683], [99.20098730588782, 9.385871867236865], [99.20084675518181, 9.385858262209071]], [[99.1988985199609, 9.385685710913137], [99.19887320792678, 9.385683264944802], [99.19875586762073, 9.385675850799046], [99.19873675921379, 9.385675508784717]], [[99.20717069810361, 9.386421898818151], [99.20696422235802, 9.386404753075551], [99.20660007447883, 9.386376827431445], [99.20623768523687, 9.386350211887965], [99.20621307485575, 9.38634850771489]], [[99.20621307485575, 9.38634850771489], [99.20590782169289, 9.386326254314833]], [[99.19652786827389, 9.385517589604762], [99.19653022019843, 9.385505160678429], [99.19654278703253, 9.38540467449121]], [[99.19730875160242, 9.385689613054748], [99.19750426276889, 9.38567815267911]], [[99.20261769220215, 9.386034630800834], [99.20227398858124, 9.386000737470717], [99.20207609093997, 9.385980309726243]], [[99.20207609093997, 9.385980309726243], [99.2018210382665, 9.385953953929], [99.20179543458946, 9.385951236991659]], [[99.20083041887727, 9.385768772745422], [99.20083103910775, 9.38578615658478], [99.20084675518181, 9.385858262209071]], [[99.20084675518181, 9.385858262209071], [99.20084217369671, 9.38585783065752], [99.20037974438418, 9.385814370101599], [99.2000803913274, 9.385787757742872], [99.19968984032751, 9.385758808779025], [99.19947206154836, 9.385740100268782], [99.19919095189839, 9.385714046693241], [99.1988985199609, 9.385685710913137]], [[99.1965109542298, 9.385710181882455], [99.19652517127103, 9.385531827692171], [99.19652786827389, 9.385517589604762]], [[99.19873675921379, 9.385675508784717], [99.1985455840567, 9.38567207054604], [99.19825415016373, 9.38566894165737], [99.19785345304165, 9.38567167139757], [99.19750426276889, 9.38567815267911]], [[99.19874423447787, 9.385815446439278], [99.19874359001082, 9.38580329957349]], [[99.16921937234225, 9.392484940314974], [99.1692321880319, 9.392486408492145], [99.169232315307, 9.392485920008966], [99.16923246081132, 9.392485458651628], [99.1692326336572, 9.392485033460629], [99.16923283384031, 9.392484635391114], [99.16923305225701, 9.392484273492295], [99.1692333071233, 9.392483947755457], [99.16923358021882, 9.392483649144458], [99.16923388975954, 9.392483377650585], [99.16923421754262, 9.39248316041712], [99.16923459997379, 9.392482943157496], [99.16923502796259, 9.392482762055488], [99.16923548329298, 9.392482617119821], [99.16923593863653, 9.392482499318712], [99.16923639400643, 9.392482435786734], [99.16923684028589, 9.39248240843853], [99.16923724105163, 9.392482435381252], [99.1692376327269, 9.392482498507752], [99.16923805175696, 9.392482624935155], [99.16923848902499, 9.39248279657811], [99.16923890809456, 9.392483004409199], [99.16923931807368, 9.39248324842407], [99.1692396916383, 9.392483528635797], [99.16924001055925, 9.39248381791854], [99.16924028394453, 9.392484116267935], [99.1692405118029, 9.392484441773691], [99.16924072145842, 9.392484794422739], [99.16924089469067, 9.392485165178929], [99.16924102240482, 9.392485581181196], [99.16924112279932, 9.392486006241397], [99.16924119588295, 9.39248645844924], [99.16924124165571, 9.392486937804724], [99.16924124190159, 9.392487444316577], [99.16927247502107, 9.392491020171603]], [[99.16927247502107, 9.392491020171603], [99.16927763954986, 9.392491605614468], [99.16928416557714, 9.392482503363937]], [[99.17285252506652, 9.387564888302125], [99.1726645296024, 9.387602471056276]], [[99.1726645296024, 9.387602471056276], [99.17241243912444, 9.387652874388069], [99.17217991947214, 9.387699324457115], [99.17180828977997, 9.387790749691654], [99.17154666217371, 9.387857853850567], [99.17123596489813, 9.387932642571561], [99.17122401673666, 9.387935488441217]], [[99.1880515594022, 9.385930625929227], [99.18805110694498, 9.385750190433942]], [[99.18829327880854, 9.385925938753251], [99.18833123986664, 9.385925204003463], [99.18867623192345, 9.385918535020423], [99.18891837026479, 9.385913847194225], [99.18895516483225, 9.385895032343937], [99.18909862080974, 9.385892251282847]], [[99.19097305707169, 9.385839987233709], [99.19095330705395, 9.385732391317092]], [[99.19095330705395, 9.385732391317092], [99.1909259201221, 9.385583157031256]], [[99.1726645296024, 9.387602471056276], [99.1726916827545, 9.387754791290421]], [[99.17122401673666, 9.387935488441217], [99.17102666261923, 9.38798256291708], [99.17099154667534, 9.387990937344135], [99.170878554335, 9.38791703214572], [99.17087788983102, 9.387917792234841], [99.17087720708024, 9.387918489018766], [99.17087650606936, 9.387919095362934], [99.17087615099446, 9.38791936688022], [99.1708758050186, 9.387919620303391], [99.17087543171019, 9.38791985565005], [99.17087506749638, 9.387920063857747], [99.17087469416583, 9.387920253980127], [99.17087432083085, 9.387920435057652], [99.17087393837024, 9.38792057996015], [99.17087355590519, 9.387920715817792], [99.17087317342686, 9.387920824540867], [99.17087277271945, 9.387920906138174], [99.1708723902234, 9.387920978681821], [99.17087198039039, 9.387921024104106], [99.17087155233271, 9.38792105144547], [99.17087110605038, 9.387921060705926], [99.17087065064246, 9.387921033791356], [99.17087017701874, 9.38792100688559], [99.17086971248519, 9.387920943795992], [99.17086923883488, 9.387920862621083], [99.1708687742836, 9.387920763352062], [99.17086830972349, 9.38792064599333], [99.17086786336584, 9.387920501491228], [99.170867435224, 9.38792035698033], [99.17086702528462, 9.387920185326054], [99.17086663355663, 9.387920004618127], [99.17086626914788, 9.387919814852143], [99.17086593205394, 9.387919606983253], [99.17086561316694, 9.387919381015847], [99.1708652851543, 9.387919118873413], [99.17086496624071, 9.38791883863687], [99.17086464731382, 9.387918531265758], [99.17086433748155, 9.387918196755676], [99.1708640276404, 9.387917844155883], [99.17086374511409, 9.387917473453175], [99.1708634625789, 9.38791708466076], [99.17086320736296, 9.387916686810291], [99.17086297035839, 9.38791627990616], [99.17086275156959, 9.387915872993233], [99.17086255099214, 9.387915457026645], [99.17086238685071, 9.387915050087319], [99.1708622318216, 9.387914652188448], [99.17086211322406, 9.38791425427198], [99.17086202195905, 9.387913874432023], [99.17086194890541, 9.38791348553841], [99.170861903171, 9.387913087586737], [99.17086187564796, 9.387912680581417], [99.17086185723281, 9.387912273571692], [99.17086187524922, 9.38791186654437], [99.1708619023691, 9.387911450467792], [99.17086195681266, 9.387911034378014], [99.17086202946757, 9.387910609234583], [99.17086212033826, 9.38791018408235], [99.17086222942474, 9.387909758921316], [99.17086252044312, 9.387908872384633], [99.17086288432465, 9.387907985812747], [99.17086333016833, 9.38790708111155], [99.17084927268988, 9.387898920395088]], [[99.20717069810361, 9.386421898818151], [99.20719230295607, 9.3864236860883], [99.20741530466388, 9.386463425065196], [99.20761502180598, 9.38647949817386], [99.20793207614572, 9.386512343712083], [99.20811338716132, 9.386529711724087], [99.20838643495418, 9.386551421406852]], [[99.19654278703253, 9.38540467449121], [99.19660230486735, 9.384948971066073], [99.19672451213896, 9.384171290469343], [99.19683928797625, 9.383411549874557], [99.19688493142863, 9.383144972811559]], [[99.19688493142863, 9.383144972811559], [99.19689882960299, 9.383063787567218], [99.19695376357569, 9.382750036439186]], [[99.18334777914961, 9.386048326434377], [99.18333390145645, 9.386001381792676]], [[99.19562107671163, 9.391090088193044], [99.19569070087499, 9.390770612885776], [99.19572619817322, 9.39045245891049], [99.19578752381777, 9.390082581248524], [99.19582465696375, 9.389855634567654]], [[99.20590782169289, 9.386326254314833], [99.20550361870407, 9.386284575556289], [99.20514103330049, 9.38624936639943], [99.20477822171037, 9.386216617197391], [99.20473492986689, 9.38621268061365]], [[99.20473492986689, 9.38621268061365], [99.20441542824237, 9.386183605310874], [99.20405242674097, 9.386152962919606], [99.20375195310125, 9.386126670895777]], [[99.19597158762744, 9.388853302902275], [99.19600011644124, 9.38859904552567], [99.19600346130119, 9.388586860264777]], [[99.20717606860912, 9.386401309614975], [99.20717069810361, 9.386421898818151]], [[99.1860919631852, 9.38594788861061], [99.18609397502854, 9.385980186719035]], [[99.17084927268988, 9.387898920395088], [99.17091024647098, 9.388393518045609], [99.17088526300685, 9.388411140455892], [99.17055796984164, 9.388708141634392], [99.17031565256369, 9.388929549904173], [99.17014143376505, 9.389167196954658], [99.17002405772256, 9.389274832944096], [99.16986126865899, 9.389418245033772], [99.1698231266506, 9.389478511150243], [99.16964283156771, 9.389677313211722], [99.16963680777745, 9.389707688733983], [99.16954577382882, 9.390007307125918], [99.16950376610679, 9.390340784031372], [99.16944487857047, 9.390706242587116], [99.16940357053475, 9.391036716242708], [99.16935637073821, 9.391369616732469], [99.16931184039258, 9.391741870105516], [99.16926497059622, 9.392079473740473], [99.16925126012057, 9.392204778705015], [99.16921937234225, 9.392484940314974]], [[99.17871720976072, 9.386249547165342], [99.17870661263758, 9.38620481666364], [99.17866303809961, 9.38609302616906]], [[99.17645997235233, 9.387126050536889], [99.1764612974476, 9.38704482706832], [99.17646224617921, 9.386903772063706]], [[99.17995605116846, 9.386110433370408], [99.17997090914787, 9.386257667004795], [99.17997049250037, 9.386315120134688]], [[99.17997049250037, 9.386315120134688], [99.17997028785341, 9.38634214626499]], [[99.19582465696375, 9.389855634567654], [99.19560047037358, 9.389832413895446]], [[99.19597158762744, 9.388853302902275], [99.19606703294114, 9.388859626617924]], [[99.19607879959455, 9.388112986166492], [99.1961830230257, 9.388229670197877], [99.19614988640062, 9.38843645375151]], [[99.19600346130119, 9.388586860264777], [99.19600731519168, 9.388572874797442], [99.19606965798144, 9.388166410094403], [99.19607879959455, 9.388112986166492]], [[99.19425765842789, 9.385756415396981], [99.19428121101235, 9.385870448952641]], [[99.19428121101235, 9.385870448952641], [99.19442507825282, 9.385870369916324]], [[99.17871720976072, 9.386249547165342], [99.17848032054019, 9.386314491240165], [99.17810382864688, 9.38643798046205], [99.17776453584217, 9.386549240040807], [99.17746328397085, 9.386637931389867], [99.17720574313469, 9.386713747850365]], [[99.17720574313469, 9.386713747850365], [99.1770839710211, 9.386749599325343]], [[99.1965109542298, 9.385710181882455], [99.19663661547088, 9.385711215531655]], [[99.19663661547088, 9.385711215531655], [99.19663220111586, 9.385748754099751], [99.19662792785678, 9.385778079868368]], [[99.19335276365683, 9.38578063574924], [99.19321052060235, 9.385786068012111], [99.19295777194432, 9.38579093641266], [99.19276003671489, 9.385799700126691], [99.19250432122817, 9.385808820899097], [99.19225160982708, 9.38581525353426], [99.19222892270835, 9.385816134167824]], [[99.19335276365683, 9.38578063574924], [99.19336122428734, 9.385927564688869]], [[99.19425765842789, 9.385756415396981], [99.1939102719782, 9.385764149377504], [99.19354949769051, 9.38577312948609], [99.19335276365683, 9.38578063574924]], [[99.19453624197209, 9.385744449747474], [99.19454118776117, 9.385581531225855]], [[99.19453624197209, 9.385744449747474], [99.19425765842789, 9.385756415396981]], [[99.18545260283226, 9.386000530731888], [99.18545191261128, 9.385935706636777]]], "type": "MultiLineString"}, "id": "4499", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "one time a year", "Cost to Trim (BHT) [META + Sentinel-2]": 287.75, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 0.0, "Customers Affected (Adjusted) [Category]": null, "Customers Affected (Original)": 2333.0, "Feeder ID": "CAY05", "Nearest Upstream Device": "Feeder Exit: CAY05", "Probability of Outage (%)": 0.15, "Probability of Outage (%) [Category]": "medium", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 0.0, "Risk (Customer Interruptions) [Category]": null, "Vegetation Density (%) [META + Sentinel-2]": 0.04, "__folium_color": "#506bda", "corridor length (km)": 6.28, "density distribution meta": "{\u0027open\u0027: \u00271.93 km\u0027}"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_1456c7ab9f96696a13cf5d01b9a454fc.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["Nearest Upstream Device", "Feeder ID", "corridor length (km)", "Vegetation Density (%) [META + Sentinel-2]", "density distribution meta", "Probability of Outage (%)", "Probability of Outage (%) [Category]", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Risk (Customer Interruptions)", "Risk (Customer Interruptions) [Category]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Customers Affected (Adjusted) [Category]", "Cost Focus Scenario Frequency", "Reliability Focus Scenario Frequency", "Chosen Scenario"];
+    let aliases = ["Nearest Upstream Device", "Feeder ID", "corridor length (km)", "Vegetation Density (%) [META + Sentinel-2]", "density distribution meta", "Probability of Outage (%)", "Probability of Outage (%) [Category]", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Risk (Customer Interruptions)", "Risk (Customer Interruptions) [Category]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Customers Affected (Adjusted) [Category]", "Cost Focus Scenario Frequency", "Reliability Focus Scenario Frequency", "Chosen Scenario"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_1456c7ab9f96696a13cf5d01b9a454fc.addTo(map_de3035e59982468893a59b4d274cd35e);
+        
+    
+    var color_map_5a976603b18ce7e595e43108c55051f6 = {};
+
+    
+    color_map_5a976603b18ce7e595e43108c55051f6.color = d3.scale.threshold()
+              .domain([0.0, 0.001122244488977956, 0.002244488977955912, 0.003366733466933868, 0.004488977955911824, 0.00561122244488978, 0.006733466933867736, 0.007855711422845692, 0.008977955911823649, 0.010100200400801606, 0.01122244488977956, 0.012344689378757516, 0.013466933867735472, 0.01458917835671343, 0.015711422845691384, 0.01683366733466934, 0.017955911823647298, 0.019078156312625254, 0.02020040080160321, 0.021322645290581164, 0.02244488977955912, 0.023567134268537078, 0.02468937875751503, 0.025811623246492988, 0.026933867735470945, 0.0280561122244489, 0.02917835671342686, 0.03030060120240481, 0.03142284569138277, 0.032545090180360725, 0.03366733466933868, 0.03478957915831664, 0.035911823647294595, 0.037034068136272545, 0.03815631262525051, 0.03927855711422846, 0.04040080160320642, 0.04152304609218437, 0.04264529058116233, 0.043767535070140286, 0.04488977955911824, 0.04601202404809619, 0.047134268537074156, 0.048256513026052106, 0.04937875751503006, 0.05050100200400802, 0.051623246492985976, 0.05274549098196393, 0.05386773547094189, 0.05498997995991984, 0.0561122244488978, 0.05723446893787575, 0.05835671342685372, 0.059478957915831666, 0.06060120240480962, 0.06172344689378759, 0.06284569138276554, 0.06396793587174349, 0.06509018036072145, 0.06621242484969941, 0.06733466933867736, 0.06845691382765531, 0.06957915831663328, 0.07070140280561123, 0.07182364729458919, 0.07294589178356714, 0.07406813627254509, 0.07519038076152305, 0.07631262525050102, 0.07743486973947895, 0.07855711422845692, 0.07967935871743488, 0.08080160320641284, 0.08192384769539078, 0.08304609218436874, 0.08416833667334671, 0.08529058116232466, 0.08641282565130261, 0.08753507014028057, 0.08865731462925852, 0.08977955911823648, 0.09090180360721445, 0.09202404809619238, 0.09314629258517035, 0.09426853707414831, 0.09539078156312626, 0.09651302605210421, 0.09763527054108218, 0.09875751503006013, 0.09987975951903809, 0.10100200400801604, 0.102124248496994, 0.10324649298597195, 0.10436873747494992, 0.10549098196392787, 0.10661322645290582, 0.10773547094188378, 0.10885771543086174, 0.10997995991983968, 0.11110220440881764, 0.1122244488977956, 0.11334669338677356, 0.1144689378757515, 0.11559118236472947, 0.11671342685370743, 0.11783567134268538, 0.11895791583166333, 0.1200801603206413, 0.12120240480961925, 0.12232464929859721, 0.12344689378757517, 0.12456913827655311, 0.12569138276553107, 0.12681362725450904, 0.12793587174348697, 0.12905811623246494, 0.1301803607214429, 0.13130260521042086, 0.13242484969939883, 0.13354709418837676, 0.13466933867735473, 0.13579158316633266, 0.13691382765531063, 0.1380360721442886, 0.13915831663326655, 0.1402805611222445, 0.14140280561122245, 0.14252505010020042, 0.14364729458917838, 0.14476953907815632, 0.14589178356713428, 0.14701402805611224, 0.14813627254509018, 0.14925851703406814, 0.1503807615230461, 0.15150300601202407, 0.15262525050100204, 0.15374749498998, 0.1548697394789579, 0.15599198396793587, 0.15711422845691383, 0.1582364729458918, 0.15935871743486976, 0.16048096192384773, 0.1616032064128257, 0.16272545090180363, 0.16384769539078156, 0.16496993987975953, 0.1660921843687375, 0.16721442885771545, 0.16833667334669342, 0.16945891783567135, 0.17058116232464932, 0.17170340681362728, 0.17282565130260522, 0.17394789579158318, 0.17507014028056114, 0.17619238476953908, 0.17731462925851704, 0.178436873747495, 0.17955911823647297, 0.18068136272545093, 0.1818036072144289, 0.18292585170340683, 0.18404809619238477, 0.18517034068136273, 0.1862925851703407, 0.18741482965931866, 0.18853707414829662, 0.1896593186372746, 0.19078156312625252, 0.19190380761523046, 0.19302605210420842, 0.1941482965931864, 0.19527054108216435, 0.19639278557114231, 0.19751503006012025, 0.19863727454909821, 0.19975951903807618, 0.2008817635270541, 0.20200400801603208, 0.20312625250501004, 0.204248496993988, 0.20537074148296594, 0.2064929859719439, 0.20761523046092187, 0.20873747494989983, 0.2098597194388778, 0.21098196392785573, 0.21210420841683367, 0.21322645290581163, 0.2143486973947896, 0.21547094188376756, 0.21659318637274552, 0.21771543086172349, 0.21883767535070145, 0.21995991983967936, 0.22108216432865732, 0.22220440881763528, 0.22332665330661325, 0.2244488977955912, 0.22557114228456918, 0.2266933867735471, 0.22781563126252508, 0.228937875751503, 0.23006012024048098, 0.23118236472945894, 0.2323046092184369, 0.23342685370741487, 0.2345490981963928, 0.23567134268537077, 0.23679358717434873, 0.23791583166332667, 0.23903807615230463, 0.2401603206412826, 0.24128256513026053, 0.2424048096192385, 0.24352705410821646, 0.24464929859719442, 0.24577154308617238, 0.24689378757515035, 0.24801603206412826, 0.24913827655310622, 0.2502605210420842, 0.25138276553106215, 0.2525050100200401, 0.2536272545090181, 0.25474949899799604, 0.25587174348697395, 0.2569939879759519, 0.2581162324649299, 0.25923847695390784, 0.2603607214428858, 0.26148296593186376, 0.26260521042084173, 0.2637274549098197, 0.26484969939879766, 0.26597194388777556, 0.2670941883767535, 0.2682164328657315, 0.26933867735470945, 0.27046092184368736, 0.2715831663326653, 0.2727054108216433, 0.27382765531062125, 0.2749498997995992, 0.2760721442885772, 0.27719438877755515, 0.2783166332665331, 0.2794388777555111, 0.280561122244489, 0.28168336673346694, 0.2828056112224449, 0.28392785571142287, 0.28505010020040084, 0.2861723446893788, 0.28729458917835676, 0.2884168336673347, 0.28953907815631263, 0.2906613226452906, 0.29178356713426856, 0.2929058116232465, 0.2940280561122245, 0.2951503006012024, 0.29627254509018036, 0.2973947895791583, 0.2985170340681363, 0.29963927855711425, 0.3007615230460922, 0.3018837675350702, 0.30300601202404814, 0.3041282565130261, 0.30525050100200407, 0.30637274549098203, 0.30749498997996, 0.3086172344689379, 0.3097394789579158, 0.3108617234468938, 0.31198396793587174, 0.3131062124248497, 0.31422845691382767, 0.31535070140280563, 0.3164729458917836, 0.31759519038076156, 0.3187174348697395, 0.3198396793587175, 0.32096192384769545, 0.3220841683366734, 0.3232064128256514, 0.3243286573146293, 0.32545090180360725, 0.32657314629258516, 0.3276953907815631, 0.3288176352705411, 0.32993987975951905, 0.331062124248497, 0.332184368737475, 0.33330661322645294, 0.3344288577154309, 0.33555110220440887, 0.33667334669338683, 0.33779559118236474, 0.3389178356713427, 0.34004008016032067, 0.34116232464929863, 0.3422845691382766, 0.34340681362725456, 0.3445290581162325, 0.34565130260521043, 0.3467735470941884, 0.34789579158316636, 0.3490180360721443, 0.3501402805611223, 0.35126252505010025, 0.35238476953907816, 0.3535070140280561, 0.3546292585170341, 0.35575150300601205, 0.35687374749499, 0.357995991983968, 0.35911823647294594, 0.3602404809619239, 0.36136272545090187, 0.36248496993987983, 0.3636072144288578, 0.3647294589178357, 0.36585170340681367, 0.3669739478957916, 0.36809619238476954, 0.3692184368737475, 0.37034068136272547, 0.37146292585170343, 0.3725851703406814, 0.37370741482965936, 0.3748296593186373, 0.3759519038076153, 0.37707414829659325, 0.3781963927855712, 0.3793186372745492, 0.38044088176352714, 0.38156312625250505, 0.38268537074148296, 0.3838076152304609, 0.3849298597194389, 0.38605210420841685, 0.3871743486973948, 0.3882965931863728, 0.38941883767535074, 0.3905410821643287, 0.39166332665330666, 0.39278557114228463, 0.3939078156312626, 0.3950300601202405, 0.39615230460921846, 0.39727454909819643, 0.3983967935871744, 0.39951903807615236, 0.4006412825651303, 0.4017635270541082, 0.4028857715430862, 0.40400801603206415, 0.4051302605210421, 0.4062525050100201, 0.40737474949899805, 0.408496993987976, 0.4096192384769539, 0.4107414829659319, 0.41186372745490984, 0.4129859719438878, 0.41410821643286577, 0.41523046092184374, 0.4163527054108217, 0.41747494989979966, 0.4185971943887776, 0.4197194388777556, 0.4208416833667335, 0.42196392785571146, 0.4230861723446894, 0.42420841683366733, 0.4253306613226453, 0.42645290581162326, 0.4275751503006012, 0.4286973947895792, 0.42981963927855715, 0.4309418837675351, 0.4320641282565131, 0.43318637274549104, 0.434308617234469, 0.43543086172344697, 0.43655310621242494, 0.4376753507014029, 0.43879759519038075, 0.4399198396793587, 0.4410420841683367, 0.44216432865731464, 0.4432865731462926, 0.44440881763527057, 0.44553106212424853, 0.4466533066132265, 0.44777555110220446, 0.4488977955911824, 0.4500200400801604, 0.45114228456913835, 0.4522645290581163, 0.4533867735470942, 0.4545090180360722, 0.45563126252505015, 0.4567535070140281, 0.457875751503006, 0.458997995991984, 0.46012024048096195, 0.4612424849699399, 0.4623647294589179, 0.46348697394789584, 0.4646092184368738, 0.46573146292585177, 0.46685370741482973, 0.46797595190380764, 0.4690981963927856, 0.47022044088176357, 0.47134268537074153, 0.4724649298597195, 0.47358717434869746, 0.4747094188376754, 0.47583166332665333, 0.4769539078156313, 0.47807615230460926, 0.4791983967935872, 0.4803206412825652, 0.4814428857715431, 0.48256513026052106, 0.483687374749499, 0.484809619238477, 0.48593186372745495, 0.4870541082164329, 0.4881763527054109, 0.48929859719438884, 0.4904208416833668, 0.49154308617234477, 0.49266533066132273, 0.4937875751503007, 0.4949098196392786, 0.4960320641282565, 0.4971543086172345, 0.49827655310621244, 0.4993987975951904, 0.5005210420841684, 0.5016432865731464, 0.5027655310621243, 0.5038877755511022, 0.5050100200400802, 0.5061322645290581, 0.5072545090180361, 0.5083767535070141, 0.5094989979959921, 0.51062124248497, 0.5117434869739479, 0.5128657314629259, 0.5139879759519038, 0.5151102204408818, 0.5162324649298597, 0.5173547094188378, 0.5184769539078157, 0.5195991983967937, 0.5207214428857716, 0.5218436873747496, 0.5229659318637275, 0.5240881763527054, 0.5252104208416835, 0.5263326653306614, 0.5274549098196394, 0.5285771543086173, 0.5296993987975953, 0.5308216432865732, 0.5319438877755511, 0.533066132264529, 0.534188376753507, 0.535310621242485, 0.536432865731463, 0.5375551102204409, 0.5386773547094189, 0.5397995991983968, 0.5409218436873747, 0.5420440881763527, 0.5431663326653307, 0.5442885771543087, 0.5454108216432866, 0.5465330661322646, 0.5476553106212425, 0.5487775551102205, 0.5498997995991984, 0.5510220440881765, 0.5521442885771544, 0.5532665330661324, 0.5543887775551103, 0.5555110220440883, 0.5566332665330662, 0.5577555110220442, 0.5588777555110221, 0.5600000000000002])
+              .range(['#3b4cc0ff', '#3b4dc1ff', '#3c4ec2ff', '#3c4fc3ff', '#3d50c3ff', '#3d50c4ff', '#3e51c5ff', '#3e52c6ff', '#3f53c6ff', '#3f54c7ff', '#4055c8ff', '#4156c9ff', '#4257caff', '#4257cbff', '#4358cbff', '#4359ccff', '#445acdff', '#445bceff', '#455ccfff', '#455dcfff', '#465ed0ff', '#475fd1ff', '#485fd2ff', '#4960d2ff', '#4961d3ff', '#4a62d3ff', '#4a63d4ff', '#4b64d5ff', '#4b65d6ff', '#4c66d6ff', '#4c67d7ff', '#4d68d8ff', '#4e68d9ff', '#4f69d9ff', '#4f6adaff', '#506bdaff', '#506cdbff', '#516ddbff', '#526ddcff', '#536eddff', '#536fdeff', '#5470deff', '#5471dfff', '#5572dfff', '#5572e0ff', '#5673e0ff', '#5774e1ff', '#5875e1ff', '#5876e2ff', '#5977e3ff', '#5978e4ff', '#5a78e4ff', '#5a79e5ff', '#5b7ae5ff', '#5c7be6ff', '#5d7ce7ff', '#5d7de7ff', '#5e7de8ff', '#5f7ee8ff', '#5f7fe9ff', '#6080e9ff', '#6180eaff', '#6281eaff', '#6282ebff', '#6383ebff', '#6384ecff', '#6485ecff', '#6486edff', '#6587edff', '#6687eeff', '#6788eeff', '#6789efff', '#688aefff', '#698aefff', '#6a8befff', '#6a8cf0ff', '#6b8df0ff', '#6b8ef1ff', '#6c8ff1ff', '#6d8ff2ff', '#6e90f2ff', '#6e91f3ff', '#6f92f3ff', '#6f92f3ff', '#7093f3ff', '#7194f4ff', '#7295f4ff', '#7296f5ff', '#7396f5ff', '#7497f6ff', '#7597f6ff', '#7598f6ff', '#7699f6ff', '#769af7ff', '#779af8ff', '#789bf8ff', '#799cf8ff', '#7a9df8ff', '#7a9df9ff', '#7b9ef9ff', '#7b9ff9ff', '#7ca0f9ff', '#7da0faff', '#7ea1faff', '#7ea1faff', '#7fa2faff', '#80a3fbff', '#81a4fbff', '#81a5fbff', '#82a6fbff', '#82a6fcff', '#83a7fcff', '#84a7fcff', '#85a8fcff', '#85a8fcff', '#86a9fcff', '#87aafdff', '#88abfdff', '#88abfdff', '#89acfdff', '#8aacfdff', '#8badfdff', '#8baefeff', '#8caffeff', '#8cb0feff', '#8db0feff', '#8eb1feff', '#8fb1feff', '#8fb2feff', '#90b2feff', '#91b3feff', '#92b4feff', '#93b5feff', '#93b5feff', '#94b6ffff', '#94b6ffff', '#95b7ffff', '#96b7ffff', '#97b8ffff', '#97b8ffff', '#98b9ffff', '#98b9ffff', '#99baffff', '#9abbffff', '#9bbcffff', '#9bbcffff', '#9cbdffff', '#9dbdffff', '#9ebeffff', '#9ebeffff', '#9fbfffff', '#9fbfffff', '#a0c0ffff', '#a1c0ffff', '#a2c1ffff', '#a2c1ffff', '#a3c2ffff', '#a4c2feff', '#a5c3feff', '#a5c4feff', '#a6c4feff', '#a6c5feff', '#a7c5feff', '#a8c6feff', '#a9c6feff', '#a9c7fdff', '#aac7fdff', '#abc8fdff', '#abc8fdff', '#acc9fdff', '#adc9fdff', '#aec9fdff', '#aec9fdff', '#afcafcff', '#afcafcff', '#b0cbfcff', '#b1cbfcff', '#b2ccfcff', '#b2ccfcff', '#b3cdfbff', '#b3cdfbff', '#b4cdfbff', '#b5cdfaff', '#b6cefaff', '#b6cefaff', '#b7cffaff', '#b7cff9ff', '#b8d0f9ff', '#b9d0f9ff', '#bad0f9ff', '#bad0f8ff', '#bbd1f8ff', '#bbd1f8ff', '#bcd2f8ff', '#bdd2f7ff', '#bed2f7ff', '#bed2f6ff', '#bfd3f6ff', '#bfd4f6ff', '#c0d4f6ff', '#c0d4f5ff', '#c1d4f5ff', '#c2d5f4ff', '#c3d5f4ff', '#c4d5f4ff', '#c4d5f4ff', '#c5d6f3ff', '#c5d6f3ff', '#c6d6f2ff', '#c6d6f2ff', '#c7d7f1ff', '#c7d7f1ff', '#c8d7f0ff', '#c9d7f0ff', '#cad8f0ff', '#cad8f0ff', '#cbd8efff', '#cbd8efff', '#ccd9eeff', '#ccd9eeff', '#cdd9edff', '#cdd9ecff', '#cedaecff', '#cedaebff', '#cfdaebff', '#cfdaeaff', '#d0daeaff', '#d1dae9ff', '#d2dbe9ff', '#d2dbe8ff', '#d3dbe8ff', '#d3dbe7ff', '#d4dbe7ff', '#d4dbe6ff', '#d5dbe6ff', '#d5dbe5ff', '#d6dce5ff', '#d6dce4ff', '#d7dce4ff', '#d7dce3ff', '#d8dce3ff', '#d9dce2ff', '#d9dce2ff', '#dadce1ff', '#dadce1ff', '#dbdce0ff', '#dbdcdfff', '#dcdddeff', '#dcdddeff', '#ddddddff', '#ddddddff', '#dedcdcff', '#dedcdcff', '#dfdcdbff', '#dfdcdaff', '#e0dbd9ff', '#e0dbd9ff', '#e1dbd8ff', '#e1dbd7ff', '#e2dad6ff', '#e2dad5ff', '#e3dad5ff', '#e3d9d4ff', '#e4d9d3ff', '#e4d9d2ff', '#e5d9d2ff', '#e5d8d1ff', '#e6d8d0ff', '#e6d7cfff', '#e7d7cfff', '#e7d7ceff', '#e8d7cdff', '#e8d6ccff', '#e9d6ccff', '#e9d5cbff', '#ead5caff', '#ead5c9ff', '#ead5c9ff', '#ead4c8ff', '#ebd4c7ff', '#ecd3c6ff', '#ecd3c6ff', '#edd3c5ff', '#edd3c4ff', '#edd2c3ff', '#edd2c3ff', '#eed1c2ff', '#eed1c1ff', '#efd0c0ff', '#efd0c0ff', '#efcfbfff', '#efcfbeff', '#f0cebdff', '#f0cebcff', '#f1cdbbff', '#f1cdbaff', '#f1cdbaff', '#f1cdb9ff', '#f2ccb8ff', '#f2ccb7ff', '#f2cbb7ff', '#f2cab6ff', '#f2cab5ff', '#f2c9b4ff', '#f3c9b4ff', '#f3c8b2ff', '#f3c8b2ff', '#f3c7b1ff', '#f4c7b0ff', '#f4c6afff', '#f4c6aeff', '#f4c5adff', '#f5c5adff', '#f5c4acff', '#f5c3abff', '#f5c2aaff', '#f5c2aaff', '#f5c1a9ff', '#f5c1a8ff', '#f5c0a7ff', '#f6c0a7ff', '#f6bfa6ff', '#f6bfa5ff', '#f6bea4ff', '#f6bea3ff', '#f7bda2ff', '#f7bda2ff', '#f7bca1ff', '#f7bba0ff', '#f7ba9fff', '#f7ba9eff', '#f7b99eff', '#f7b99dff', '#f7b89cff', '#f7b89bff', '#f7b79bff', '#f7b69aff', '#f7b599ff', '#f7b498ff', '#f7b497ff', '#f7b396ff', '#f7b396ff', '#f7b295ff', '#f7b194ff', '#f7b093ff', '#f7b092ff', '#f7af91ff', '#f7af91ff', '#f7ae90ff', '#f7ad8fff', '#f7ac8eff', '#f7ab8dff', '#f7aa8cff', '#f7aa8cff', '#f7a98bff', '#f7a98aff', '#f7a889ff', '#f7a789ff', '#f7a688ff', '#f7a687ff', '#f6a586ff', '#f6a486ff', '#f6a385ff', '#f6a384ff', '#f6a283ff', '#f6a182ff', '#f5a081ff', '#f5a080ff', '#f59f80ff', '#f59e7fff', '#f59d7eff', '#f59d7dff', '#f59c7dff', '#f59b7cff', '#f49a7bff', '#f4997aff', '#f4987aff', '#f49779ff', '#f39778ff', '#f39677ff', '#f39577ff', '#f39476ff', '#f39475ff', '#f39374ff', '#f29273ff', '#f29172ff', '#f29072ff', '#f28f71ff', '#f18f70ff', '#f18d6fff', '#f18c6fff', '#f18b6eff', '#f08b6dff', '#f08a6cff', '#f0896cff', '#f0886bff', '#ef876aff', '#ef8669ff', '#ee8569ff', '#ee8468ff', '#ee8467ff', '#ee8366ff', '#ed8265ff', '#ec8165ff', '#ec8064ff', '#ec7f63ff', '#ec7e62ff', '#eb7d62ff', '#eb7c61ff', '#ea7b60ff', '#ea7a5fff', '#e97a5fff', '#e9795eff', '#e9785dff', '#e9775cff', '#e8765cff', '#e8755bff', '#e7745bff', '#e7735aff', '#e67259ff', '#e67158ff', '#e57058ff', '#e56f57ff', '#e46e56ff', '#e46d55ff', '#e36c55ff', '#e36b54ff', '#e36b53ff', '#e36952ff', '#e26852ff', '#e26751ff', '#e16650ff', '#e1654fff', '#e0644fff', '#e0634eff', '#df624eff', '#df614dff', '#de604cff', '#de5f4bff', '#dd5e4aff', '#dd5d4aff', '#dc5c49ff', '#db5a49ff', '#da5948ff', '#d95847ff', '#d95746ff', '#d85646ff', '#d85545ff', '#d75445ff', '#d75344ff', '#d65244ff', '#d65143ff', '#d55042ff', '#d54f41ff', '#d44e41ff', '#d34c40ff', '#d24b40ff', '#d24a3fff', '#d1493fff', '#d1483eff', '#d0473dff', '#d0463cff', '#cf443cff', '#ce433bff', '#cd423bff', '#cd413aff', '#cc3f39ff', '#cc3e38ff', '#cb3d38ff', '#cb3c37ff', '#ca3a37ff', '#c93936ff', '#c83736ff', '#c83635ff', '#c73534ff', '#c63334ff', '#c53233ff', '#c53032ff', '#c42f31ff', '#c32e31ff', '#c32d30ff', '#c22b30ff', '#c12a2fff', '#c0282fff', '#c0262eff', '#bf242eff', '#be222dff', '#bd1f2dff', '#bc1d2cff', '#bb1b2cff', '#bb192bff', '#ba162bff', '#b9142aff', '#b8122aff', '#b80f29ff', '#b70d28ff', '#b60b27ff', '#b50927ff', '#b50626ff', '#b40426ff']);
+    
+
+    color_map_5a976603b18ce7e595e43108c55051f6.x = d3.scale.linear()
+              .domain([0.0, 0.5600000000000002])
+              .range([0, 450 - 50]);
+
+    color_map_5a976603b18ce7e595e43108c55051f6.legend = L.control({position: 'topright'});
+    color_map_5a976603b18ce7e595e43108c55051f6.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_5a976603b18ce7e595e43108c55051f6.legend.addTo(map_de3035e59982468893a59b4d274cd35e);
+
+    color_map_5a976603b18ce7e595e43108c55051f6.xAxis = d3.svg.axis()
+        .scale(color_map_5a976603b18ce7e595e43108c55051f6.x)
+        .orient("top")
+        .tickSize(1)
+        .tickValues([0.0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.057098039215686285, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.11419607843137257, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.17129411764705885, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.22839215686274514, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.2854901960784314, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.3425882352941177, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.399686274509804, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.4567843137254903, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0.5138823529411766, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+
+    color_map_5a976603b18ce7e595e43108c55051f6.svg = d3.select(".legend.leaflet-control").append("svg")
+        .attr("id", 'legend')
+        .attr("width", 450)
+        .attr("height", 40);
+
+    color_map_5a976603b18ce7e595e43108c55051f6.g = color_map_5a976603b18ce7e595e43108c55051f6.svg.append("g")
+        .attr("class", "key")
+        .attr("fill", "black")
+        .attr("transform", "translate(25,16)");
+
+    color_map_5a976603b18ce7e595e43108c55051f6.g.selectAll("rect")
+        .data(color_map_5a976603b18ce7e595e43108c55051f6.color.range().map(function(d, i) {
+          return {
+            x0: i ? color_map_5a976603b18ce7e595e43108c55051f6.x(color_map_5a976603b18ce7e595e43108c55051f6.color.domain()[i - 1]) : color_map_5a976603b18ce7e595e43108c55051f6.x.range()[0],
+            x1: i < color_map_5a976603b18ce7e595e43108c55051f6.color.domain().length ? color_map_5a976603b18ce7e595e43108c55051f6.x(color_map_5a976603b18ce7e595e43108c55051f6.color.domain()[i]) : color_map_5a976603b18ce7e595e43108c55051f6.x.range()[1],
+            z: d
+          };
+        }))
+      .enter().append("rect")
+        .attr("height", 40 - 30)
+        .attr("x", function(d) { return d.x0; })
+        .attr("width", function(d) { return d.x1 - d.x0; })
+        .style("fill", function(d) { return d.z; });
+
+    color_map_5a976603b18ce7e595e43108c55051f6.g.call(color_map_5a976603b18ce7e595e43108c55051f6.xAxis).append("text")
+        .attr("class", "caption")
+        .attr("y", 21)
+        .attr("fill", "black")
+        .text("Vegetation Density (%) [META + Sentinel-2]");
+    
+            var tile_layer_fb317702bcbd8babc0266e79b0bd2dc6 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {"attribution": "Google Satellite", "detectRetina": false, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_fb317702bcbd8babc0266e79b0bd2dc6.addTo(map_de3035e59982468893a59b4d274cd35e);
+        
+    
+            var tile_layer_46b9feb883e8c92a42ee14d61bcd89c7 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_46b9feb883e8c92a42ee14d61bcd89c7.addTo(map_de3035e59982468893a59b4d274cd35e);
+        
+    
+        function geo_json_a6d5256f98c566994d04234a37945805_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1f77b4", "fillColor": "#1f77b4", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_a6d5256f98c566994d04234a37945805_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_a6d5256f98c566994d04234a37945805_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_a6d5256f98c566994d04234a37945805_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_a6d5256f98c566994d04234a37945805_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_a6d5256f98c566994d04234a37945805.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_a6d5256f98c566994d04234a37945805_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_a6d5256f98c566994d04234a37945805 = L.geoJson(null, {
+                onEachFeature: geo_json_a6d5256f98c566994d04234a37945805_onEachFeature,
+            
+                style: geo_json_a6d5256f98c566994d04234a37945805_styler,
+                pointToLayer: geo_json_a6d5256f98c566994d04234a37945805_pointToLayer,
+        });
+
+        function geo_json_a6d5256f98c566994d04234a37945805_add (data) {
+            geo_json_a6d5256f98c566994d04234a37945805
+                .addData(data);
+        }
+            geo_json_a6d5256f98c566994d04234a37945805_add({"bbox": [99.16780998679167, 9.392101714677842, 99.1683567290455, 9.392644665797189], "features": [{"bbox": [99.16780998679167, 9.392101714677842, 99.1683567290455, 9.392644665797189], "geometry": {"coordinates": [[[99.16780998679167, 9.392101974483936], [99.16835646699232, 9.392101714677842], [99.1683567290455, 9.392644405975824], [99.16781024799423, 9.392644665797189], [99.16780998679167, 9.392101974483936]]], "type": "Polygon"}, "id": "2531", "properties": {"FACILITYID": "CAY05WB-01", "FEEDERID": "CAY05", "__folium_color": "#1f77b4", "connector_id": "4284CB000000061", "device_type": "Source", "full_nearest_upstream_device": "CAY05WB-01-4284CB000000061"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_a6d5256f98c566994d04234a37945805.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_a6d5256f98c566994d04234a37945805.addTo(map_de3035e59982468893a59b4d274cd35e);
+        
+    
+        function geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_styler(feature) {
+            switch(feature.id) {
+                case "54461": case "54475": case "54476": case "54483": case "60690": 
+                    return {"color": "#FF8C00", "fillColor": "#FF8C00", "fillOpacity": 0.5, "weight": 10};
+                default:
+                    return {"color": "#8B4513", "fillColor": "#8B4513", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_294f6f78b80ba3d7b4e80aa23ce0830d.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_294f6f78b80ba3d7b4e80aa23ce0830d = L.geoJson(null, {
+                onEachFeature: geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_onEachFeature,
+            
+                style: geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_styler,
+                pointToLayer: geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_pointToLayer,
+        });
+
+        function geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_add (data) {
+            geo_json_294f6f78b80ba3d7b4e80aa23ce0830d
+                .addData(data);
+        }
+            geo_json_294f6f78b80ba3d7b4e80aa23ce0830d_add({"bbox": [99.16927247502107, 9.378086862356694, 99.20838643495418, 9.392491020171603], "features": [{"bbox": [99.1770839710211, 9.386749599325343, 99.1770839710211, 9.386749599325343], "geometry": {"coordinates": [99.1770839710211, 9.386749599325343], "type": "Point"}, "id": "54461", "properties": {"FACILITYID": "CAY05WS-102", "FEEDERID": "CAY05", "__folium_color": "#FF8C00", "connector_id": "4284SW000003008", "device_type": "Switch", "full_nearest_upstream_device": "CAY05WS-102-4284SW000003008"}, "type": "Feature"}, {"bbox": [99.18893421083699, 9.37812719743075, 99.18893421083699, 9.37812719743075], "geometry": {"coordinates": [99.18893421083699, 9.37812719743075], "type": "Point"}, "id": "54463", "properties": {"FACILITYID": "CAY05F-05/02", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003010", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-05/02-4284SW000003010"}, "type": "Feature"}, {"bbox": [99.1909259201221, 9.385583157031256, 99.1909259201221, 9.385583157031256], "geometry": {"coordinates": [99.1909259201221, 9.385583157031256], "type": "Point"}, "id": "54464", "properties": {"FACILITYID": "CAY05F-05", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003011", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-05-4284SW000003011"}, "type": "Feature"}, {"bbox": [99.20596645012014, 9.385958167484844, 99.20596645012014, 9.385958167484844], "geometry": {"coordinates": [99.20596645012014, 9.385958167484844], "type": "Point"}, "id": "54465", "properties": {"FACILITYID": "CAY05F-10", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003013", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-10-4284SW000003013"}, "type": "Feature"}, {"bbox": [99.20083041887727, 9.385768772745422, 99.20083041887727, 9.385768772745422], "geometry": {"coordinates": [99.20083041887727, 9.385768772745422], "type": "Point"}, "id": "54466", "properties": {"FACILITYID": "CAY05F-07/01", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003014", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-07/01-4284SW000003014"}, "type": "Feature"}, {"bbox": [99.20203584575103, 9.38614157514419, 99.20203584575103, 9.38614157514419], "geometry": {"coordinates": [99.20203584575103, 9.38614157514419], "type": "Point"}, "id": "54469", "properties": {"FACILITYID": "CAY05F-08", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003018", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-08-4284SW000003018"}, "type": "Feature"}, {"bbox": [99.20259571500475, 9.386222839447179, 99.20259571500475, 9.386222839447179], "geometry": {"coordinates": [99.20259571500475, 9.386222839447179], "type": "Point"}, "id": "54470", "properties": {"FACILITYID": "CAY05F-09", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003019", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-09-4284SW000003019"}, "type": "Feature"}, {"bbox": [99.19220036291293, 9.385969215665654, 99.19220036291293, 9.385969215665654], "geometry": {"coordinates": [99.19220036291293, 9.385969215665654], "type": "Point"}, "id": "54472", "properties": {"FACILITYID": "CAY05F-06", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003021", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-06-4284SW000003021"}, "type": "Feature"}, {"bbox": [99.19557209727907, 9.391371871242399, 99.19557209727907, 9.391371871242399], "geometry": {"coordinates": [99.19557209727907, 9.391371871242399], "type": "Point"}, "id": "54475", "properties": {"FACILITYID": "CAY05WS-104", "FEEDERID": "CAY05", "__folium_color": "#FF8C00", "connector_id": "4284SW000003024", "device_type": "Switch", "full_nearest_upstream_device": "CAY05WS-104-4284SW000003024"}, "type": "Feature"}, {"bbox": [99.19641151616541, 9.385971117622626, 99.19641151616541, 9.385971117622626], "geometry": {"coordinates": [99.19641151616541, 9.385971117622626], "type": "Point"}, "id": "54476", "properties": {"FACILITYID": "CAY05WS-103", "FEEDERID": "CAY05", "__folium_color": "#FF8C00", "connector_id": "4284SW000003025", "device_type": "Switch", "full_nearest_upstream_device": "CAY05WS-103-4284SW000003025"}, "type": "Feature"}, {"bbox": [99.17645997235233, 9.387126050536889, 99.17645997235233, 9.387126050536889], "geometry": {"coordinates": [99.17645997235233, 9.387126050536889], "type": "Point"}, "id": "54478", "properties": {"FACILITYID": "CAY05F-01", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "4284SW000003027", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-01-4284SW000003027"}, "type": "Feature"}, {"bbox": [99.16927247502107, 9.392491020171603, 99.16927247502107, 9.392491020171603], "geometry": {"coordinates": [99.16927247502107, 9.392491020171603], "type": "Point"}, "id": "54483", "properties": {"FACILITYID": "CAY05WS-101", "FEEDERID": "CAY05", "__folium_color": "#FF8C00", "connector_id": "4284SW000003035", "device_type": "Switch", "full_nearest_upstream_device": "CAY05WS-101-4284SW000003035"}, "type": "Feature"}, {"bbox": [99.1860919631852, 9.38594788861061, 99.1860919631852, 9.38594788861061], "geometry": {"coordinates": [99.1860919631852, 9.38594788861061], "type": "Point"}, "id": "57374", "properties": {"FACILITYID": "CAY05F-04", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000007608", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-04-42SWKA000007608"}, "type": "Feature"}, {"bbox": [99.20717606860912, 9.386401309614975, 99.20717606860912, 9.386401309614975], "geometry": {"coordinates": [99.20717606860912, 9.386401309614975], "type": "Point"}, "id": "57381", "properties": {"FACILITYID": "CAY08F-22", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000007618", "device_type": "Fuse", "full_nearest_upstream_device": "CAY08F-22-42SWKA000007618"}, "type": "Feature"}, {"bbox": [99.19695376357569, 9.382750036439186, 99.19695376357569, 9.382750036439186], "geometry": {"coordinates": [99.19695376357569, 9.382750036439186], "type": "Point"}, "id": "59202", "properties": {"FACILITYID": "CAY05F-07", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000016676", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-07-42SWKA000016676"}, "type": "Feature"}, {"bbox": [99.19695376357569, 9.382750036439186, 99.19695376357569, 9.382750036439186], "geometry": {"coordinates": [99.19695376357569, 9.382750036439186], "type": "Point"}, "id": "59203", "properties": {"FACILITYID": "CAY05F-07", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000016676", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-07-42SWKA000016676"}, "type": "Feature"}, {"bbox": [99.19695376357569, 9.382750036439186, 99.19695376357569, 9.382750036439186], "geometry": {"coordinates": [99.19695376357569, 9.382750036439186], "type": "Point"}, "id": "59204", "properties": {"FACILITYID": "CAY05F-07", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000016676", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-07-42SWKA000016676"}, "type": "Feature"}, {"bbox": [99.18333390145645, 9.386001381792676, 99.18333390145645, 9.386001381792676], "geometry": {"coordinates": [99.18333390145645, 9.386001381792676], "type": "Point"}, "id": "60525", "properties": {"FACILITYID": "CAY05F-02/01", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000026564", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-02/01-42SWKA000026564"}, "type": "Feature"}, {"bbox": [99.18950032837803, 9.378086862356694, 99.18950032837803, 9.378086862356694], "geometry": {"coordinates": [99.18950032837803, 9.378086862356694], "type": "Point"}, "id": "60580", "properties": {"FACILITYID": "CAY05F-05/201", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000027516", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-05/201-42SWKA000027516"}, "type": "Feature"}, {"bbox": [99.20838643495418, 9.386551421406852, 99.20838643495418, 9.386551421406852], "geometry": {"coordinates": [99.20838643495418, 9.386551421406852], "type": "Point"}, "id": "60690", "properties": {"FACILITYID": "CAY05WS-105", "FEEDERID": "CAY05", "__folium_color": "#FF8C00", "connector_id": "42SWKA000028526", "device_type": "Switch", "full_nearest_upstream_device": "CAY05WS-105-42SWKA000028526"}, "type": "Feature"}, {"bbox": [99.1726916827545, 9.387754791290421, 99.1726916827545, 9.387754791290421], "geometry": {"coordinates": [99.1726916827545, 9.387754791290421], "type": "Point"}, "id": "60726", "properties": {"FACILITYID": "CAY05F-01/01", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000028784", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-01/01-42SWKA000028784"}, "type": "Feature"}, {"bbox": [99.17866303809961, 9.38609302616906, 99.17866303809961, 9.38609302616906], "geometry": {"coordinates": [99.17866303809961, 9.38609302616906], "type": "Point"}, "id": "61607", "properties": {"FACILITYID": "CAY05F-202", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000037168", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-202-42SWKA000037168"}, "type": "Feature"}, {"bbox": [99.20054648881043, 9.38666712305825, 99.20054648881043, 9.38666712305825], "geometry": {"coordinates": [99.20054648881043, 9.38666712305825], "type": "Point"}, "id": "61650", "properties": {"FACILITYID": "CAY05F-08/01", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000037488", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-08/01-42SWKA000037488"}, "type": "Feature"}, {"bbox": [99.20188086119924, 9.387139101847788, 99.20188086119924, 9.387139101847788], "geometry": {"coordinates": [99.20188086119924, 9.387139101847788], "type": "Point"}, "id": "66030", "properties": {"FACILITYID": "CAY05F-77", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000062362", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-77-42SWKA000062362"}, "type": "Feature"}, {"bbox": [99.20176806634687, 9.387133703118916, 99.20176806634687, 9.387133703118916], "geometry": {"coordinates": [99.20176806634687, 9.387133703118916], "type": "Point"}, "id": "66031", "properties": {"FACILITYID": "CAY05F-78", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000062363", "device_type": "Fuse", "full_nearest_upstream_device": "CAY05F-78-42SWKA000062363"}, "type": "Feature"}, {"bbox": [99.19336122428734, 9.385927564688869, 99.19336122428734, 9.385927564688869], "geometry": {"coordinates": [99.19336122428734, 9.385927564688869], "type": "Point"}, "id": "70151", "properties": {"FACILITYID": "CHY08F-55555555", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000089952", "device_type": "Fuse", "full_nearest_upstream_device": "CHY08F-55555555-42SWKA000089952"}, "type": "Feature"}, {"bbox": [99.18545191261128, 9.385935706636777, 99.18545191261128, 9.385935706636777], "geometry": {"coordinates": [99.18545191261128, 9.385935706636777], "type": "Point"}, "id": "70479", "properties": {"FACILITYID": "CHY08F-563", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000092849", "device_type": "Fuse", "full_nearest_upstream_device": "CHY08F-563-42SWKA000092849"}, "type": "Feature"}, {"bbox": [99.17971110037645, 9.386225572265182, 99.17971110037645, 9.386225572265182], "geometry": {"coordinates": [99.17971110037645, 9.386225572265182], "type": "Point"}, "id": "72164", "properties": {"FACILITYID": "CHY08F-11", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000102089", "device_type": "Fuse", "full_nearest_upstream_device": "CHY08F-11-42SWKA000102089"}, "type": "Feature"}, {"bbox": [99.1959327049518, 9.389418934814472, 99.1959327049518, 9.389418934814472], "geometry": {"coordinates": [99.1959327049518, 9.389418934814472], "type": "Point"}, "id": "72977", "properties": {"FACILITYID": "CHY08F-88", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000110910", "device_type": "Fuse", "full_nearest_upstream_device": "CHY08F-88-42SWKA000110910"}, "type": "Feature"}, {"bbox": [99.19487879834783, 9.38587831490503, 99.19487879834783, 9.38587831490503], "geometry": {"coordinates": [99.19487879834783, 9.38587831490503], "type": "Point"}, "id": "73394", "properties": {"FACILITYID": "CHY08F-63232633", "FEEDERID": "CAY05", "__folium_color": "#8B4513", "connector_id": "42SWKA000113981", "device_type": "Fuse", "full_nearest_upstream_device": "CHY08F-63232633-42SWKA000113981"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_294f6f78b80ba3d7b4e80aa23ce0830d.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_294f6f78b80ba3d7b4e80aa23ce0830d.addTo(map_de3035e59982468893a59b4d274cd35e);
+        
+    
+            var layer_control_38c898a15e688a3a2582fd825ae88517_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_a9106525a678ca9a8e7d147809c9d0b7,
+                    "Google Satellite" : tile_layer_fb317702bcbd8babc0266e79b0bd2dc6,
+                    "cartodbpositron" : tile_layer_46b9feb883e8c92a42ee14d61bcd89c7,
+                },
+                overlays :  {
+                    "Vegetation Density (%) [META + Sentinel-2]" : geo_json_1456c7ab9f96696a13cf5d01b9a454fc,
+                    "sources" : geo_json_a6d5256f98c566994d04234a37945805,
+                    "devices" : geo_json_294f6f78b80ba3d7b4e80aa23ce0830d,
+                },
+            };
+            let layer_control_38c898a15e688a3a2582fd825ae88517 = L.control.layers(
+                layer_control_38c898a15e688a3a2582fd825ae88517_layers.base_layers,
+                layer_control_38c898a15e688a3a2582fd825ae88517_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_de3035e59982468893a59b4d274cd35e);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var asset = {'type' : 'asset_selector', 'value' : e['layer']['feature']['properties']['Nearest Upstream Device']};
+                            window.top.postMessage(asset, '*');
+                        }
+
+            geo_json_1456c7ab9f96696a13cf5d01b9a454fc.on('click', send_cluster_id_on_click);</script>
+</html>

@@ -1,93 +1,129 @@
-# front
+# VEGX_THAILAND_FRONT_END
+## Outline of this README
+
+- [Introduction](#introduction)
+- [Installation Instructions](#installation-instructions)
+- [Pipeline Structure](#Pipeline-structure)
+- [How To](#how-to)
+- [Specific Parameters](#specific-parameters)
+- [Additional-notes](#Additional-notes)
+- [Contact & Support](#contact--support)
 
 
 
-## Getting started
+## Introduction
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+This pipeline creates a portable dash web app that serves as a digital twin for vegetation maintenance. **This version is temporary** in order to be able to run the app locally via command line until its deployment is complete.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Installation Instructions
 
-## Add your files
+0) Make sure to have SQL Server ODBC Driver 17 in your machine to connect to PEA SQL database
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+For Microsoft, follow the instructions here: https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+
+1) Clone this repo to your local machine, e.g.,
+
+    ```bash
+    git clone https://github.com/McK-Private/vegx_thailand_front_end.git
+    ```
+
+*  **NOTE**:Please create an individual branch for testing and do not commit changes to main unless code has been thoroughly reviewed and tested
+
+2) Create virual environment, after installing [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) to your machine.
+
+    From the terminal, run:
+
+    ```bash
+    conda init
+    conda create --name test_thailand_digital_twin_env python=3.12.4
+    ```
+
+3) Activate the environment. From the terminal, run:
+
+    ```bash
+    conda activate test_thailand_digital_twin_env
+    ```
+
+4) Make sure the environment is activated. `(test_thailand_digital_twin_env)` should be visible to the left of your terminal command line. Then install all the packages in requirements.txt by invoking:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5) Install pre-commit so the repo is automatically formatted to [black](https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/).
+
+    From the terminal, run
+
+    ```bash
+    pre-commit install
+
+    # optional (this will run automatically with each commit)
+    pre-commit run --all-files
+    ```
+
+## Pipeline-Structure
+
+This pipeline codebase is structured as follows:
+
+```bash
+
+├── front_end
+│   │
+│   ├── app/assets - stores the maps and images that will be loaded in the app 
+│   │
+│   ├── F2_processed - stores parquet files created from the risk analytics pipeline outaputs and cleaned to be ready for visualization
+│
+├── notebooks
+│   ├── 01_process_raw_data.ipynb: cleanes resulting tables from risk modeling, beautify column names and values and process data into the tables needed to create maps
+│   │
+│   ├── 02_pregenerate_maps.ipynb: generate regional and subregional maps 
+│
+└── src
+│   ├── cleaning_functions
+│   |   ├── general_cleaning_functions.py: logging functions to store outputs in UAT.txt and logs.txt
+│   ├── io_utils
+│   |   ├── io_utils.py: reades and writes files to database or local
+│   ├── preprocessing
+│   |   ├── data_preprocessing.py: functions to clean and process tables
+│   |   ├── pregenerated_maps.py: functions to generate maps from table
+├── app
+│   |   ├── app.py: function that runs the app using the maps and images generated in the notebooks
 
 ```
-cd existing_repo
-git remote add origin http://tcc-gitlab.pea.co.th/vegx/front.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+## How-to
 
-- [ ] [Set up project integrations](http://tcc-gitlab.pea.co.th/vegx/front/-/settings/integrations)
+### Run the pipeline locally
 
-## Collaborate with your team
+1. Set up config_blank.py by renaming it to config.py and adding the relevent datbase path. The repository will be provided with config_blank.py. This **file should be renamed to config.py** for each user who creates a branch on this repository. Please put the path of the database that will be called to load any relevant data
+a) **NOTE:** Please take appropriate steps to set up the database connection
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-## Test and Deploy
+2. Check ```conf/base/parameters/general_parameters.yml``` and ```conf/catalog.yml```
 
-Use the built-in continuous integration in GitLab.
+*   The paths in the catalog file and parameters here are used the notebooks and the names or values may need to be updated to run pipeline
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+3. Follow instructions in section Installation Instructions to set up the correct environment
 
-***
+2. Run notebooks in ```notebooks/``` in the following order:
+    1) 01_process_raw_data.ipynb
+    2) 02_pregenerate_maps.ipynb
 
-# Editing this README
+3. Run the app
+    ```bash
+    cd app
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+    python run app.py
+    ```
 
-## Suggestions for a good README
+## Specific Parameters
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### List of parameters used in corridor pipeline 
+1) local_path: path of local folder to save maps and images
 
-## Name
-Choose a self-explaining name for your project.
+## Contact & Support
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+For general questions, access to the data or questions related to the pipeline please contact:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- [Jake Lieberfarb](mailto:jake_lieberfarb@McKinsey.com)
+- [Francesca Andretta](mailto:francesca_andretta@McKinsey.com)

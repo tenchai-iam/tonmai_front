@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ce0c8d4f0f3eb399974e86670380751f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>$( function() {
+        $( ".maplegend" ).draggable({
+            start: function (event, ui) {
+                $(this).css({
+                    right: "auto",
+                    top: "auto",
+                    bottom: "auto"
+                });
+            }
+        });
+    });
+    </script>
+    <style type='text/css'>
+      .maplegend {
+        position: absolute;
+        z-index:9999;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        padding: 10px;
+        font: 12px/14px Arial, Helvetica, sans-serif;
+        right: 10px;
+        bottom: 20px;
+      }
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        }
+      .maplegend .legend-scale ul {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .legend-scale ul li {
+        list-style: none;
+        margin-left: 0;
+        line-height: 16px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 14px;
+        width: 14px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 0px solid #ccc;
+        }
+      .maplegend .legend-source {
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div id='maplegend Risk (Customer Interruptions) [Category]' class='maplegend'>
+        <div class='legend-title'>Risk (Customer Interruptions) [Category]</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#b40426'></span>high</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#1f77b4'></span>Source</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div id='maplegend device_type' class='maplegend'>
+        <div class='legend-title'>device_type</div>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#8B4513'></span>Fuse</li>
+                <li><span style='background:#FF8C00'></span>Switch</li>
+                <li><span style='background:#800080'></span>recloser</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_ce0c8d4f0f3eb399974e86670380751f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ce0c8d4f0f3eb399974e86670380751f = L.map(
+                "map_ce0c8d4f0f3eb399974e86670380751f",
+                {
+                    center: [14.626321226654403, 101.42309543681488],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+
+            
+
+        
+    
+            var tile_layer_6d96a2a31a777314144b9f9b8b701632 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_6d96a2a31a777314144b9f9b8b701632.addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+        
+    
+            map_ce0c8d4f0f3eb399974e86670380751f.fitBounds(
+                [[14.593008357337778, 101.39558310640005], [14.659634095971027, 101.4506077672297]],
+                {}
+            );
+        
+    
+        function geo_json_ca58326facc6e8260fab3b2c002022e3_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#b40426", "fillColor": "#b40426", "fillOpacity": 0.5, "weight": 5};
+            }
+        }
+        function geo_json_ca58326facc6e8260fab3b2c002022e3_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_ca58326facc6e8260fab3b2c002022e3_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_ca58326facc6e8260fab3b2c002022e3_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_ca58326facc6e8260fab3b2c002022e3_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_ca58326facc6e8260fab3b2c002022e3.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_ca58326facc6e8260fab3b2c002022e3_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_ca58326facc6e8260fab3b2c002022e3 = L.geoJson(null, {
+                onEachFeature: geo_json_ca58326facc6e8260fab3b2c002022e3_onEachFeature,
+            
+                style: geo_json_ca58326facc6e8260fab3b2c002022e3_styler,
+                pointToLayer: geo_json_ca58326facc6e8260fab3b2c002022e3_pointToLayer,
+        });
+
+        function geo_json_ca58326facc6e8260fab3b2c002022e3_add (data) {
+            geo_json_ca58326facc6e8260fab3b2c002022e3
+                .addData(data);
+        }
+            geo_json_ca58326facc6e8260fab3b2c002022e3_add({"bbox": [101.39558310640005, 14.593008357337778, 101.4506077672297, 14.659634095971027], "features": [{"bbox": [101.43000890909533, 14.636519536526896, 101.43509133423616, 14.638004314433825], "geometry": {"coordinates": [[[101.43485659938044, 14.637914556952927], [101.43490481557366, 14.637936701581312], [101.43509133423616, 14.638004314433825]], [[101.432854268385, 14.637056753205153], [101.4329338640493, 14.637075417283883], [101.43403566397998, 14.637558328573075], [101.43446513041695, 14.63774363904619], [101.43485659938044, 14.637914556952927]], [[101.43000890909533, 14.636519536526896], [101.43085158181964, 14.636633712610983], [101.43090327474852, 14.636643020157539], [101.43170649622068, 14.63678768045799], [101.432854268385, 14.637056753205153]], [[101.43489251936319, 14.637839864617815], [101.43485659938044, 14.637914556952927]]], "type": "MultiLineString"}, "id": "736", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.96, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 81.12, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 57.0, "Feeder ID": "PCC07", "Nearest Upstream Device": "PCC07F-13-2330SW000002772", "Probability of Outage (%)": 0.28, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 46.96, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.04, "__folium_color": "#b40426", "corridor length (km)": 0.58, "density distribution meta": "{\u0027open\u0027: \u00270.01 km\u0027}"}, "type": "Feature"}, {"bbox": [101.39558310640005, 14.593008357337778, 101.41002451105473, 14.600352910313301], "geometry": {"coordinates": [[[101.39994465121578, 14.597317589316136], [101.39995573897798, 14.59734080253387]], [[101.4001210090611, 14.597516396902343], [101.40037507556754, 14.597498081033896], [101.4006200546719, 14.597339949041412]], [[101.39558310640005, 14.600352910313301], [101.39570833092878, 14.599833435921886], [101.39576848064173, 14.59931462080212], [101.39578615351266, 14.598663451391316], [101.39579350952395, 14.597933407452373], [101.39646555264493, 14.597742868151252], [101.39659671540127, 14.597719620994726], [101.3967142193044, 14.597718413935413], [101.39689450044982, 14.597740910106419], [101.39701956167924, 14.597744494895453], [101.39713206559156, 14.597743338993832], [101.39740731959182, 14.597721312215281], [101.39780583755885, 14.597664599379481], [101.39803603455142, 14.597631777851396], [101.39890946716382, 14.597563577078413], [101.39950167903771, 14.597525839036733], [101.4001210090611, 14.597516396902343]], [[101.39995573897798, 14.59734080253387], [101.4001210090611, 14.597516396902343]], [[101.40997246021062, 14.596690719188135], [101.40991823595077, 14.597191710168579]], [[101.4006200546719, 14.597339949041412], [101.40091250978674, 14.597093277387762], [101.40125124178323, 14.596784395996742], [101.40142014166564, 14.596630208412213], [101.40154366602663, 14.596541852858904], [101.40164876673376, 14.596496348106852], [101.40175850203505, 14.59646842204178], [101.4019715435968, 14.596427976639948], [101.40245013025014, 14.596368769706476], [101.40246703412167, 14.596365406455327]], [[101.40246703412167, 14.596365406455327], [101.40285018519677, 14.596289166464063], [101.40292743686386, 14.596259216383048], [101.40298018976844, 14.596229509551138], [101.40303348316894, 14.596187212004688], [101.40328365146419, 14.595975892005399], [101.40334910508061, 14.595924850188895], [101.40345922041541, 14.59585082517851], [101.40355425186706, 14.595794834886595], [101.40365881850833, 14.595752343341372], [101.404060808882, 14.595603414253175], [101.40420093730238, 14.595536361571757], [101.40435311076412, 14.595449968217261], [101.4050042853302, 14.595007214215922], [101.40533475814357, 14.594870530334816], [101.40561412407041, 14.594773275651306], [101.40579063241776, 14.594707536566258], [101.40593247283323, 14.594642760116773], [101.40604347244056, 14.59457768723812], [101.40605172399378, 14.594522599875095], [101.4060540312836, 14.594484802670923], [101.4060542206629, 14.594439076908214], [101.40604599995983, 14.594371565235956], [101.40597164740045, 14.594106571781992], [101.40582813663688, 14.59355766703745], [101.40575801373416, 14.593317294122812], [101.40572498871309, 14.593197963006041], [101.40571738773536, 14.593125141629965], [101.405720367106, 14.59308600941336], [101.40572749793375, 14.593054125278332], [101.40575110299557, 14.59303400595073], [101.40578018696586, 14.593017796305757], [101.40581591275664, 14.593008357337778], [101.40584859896826, 14.59301117343586], [101.40629184297713, 14.593067487412092], [101.40755646259649, 14.593227356589725], [101.40892615084941, 14.593391003708302], [101.40925910141688, 14.593421933955229], [101.40952262599639, 14.593451547776906], [101.40962531384574, 14.593753948009631], [101.40968240097588, 14.594152286799844], [101.40977011180514, 14.594651098387162], [101.40980969289951, 14.594840649424711], [101.40982852286758, 14.594962222203321], [101.4098665708809, 14.595091059014761], [101.40989059875183, 14.595151531860065], [101.40993145561877, 14.59522905068429], [101.40996471110878, 14.595296890725777], [101.40999474862777, 14.595363137782165], [101.41002451105473, 14.59555063992344], [101.41000016532233, 14.596320478611636], [101.40997784600187, 14.596640919511241], [101.40997246021062, 14.596690719188135]]], "type": "MultiLineString"}, "id": "743", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 1.12, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 50.0, "Customers Affected (Adjusted) [Category]": "medium", "Customers Affected (Original)": 50.0, "Feeder ID": "PCC07", "Nearest Upstream Device": "PCC07F-02-2330SW000002786", "Probability of Outage (%)": 0.33, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "three times a year", "Risk (Customer Interruptions)": 36.18, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.17, "__folium_color": "#b40426", "corridor length (km)": 2.51, "density distribution meta": "{\u0027open\u0027: \u00270.0 km\u0027}"}, "type": "Feature"}, {"bbox": [101.42785685915386, 14.637680960860955, 101.4506077672297, 14.659634095971027], "geometry": {"coordinates": [[[101.42927045779, 14.63844815283157], [101.42933823435423, 14.638357444848126]], [[101.42925925392097, 14.638463781812906], [101.42927045779, 14.63844815283157]], [[101.43111797503083, 14.639617601243366], [101.43166607521465, 14.639785180414984], [101.43167803804089, 14.639868713593007], [101.43157530242388, 14.640125559012196], [101.43158040053828, 14.640177263598542]], [[101.42933823435423, 14.638357444848126], [101.42936421626963, 14.638369324853631], [101.43005154228968, 14.638586553425608], [101.43077241143673, 14.638836504208756], [101.43127071653356, 14.63897190038042]], [[101.43111797503083, 14.639617601243366], [101.43099964952643, 14.639908072659605]], [[101.43127071653356, 14.63897190038042], [101.43124156177102, 14.639086372253791], [101.43111797503083, 14.639617601243366]], [[101.43158040053828, 14.640177263598542], [101.43159050112996, 14.640279571576562]], [[101.44335721882355, 14.651073590053993], [101.44324190671279, 14.65092232100907], [101.44300805513579, 14.650652556841228], [101.44277146808277, 14.650367842233075], [101.44263602030135, 14.650215709205897]], [[101.44337963084519, 14.652346068542569], [101.44381902988381, 14.652564425735033]], [[101.44381902988381, 14.652564425735033], [101.44406669481941, 14.652689639465764]], [[101.44683552998478, 14.654529101181401], [101.44776767176184, 14.653588217880657]], [[101.44776767176184, 14.653588217880657], [101.44784801701975, 14.653510860829199]], [[101.44306233524482, 14.652952594910618], [101.44337963084519, 14.652346068542569]], [[101.44337963084519, 14.652346068542569], [101.44348212289316, 14.652143590157905]], [[101.44683552998478, 14.654529101181401], [101.4465376178488, 14.654180315758758], [101.44529365406402, 14.652808747374994]], [[101.44326457356105, 14.653028083300912], [101.44305040686912, 14.653006618804016]], [[101.44248249026907, 14.652974433812174], [101.44263892396187, 14.6526663834361], [101.44297548417332, 14.651975265838246], [101.4429981605097, 14.651929829042807]], [[101.44898733484186, 14.658098108651147], [101.44913575111151, 14.658063678206593], [101.44994826393122, 14.658912826110242]], [[101.45030228779365, 14.659282795301237], [101.45031337034565, 14.65929554321418], [101.4506077672297, 14.659634095971027]], [[101.44305040686912, 14.653006618804016], [101.4430042509167, 14.653002442101199], [101.4425278722162, 14.652973243350086], [101.44248249026907, 14.652974433812174]], [[101.44305040686912, 14.653006618804016], [101.44306233524482, 14.652952594910618]], [[101.4429981605097, 14.651929829042807], [101.44328707127372, 14.651351074429353]], [[101.44902534629182, 14.658373749580175], [101.44899199236617, 14.658129751719107], [101.44898733484186, 14.658098108651147]], [[101.44339464863168, 14.65112268656395], [101.44328707127372, 14.651351074429353]], [[101.44263602030135, 14.650215709205897], [101.44287068162262, 14.65006211858558]], [[101.44263602030135, 14.650215709205897], [101.44259743914158, 14.650172379460889], [101.44251684524313, 14.650075827301936]], [[101.44386279977847, 14.651678949315587], [101.44408027425558, 14.651517669163892]], [[101.44386279977847, 14.651678949315587], [101.44380632299762, 14.651635220707474], [101.44358863986307, 14.651347516980456], [101.44339464863168, 14.65112268656395]], [[101.44339464863168, 14.65112268656395], [101.44335721882355, 14.651073590053993]], [[101.44748310693961, 14.655603242649653], [101.44720116356766, 14.655014783055227], [101.44702223909351, 14.654747689429122], [101.44683552998478, 14.654529101181401]], [[101.44898733484186, 14.658098108651147], [101.44890549971663, 14.65754232565858], [101.44814863446159, 14.656544325485893]], [[101.44814863446159, 14.656544325485893], [101.44793228495661, 14.656259043622452], [101.44751406680122, 14.655667863970713], [101.44748310693961, 14.655603242649653]], [[101.44748310693961, 14.655603242649653], [101.44757560248075, 14.655484353653781]], [[101.44529365406402, 14.652808747374994], [101.445138816183, 14.652638028939984], [101.4450358532365, 14.652547847477416], [101.44469767465586, 14.65234550329648], [101.44438102621285, 14.65216503003398], [101.44407877125258, 14.65193189772382], [101.44386279977847, 14.651678949315587]], [[101.44994826393122, 14.658912826110242], [101.45008502377523, 14.658783152424881]], [[101.44994826393122, 14.658912826110242], [101.45029230758485, 14.659272375633648], [101.45030228779365, 14.659282795301237]], [[101.44248249026907, 14.652974433812174], [101.44245242620363, 14.653028982484019], [101.44229088373622, 14.653331593618224], [101.44226030400313, 14.653383997533316]], [[101.43734308284687, 14.643883780814043], [101.43740148707538, 14.644014880326761], [101.43744456733712, 14.644091871184008], [101.4375037134242, 14.644200250586788], [101.43753788847438, 14.644271606963507], [101.43761195965367, 14.644397988924203], [101.43765378189404, 14.64445013947697], [101.43774930464664, 14.644562916749745], [101.43788310759855, 14.644674344189594], [101.4379732891169, 14.644747977392338], [101.43817706002493, 14.644880651817505], [101.43823280800495, 14.644919149960561]], [[101.43734308284687, 14.643883780814043], [101.43723058250355, 14.643681407060402], [101.43717088028718, 14.643566338934425]], [[101.43731957868167, 14.643895518733462], [101.43734308284687, 14.643883780814043]], [[101.43823280800495, 14.644919149960561], [101.4384402875004, 14.64506242766253], [101.43863374050358, 14.645194261158064], [101.43864781907081, 14.645202000522596]], [[101.43864781907081, 14.645202000522596], [101.43891703780915, 14.645388464950347], [101.43928314791222, 14.645636800807912], [101.4394822826296, 14.645772160484407], [101.4397358617359, 14.645946383668319], [101.43998586367353, 14.646130211373034], [101.44001435220909, 14.646153817306548], [101.44010607099494, 14.646232926216063], [101.44024355418563, 14.646343834537465], [101.44039486381305, 14.646483272578221], [101.44059571399497, 14.646662826972515], [101.44070602631312, 14.646758481043543], [101.44079444588534, 14.646872288849591], [101.44087396966668, 14.646958698579583], [101.44090240549632, 14.646977525780365], [101.44094337692148, 14.647018924622506], [101.441047910486, 14.64725805867274], [101.44122558088299, 14.647672115033451], [101.4413845132082, 14.648056482387766], [101.44148688957688, 14.648321928537387], [101.44157746142862, 14.648519370889757], [101.44165395136315, 14.648664381414337], [101.44177384960514, 14.64884957240362], [101.44211241387609, 14.649381443898385], [101.4423736748663, 14.64980538077734], [101.44251684524313, 14.650075827301936]], [[101.43731957868167, 14.643895518733462], [101.43743774317528, 14.64412340924083]], [[101.43127071653356, 14.63897190038042], [101.43292960242184, 14.639422632572067], [101.43367651305347, 14.639894609435828], [101.43373204707758, 14.63993744769358]], [[101.43373204707758, 14.63993744769358], [101.43362242843823, 14.640071453335022]], [[101.43373204707758, 14.63993744769358], [101.43568297574384, 14.641442328931001]], [[101.43597162967005, 14.641697932911704], [101.4362737785002, 14.641993245568178], [101.4364670016087, 14.64223314352744], [101.436564841716, 14.642354254019189], [101.43662892674575, 14.642478066905662], [101.43682727100663, 14.642962181010027], [101.43696278254659, 14.643219125304102], [101.43711054673521, 14.643492374553283], [101.43731957868167, 14.643895518733462]], [[101.43743774317528, 14.64412340924083], [101.43746302960486, 14.644172173576575], [101.43761312960109, 14.644438351058831], [101.43770823829455, 14.644531302351306]], [[101.43576033783187, 14.641508969414637], [101.43549310063933, 14.641798751714521], [101.43420389299858, 14.641798231143062], [101.4340629957472, 14.64231912592841]], [[101.43568297574384, 14.641442328931001], [101.4357036866048, 14.641458301651387], [101.43576033783187, 14.641508969414637]], [[101.43576033783187, 14.641508969414637], [101.43597162967005, 14.641697932911704]], [[101.42785685915386, 14.637680960860955], [101.42933823435423, 14.638357444848126]]], "type": "MultiLineString"}, "id": "835", "properties": {"Chosen Scenario": "three times a year", "Cost Focus Scenario Frequency": "three times a year", "Cost to Trim (BHT) [META + Sentinel-2]": 222.6, "Cost to Trim (BHT) [MJM]": 0.0, "Customers Affected (Adjusted)": 102.0, "Customers Affected (Adjusted) [Category]": "high", "Customers Affected (Original)": 102.0, "Feeder ID": "PCC07", "Nearest Upstream Device": "PCC07F-11-23SWFA000000917", "Probability of Outage (%)": 0.27, "Probability of Outage (%) [Category]": "high", "Reliability Focus Scenario Frequency": "one time a year", "Risk (Customer Interruptions)": 59.05, "Risk (Customer Interruptions) [Category]": "high", "Vegetation Density (%) [META + Sentinel-2]": 0.01, "__folium_color": "#b40426", "corridor length (km)": 5.05, "density distribution meta": "{\u0027open\u0027: \u00271.21 km\u0027}"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_ca58326facc6e8260fab3b2c002022e3.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["Nearest Upstream Device", "Feeder ID", "corridor length (km)", "Vegetation Density (%) [META + Sentinel-2]", "density distribution meta", "Probability of Outage (%)", "Probability of Outage (%) [Category]", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Risk (Customer Interruptions)", "Risk (Customer Interruptions) [Category]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Customers Affected (Adjusted) [Category]", "Cost Focus Scenario Frequency", "Reliability Focus Scenario Frequency", "Chosen Scenario"];
+    let aliases = ["Nearest Upstream Device", "Feeder ID", "corridor length (km)", "Vegetation Density (%) [META + Sentinel-2]", "density distribution meta", "Probability of Outage (%)", "Probability of Outage (%) [Category]", "Cost to Trim (BHT) [META + Sentinel-2]", "Cost to Trim (BHT) [MJM]", "Risk (Customer Interruptions)", "Risk (Customer Interruptions) [Category]", "Customers Affected (Original)", "Customers Affected (Adjusted)", "Customers Affected (Adjusted) [Category]", "Cost Focus Scenario Frequency", "Reliability Focus Scenario Frequency", "Chosen Scenario"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_ca58326facc6e8260fab3b2c002022e3.addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+        
+    
+            var tile_layer_4c14cb1c65d9b88f3aa67609255d07f4 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {"attribution": "Google Satellite", "detectRetina": false, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_4c14cb1c65d9b88f3aa67609255d07f4.addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+        
+    
+            var tile_layer_9661e48eb356bc597ed4abf39288ad09 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_9661e48eb356bc597ed4abf39288ad09.addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+        
+    
+        function geo_json_b52856a8a9643b143985b5988a5b4de9_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1f77b4", "fillColor": "#1f77b4", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_b52856a8a9643b143985b5988a5b4de9_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_b52856a8a9643b143985b5988a5b4de9_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_b52856a8a9643b143985b5988a5b4de9_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_b52856a8a9643b143985b5988a5b4de9_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_b52856a8a9643b143985b5988a5b4de9.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_b52856a8a9643b143985b5988a5b4de9_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_b52856a8a9643b143985b5988a5b4de9 = L.geoJson(null, {
+                onEachFeature: geo_json_b52856a8a9643b143985b5988a5b4de9_onEachFeature,
+            
+                style: geo_json_b52856a8a9643b143985b5988a5b4de9_styler,
+                pointToLayer: geo_json_b52856a8a9643b143985b5988a5b4de9_pointToLayer,
+        });
+
+        function geo_json_b52856a8a9643b143985b5988a5b4de9_add (data) {
+            geo_json_b52856a8a9643b143985b5988a5b4de9
+                .addData(data);
+        }
+            geo_json_b52856a8a9643b143985b5988a5b4de9_add({"bbox": [101.40062204341248, 14.576718072380054, 101.40118444523941, 14.577265806604258], "features": [{"bbox": [101.40062204341248, 14.576718072380054, 101.40118444523941, 14.577265806604258], "geometry": {"coordinates": [[[101.40062204341248, 14.57672379194976], [101.4011785717142, 14.576718072380054], [101.40118444523941, 14.577260086812764], [101.40062791557955, 14.577265806604258], [101.40062204341248, 14.57672379194976]]], "type": "Polygon"}, "id": "670", "properties": {"FACILITYID": "PCC07VB-01", "FEEDERID": "PCC07", "__folium_color": "#1f77b4", "connector_id": "23CBFA000000510", "device_type": "Source", "full_nearest_upstream_device": "PCC07VB-01-23CBFA000000510"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_b52856a8a9643b143985b5988a5b4de9.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_b52856a8a9643b143985b5988a5b4de9.addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+        
+    
+        function geo_json_07afce97f78008dc2ddf639960678760_styler(feature) {
+            switch(feature.id) {
+                case "13946": 
+                    return {"color": "#800080", "fillColor": "#800080", "fillOpacity": 0.5, "weight": 10};
+                case "15921": case "15922": case "15929": case "15936": case "15937": case "15938": case "15939": case "15940": case "15942": case "15943": case "19113": case "19124": case "19165": case "19247": case "19659": case "19660": case "19661": case "19674": case "20246": case "20518": case "22890": case "23166": case "24248": case "25651": case "25663": case "29085": case "29284": case "29576": case "31959": case "32286": case "32424": 
+                    return {"color": "#8B4513", "fillColor": "#8B4513", "fillOpacity": 0.5, "weight": 10};
+                default:
+                    return {"color": "#FF8C00", "fillColor": "#FF8C00", "fillOpacity": 0.5, "weight": 10};
+            }
+        }
+        function geo_json_07afce97f78008dc2ddf639960678760_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.75};
+            }
+        }
+        function geo_json_07afce97f78008dc2ddf639960678760_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = geo_json_07afce97f78008dc2ddf639960678760_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_07afce97f78008dc2ddf639960678760_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_07afce97f78008dc2ddf639960678760.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_07afce97f78008dc2ddf639960678760_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_07afce97f78008dc2ddf639960678760 = L.geoJson(null, {
+                onEachFeature: geo_json_07afce97f78008dc2ddf639960678760_onEachFeature,
+            
+                style: geo_json_07afce97f78008dc2ddf639960678760_styler,
+                pointToLayer: geo_json_07afce97f78008dc2ddf639960678760_pointToLayer,
+        });
+
+        function geo_json_07afce97f78008dc2ddf639960678760_add (data) {
+            geo_json_07afce97f78008dc2ddf639960678760
+                .addData(data);
+        }
+            geo_json_07afce97f78008dc2ddf639960678760_add({"bbox": [101.39558310640005, 14.577490828328441, 101.47189608071142, 14.655484353653781], "features": [{"bbox": [101.41052086577307, 14.640508627250478, 101.41052086577307, 14.640508627250478], "geometry": {"coordinates": [101.41052086577307, 14.640508627250478], "type": "Point"}, "id": "13946", "properties": {"FACILITYID": "PCC07R-01", "FEEDERID": "PCC07", "__folium_color": "#800080", "connector_id": "2330RC000000022", "device_type": "recloser", "full_nearest_upstream_device": "PCC07R-01-2330RC000000022"}, "type": "Feature"}, {"bbox": [101.45568821101266, 14.624900922998911, 101.45568821101266, 14.624900922998911], "geometry": {"coordinates": [101.45568821101266, 14.624900922998911], "type": "Point"}, "id": "15921", "properties": {"FACILITYID": "PCC07F-19", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002762", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-19-2330SW000002762"}, "type": "Feature"}, {"bbox": [101.43880029084825, 14.624930425823914, 101.43880029084825, 14.624930425823914], "geometry": {"coordinates": [101.43880029084825, 14.624930425823914], "type": "Point"}, "id": "15922", "properties": {"FACILITYID": "PCC07F-16", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002763", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-16-2330SW000002763"}, "type": "Feature"}, {"bbox": [101.43000890909533, 14.636519536526896, 101.43000890909533, 14.636519536526896], "geometry": {"coordinates": [101.43000890909533, 14.636519536526896], "type": "Point"}, "id": "15929", "properties": {"FACILITYID": "PCC07F-13", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002772", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-13-2330SW000002772"}, "type": "Feature"}, {"bbox": [101.41048411765894, 14.640506677045558, 101.41048411765894, 14.640506677045558], "geometry": {"coordinates": [101.41048411765894, 14.640506677045558], "type": "Point"}, "id": "15931", "properties": {"FACILITYID": "PCC07S-08", "FEEDERID": "PCC07", "__folium_color": "#FF8C00", "connector_id": "2330SW000002774", "device_type": "Switch", "full_nearest_upstream_device": "PCC07S-08-2330SW000002774"}, "type": "Feature"}, {"bbox": [101.41054003349997, 14.640509205645694, 101.41054003349997, 14.640509205645694], "geometry": {"coordinates": [101.41054003349997, 14.640509205645694], "type": "Point"}, "id": "15932", "properties": {"FACILITYID": "PCC07S-09", "FEEDERID": "PCC07", "__folium_color": "#FF8C00", "connector_id": "2330SW000002775", "device_type": "Switch", "full_nearest_upstream_device": "PCC07S-09-2330SW000002775"}, "type": "Feature"}, {"bbox": [101.41052353009685, 14.640473925294652, 101.41052353009685, 14.640473925294652], "geometry": {"coordinates": [101.41052353009685, 14.640473925294652], "type": "Point"}, "id": "15933", "properties": {"FACILITYID": "PCC07S-07", "FEEDERID": "PCC07", "__folium_color": "#FF8C00", "connector_id": "2330SW000002776", "device_type": "Switch", "full_nearest_upstream_device": "PCC07S-07-2330SW000002776"}, "type": "Feature"}, {"bbox": [101.4103048812057, 14.62895509214301, 101.4103048812057, 14.62895509214301], "geometry": {"coordinates": [101.4103048812057, 14.62895509214301], "type": "Point"}, "id": "15936", "properties": {"FACILITYID": "PCC07F-08", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002780", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-08-2330SW000002780"}, "type": "Feature"}, {"bbox": [101.40909203007291, 14.625770369350914, 101.40909203007291, 14.625770369350914], "geometry": {"coordinates": [101.40909203007291, 14.625770369350914], "type": "Point"}, "id": "15937", "properties": {"FACILITYID": "PCC07F-07", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002781", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-07-2330SW000002781"}, "type": "Feature"}, {"bbox": [101.40735970658928, 14.620360526165205, 101.40735970658928, 14.620360526165205], "geometry": {"coordinates": [101.40735970658928, 14.620360526165205], "type": "Point"}, "id": "15938", "properties": {"FACILITYID": "PCC07F-06", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002782", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-06-2330SW000002782"}, "type": "Feature"}, {"bbox": [101.40648623518905, 14.617448987123597, 101.40648623518905, 14.617448987123597], "geometry": {"coordinates": [101.40648623518905, 14.617448987123597], "type": "Point"}, "id": "15939", "properties": {"FACILITYID": "PCC07F-05", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002783", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-05-2330SW000002783"}, "type": "Feature"}, {"bbox": [101.4028305012363, 14.609806751281162, 101.4028305012363, 14.609806751281162], "geometry": {"coordinates": [101.4028305012363, 14.609806751281162], "type": "Point"}, "id": "15940", "properties": {"FACILITYID": "PCC07F-03", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002784", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-03-2330SW000002784"}, "type": "Feature"}, {"bbox": [101.39558310640005, 14.600352910313301, 101.39558310640005, 14.600352910313301], "geometry": {"coordinates": [101.39558310640005, 14.600352910313301], "type": "Point"}, "id": "15942", "properties": {"FACILITYID": "PCC07F-02", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002786", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-02-2330SW000002786"}, "type": "Feature"}, {"bbox": [101.42885780148573, 14.636779862169949, 101.42885780148573, 14.636779862169949], "geometry": {"coordinates": [101.42885780148573, 14.636779862169949], "type": "Point"}, "id": "15943", "properties": {"FACILITYID": "PCC07F-12", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "2330SW000002787", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-12-2330SW000002787"}, "type": "Feature"}, {"bbox": [101.42585990600732, 14.638739051432266, 101.42585990600732, 14.638739051432266], "geometry": {"coordinates": [101.42585990600732, 14.638739051432266], "type": "Point"}, "id": "19113", "properties": {"FACILITYID": "PCC07F-10", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000000086", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-10-23SWFA000000086"}, "type": "Feature"}, {"bbox": [101.45488107174413, 14.62142359921974, 101.45488107174413, 14.62142359921974], "geometry": {"coordinates": [101.45488107174413, 14.62142359921974], "type": "Point"}, "id": "19124", "properties": {"FACILITYID": "PCC07F-17", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000000103", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-17-23SWFA000000103"}, "type": "Feature"}, {"bbox": [101.41086987946436, 14.636341929890099, 101.41086987946436, 14.636341929890099], "geometry": {"coordinates": [101.41086987946436, 14.636341929890099], "type": "Point"}, "id": "19165", "properties": {"FACILITYID": "PCC07F-09", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000000454", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-09-23SWFA000000454"}, "type": "Feature"}, {"bbox": [101.42785685915386, 14.637680960860955, 101.42785685915386, 14.637680960860955], "geometry": {"coordinates": [101.42785685915386, 14.637680960860955], "type": "Point"}, "id": "19247", "properties": {"FACILITYID": "PCC07F-11", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000000917", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-11-23SWFA000000917"}, "type": "Feature"}, {"bbox": [101.40004171066704, 14.577490828328441, 101.40004171066704, 14.577490828328441], "geometry": {"coordinates": [101.40004171066704, 14.577490828328441], "type": "Point"}, "id": "19452", "properties": {"FACILITYID": "PCC07VS-101", "FEEDERID": "PCC07", "__folium_color": "#FF8C00", "connector_id": "23SWFA000002935", "device_type": "Switch", "full_nearest_upstream_device": "PCC07VS-101-23SWFA000002935"}, "type": "Feature"}, {"bbox": [101.42187498284508, 14.612475590881216, 101.42187498284508, 14.612475590881216], "geometry": {"coordinates": [101.42187498284508, 14.612475590881216], "type": "Point"}, "id": "19659", "properties": {"FACILITYID": "PCC07F-04", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000003246", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-04-23SWFA000003246"}, "type": "Feature"}, {"bbox": [101.43489251936319, 14.637839864617815, 101.43489251936319, 14.637839864617815], "geometry": {"coordinates": [101.43489251936319, 14.637839864617815], "type": "Point"}, "id": "19660", "properties": {"FACILITYID": "PCC07F-14", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000003247", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-14-23SWFA000003247"}, "type": "Feature"}, {"bbox": [101.45744298868502, 14.619453480265975, 101.45744298868502, 14.619453480265975], "geometry": {"coordinates": [101.45744298868502, 14.619453480265975], "type": "Point"}, "id": "19661", "properties": {"FACILITYID": "PCC07F-18", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000003249", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-18-23SWFA000003249"}, "type": "Feature"}, {"bbox": [101.42679000713734, 14.637879199475785, 101.42679000713734, 14.637879199475785], "geometry": {"coordinates": [101.42679000713734, 14.637879199475785], "type": "Point"}, "id": "19674", "properties": {"FACILITYID": "PCC07F-45", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000003262", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-45-23SWFA000003262"}, "type": "Feature"}, {"bbox": [101.41164240469894, 14.636665934634578, 101.41164240469894, 14.636665934634578], "geometry": {"coordinates": [101.41164240469894, 14.636665934634578], "type": "Point"}, "id": "20246", "properties": {"FACILITYID": "PCC07F-50", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000005440", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-50-23SWFA000005440"}, "type": "Feature"}, {"bbox": [101.44757560248075, 14.655484353653781, 101.44757560248075, 14.655484353653781], "geometry": {"coordinates": [101.44757560248075, 14.655484353653781], "type": "Point"}, "id": "20518", "properties": {"FACILITYID": "PCC07F-51", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000006640", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-51-23SWFA000006640"}, "type": "Feature"}, {"bbox": [101.41754094432476, 14.635002453298847, 101.41754094432476, 14.635002453298847], "geometry": {"coordinates": [101.41754094432476, 14.635002453298847], "type": "Point"}, "id": "22890", "properties": {"FACILITYID": "PCC07F-55", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000024789", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-55-23SWFA000024789"}, "type": "Feature"}, {"bbox": [101.43537994456327, 14.6228676715167, 101.43537994456327, 14.6228676715167], "geometry": {"coordinates": [101.43537994456327, 14.6228676715167], "type": "Point"}, "id": "23166", "properties": {"FACILITYID": "PCC07F-56", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000026982", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-56-23SWFA000026982"}, "type": "Feature"}, {"bbox": [101.41349016306633, 14.64088654887828, 101.41349016306633, 14.64088654887828], "geometry": {"coordinates": [101.41349016306633, 14.64088654887828], "type": "Point"}, "id": "24248", "properties": {"FACILITYID": "PCC07F-57", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000035495", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-57-23SWFA000035495"}, "type": "Feature"}, {"bbox": [101.41437138947497, 14.640980372365554, 101.41437138947497, 14.640980372365554], "geometry": {"coordinates": [101.41437138947497, 14.640980372365554], "type": "Point"}, "id": "25651", "properties": {"FACILITYID": "PCC07F-62", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000048305", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-62-23SWFA000048305"}, "type": "Feature"}, {"bbox": [101.4376237205562, 14.627718361732747, 101.4376237205562, 14.627718361732747], "geometry": {"coordinates": [101.4376237205562, 14.627718361732747], "type": "Point"}, "id": "25663", "properties": {"FACILITYID": "PCC07F-60", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000048440", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-60-23SWFA000048440"}, "type": "Feature"}, {"bbox": [101.41938213079455, 14.60798670095049, 101.41938213079455, 14.60798670095049], "geometry": {"coordinates": [101.41938213079455, 14.60798670095049], "type": "Point"}, "id": "29085", "properties": {"FACILITYID": "PCC07F-66", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000080215", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-66-23SWFA000080215"}, "type": "Feature"}, {"bbox": [101.47189608071142, 14.622667725568068, 101.47189608071142, 14.622667725568068], "geometry": {"coordinates": [101.47189608071142, 14.622667725568068], "type": "Point"}, "id": "29284", "properties": {"FACILITYID": "PCC07F-67", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000082595", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-67-23SWFA000082595"}, "type": "Feature"}, {"bbox": [101.41435719148025, 14.641037084460338, 101.41435719148025, 14.641037084460338], "geometry": {"coordinates": [101.41435719148025, 14.641037084460338], "type": "Point"}, "id": "29576", "properties": {"FACILITYID": "PCC07F-68", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000085936", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-68-23SWFA000085936"}, "type": "Feature"}, {"bbox": [101.39674598743237, 14.601181669906527, 101.39674598743237, 14.601181669906527], "geometry": {"coordinates": [101.39674598743237, 14.601181669906527], "type": "Point"}, "id": "31151", "properties": {"FACILITYID": "PCC07S-01", "FEEDERID": "PCC07", "__folium_color": "#FF8C00", "connector_id": "23SWFA000101679", "device_type": "Switch", "full_nearest_upstream_device": "PCC07S-01-23SWFA000101679"}, "type": "Feature"}, {"bbox": [101.45602262308533, 14.626217035402878, 101.45602262308533, 14.626217035402878], "geometry": {"coordinates": [101.45602262308533, 14.626217035402878], "type": "Point"}, "id": "31959", "properties": {"FACILITYID": "PCC07VF-101", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000107898", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07VF-101-23SWFA000107898"}, "type": "Feature"}, {"bbox": [101.43783631141778, 14.625450605350942, 101.43783631141778, 14.625450605350942], "geometry": {"coordinates": [101.43783631141778, 14.625450605350942], "type": "Point"}, "id": "32286", "properties": {"FACILITYID": "PCC07F-15", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000110377", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-15-23SWFA000110377"}, "type": "Feature"}, {"bbox": [101.46308570328989, 14.620804709552532, 101.46308570328989, 14.620804709552532], "geometry": {"coordinates": [101.46308570328989, 14.620804709552532], "type": "Point"}, "id": "32424", "properties": {"FACILITYID": "PCC07F-69", "FEEDERID": "PCC07", "__folium_color": "#8B4513", "connector_id": "23SWFA000111516", "device_type": "Fuse", "full_nearest_upstream_device": "PCC07F-69-23SWFA000111516"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_07afce97f78008dc2ddf639960678760.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let aliases = ["connector_id", "FEEDERID", "device_type", "FACILITYID", "full_nearest_upstream_device"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});
+                     
+    
+            geo_json_07afce97f78008dc2ddf639960678760.addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+        
+    
+            var layer_control_0b64a19c704845bb8da9b45103acacf0_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_6d96a2a31a777314144b9f9b8b701632,
+                    "Google Satellite" : tile_layer_4c14cb1c65d9b88f3aa67609255d07f4,
+                    "cartodbpositron" : tile_layer_9661e48eb356bc597ed4abf39288ad09,
+                },
+                overlays :  {
+                    "Risk (Customer Interruptions) [Category]" : geo_json_ca58326facc6e8260fab3b2c002022e3,
+                    "sources" : geo_json_b52856a8a9643b143985b5988a5b4de9,
+                    "devices" : geo_json_07afce97f78008dc2ddf639960678760,
+                },
+            };
+            let layer_control_0b64a19c704845bb8da9b45103acacf0 = L.control.layers(
+                layer_control_0b64a19c704845bb8da9b45103acacf0_layers.base_layers,
+                layer_control_0b64a19c704845bb8da9b45103acacf0_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_ce0c8d4f0f3eb399974e86670380751f);
+
+        
+
+            function send_cluster_id_on_click(e){
+                            var asset = {'type' : 'asset_selector', 'value' : e['layer']['feature']['properties']['Nearest Upstream Device']};
+                            window.top.postMessage(asset, '*');
+                        }
+
+            geo_json_ca58326facc6e8260fab3b2c002022e3.on('click', send_cluster_id_on_click);</script>
+</html>
