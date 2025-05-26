@@ -1,11 +1,11 @@
-# Default values for cardinal-chart.
+# Default values for vegx-chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: tcc-harbor.pea.co.th/operation/vegx/vegx_thailand_front_end/stg
+  repository: tcc-harbor.pea.co.th/operation/vegx/front/stg
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -14,10 +14,10 @@ envs:
   - name: TZ
     value: "Asia/Bangkok"
   - name: DB_SERVER
-    value: "72.16.104.40"
+    value: "172.16.104.40"
   - name: DB_PORT
     value: "59356"
-  - name: B_NAME
+  - name: DB_NAME
     value: "VEGETATION"
   - name: DB_USERNAME
     value: "sa"
@@ -53,7 +53,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 8060
 
 ingress:
