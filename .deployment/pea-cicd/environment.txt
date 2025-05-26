@@ -1,4 +1,4 @@
-gitUrl=https://tcc-gitlab.pea.co.th/vegx/vegx_thailand_front_end.git
+gitUrl=https://tcc-gitlab.pea.co.th/vegx/front.git
 gitCred=pea-gitlab-root-password
 gitBranch=develop
 
