@@ -1,0 +1,26 @@
+.mapview-toggle-container {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  justify-content: center;
+}
+
+.mapview-btn {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s ease;
+}
+
+.mapview-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.mapview-btn.active {
+  background-color: #1d4ed8;
+  color: white;
+  border-color: #1d4ed8;
+}

@@ -5,7 +5,7 @@ import axios from "axios";
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import TableUser from "../TableUser.js";
 
-import { getUsers } from "../../services/api.js";
+// import { getUsers } from "../../services/api_Database.js";
 
 import File from "../../pic/File.svg";
 import UploadButton from "../../pic/Upload.svg";
