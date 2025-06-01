@@ -14,6 +14,7 @@ import {
   useGeoAoj,
   useGeoFeeders,
   useGeoCorridors,
+  useGeoDevices,
 } from "../Sub_Query/GeoQuery.js";
 
 import "../../ComponentsStyles/Dashboard.css";
@@ -80,10 +81,23 @@ const Map = () => {
   }));
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
-  const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
+  // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(selectedFeeder);
+  const { data: geoDevices } = useGeoDevices(selectedFeeder);
 
   const [currentMapView, setCurrentMapView] = useState("corridor");
+
+  const combineGeoJson = (geo1, geo2) => {
+    if (!geo1 && !geo2) return null;
+
+    const features1 = geo1?.features || [];
+    const features2 = geo2?.features || [];
+
+    return {
+      type: "FeatureCollection",
+      features: [...features1, ...features2],
+    };
+  };
 
   const mapViewConfig = {
     aoj: {
@@ -91,14 +105,14 @@ const Map = () => {
       geoJson: geoAoj,
       required: selectedAoj,
     },
-    feeder: {
-      isActive: currentMapView === "feeder",
-      geoJson: geoFeeders,
-      required: selectedFeeder,
-    },
+    // feeder: {
+    //   isActive: currentMapView === "feeder",
+    //   geoJson: geoFeeders,
+    //   required: selectedFeeder,
+    // },
     corridor: {
       isActive: currentMapView === "corridor",
-      geoJson: geoCorridors,
+      geoJson: combineGeoJson(geoCorridors, geoDevices),
       required: selectedFeeder,
     },
   };
@@ -107,6 +121,8 @@ const Map = () => {
     (v) => v.isActive && v.required
   );
   const geoJsonToShow = activeMapView?.geoJson;
+
+  const [colorMode, setColorMode] = useState("frequency"); // or "risk"
 
   return (
     <div>
@@ -157,12 +173,12 @@ const Map = () => {
               className="react-select-container"
               classNamePrefix="react-select"
             />
-            <Select
+            {/* <Select
               placeholder="ค้นหา/เลือกอุปกรณ์"
               noOptionsMessage={() => "ไม่พบข้อมูล"}
               className="react-select-container"
               classNamePrefix="react-select"
-            />
+            /> */}
           </div>
         </div>
         <div className="mapview-toggle-container">
@@ -174,14 +190,14 @@ const Map = () => {
           >
             AOJ
           </button>
-          <button
+          {/* <button
             className={`mapview-btn ${
               currentMapView === "feeder" ? "active" : ""
             }`}
             onClick={() => setCurrentMapView("feeder")}
           >
             Feeder
-          </button>
+          </button> */}
           <button
             className={`mapview-btn ${
               currentMapView === "corridor" ? "active" : ""
@@ -191,7 +207,28 @@ const Map = () => {
             Corridor
           </button>
         </div>
-        <LeafletMap geoJsonData={geoJsonToShow} />
+        {/* NEW: Color mode toggle */}
+        <div className="mapview-toggle-container">
+          <button
+            className={`mapview-btn ${
+              colorMode === "frequency" ? "active" : ""
+            }`}
+            onClick={() => setColorMode("frequency")}
+          >
+            ความถี่ (Frequency)
+          </button>
+          <button
+            className={`mapview-btn ${colorMode === "risk" ? "active" : ""}`}
+            onClick={() => setColorMode("risk")}
+          >
+            ความเสี่ยง (Risk)
+          </button>
+        </div>
+        <LeafletMap
+          geoJsonData={geoJsonToShow}
+          geoJsonPoints={geoDevices}
+          colorMode={colorMode}
+        />
       </div>
     </div>
   );

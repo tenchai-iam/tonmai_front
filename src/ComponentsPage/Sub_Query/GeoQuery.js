@@ -1,12 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getGeoAoj, getGeoFeeders, getGeoCorridors } from "../../services/api_Geo";
+import {
+  getGeoAoj,
+  getGeoFeeders,
+  getGeoCorridors,
+  getGeoDevices,
+} from "../../services/api_Geo";
 
-export const useGeoAoj = (code) => {
+export const useGeoAoj = (name) => {
   return useQuery({
-    queryKey: ["geoAoj", code],
-    queryFn: () => getGeoAoj(code),
-    enabled: Boolean(code),
+    queryKey: ["geoAoj", name],
+    queryFn: () => getGeoAoj(name),
+    enabled: Boolean(name),
   });
 };
 
@@ -22,6 +27,14 @@ export const useGeoCorridors = (feeder_id) => {
   return useQuery({
     queryKey: ["geoCorridors", feeder_id],
     queryFn: () => getGeoCorridors(feeder_id),
+    enabled: Boolean(feeder_id),
+  });
+};
+
+export const useGeoDevices = (feeder_id) => {
+  return useQuery({
+    queryKey: ["geoDevices", feeder_id],
+    queryFn: () => getGeoDevices(feeder_id),
     enabled: Boolean(feeder_id),
   });
 };

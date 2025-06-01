@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import Map, { Source, Layer } from "react-map-gl";
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import Map, { Source, Layer, Popup } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import bbox from "@turf/bbox";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -12,23 +12,14 @@ const EMPTY_STYLE = {
   layers: [],
 };
 
-const fillLayer = {
+const fillLayer = useMemo(() => ({
   id: "geojson-fill",
   type: "fill",
   paint: {
     "fill-color": "#A5158C",
     "fill-opacity": 0.3,
   },
-};
-
-const outlineLayer = {
-  id: "geojson-outline",
-  type: "line",
-  paint: {
-    "line-color": "#A5158C",
-    "line-width": 3,
-  },
-};
+}), []);
 
 const thailandOutlineLayer = {
   id: "thailand-outline",
@@ -39,10 +30,49 @@ const thailandOutlineLayer = {
   },
 };
 
-const MapWithLines = ({ geoJsonData, showThailand = true }) => {
+const MapWithLines = ({
+  geoJsonData,
+  geoJsonPoints,
+  showThailand = true,
+  colorMode,
+}) => {
   const mapRef = useRef();
   const [thailandGeoJson, setThailandGeoJson] = useState(null);
   const [hasZoomedToThailand, setHasZoomedToThailand] = useState(false);
+  const [deviceInfo, setDeviceInfo] = useState(null);
+  const [corridorInfo, setCorridorInfo] = useState(null);
+
+  const outlineLayer = {
+    id: "geojson-outline",
+    type: "line",
+    paint: {
+      "line-color":
+        colorMode === "frequency"
+          ? [
+              "match",
+              ["get", "chosen_scenario_frequency"],
+              1,
+              "#2ecc71", // green
+              2,
+              "#f1c40f", // yellow
+              3,
+              "#e74c3c", // red
+              "#999", // default
+            ]
+          : [
+              "match",
+              ["get", "probability_of_outage_pct"],
+              "low",
+              "#f1c40f", // yellow
+              "medium",
+              "#e67e22", // orange
+              "high",
+              "#e74c3c", // red
+              "#999", // default
+            ],
+      "line-width": 3,
+    },
+  };
 
   // Load Thailand boundary GeoJSON (if enabled)
   useEffect(() => {
@@ -88,6 +118,17 @@ const MapWithLines = ({ geoJsonData, showThailand = true }) => {
     }
   }, [geoJsonData]);
 
+  const devicePointLayer = {
+    id: "device-point-layer",
+    type: "circle",
+    paint: {
+      "circle-radius": 5,
+      "circle-color": "#007cbf",
+      "circle-stroke-width": 2,
+      "circle-stroke-color": "#fff",
+    },
+  };
+
   return (
     <Map
       ref={mapRef}
@@ -99,6 +140,38 @@ const MapWithLines = ({ geoJsonData, showThailand = true }) => {
         zoom: 4.5,
       }}
       style={{ height: "600px", width: "100%" }}
+      onMouseMove={(e) => {
+        // Look for device point first
+        const deviceFeature = e.features?.find(
+          (f) => f.layer.id === "device-point-layer"
+        );
+        if (deviceFeature) {
+          setDeviceInfo({
+            lngLat: e.lngLat,
+            properties: deviceFeature.properties,
+          });
+          setCorridorInfo(null); // Clear polygon popup
+          return;
+        }
+
+        // Look for polygon feature ONLY on outline layer
+        const polygonFeature = e.features?.find(
+          (f) => f.layer.id === "geojson-outline"
+        );
+        if (polygonFeature) {
+          setCorridorInfo({
+            lngLat: e.lngLat,
+            properties: polygonFeature.properties,
+          });
+          setDeviceInfo(null); // Clear device popup
+          return;
+        }
+
+        // Clear all popups if none found
+        setDeviceInfo(null);
+        setCorridorInfo(null);
+      }}
+      interactiveLayerIds={["device-point-layer", "geojson-outline"]}
     >
       {/* Esri satellite imagery */}
       <Source
@@ -125,6 +198,49 @@ const MapWithLines = ({ geoJsonData, showThailand = true }) => {
           <Layer {...fillLayer} />
           <Layer {...outlineLayer} />
         </Source>
+      )}
+
+      {/* ✅ Devices (points) */}
+      {geoJsonPoints && (
+        <Source id="geojson-points-source" type="geojson" data={geoJsonPoints}>
+          <Layer {...devicePointLayer} />
+        </Source>
+      )}
+
+      {deviceInfo && (
+        <Popup
+          longitude={deviceInfo.lngLat.lng}
+          latitude={deviceInfo.lngLat.lat}
+          closeOnClick={false}
+          onClose={() => setDeviceInfo(null)}
+        >
+          <div>
+            {Object.entries(deviceInfo.properties).map(([key, value]) => (
+              <div key={key}>
+                <strong>{key}</strong>: {value}
+              </div>
+            ))}
+          </div>
+        </Popup>
+      )}
+
+      {/* Polygon feature popup */}
+      {corridorInfo && (
+        <Popup
+          longitude={corridorInfo.lngLat.lng}
+          latitude={corridorInfo.lngLat.lat}
+          closeOnClick={false}
+          onClose={() => setCorridorInfo(null)}
+          anchor="top"
+        >
+          <div>
+            {Object.entries(corridorInfo.properties).map(([key, value]) => (
+              <div key={key}>
+                <strong>{key}</strong>: {String(value)}
+              </div>
+            ))}
+          </div>
+        </Popup>
       )}
     </Map>
   );
