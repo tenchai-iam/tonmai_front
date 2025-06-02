@@ -28,6 +28,8 @@ export const useGeoCorridors = (feeder_id) => {
     queryKey: ["geoCorridors", feeder_id],
     queryFn: () => getGeoCorridors(feeder_id),
     enabled: Boolean(feeder_id),
+    staleTime: 5 * 60 * 1000,
+    keepPreviousData: true,
   });
 };
 

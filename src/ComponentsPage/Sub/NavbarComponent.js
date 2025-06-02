@@ -56,6 +56,9 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/run">
               ปรับปรุงแผน
             </Nav.Link>
+            <Nav.Link as={Link} to="/value">
+              ติดตามมูลค่า Stage 5
+            </Nav.Link>
             <Nav.Link as={Link} to="/data">
               จัดการข้อมูล
             </Nav.Link>

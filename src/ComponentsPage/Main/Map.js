@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
-import LeafletMap from "../Sub/LeafletMap.js";
+import useLocalStorage from "../Sub/UseLocalStorage.js";
+import GeoMap from "../Sub/GeoMap.js";
 
 import {
   useDistrictOption,
@@ -23,19 +24,25 @@ import "../../ComponentsStyles/Map.css";
 const Map = () => {
   const [lineData, setLineData] = useState([]);
 
-  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useLocalStorage(
+    "selectedDistrict",
+    ""
+  );
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useState("");
+  const [selectedAoj, setSelectedAoj] = useLocalStorage("selectedAoj", "");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
   };
 
-  const [selectedFeeder, setSelectedFeeder] = useState("");
+  const [selectedFeeder, setSelectedFeeder] = useLocalStorage(
+    "selectedFeeder",
+    ""
+  );
 
   const handleChangeFeeder = (event) => {
     setSelectedFeeder(event.target.value);
@@ -85,7 +92,10 @@ const Map = () => {
   const { data: geoCorridors } = useGeoCorridors(selectedFeeder);
   const { data: geoDevices } = useGeoDevices(selectedFeeder);
 
-  const [currentMapView, setCurrentMapView] = useState("corridor");
+  const [currentMapView, setCurrentMapView] = useLocalStorage(
+    "currentMapView",
+    ""
+  );
 
   const combineGeoJson = (geo1, geo2) => {
     if (!geo1 && !geo2) return null;
@@ -122,7 +132,7 @@ const Map = () => {
   );
   const geoJsonToShow = activeMapView?.geoJson;
 
-  const [colorMode, setColorMode] = useState("frequency"); // or "risk"
+  const [colorMode, setColorMode] = useLocalStorage("colorMode", "frequency");
 
   return (
     <div>
@@ -180,17 +190,17 @@ const Map = () => {
               classNamePrefix="react-select"
             /> */}
           </div>
-        </div>
-        <div className="mapview-toggle-container">
-          <button
-            className={`mapview-btn ${
-              currentMapView === "aoj" ? "active" : ""
-            }`}
-            onClick={() => setCurrentMapView("aoj")}
-          >
-            AOJ
-          </button>
-          {/* <button
+          <div className="dropdowngroup-container">
+            <div className="mapview-toggle-container">
+              <button
+                className={`mapview-btn ${
+                  currentMapView === "aoj" ? "active" : ""
+                }`}
+                onClick={() => setCurrentMapView("aoj")}
+              >
+                แผนที่แบบ AOJ
+              </button>
+              {/* <button
             className={`mapview-btn ${
               currentMapView === "feeder" ? "active" : ""
             }`}
@@ -198,36 +208,44 @@ const Map = () => {
           >
             Feeder
           </button> */}
-          <button
-            className={`mapview-btn ${
-              currentMapView === "corridor" ? "active" : ""
-            }`}
-            onClick={() => setCurrentMapView("corridor")}
-          >
-            Corridor
-          </button>
+              <button
+                className={`mapview-btn ${
+                  currentMapView === "corridor" ? "active" : ""
+                }`}
+                onClick={() => setCurrentMapView("corridor")}
+              >
+                แผนที่แบบ Corridor
+              </button>
+            </div>
+            {/* NEW: Color mode toggle */}
+            {currentMapView === "corridor" && (
+              <div className="mapview-toggle-container">
+                <button
+                  className={`mapview-btn ${
+                    colorMode === "frequency" ? "active" : ""
+                  }`}
+                  onClick={() => setColorMode("frequency")}
+                >
+                  แสดงสีตามความถี่ (Frequency)
+                </button>
+                <button
+                  className={`mapview-btn ${
+                    colorMode === "risk" ? "active" : ""
+                  }`}
+                  onClick={() => setColorMode("risk")}
+                >
+                  แสดงสีตามความเสี่ยง (Risk)
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-        {/* NEW: Color mode toggle */}
-        <div className="mapview-toggle-container">
-          <button
-            className={`mapview-btn ${
-              colorMode === "frequency" ? "active" : ""
-            }`}
-            onClick={() => setColorMode("frequency")}
-          >
-            ความถี่ (Frequency)
-          </button>
-          <button
-            className={`mapview-btn ${colorMode === "risk" ? "active" : ""}`}
-            onClick={() => setColorMode("risk")}
-          >
-            ความเสี่ยง (Risk)
-          </button>
-        </div>
-        <LeafletMap
+
+        <GeoMap
           geoJsonData={geoJsonToShow}
           geoJsonPoints={geoDevices}
           colorMode={colorMode}
+          showLegend={currentMapView === "corridor"}
         />
       </div>
     </div>

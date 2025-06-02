@@ -1,7 +1,7 @@
 .mapview-toggle-container {
   display: flex;
   gap: 1rem;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
   justify-content: center;
 }
 
@@ -25,23 +25,41 @@
   border-color: #1d4ed8;
 }
 
-.map-legend {
+.legend {
   position: absolute;
-  bottom: 20px;
+  top: 20px;
   right: 20px;
   background: white;
-  padding: 10px 14px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
-  line-height: 1.6;
-  z-index: 999;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  font-family: "NotoSansThai";
 }
 
-.legend-box {
+.legend h4 {
+  margin: 0 0 8px;
+  font-size: 0.8 rem;
+}
+
+.legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legend li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.legend span {
   display: inline-block;
   width: 16px;
-  height: 12px;
+  height: 16px;
   margin-right: 8px;
-  border-radius: 2px;
+  border: 1px solid #999;
+  box-sizing: border-box;
 }

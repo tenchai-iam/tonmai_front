@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import Map, { Source, Layer, Popup } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import bbox from "@turf/bbox";
+
 import "maplibre-gl/dist/maplibre-gl.css";
+import "../../ComponentsStyles/Map.css";
 
 const THAILAND_GEOJSON_URL = "/json/Thailand.geojson";
 
@@ -11,15 +13,6 @@ const EMPTY_STYLE = {
   sources: {},
   layers: [],
 };
-
-const fillLayer = useMemo(() => ({
-  id: "geojson-fill",
-  type: "fill",
-  paint: {
-    "fill-color": "#A5158C",
-    "fill-opacity": 0.3,
-  },
-}), []);
 
 const thailandOutlineLayer = {
   id: "thailand-outline",
@@ -30,11 +23,12 @@ const thailandOutlineLayer = {
   },
 };
 
-const MapWithLines = ({
+const GeoMap = ({
   geoJsonData,
   geoJsonPoints,
   showThailand = true,
   colorMode,
+  showLegend,
 }) => {
   const mapRef = useRef();
   const [thailandGeoJson, setThailandGeoJson] = useState(null);
@@ -42,37 +36,92 @@ const MapWithLines = ({
   const [deviceInfo, setDeviceInfo] = useState(null);
   const [corridorInfo, setCorridorInfo] = useState(null);
 
-  const outlineLayer = {
-    id: "geojson-outline",
-    type: "line",
-    paint: {
-      "line-color":
-        colorMode === "frequency"
-          ? [
-              "match",
-              ["get", "chosen_scenario_frequency"],
-              1,
-              "#2ecc71", // green
-              2,
-              "#f1c40f", // yellow
-              3,
-              "#e74c3c", // red
-              "#999", // default
-            ]
-          : [
-              "match",
-              ["get", "probability_of_outage_pct"],
-              "low",
-              "#f1c40f", // yellow
-              "medium",
-              "#e67e22", // orange
-              "high",
-              "#e74c3c", // red
-              "#999", // default
-            ],
-      "line-width": 3,
-    },
-  };
+  const frequencyLegend = (
+    <div className="legend">
+      <p>จำนวนครั้งในการตัดต่อปี (Trimming Frequency) </p>
+      <ul>
+        <li>
+          <span style={{ backgroundColor: "#2ecc71" }}></span> 1 ครั้ง
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#f1c40f" }}></span> 2 ครั้ง
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#e74c3c" }}></span> 3 ครั้ง
+        </li>
+        {/* <li>
+          <span style={{ backgroundColor: "#999" }}></span> อื่น ๆ
+        </li> */}
+      </ul>
+    </div>
+  );
+
+  const riskLegend = (
+    <div className="legend">
+      <p>ความเสี่ยงในการเกิดไฟดับ (Risk)</p>
+      <ul>
+        <li>
+          <span style={{ backgroundColor: "#2ecc71" }}></span> ต่ำ (Low)
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#f1c40f" }}></span> กลาง (Medium)
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#e74c3c" }}></span> สูง (High)
+        </li>
+        {/* <li>
+          <span style={{ backgroundColor: "#999" }}></span> อื่น ๆ
+        </li> */}
+      </ul>
+    </div>
+  );
+
+  const fillLayer = useMemo(
+    () => ({
+      id: "geojson-fill",
+      type: "fill",
+      paint: {
+        "fill-color": "#A5158C",
+        "fill-opacity": 0.3,
+      },
+    }),
+    []
+  );
+
+  const outlineLayer = useMemo(
+    () => ({
+      id: "geojson-outline",
+      type: "line",
+      paint: {
+        "line-color":
+          colorMode === "frequency"
+            ? [
+                "match",
+                ["get", "chosen_scenario_frequency"],
+                1,
+                "#2ecc71",
+                2,
+                "#f1c40f",
+                3,
+                "#e74c3c",
+                "#999",
+              ]
+            : [
+                "match",
+                ["get", "probability_of_outage_pct"],
+                "low",
+                "#2ecc71",
+                "medium",
+                "#f1c40f",
+                "high",
+                "#e74c3c",
+                "#999",
+              ],
+        "line-width": 3,
+      },
+    }),
+    [colorMode]
+  );
 
   // Load Thailand boundary GeoJSON (if enabled)
   useEffect(() => {
@@ -105,6 +154,19 @@ const MapWithLines = ({
   }, [thailandGeoJson, showThailand, geoJsonData, hasZoomedToThailand]);
 
   // Zoom to GeoJSON when it changes
+  // useEffect(() => {
+  //   if (geoJsonData?.features?.length && mapRef.current) {
+  //     const bounds = bbox(geoJsonData);
+  //     mapRef.current.fitBounds(
+  //       [
+  //         [bounds[0], bounds[1]],
+  //         [bounds[2], bounds[3]],
+  //       ],
+  //       { padding: 50, duration: 1000 }
+  //     );
+  //   }
+  // }, [geoJsonData]);
+
   useEffect(() => {
     if (geoJsonData?.features?.length && mapRef.current) {
       const bounds = bbox(geoJsonData);
@@ -116,7 +178,7 @@ const MapWithLines = ({
         { padding: 50, duration: 1000 }
       );
     }
-  }, [geoJsonData]);
+  }, [geoJsonData]); // <-- pass this prop down from parent
 
   const devicePointLayer = {
     id: "device-point-layer",
@@ -242,8 +304,12 @@ const MapWithLines = ({
           </div>
         </Popup>
       )}
+
+      {/* Legend inside Map */}
+      {showLegend && colorMode === "frequency" && frequencyLegend}
+      {showLegend && colorMode === "risk" && riskLegend}
     </Map>
   );
 };
 
-export default MapWithLines;
+export default GeoMap;
