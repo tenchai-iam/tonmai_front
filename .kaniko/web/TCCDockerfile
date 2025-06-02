@@ -27,7 +27,7 @@
 
 # CMD ["python", "/app/main.py"]
 
-//-----------------------
+#-----------------------
 
     FROM nginx:1.23-alpine as runtime
     WORKDIR /usr/share/nginx/html
