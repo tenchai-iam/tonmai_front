@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "cardinal-chart.name" -}}
+{{- define "vegx-chart.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "cardinal-chart.fullname" -}}
+{{- define "vegx-chart.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "cardinal-chart.chart" -}}
+{{- define "vegx-chart.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "cardinal-chart.labels" -}}
-helm.sh/chart: {{ include "cardinal-chart.chart" . }}
-{{ include "cardinal-chart.selectorLabels" . }}
+{{- define "vegx-chart.labels" -}}
+helm.sh/chart: {{ include "vegx-chart.chart" . }}
+{{ include "vegx-chart.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "cardinal-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "cardinal-chart.name" . }}
+{{- define "vegx-chart.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "vegx-chart.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "cardinal-chart.serviceAccountName" -}}
+{{- define "vegx-chart.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "cardinal-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "vegx-chart.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

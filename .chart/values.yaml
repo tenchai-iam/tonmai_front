@@ -57,7 +57,7 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1024m"
   hosts:
-    - host: app.asseti-tcc.pea.co.th  #app.dev-spendi-tcc.pea.co.th
+    - host: app.dev-spendi-tcc.pea.co.th
       paths: 
         - /(.*)
 
