@@ -254,18 +254,18 @@ const GeoMap = ({
         </Source>
       )}
 
+      {/* ✅ Devices (points) */}
+      {geoJsonPoints && (
+        <Source id="geojson-points-source" type="geojson" data={geoJsonPoints}>
+          <Layer {...devicePointLayer} />
+        </Source>
+      )}
+
       {/* Dynamic GeoJSON overlay */}
       {geoJsonData && (
         <Source id="geojson-source" type="geojson" data={geoJsonData}>
           <Layer {...fillLayer} />
           <Layer {...outlineLayer} />
-        </Source>
-      )}
-
-      {/* ✅ Devices (points) */}
-      {geoJsonPoints && (
-        <Source id="geojson-points-source" type="geojson" data={geoJsonPoints}>
-          <Layer {...devicePointLayer} />
         </Source>
       )}
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
-import useLocalStorage from "../Sub/UseLocalStorage.js";
+import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 
 import {
@@ -24,7 +24,7 @@ import "../../ComponentsStyles/Map.css";
 const Map = () => {
   const [lineData, setLineData] = useState([]);
 
-  const [selectedDistrict, setSelectedDistrict] = useLocalStorage(
+  const [selectedDistrict, setSelectedDistrict] = useSessionStorage(
     "selectedDistrict",
     ""
   );
@@ -33,13 +33,13 @@ const Map = () => {
     setSelectedDistrict(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useLocalStorage("selectedAoj", "");
+  const [selectedAoj, setSelectedAoj] = useSessionStorage("selectedAoj", "");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
   };
 
-  const [selectedFeeder, setSelectedFeeder] = useLocalStorage(
+  const [selectedFeeder, setSelectedFeeder] = useSessionStorage(
     "selectedFeeder",
     ""
   );
@@ -92,7 +92,7 @@ const Map = () => {
   const { data: geoCorridors } = useGeoCorridors(selectedFeeder);
   const { data: geoDevices } = useGeoDevices(selectedFeeder);
 
-  const [currentMapView, setCurrentMapView] = useLocalStorage(
+  const [currentMapView, setCurrentMapView] = useSessionStorage(
     "currentMapView",
     ""
   );
@@ -132,7 +132,7 @@ const Map = () => {
   );
   const geoJsonToShow = activeMapView?.geoJson;
 
-  const [colorMode, setColorMode] = useLocalStorage("colorMode", "frequency");
+  const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
   return (
     <div>
@@ -242,8 +242,8 @@ const Map = () => {
         </div>
 
         <GeoMap
-          geoJsonData={geoJsonToShow}
           geoJsonPoints={geoDevices}
+          geoJsonData={geoJsonToShow}
           colorMode={colorMode}
           showLegend={currentMapView === "corridor"}
         />
