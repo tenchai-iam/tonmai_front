@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "cardinal-chart.fullname" . }}
+  name: {{ include "vegx-chart.fullname" . }}
   labels:
-    {{- include "cardinal-chart.labels" . | nindent 4 }}
+    {{- include "vegx-chart.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "cardinal-chart.selectorLabels" . | nindent 6 }}
+      {{- include "vegx-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -20,13 +20,13 @@ spec:
         rollme: {{ randAlphaNum 5 | quote }}
     {{- end }}
       labels:
-        {{- include "cardinal-chart.selectorLabels" . | nindent 8 }}
+        {{- include "vegx-chart.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "cardinal-chart.serviceAccountName" . }}
+      serviceAccountName: {{ include "vegx-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 80 #8060
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
