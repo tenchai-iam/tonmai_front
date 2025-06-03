@@ -9,6 +9,10 @@ const Home = () => {
     <div>
       <NavbarComponent />
       <div className="header-container">หน้าหลัก</div>
+      <div className="main-container">
+        <div className="summary-container"></div>
+        <div className="summary-container"></div>
+      </div>
     </div>
   );
 };

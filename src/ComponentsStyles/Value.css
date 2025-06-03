@@ -1,0 +1,27 @@
+.all-district-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.all-container {
+  flex: 1 1 25%;
+  max-width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  align-items: center;
+}
+
+.district-container {
+  flex: 1 1 75%;
+  max-width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  align-items: center;
+}

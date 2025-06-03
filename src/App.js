@@ -9,7 +9,7 @@ import {
 
 import Home from "./Home";
 import Map from "./ComponentsPage/Main/Map.js";
-import Run from "./ComponentsPage/Main/Run.js";
+import Manage from "./ComponentsPage/Main/Manage.js";
 import Value from "./ComponentsPage/Main/Value.js";
 import Data from "./ComponentsPage/Main/Data.js";
 import Admin from "./ComponentsPage/Main/Admin.js";
@@ -40,7 +40,7 @@ export default function App() {
                 element={<ProtectedRoute />}
                 allowedLevels={["B", "C"]}
               /> */}
-              <Route path="/run" element={<Run />} />
+              <Route path="/manage" element={<Manage />} />
               {/* <Route
                 path="/circuitBreakerHQ"
                 element={<ProtectedRoute />}

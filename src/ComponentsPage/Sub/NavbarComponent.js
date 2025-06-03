@@ -53,8 +53,8 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/map">
               แผนการตัดต้นไม้
             </Nav.Link>
-            <Nav.Link as={Link} to="/run">
-              ปรับปรุงแผน
+            <Nav.Link as={Link} to="/manage">
+              จัดการแผน
             </Nav.Link>
             <Nav.Link as={Link} to="/value">
               ติดตามมูลค่า Stage 5

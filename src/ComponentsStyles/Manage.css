@@ -1,0 +1,51 @@
+.confirm-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.confirm-container button {
+  background-color: #5cb338;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.input-output-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-field label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.input-value {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #111827;
+}
