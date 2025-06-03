@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  font-size: 0.9rem;
 }
 
 .title-legend-container {
@@ -18,10 +19,10 @@
 
 /* Chart Title */
 .bar-chart-title {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #3e3e3e;
-  margin: 0;
   flex: 1; /* allows title to take available space */
+  text-align: center;
 }
 
 .bar-chart-title-H {
@@ -38,13 +39,6 @@
   margin-left: 25%;
   flex: 1; /* allows title to take available space */
   text-align: center;
-}
-
-.bar-chart-title-L {
-  font-size: 1rem;
-  color: #3e3e3e;
-  margin: 0;
-  flex: 1; /* allows title to take available space */
 }
 
 .bar-chart-legend {

@@ -79,12 +79,18 @@ const Value = () => {
       <div className="header-container">ติดตามมูลค่า Stage 5</div>
       <div className="main-container">
         <div className="summary-container">
+          <div className="bar-chart-legend">
+            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่าย Base</span>
+            <span style={{ color: "#82ca9d" }}>⬤ ค่าใช้จ่ายประเมินจาก AI</span>
+            <span style={{ color: "#3e3e3e" }}>⬤ ค่าใช้จ่ายจริง</span>
+          </div>
           <div className="all-district-container">
             <div className="all-container">
               <BarGraphV
                 data={dataBaselineTotal}
                 xAxisKey="name"
-                title="Sales & Profit"
+                title="ภาพรวมค่าใช้จ่ายในการตัดต้นไม้"
+                yLabel="ล้านบาท"
                 height={400}
                 barKeys={barKeys}
               />
@@ -93,14 +99,14 @@ const Value = () => {
               <BarGraphV
                 data={dataBaselineDistrict}
                 xAxisKey="name"
-                title="Sales & Profit"
+                title="ค่าใช้จ่ายในการตัดต้นไม้แยกตามเขต"
+                yLabel="ล้านบาท"
                 height={400}
                 barKeys={barKeys}
               />
             </div>
           </div>
         </div>
-        <div className="summary-container"></div>
       </div>
     </div>
   );

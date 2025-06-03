@@ -2,17 +2,26 @@ import React, { useState } from "react";
 
 import NavbarComponent from "./ComponentsPage/Sub/NavbarComponent.js";
 import BarGraphFeatures from "./ComponentsPage/Sub/BarGraphFeatures.js";
-
-import { getFeatures } from "./services/api_Model.js";
+import LineGraphROC from "./ComponentsPage/Sub/LineGraphROC.js";
 
 import { docOptions } from "./ComponentsPage/Sub_config/Options.js";
 
+import { formatUnit } from "./ComponentsPage/Sub_config/Format.js";
+
+import {
+  useAUC,
+  useROC,
+  useFeatures,
+} from "./ComponentsPage/Sub_Query/ModelQuery.js";
+
 import "./ComponentsStyles/Dashboard.css";
 import "./ComponentsStyles/Home.css";
-import { useFeatures } from "./ComponentsPage/Sub_Query/ModelQuery.js";
 
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState(""); // Track selected button index
+
+  const { data: aucScore } = useAUC();
+  const { data: rocCurve } = useROC();
 
   const { data: features } = useFeatures();
 
@@ -30,10 +39,28 @@ const Home = () => {
       <div className="main-container">
         <div className="summary-container">
           <div className="container-title">ประสิทธิภาพของโมเดล</div>
+          <div className="roc-decile-container">
+            <div className="roc-container">
+              <div className="title-metric-container">
+                <div>ROC Curve</div>
+                <div>AUC Score = {formatUnit(aucScore?.auc_score)}</div>
+              </div>
+              <LineGraphROC
+                data={rocCurve}
+                xAxisKey="fpr"
+                lineKeys={["tpr"]}
+                // title="ROC Curve"
+                height={400} // Adjust height as needed
+                xLabel="False Positive Rate"
+                yLabel="True Positive Rate"
+              />
+            </div>
+          </div>
+
           <BarGraphFeatures
             data={featuresData}
             xAxisKey="name"
-            title="Top 15 Features Rank by Importance"
+            title="Top 15 ปัจจัยเรียงลำดับตามผลต่อการพยากรณ์ความเสี่ยง"
             height={400}
             barKeys={barKeys}
           />

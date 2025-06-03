@@ -29,9 +29,7 @@
 
 .download-button {
   display: flex;
-  justify-content: flex-end;
   font-size: 0.8rem;
-  width: 100%;
   white-space: nowrap; /* Prevent the text from wrapping */
 }
 

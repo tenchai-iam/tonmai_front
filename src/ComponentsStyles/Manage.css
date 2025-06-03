@@ -84,3 +84,11 @@
   font-size: 0.8rem;
   color: #111827;
 }
+
+.dropdown-download-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}

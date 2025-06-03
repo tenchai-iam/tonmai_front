@@ -25,3 +25,10 @@
   box-sizing: border-box; /* Ensure padding is included in width */
   align-items: center;
 }
+
+.bar-chart-legend {
+  display: flex;
+  gap: 5px;
+  font-size: 0.8rem;
+  justify-content: flex-end; /* Aligns items to the right horizontally */
+}
