@@ -17,12 +17,47 @@
   min-width: 100px;
 }
 
-.input-output-container {
+.create-select-plan-container {
   display: flex;
   flex-direction: row;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
   width: 100%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 35%;
+  max-width: 35%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inputgroup-container {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  justify-content: flex-start;
+  gap: 20px;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.input-output-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 30%;
+  max-width: 30%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .field-container {

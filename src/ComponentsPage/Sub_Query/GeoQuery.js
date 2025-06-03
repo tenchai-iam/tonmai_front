@@ -5,13 +5,13 @@ import {
   getGeoFeeders,
   getGeoCorridors,
   getGeoDevices,
-} from "../../services/api_Geo";
+} from "../../services/api_Geo.js";
 
-export const useGeoAoj = (name) => {
+export const useGeoAoj = (aoj_code) => {
   return useQuery({
-    queryKey: ["geoAoj", name],
-    queryFn: () => getGeoAoj(name),
-    enabled: Boolean(name),
+    queryKey: ["geoAoj", aoj_code],
+    queryFn: () => getGeoAoj(aoj_code),
+    enabled: Boolean(aoj_code),
   });
 };
 
@@ -23,20 +23,20 @@ export const useGeoFeeders = (feeder_id) => {
   });
 };
 
-export const useGeoCorridors = (feeder_id) => {
+export const useGeoCorridors = (feeder_id, aoj_code) => {
   return useQuery({
-    queryKey: ["geoCorridors", feeder_id],
-    queryFn: () => getGeoCorridors(feeder_id),
-    enabled: Boolean(feeder_id),
+    queryKey: ["geoCorridors", feeder_id, aoj_code],
+    queryFn: () => getGeoCorridors(feeder_id, aoj_code),
+    // enabled: Boolean(feeder_id),
     staleTime: 5 * 60 * 1000,
     keepPreviousData: true,
   });
 };
 
-export const useGeoDevices = (feeder_id) => {
+export const useGeoDevices = (feeder_id, aoj_code) => {
   return useQuery({
-    queryKey: ["geoDevices", feeder_id],
-    queryFn: () => getGeoDevices(feeder_id),
-    enabled: Boolean(feeder_id),
+    queryKey: ["geoDevices", feeder_id, aoj_code],
+    queryFn: () => getGeoDevices(feeder_id, aoj_code),
+    // enabled: Boolean(feeder_id),
   });
 };

@@ -3,6 +3,11 @@ import React, { useState, useEffect } from "react";
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphV from "../Sub/BarGraphV.js";
 
+import {
+  useBaselineTotal,
+  useBaselineDistrict,
+} from "../Sub_Query/ValueQuery.js";
+
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
 
@@ -42,6 +47,25 @@ const Value = () => {
       actual: 4200.5,
     },
   ];
+  const { data: baselineTotal } = useBaselineTotal();
+
+  const dataBaselineTotal = [
+    {
+      base: (baselineTotal?.total_budget_base_thb ?? 0) / 1000000,
+      model: (baselineTotal?.total_budget_model_thb ?? 0) / 1000000,
+      actual: (baselineTotal?.total_actual_thb ?? 0) / 1000000,
+    },
+  ];
+
+  const { data: baselineDistrict } = useBaselineDistrict();
+
+  const dataBaselineDistrict =
+    baselineDistrict?.map((item) => ({
+      name: item.district,
+      base: (item.total_budget_base_thb ?? 0) / 1000000,
+      model: (item.total_budget_model_thb ?? 0) / 1000000,
+      actual: (item.total_actual_thb ?? 0) / 1000000,
+    })) || [];
 
   const barKeys = [
     { dataKey: "base", fill: "#8884d8" },
@@ -58,7 +82,7 @@ const Value = () => {
           <div className="all-district-container">
             <div className="all-container">
               <BarGraphV
-                data={singleData}
+                data={dataBaselineTotal}
                 xAxisKey="name"
                 title="Sales & Profit"
                 height={400}
@@ -67,7 +91,7 @@ const Value = () => {
             </div>
             <div className="district-container">
               <BarGraphV
-                data={multipleData}
+                data={dataBaselineDistrict}
                 xAxisKey="name"
                 title="Sales & Profit"
                 height={400}
@@ -76,16 +100,7 @@ const Value = () => {
             </div>
           </div>
         </div>
-        <div className="summary-container">
-          <div className="download-button">
-            <button
-              // onClick={handleDownloadDistrictSummary}
-              className={`download-button-style${false ? " selected" : ""}`}
-            >
-              Download
-            </button>
-          </div>
-        </div>
+        <div className="summary-container"></div>
       </div>
     </div>
   );

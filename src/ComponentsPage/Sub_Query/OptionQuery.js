@@ -17,10 +17,10 @@ export const useAojOption = (district) => {
   });
 };
 
-export const useFeederOption = (aoj) => {
+export const useFeederOption = (aoj_code) => {
   return useQuery({
     queryKey: ["feederOption"],
-    queryFn: () => getFeeders(aoj),
-    enabled: Boolean(aoj),
+    queryFn: () => getFeeders(aoj_code),
+    enabled: Boolean(aoj_code),
   });
 };

@@ -18,11 +18,11 @@ export const getAojs = async (district) => {
   return response.data; // Return the data received from the API
 };
 
-export const getFeeders = async (aoj) => {
+export const getFeeders = async (aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_feeder`,
     {
-      aoj: aoj, // Pass the data format value in the request body
+      aoj_code: aoj_code, // Pass the data format value in the request body
     },
     { timeout: 5000 }
   );

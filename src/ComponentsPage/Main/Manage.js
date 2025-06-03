@@ -46,59 +46,97 @@ const Manage = () => {
       <div className="header-container">จัดการแผน</div>
       <div className="main-container">
         <div className="summary-container">
-          <div className="container-title">สร้างแผน</div>
-        </div>
-        <div className="summary-container">
           <div className="container-title">เปรียบเทียบแผน</div>
         </div>
-        <div className="summary-container">
-          <div className="container-title">เลือกแผน</div>
+        <div className="create-select-plan-container">
+          <div className="input-container">
+            สร้างแผนโดย Parameter ความเสี่ยง SALFI
+            <div className="inputgroup-container">
+              <div className="input-field">
+                <label>กรอกชื่อแผน</label>
+                <input
+                  className="input-value"
+                  type="text"
+                  // value={remark}
+                  // onChange={handleRemarkChange}
+                />
+              </div>
+              <div className="input-field">
+                <label>กรอกค่าความเสี่ยง SALFI</label>
+                <input
+                  className="input-value"
+                  type="text"
+                  // value={remark}
+                  // onChange={handleRemarkChange}
+                />
+              </div>
+            </div>
+            <div className="confirm-container">
+              <button onClick={handlePlanSubmit}>ยืนยัน</button>
+            </div>
+          </div>
+          <div className="input-container">
+            สร้างแผนโดย Parameter งบประมาณ
+            <div className="inputgroup-container">
+              <div className="input-field">
+                <label>กรอกชื่อแผน</label>
+                <input
+                  className="input-value"
+                  type="text"
+                  // value={remark}
+                  // onChange={handleRemarkChange}
+                />
+              </div>
+              <div className="input-field">
+                <label>กรอกงบประมาณ Budget</label>
+                <input
+                  className="input-value"
+                  type="text"
+                  // value={remark}
+                  // onChange={handleRemarkChange}
+                />
+              </div>
+            </div>
+            <div className="confirm-container">
+              <button onClick={handlePlanSubmit}>ยืนยัน</button>
+            </div>
+          </div>
           <div className="input-output-container">
-            <div className="dropdown-button-container">
-              <div className="dropdowngroup-container">
-                <div className="select-container">
-                  <label>เลือกแผนที่จะใช้</label>
-                  <select
-                    value={selectedPlan}
-                    onChange={handlePlanSelect}
-                    className="border rounded-lg px-4 py-2"
-                  >
-                    <option value="" disabled></option>
-                    {planDummyOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="year-select-container">
-                  <label>เลือกปีที่จะใช้</label>
-                  <select
-                    value={selectedPlan}
-                    onChange={handlePlanSelect}
-                    className="border rounded-lg px-4 py-2"
-                  >
-                    <option value="" disabled></option>
-                    {yearDummyOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="input-field">
-                  <label>หมายเหตุ</label>
-                  <input
-                    className="input-value"
-                    type="text"
-                    // value={remark}
-                    // onChange={handleRemarkChange}
-                  />
-                </div>
+            เลือกแผนที่ใช้
+            <div className="dropdowngroup-container">
+              <div className="select-container">
+                <label>เลือกแผนที่จะใช้</label>
+                <select
+                  value={selectedPlan}
+                  onChange={handlePlanSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="" disabled></option>
+                  {planDummyOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div className="confirm-container">
-                <button onClick={handlePlanSubmit}>ยืนยัน</button>
+              <div className="year-select-container">
+                <label>เลือกปีที่จะใช้</label>
+                <select
+                  value={selectedPlan}
+                  onChange={handlePlanSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="" disabled></option>
+                  {yearDummyOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </div>
+            </div>
+            <div className="confirm-container">
+              <button onClick={handlePlanSubmit}>ยืนยัน</button>
             </div>
           </div>
         </div>

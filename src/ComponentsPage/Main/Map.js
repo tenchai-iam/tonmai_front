@@ -75,7 +75,7 @@ const Map = () => {
     useAojOption(selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.NAME,
+    value: option.CODE,
     label: option.NAME,
   }));
 
@@ -89,8 +89,8 @@ const Map = () => {
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
-  const { data: geoCorridors } = useGeoCorridors(selectedFeeder);
-  const { data: geoDevices } = useGeoDevices(selectedFeeder);
+  const { data: geoCorridors } = useGeoCorridors(selectedFeeder, selectedAoj);
+  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
     "currentMapView",

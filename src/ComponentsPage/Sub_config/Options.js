@@ -9,3 +9,8 @@ export const yearDummyOptions = [
   { label: "2568", value: "errorRate" },
   { label: "2569", value: "errorRate" },
 ];
+
+export const docOptions = [
+  { label: "คู่มือการใช้งานระบบ", value: "errorRate" },
+  { label: "Business Solution Playbook", value: "errorRate" },
+];
