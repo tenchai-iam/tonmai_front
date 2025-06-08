@@ -24,11 +24,11 @@ export const getGeoFeeders = async (feeder_id) => {
   return response.data; // Return the data received from the API
 };
 
-export const getGeoCorridors = async (scenario_id, feeder_id, aoj_code) => {
+export const getGeoCorridors = async (scenario_name, feeder_id, aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_geo_corridors`,
     {
-      scenario_id: scenario_id,
+      scenario_name: scenario_name,
       feeder_id: feeder_id, // Pass the data format value in the request body
       aoj_code: aoj_code,
     },

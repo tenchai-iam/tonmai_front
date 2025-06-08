@@ -25,6 +25,15 @@
   justify-content: flex-start;
   gap: 20px;
   font-size: 0.8rem;
+  z-index: 99;
+}
+
+.map-button-container {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  justify-content: flex-start;
+  gap: 20px;
+  font-size: 0.8rem;
 }
 
 .download-button {

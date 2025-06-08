@@ -42,11 +42,19 @@ const Map = () => {
     setSelectedDistrict(event.target.value);
   };
 
+  const [selectedDistrict2, setSelectedDistrict2] = useState("");
+
+  const handleChangeDistrict2 = (event) => {
+    setSelectedDistrict2(event.target.value);
+  };
+
   const [selectedAoj, setSelectedAoj] = useSessionStorage("selectedAoj", "");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
   };
+
+  const [selectedAoj2, setSelectedAoj2] = useState("");
 
   const [selectedFeeder, setSelectedFeeder] = useSessionStorage(
     "selectedFeeder",
@@ -94,6 +102,14 @@ const Map = () => {
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
     label: option["feeder_id"],
+  }));
+
+  const { data: aojOption2, isLoadingAojOption2 } =
+    useAojOption(selectedDistrict2);
+
+  const aojOptionFormatted2 = aojOption2?.map((option) => ({
+    value: option.aoj_code,
+    label: option.aoj_name,
   }));
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
@@ -152,7 +168,7 @@ const Map = () => {
 
   const { data: corridorPlan } = useCorridorPlan(
     selectedScenario2,
-    selectedAoj
+    selectedAoj2
   );
 
   const dataCorridorPlan =
@@ -184,8 +200,8 @@ const Map = () => {
             >
               <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
               {scenarioOption?.map((option) => (
-                <option key={option.scenario_id} value={option.scenario_id}>
-                  {option.scenario_id}
+                <option key={option.scenario_name} value={option.scenario_name}>
+                  {option.scenario_name}
                 </option>
               ))}
             </select>
@@ -233,7 +249,7 @@ const Map = () => {
             />
           </div>
         </div>
-        <div className="dropdowngroup-container">
+        <div className="map-button-container">
           <div className="mapview-toggle-container">
             <button
               className={`mapview-btn ${
@@ -307,14 +323,14 @@ const Map = () => {
               >
                 <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
                 {scenarioOption?.map((option) => (
-                  <option key={option.scenario_id} value={option.scenario_id}>
-                    {option.scenario_id}
+                  <option key={option.scenario_name} value={option.scenario_name}>
+                    {option.scenario_name}
                   </option>
                 ))}
               </select>
               <select
-                value={selectedDistrict}
-                onChange={handleChangeDistrict}
+                value={selectedDistrict2}
+                onChange={handleChangeDistrict2}
                 className="border rounded-lg px-4 py-2"
               >
                 <option value="" disabled>
@@ -327,12 +343,12 @@ const Map = () => {
                 ))}
               </select>
               <Select
-                options={aojOptionFormatted}
-                value={aojOptionFormatted?.find(
-                  (opt) => opt.value === selectedAoj
+                options={aojOptionFormatted2}
+                value={aojOptionFormatted2?.find(
+                  (opt) => opt.value === selectedAoj2
                 )}
                 onChange={(selectedOption) =>
-                  setSelectedAoj(selectedOption?.value || "")
+                  setSelectedAoj2(selectedOption?.value || "")
                 }
                 isClearable
                 placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"

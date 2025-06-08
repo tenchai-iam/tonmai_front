@@ -23,11 +23,11 @@ export const useGeoFeeders = (feeder_id) => {
   });
 };
 
-export const useGeoCorridors = (scenario_id, feeder_id, aoj_code) => {
+export const useGeoCorridors = (scenario_name, feeder_id, aoj_code) => {
   return useQuery({
-    queryKey: ["geoCorridors", scenario_id, feeder_id, aoj_code],
-    queryFn: () => getGeoCorridors(scenario_id, feeder_id, aoj_code),
-    // enabled: Boolean(feeder_id),
+    queryKey: ["geoCorridors", scenario_name, feeder_id, aoj_code],
+    queryFn: () => getGeoCorridors(scenario_name, feeder_id, aoj_code),
+    enabled: Boolean(aoj_code) && Boolean(feeder_id) && Boolean(scenario_name),
     staleTime: 5 * 60 * 1000,
     keepPreviousData: true,
   });
@@ -37,6 +37,6 @@ export const useGeoDevices = (feeder_id, aoj_code) => {
   return useQuery({
     queryKey: ["geoDevices", feeder_id, aoj_code],
     queryFn: () => getGeoDevices(feeder_id, aoj_code),
-    // enabled: Boolean(feeder_id),
+    enabled: Boolean(aoj_code) && Boolean(feeder_id),
   });
 };

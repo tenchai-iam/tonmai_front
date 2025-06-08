@@ -198,8 +198,11 @@ const Manage = () => {
                 >
                   <option value=""></option>
                   {scenarioOption?.map((option) => (
-                    <option key={option.scenario_id} value={option.scenario_id}>
-                      {option.scenario_id}
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
                     </option>
                   ))}
                 </select>
@@ -222,8 +225,11 @@ const Manage = () => {
                 >
                   <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
                   {scenarioOption?.map((option) => (
-                    <option key={option.scenario_id} value={option.scenario_id}>
-                      {option.scenario_id}
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
                     </option>
                   ))}
                 </select>
@@ -249,8 +255,11 @@ const Manage = () => {
                 >
                   <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
                   {scenarioOption?.map((option) => (
-                    <option key={option.scenario_id} value={option.scenario_id}>
-                      {option.scenario_id}
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
                     </option>
                   ))}
                 </select>
@@ -280,8 +289,11 @@ const Manage = () => {
               >
                 <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
                 {scenarioOption?.map((option) => (
-                  <option key={option.scenario_id} value={option.scenario_id}>
-                    {option.scenario_id}
+                  <option
+                    key={option.scenario_name}
+                    value={option.scenario_name}
+                  >
+                    {option.scenario_name}
                   </option>
                 ))}
               </select>
