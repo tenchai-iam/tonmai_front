@@ -11,9 +11,24 @@ import {
   useAojOption,
 } from "../Sub_Query/OptionQuery.js";
 
-import { useCorridorPlan } from "../Sub_Query/ManageQuery.js";
+import {
+  useCorridorPlan,
+  usePlanSummaryQuery,
+} from "../Sub_Query/ManageQuery.js";
 
 import { planDummyOptions, yearDummyOptions } from "../Sub_config/Options.js";
+
+import {
+  createBudgetScenario,
+  createRiskScenario,
+  selectScenarioPlan,
+} from "../../services/api_Scenario.js";
+
+import {
+  formatValue,
+  formatUnit,
+  formatQuantity,
+} from "../Sub_config/Format.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Manage.css";
@@ -25,37 +40,124 @@ const Manage = () => {
   const [selectedScenario2, setSelectedScenario2] = useState("");
   const handleScenario2Select = (e) => setSelectedScenario2(e.target.value);
 
+  const [selectedScenario3, setSelectedScenario3] = useState("");
+  const handleScenario3Select = (e) => setSelectedScenario3(e.target.value);
+
+  const [selectedScenarioF, setSelectedScenarioF] = useState("");
+  const handleScenarioFSelect = (e) => setSelectedScenarioF(e.target.value);
+
   const { data: scenarioOption } = useScenarioOption();
+
+  // State for scenario creation
+  const [selectedYearRisk, setSelectedYearRisk] = useState("");
+  const [riskReductionPercent, setRiskReductionPercent] = useState("");
+  const [isCreatingRiskScenario, setIsCreatingRiskScenario] = useState(false);
+
+  const [selectedYearBudget, setSelectedYearBudget] = useState("");
+  const [budgetReductionPercent, setBudgetReductionPercent] = useState("");
+  const [isCreatingBudgetScenario, setIsCreatingBudgetScenario] =
+    useState(false);
 
   const [selectedPlan, setSelectedPlan] = useState("");
   const handlePlanSelect = (e) => setSelectedPlan(e.target.value);
 
-  const handlePlanSubmit = async () => {
-    setIsSavingPlan(true);
+  // NEW: Budget scenario submit handler
+  const handleBudgetSubmit = async () => {
+    if (!selectedYearBudget || !budgetReductionPercent) {
+      alert("กรุณาเลือกปีและกรอกเปอร์เซ็นต์งบประมาณ");
+      return;
+    }
+
+    setIsCreatingBudgetScenario(true);
 
     const payload = {
-      anlage: selectedAnlage, // key must be "anlage" to match backend
-      employee_id: "700001", // Optionally get from user context/session
-      data: [
-        {
-          method: selectedMethod,
-          remark: remark,
-          doc_number: doc_number,
-          // process_date will be auto-filled in backend
-        },
-      ],
+      year: parseInt(selectedYearBudget),
+      budget_reduction_percentage: parseFloat(budgetReductionPercent),
     };
 
     try {
-      const response = await uploadProcess(payload); // use your axios upload function
-      alert("ส่งข้อมูลสำเร็จ!");
-      // reloadProcessDetail();
-      console.log("Response:", response);
+      const response = await createBudgetScenario(payload);
+      alert(`สร้าง Budget Scenario สำเร็จ! ID: ${response.scenario_id}`);
+      console.log("Budget Scenario Response:", response);
+
+      // Reset form
+      setSelectedYearBudget("");
+      setBudgetReductionPercent("");
+
+      // Optionally refresh scenario options
+      // refetchScenarioOption();
     } catch (err) {
-      console.error("Upload failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างส่งข้อมูล");
+      console.error("Budget scenario creation failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างสร้าง Budget Scenario");
     } finally {
-      setIsSavingPlan(false);
+      setIsCreatingBudgetScenario(false);
+    }
+  };
+
+  // NEW: Risk scenario submit handler
+  const handleRiskSubmit = async () => {
+    if (!selectedYearRisk || !riskReductionPercent) {
+      alert("กรุณาเลือกปีและกรอกเปอร์เซ็นต์ SAIFI");
+      return;
+    }
+
+    setIsCreatingRiskScenario(true);
+
+    const payload = {
+      year: parseInt(selectedYearRisk),
+      risk_reduction_target: parseFloat(riskReductionPercent),
+    };
+
+    try {
+      const response = await createRiskScenario(payload);
+      alert(`สร้าง Risk Scenario สำเร็จ! ID: ${response.scenario_id}`);
+      console.log("Risk Scenario Response:", response);
+
+      // Reset form
+      setSelectedYearRisk("");
+      setRiskReductionPercent("");
+
+      // Optionally refresh scenario options
+      // refetchScenarioOption();
+    } catch (err) {
+      console.error("Risk scenario creation failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างสร้าง Risk Scenario");
+    } finally {
+      setIsCreatingRiskScenario(false);
+    }
+  };
+
+  // NEW: Plan selection state
+  const [SelectingPlan, setIsSelectingPlan] = useState(false);
+
+  // Updated: Plan selection submit handler
+  const handlePlanSubmit = async () => {
+    if (!selectedPlan || !selectedScenarioF) {
+      alert("กรุณาเลือกปีและ Scenario");
+      return;
+    }
+
+    setIsSelectingPlan(true);
+
+    const payload = {
+      employee_id: "700001", // Fixed value for now
+      scenario_name: selectedScenario1,
+      year: parseInt(selectedPlan),
+    };
+
+    try {
+      const response = await selectScenarioPlan(payload);
+      alert(`เลือกแผนสำเร็จ! Scenario: ${selectedScenario1}`);
+      console.log("Plan Selection Response:", response);
+
+      // Optionally reset form or update UI
+      // setSelectedPlan("");
+      // setSelectedScenario1("");
+    } catch (err) {
+      console.error("Plan selection failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเลือกแผน");
+    } finally {
+      setIsSelectingPlan(false);
     }
   };
 
@@ -80,17 +182,20 @@ const Manage = () => {
     useAojOption(selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.CODE,
-    label: option.NAME,
+    value: option.aoj_code,
+    label: option.aoj_name,
   }));
 
-  const { data: corridorPlan } = useCorridorPlan(selectedAoj);
+  const { data: corridorPlan } = useCorridorPlan(
+    selectedScenario3,
+    selectedAoj
+  );
 
   const dataCorridorPlan =
     corridorPlan?.map((item) => ({
       code: item.aoj_code,
       name: item.aoj_name,
-      frequency: item.chosen_scenario_frequency,
+      frequency: item.frequency,
       length: item.corridor_length_km,
       cost: item.cost_to_trim_bht,
       customer: item.customers_affected_adjusted,
@@ -101,23 +206,46 @@ const Manage = () => {
       density: Number(item.vegetation_density_pct) * 100,
     })) || [];
 
+  const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
+
+  const dataPlanSummary1 = [
+    {
+      aojCount: Number(planSummary1?.aoj_count || 0), // raw count
+      cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
+      risk: Number(planSummary1?.total_risk || 0) / 1_000_000, // in millions
+    },
+  ];
+
+  const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
+
+  const dataPlanSummary2 = [
+    {
+      aojCount: Number(planSummary2?.aoj_count || 0), // raw count
+      cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
+      risk: Number(planSummary2?.total_risk || 0) / 1_000_000, // in millions
+    },
+  ];
+
   return (
     <div>
       <NavbarComponent />
       <div className="header-container">จัดการแผน</div>
       <div className="main-container">
         <div className="create-select-plan-container">
+          {/* RISK SCENARIO SECTION */}
           <div className="input-container">
-            สร้างแผนโดย Parameter ความเสี่ยง SALFI
+            สร้างแผนโดย Parameter ความเสี่ยง SAIFI
             <div className="inputgroup-container">
               <div className="input-year">
                 <label>เลือกปีที่จะใช้</label>
                 <select
-                  value={selectedPlan}
-                  onChange={handlePlanSelect}
+                  value={selectedYearRisk}
+                  onChange={(e) => setSelectedYearRisk(e.target.value)}
                   className="border rounded-lg px-4 py-2"
                 >
-                  <option value="" disabled></option>
+                  <option value="" disabled>
+                    เลือกปี
+                  </option>
                   {yearDummyOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
@@ -129,27 +257,40 @@ const Manage = () => {
                 <label>% SAIFI ที่ต้องการลดจาก Base</label>
                 <input
                   className="input-value"
-                  type="text"
-                  // value={remark}
-                  // onChange={handleRemarkChange}
+                  type="number"
+                  min="10"
+                  max="80"
+                  step="1"
+                  placeholder="เช่น 25"
+                  value={riskReductionPercent}
+                  onChange={(e) => setRiskReductionPercent(e.target.value)}
                 />
               </div>
             </div>
             <div className="confirm-container">
-              <button onClick={handlePlanSubmit}>ยืนยัน</button>
+              <button
+                onClick={handleRiskSubmit}
+                disabled={isCreatingRiskScenario}
+              >
+                {isCreatingRiskScenario ? "กำลังสร้าง..." : "ยืนยัน"}
+              </button>
             </div>
           </div>
+
+          {/* BUDGET SCENARIO SECTION */}
           <div className="input-container">
             สร้างแผนโดย Parameter งบประมาณ
             <div className="inputgroup-container">
               <div className="input-year">
                 <label>เลือกปีที่จะใช้</label>
                 <select
-                  value={selectedPlan}
-                  onChange={handlePlanSelect}
+                  value={selectedYearBudget}
+                  onChange={(e) => setSelectedYearBudget(e.target.value)}
                   className="border rounded-lg px-4 py-2"
                 >
-                  <option value="" disabled></option>
+                  <option value="" disabled>
+                    เลือกปี
+                  </option>
                   {yearDummyOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
@@ -161,16 +302,27 @@ const Manage = () => {
                 <label>% Budget ที่ต้องการลดจาก Base</label>
                 <input
                   className="input-value"
-                  type="text"
-                  // value={remark}
-                  // onChange={handleRemarkChange}
+                  type="number"
+                  min="5"
+                  max="50"
+                  step="1"
+                  placeholder="เช่น 12"
+                  value={budgetReductionPercent}
+                  onChange={(e) => setBudgetReductionPercent(e.target.value)}
                 />
               </div>
             </div>
             <div className="confirm-container">
-              <button onClick={handlePlanSubmit}>ยืนยัน</button>
+              <button
+                onClick={handleBudgetSubmit}
+                disabled={isCreatingBudgetScenario}
+              >
+                {isCreatingBudgetScenario ? "กำลังสร้าง..." : "ยืนยัน"}
+              </button>
             </div>
           </div>
+
+          {/* EXISTING PLAN SELECTION SECTION */}
           <div className="input-output-container">
             เลือกแผนที่ใช้
             <div className="inputgroup-container">
@@ -181,7 +333,7 @@ const Manage = () => {
                   onChange={handlePlanSelect}
                   className="border rounded-lg px-4 py-2"
                 >
-                  <option value="" disabled></option>
+                  <option value=""></option>
                   {yearDummyOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
@@ -192,8 +344,8 @@ const Manage = () => {
               <div className="input-field">
                 <label>เลือกแผนที่จะใช้</label>
                 <select
-                  value={selectedScenario1}
-                  onChange={handleScenario1Select}
+                  value={selectedScenarioF}
+                  onChange={handleScenarioFSelect}
                   className="border rounded-lg px-4 py-2"
                 >
                   <option value=""></option>
@@ -237,12 +389,21 @@ const Manage = () => {
               <div className="metric-box-container">
                 <div className="text-box-subcontainer">
                   <label className="text">จำนวนพื้นที่ AOJ</label>
+                  <div className="value">
+                    {formatQuantity(dataPlanSummary1[0]?.aojCount)}
+                  </div>
                 </div>
                 <div className="text-box-subcontainer">
                   <label className="text">SAIFI</label>
+                  <div className="value">
+                    {formatUnit(dataPlanSummary1[0]?.risk)}
+                  </div>
                 </div>
                 <div className="text-box-subcontainer">
                   <label className="text">งบประมาณ (ล้านบาท)</label>
+                  <div className="value">
+                    {formatValue(dataPlanSummary1[0]?.cost)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -267,12 +428,21 @@ const Manage = () => {
               <div className="metric-box-container">
                 <div className="text-box-subcontainer">
                   <label className="text">จำนวนพื้นที่ AOJ</label>
+                  <div className="value">
+                    {formatQuantity(dataPlanSummary2[0]?.aojCount)}
+                  </div>
                 </div>
                 <div className="text-box-subcontainer">
                   <label className="text">SAIFI</label>
+                  <div className="value">
+                    {formatUnit(dataPlanSummary2[0]?.risk)}
+                  </div>
                 </div>
                 <div className="text-box-subcontainer">
                   <label className="text">งบประมาณ (ล้านบาท)</label>
+                  <div className="value">
+                    {formatValue(dataPlanSummary2[0]?.cost)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -283,8 +453,8 @@ const Manage = () => {
           <div className="dropdown-download-container">
             <div className="dropdowngroup-container">
               <select
-                value={selectedScenario1}
-                onChange={handleScenario1Select}
+                value={selectedScenario3}
+                onChange={handleScenario3Select}
                 className="border rounded-lg px-4 py-2"
               >
                 <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>

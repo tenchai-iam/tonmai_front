@@ -20,7 +20,16 @@ import {
   useGeoDevices,
 } from "../Sub_Query/GeoQuery.js";
 
-import { useCorridorPlan } from "../Sub_Query/ManageQuery.js";
+import {
+  useCorridorPlan,
+  usePlanSummaryQuery,
+} from "../Sub_Query/ManageQuery.js";
+
+import {
+  formatValue,
+  formatUnit,
+  formatQuantity,
+} from "../Sub_config/Format.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Map.css";
@@ -33,10 +42,7 @@ const Map = () => {
 
   const { data: scenarioOption } = useScenarioOption();
 
-  const [selectedDistrict, setSelectedDistrict] = useSessionStorage(
-    "selectedDistrict",
-    ""
-  );
+  const [selectedDistrict, setSelectedDistrict] = useState("");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
@@ -48,7 +54,7 @@ const Map = () => {
     setSelectedDistrict2(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useSessionStorage("selectedAoj", "");
+  const [selectedAoj, setSelectedAoj] = useState("");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
@@ -56,10 +62,7 @@ const Map = () => {
 
   const [selectedAoj2, setSelectedAoj2] = useState("");
 
-  const [selectedFeeder, setSelectedFeeder] = useSessionStorage(
-    "selectedFeeder",
-    ""
-  );
+  const [selectedFeeder, setSelectedFeeder] = useState("");
 
   const handleChangeFeeder = (event) => {
     setSelectedFeeder(event.target.value);
@@ -186,6 +189,21 @@ const Map = () => {
       density: Number(item.vegetation_density_pct) * 100,
     })) || [];
 
+  const { data: planSummary } = usePlanSummaryQuery(
+    selectedScenario1,
+    selectedDistrict,
+    selectedAoj,
+    selectedFeeder
+  );
+
+  const dataPlanSummary = [
+    {
+      aojCount: Number(planSummary?.aoj_count || 0), // raw count
+      cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
+      risk: Number(planSummary?.total_risk || 0) / 1_000_000, // in millions
+    },
+  ];
+
   return (
     <div>
       <NavbarComponent />
@@ -210,9 +228,7 @@ const Map = () => {
               onChange={handleChangeDistrict}
               className="border rounded-lg px-4 py-2"
             >
-              <option value="" disabled>
-                เลือกการไฟฟ้าเขต
-              </option>
+              <option value="">เลือกการไฟฟ้าเขต</option>
               {districtOption?.map((option) => (
                 <option key={option.region} value={option.region}>
                   {option.region}
@@ -294,12 +310,21 @@ const Map = () => {
           <div className="metric-mapbox-container">
             <div className="text-box-subcontainer">
               <label className="text">จำนวนพื้นที่ AOJ</label>
+              <div className="value">
+                {formatQuantity(dataPlanSummary[0]?.aojCount)}
+              </div>
             </div>
             <div className="text-box-subcontainer">
               <label className="text">SAIFI</label>
+              <div className="value">
+                {formatUnit(dataPlanSummary[0]?.risk)}
+              </div>
             </div>
             <div className="text-box-subcontainer">
               <label className="text">งบประมาณ (ล้านบาท)</label>
+              <div className="value">
+                {formatValue(dataPlanSummary[0]?.cost)}
+              </div>
             </div>
           </div>
           <div className="map-container">
@@ -323,7 +348,10 @@ const Map = () => {
               >
                 <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
                 {scenarioOption?.map((option) => (
-                  <option key={option.scenario_name} value={option.scenario_name}>
+                  <option
+                    key={option.scenario_name}
+                    value={option.scenario_name}
+                  >
                     {option.scenario_name}
                   </option>
                 ))}
@@ -333,9 +361,7 @@ const Map = () => {
                 onChange={handleChangeDistrict2}
                 className="border rounded-lg px-4 py-2"
               >
-                <option value="" disabled>
-                  เลือกการไฟฟ้าเขต
-                </option>
+                <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
                   <option key={option.region} value={option.region}>
                     {option.region}

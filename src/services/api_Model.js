@@ -27,3 +27,5 @@ export const getPlanCorridor = async (aoj_code) => {
   );
   return response.data; // Return the data received from the API
 };
+
+

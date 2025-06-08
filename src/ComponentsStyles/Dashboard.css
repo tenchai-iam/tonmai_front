@@ -132,3 +132,11 @@
 .text-title {
   font-size: 1rem;
 }
+
+.value {
+  font-size: 1.5rem; /* Slightly larger than label text */
+  font-weight: 600; /* Semi-bold for emphasis */
+  color: #7c00fe; /* Dark grey for readability */
+  text-align: right; /* Align right for numbers */
+  margin-top: 4px; /* Space between label and value */
+}
