@@ -4,7 +4,6 @@ import Select from "react-select";
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
-import PlanTable from "../Sub/TablePlan.js";
 
 import {
   useScenarioOption,
@@ -20,12 +19,10 @@ import {
   useGeoDevices,
 } from "../Sub_Query/GeoQuery.js";
 
-import { useCorridorPlan } from "../Sub_Query/ManageQuery.js";
-
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Map.css";
 
-const Map = () => {
+const MapGeneral = () => {
   const [lineData, setLineData] = useState([]);
 
   const [selectedScenario1, setSelected1Scenario] = useState("");
@@ -84,8 +81,8 @@ const Map = () => {
     useAojOption(selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
+    value: option.CODE,
+    label: option.NAME,
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
@@ -98,11 +95,7 @@ const Map = () => {
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
-  const { data: geoCorridors } = useGeoCorridors(
-    selectedScenario1,
-    selectedFeeder,
-    selectedAoj
-  );
+  const { data: geoCorridors } = useGeoCorridors(selectedFeeder, selectedAoj);
   const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
@@ -146,29 +139,6 @@ const Map = () => {
   const geoJsonToShow = activeMapView?.geoJson;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
-
-  const [selectedScenario2, setSelected2Scenario] = useState("");
-  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
-
-  const { data: corridorPlan } = useCorridorPlan(
-    selectedScenario2,
-    selectedAoj
-  );
-
-  const dataCorridorPlan =
-    corridorPlan?.map((item) => ({
-      code: item.aoj_code,
-      name: item.aoj_name,
-      frequency: item.frequency,
-      length: item.corridor_length_km,
-      cost: item.cost_to_trim_bht,
-      customer: item.customers_affected_adjusted,
-      feeder: item.feeder_id,
-      outage: item.probability_of_outage_pct,
-      customerRisk: item.risk_customer_interruptions,
-      device: item.upstream_device,
-      density: Number(item.vegetation_density_pct) * 100,
-    })) || [];
 
   return (
     <div>
@@ -274,35 +244,20 @@ const Map = () => {
             </div>
           )}
         </div>
-        <div className="metric-map-container">
-          <div className="metric-mapbox-container">
-            <div className="text-box-subcontainer">
-              <label className="text">จำนวนพื้นที่ AOJ</label>
-            </div>
-            <div className="text-box-subcontainer">
-              <label className="text">SAIFI</label>
-            </div>
-            <div className="text-box-subcontainer">
-              <label className="text">งบประมาณ (ล้านบาท)</label>
-            </div>
-          </div>
-          <div className="map-container">
-            {" "}
-            <GeoMap
-              geoJsonPoints={geoDevices}
-              geoJsonData={geoJsonToShow}
-              colorMode={colorMode}
-              showLegend={currentMapView === "corridor"}
-            />
-          </div>
-        </div>
+
+        <GeoMap
+          geoJsonPoints={geoDevices}
+          geoJsonData={geoJsonToShow}
+          colorMode={colorMode}
+          showLegend={currentMapView === "corridor"}
+        />
 
         <div className="summary-container">
-          <div className="dropdown-download-container">
+          <div className="dropdown-dropdown-container">
             <div className="dropdowngroup-container">
               <select
-                value={selectedScenario2}
-                onChange={handleScenario2Select}
+                value={selectedScenario1}
+                onChange={handleScenario1Select}
                 className="border rounded-lg px-4 py-2"
               >
                 <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
@@ -340,21 +295,26 @@ const Map = () => {
                 className="react-select-container"
                 classNamePrefix="react-select"
               />
-            </div>
-            <div className="download-button">
-              <button
-                // onClick={handleDownloadCorridorPlan}
-                className={`download-button-style${false ? " selected" : ""}`}
-              >
-                Download
-              </button>
+              <Select
+                options={feederOptionFormatted}
+                value={feederOptionFormatted?.find(
+                  (opt) => opt.value === selectedFeeder
+                )}
+                onChange={(selectedOption) =>
+                  setSelectedFeeder(selectedOption?.value || "")
+                }
+                isClearable
+                placeholder="ค้นหา/เลือก Feeder"
+                noOptionsMessage={() => "ไม่พบข้อมูล"}
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
             </div>
           </div>
-          <PlanTable data={dataCorridorPlan} />
         </div>
       </div>
     </div>
   );
 };
 
-export default Map;
+export default MapGeneral;

@@ -17,6 +17,23 @@
   min-width: 100px;
 }
 
+.compare-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.scenario-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  max-width: 50%;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
 .create-select-plan-container {
   display: flex;
   flex-direction: row;
@@ -28,8 +45,8 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 35%;
-  max-width: 35%;
+  flex: 1 1 30%;
+  max-width: 30%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -50,8 +67,8 @@
 .input-output-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 30%;
-  max-width: 30%;
+  flex: 1 1 40%;
+  max-width: 40%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -77,6 +94,17 @@
   margin-bottom: 4px;
 }
 
+.input-year {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.input-year label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
 .input-value {
   padding: 0.5rem 0.75rem;
   border: 1px solid #d1d5db;
@@ -91,4 +119,24 @@
   justify-content: space-between;
   gap: 20px;
   width: 100%;
+}
+
+.metric-box-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Two rows for the two text items */
+  gap: 20px; /* Space between text items */
+  justify-items: center; /* Center align the text items */
+  width: 100%;
+}
+
+.text-box-subcontainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* Two columns for the two text items */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  gap: 20px; /* Space between text items */
+  justify-items: left;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
 }

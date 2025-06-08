@@ -1,11 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getDistricts, getAojs, getFeeders } from "../../services/api_Options";
+import {
+  getDistricts,
+  getScenarios,
+  getAojs,
+  getFeeders,
+} from "../../services/api_Options";
 
 export const useDistrictOption = () => {
   return useQuery({
     queryKey: ["districtOption"],
     queryFn: () => getDistricts(),
+  });
+};
+
+export const useScenarioOption = () => {
+  return useQuery({
+    queryKey: ["scenarioOption"],
+    queryFn: () => getScenarios(),
   });
 };
 

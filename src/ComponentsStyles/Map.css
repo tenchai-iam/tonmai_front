@@ -63,3 +63,48 @@
   border: 1px solid #999;
   box-sizing: border-box;
 }
+
+.metric-map-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 85%;
+  max-width: 85%;
+  gap: 20px;
+}
+
+/* .metric-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 15%;
+  max-width: 15%;
+  gap: 20px;
+} */
+
+.metric-mapbox-container {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px; /* Space between text items */
+  justify-items: center; /* Center align the text items */
+  flex: 1 1 15%;
+  max-width: 15%;
+}
+
+.text-box-subcontainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* Two columns for the two text items */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  gap: 20px; /* Space between text items */
+  justify-items: left;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

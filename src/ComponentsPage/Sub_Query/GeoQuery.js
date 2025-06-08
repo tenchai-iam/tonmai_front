@@ -23,10 +23,10 @@ export const useGeoFeeders = (feeder_id) => {
   });
 };
 
-export const useGeoCorridors = (feeder_id, aoj_code) => {
+export const useGeoCorridors = (scenario_id, feeder_id, aoj_code) => {
   return useQuery({
-    queryKey: ["geoCorridors", feeder_id, aoj_code],
-    queryFn: () => getGeoCorridors(feeder_id, aoj_code),
+    queryKey: ["geoCorridors", scenario_id, feeder_id, aoj_code],
+    queryFn: () => getGeoCorridors(scenario_id, feeder_id, aoj_code),
     // enabled: Boolean(feeder_id),
     staleTime: 5 * 60 * 1000,
     keepPreviousData: true,

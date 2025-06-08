@@ -97,12 +97,12 @@ const GeoMap = ({
           colorMode === "frequency"
             ? [
                 "match",
-                ["get", "chosen_scenario_frequency"],
-                1,
+                ["get", "frequency"],
+                "T1",
                 "#2ecc71",
-                2,
+                "T2",
                 "#f1c40f",
-                3,
+                "T3",
                 "#e74c3c",
                 "#999",
               ]

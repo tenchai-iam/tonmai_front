@@ -5,7 +5,11 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import PlanTable from "../Sub/TablePlan.js";
 
-import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
+import {
+  useDistrictOption,
+  useScenarioOption,
+  useAojOption,
+} from "../Sub_Query/OptionQuery.js";
 
 import { useCorridorPlan } from "../Sub_Query/ManageQuery.js";
 
@@ -15,6 +19,14 @@ import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Manage.css";
 
 const Manage = () => {
+  const [selectedScenario1, setSelectedScenario1] = useState("");
+  const handleScenario1Select = (e) => setSelectedScenario1(e.target.value);
+
+  const [selectedScenario2, setSelectedScenario2] = useState("");
+  const handleScenario2Select = (e) => setSelectedScenario2(e.target.value);
+
+  const { data: scenarioOption } = useScenarioOption();
+
   const [selectedPlan, setSelectedPlan] = useState("");
   const handlePlanSelect = (e) => setSelectedPlan(e.target.value);
 
@@ -94,24 +106,27 @@ const Manage = () => {
       <NavbarComponent />
       <div className="header-container">จัดการแผน</div>
       <div className="main-container">
-        {/* <div className="summary-container">
-          <div className="container-title">เปรียบเทียบแผน</div>
-        </div> */}
         <div className="create-select-plan-container">
           <div className="input-container">
             สร้างแผนโดย Parameter ความเสี่ยง SALFI
             <div className="inputgroup-container">
-              <div className="input-field">
-                <label>กรอกชื่อแผน</label>
-                <input
-                  className="input-value"
-                  type="text"
-                  // value={remark}
-                  // onChange={handleRemarkChange}
-                />
+              <div className="input-year">
+                <label>เลือกปีที่จะใช้</label>
+                <select
+                  value={selectedPlan}
+                  onChange={handlePlanSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="" disabled></option>
+                  {yearDummyOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="input-field">
-                <label>กรอกค่าความเสี่ยง SALFI</label>
+                <label>% SAIFI ที่ต้องการลดจาก Base</label>
                 <input
                   className="input-value"
                   type="text"
@@ -127,48 +142,7 @@ const Manage = () => {
           <div className="input-container">
             สร้างแผนโดย Parameter งบประมาณ
             <div className="inputgroup-container">
-              <div className="input-field">
-                <label>กรอกชื่อแผน</label>
-                <input
-                  className="input-value"
-                  type="text"
-                  // value={remark}
-                  // onChange={handleRemarkChange}
-                />
-              </div>
-              <div className="input-field">
-                <label>กรอกงบประมาณ Budget</label>
-                <input
-                  className="input-value"
-                  type="text"
-                  // value={remark}
-                  // onChange={handleRemarkChange}
-                />
-              </div>
-            </div>
-            <div className="confirm-container">
-              <button onClick={handlePlanSubmit}>ยืนยัน</button>
-            </div>
-          </div>
-          <div className="input-container">
-            เลือกแผนที่ใช้
-            <div className="inputgroup-container">
-              <div className="input-field">
-                <label>เลือกแผนที่จะใช้</label>
-                <select
-                  value={selectedPlan}
-                  onChange={handlePlanSelect}
-                  className="border rounded-lg px-4 py-2"
-                >
-                  <option value="" disabled></option>
-                  {planDummyOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="input-field">
+              <div className="input-year">
                 <label>เลือกปีที่จะใช้</label>
                 <select
                   value={selectedPlan}
@@ -183,6 +157,53 @@ const Manage = () => {
                   ))}
                 </select>
               </div>
+              <div className="input-field">
+                <label>% Budget ที่ต้องการลดจาก Base</label>
+                <input
+                  className="input-value"
+                  type="text"
+                  // value={remark}
+                  // onChange={handleRemarkChange}
+                />
+              </div>
+            </div>
+            <div className="confirm-container">
+              <button onClick={handlePlanSubmit}>ยืนยัน</button>
+            </div>
+          </div>
+          <div className="input-output-container">
+            เลือกแผนที่ใช้
+            <div className="inputgroup-container">
+              <div className="input-year">
+                <label>เลือกปีที่จะใช้</label>
+                <select
+                  value={selectedPlan}
+                  onChange={handlePlanSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="" disabled></option>
+                  {yearDummyOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="input-field">
+                <label>เลือกแผนที่จะใช้</label>
+                <select
+                  value={selectedScenario1}
+                  onChange={handleScenario1Select}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {scenarioOption?.map((option) => (
+                    <option key={option.scenario_id} value={option.scenario_id}>
+                      {option.scenario_id}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="confirm-container">
               <button onClick={handlePlanSubmit}>ยืนยัน</button>
@@ -190,9 +211,80 @@ const Manage = () => {
           </div>
         </div>
         <div className="summary-container">
+          <div className="container-title">เปรียบเทียบแผน</div>
+          <div className="compare-container">
+            <div className="scenario-container">
+              <div className="dropdowngroup-container">
+                <select
+                  value={selectedScenario1}
+                  onChange={handleScenario1Select}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                  {scenarioOption?.map((option) => (
+                    <option key={option.scenario_id} value={option.scenario_id}>
+                      {option.scenario_id}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="metric-box-container">
+                <div className="text-box-subcontainer">
+                  <label className="text">จำนวนพื้นที่ AOJ</label>
+                </div>
+                <div className="text-box-subcontainer">
+                  <label className="text">SAIFI</label>
+                </div>
+                <div className="text-box-subcontainer">
+                  <label className="text">งบประมาณ (ล้านบาท)</label>
+                </div>
+              </div>
+            </div>
+            <div className="scenario-container">
+              <div className="dropdowngroup-container">
+                <select
+                  value={selectedScenario2}
+                  onChange={handleScenario2Select}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                  {scenarioOption?.map((option) => (
+                    <option key={option.scenario_id} value={option.scenario_id}>
+                      {option.scenario_id}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="metric-box-container">
+                <div className="text-box-subcontainer">
+                  <label className="text">จำนวนพื้นที่ AOJ</label>
+                </div>
+                <div className="text-box-subcontainer">
+                  <label className="text">SAIFI</label>
+                </div>
+                <div className="text-box-subcontainer">
+                  <label className="text">งบประมาณ (ล้านบาท)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="summary-container">
           <div className="container-title">ข้อมูลแผน</div>
           <div className="dropdown-download-container">
             <div className="dropdowngroup-container">
+              <select
+                value={selectedScenario1}
+                onChange={handleScenario1Select}
+                className="border rounded-lg px-4 py-2"
+              >
+                <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                {scenarioOption?.map((option) => (
+                  <option key={option.scenario_id} value={option.scenario_id}>
+                    {option.scenario_id}
+                  </option>
+                ))}
+              </select>
               <select
                 value={selectedDistrict}
                 onChange={handleChangeDistrict}

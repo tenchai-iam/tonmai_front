@@ -7,6 +7,11 @@ export const getDistricts = async () => {
   return response.data; // Return the data received from the API
 };
 
+export const getScenarios = async () => {
+  const response = await axios.get(`${API_URL}/get_scenario`);
+  return response.data; // Return the data received from the API
+};
+
 export const getAojs = async (district) => {
   const response = await axios.post(
     `${API_URL}/get_aoj`,

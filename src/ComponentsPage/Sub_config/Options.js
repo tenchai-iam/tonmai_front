@@ -5,9 +5,8 @@ export const planDummyOptions = [
 ];
 
 export const yearDummyOptions = [
-  { label: "2568", value: "errorRate" },
-  { label: "2568", value: "errorRate" },
-  { label: "2569", value: "errorRate" },
+  { label: "2569", value: "2569" },
+  { label: "2570", value: "2570" },
 ];
 
 export const docOptions = [

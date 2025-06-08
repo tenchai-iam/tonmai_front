@@ -53,15 +53,20 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/map">
               แผนการตัดต้นไม้
             </Nav.Link>
-            <Nav.Link as={Link} to="/manage">
-              จัดการแผน
-            </Nav.Link>
-            <Nav.Link as={Link} to="/value">
-              ติดตามมูลค่า Stage 5
-            </Nav.Link>
-            <Nav.Link as={Link} to="/data">
-              จัดการข้อมูล
-            </Nav.Link>
+            <NavDropdown title="หน่วยงาน กบร." id="admin-dropdown">
+              <NavDropdown.Item as={Link} to="/map">
+                แผนการตัดต้นไม้
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/manage">
+                จัดการแผน
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/value">
+                ติดตามมูลค่า Stage 5
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/data">
+                จัดการข้อมูล
+              </NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link as={Link} to="/admin">
               จัดการระบบ
             </Nav.Link>
