@@ -28,4 +28,14 @@ export const getPlanCorridor = async (aoj_code) => {
   return response.data; // Return the data received from the API
 };
 
+export const getUserManual = async () => {
+  const response = await axios.get(`${API_URL}/download_user_manual_pdf`);
+  return response.data; // Return the data received from the API
+};
 
+export const getPlaybook = async () => {
+  const response = await axios.get(
+    `${API_URL}/download_bussiness_playbook_pdf`
+  );
+  return response.data; // Return the data received from the API
+};

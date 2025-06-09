@@ -14,6 +14,8 @@ import {
   useFeatures,
 } from "./ComponentsPage/Sub_Query/ModelQuery.js";
 
+import { getUserManual, getPlaybook } from "./services/api_Model.js";
+
 import "./ComponentsStyles/Dashboard.css";
 import "./ComponentsStyles/Home.css";
 
@@ -31,6 +33,38 @@ const Home = () => {
   }));
 
   const barKeys = ["importance"];
+
+  const docOptions = [
+    { value: "user_manual", label: "User Manual" },
+    { value: "playbook", label: "Playbook" },
+  ];
+
+  const handleDownload = async (docType) => {
+    try {
+      let blob;
+      let filename;
+
+      if (docType === "user_manual") {
+        blob = await getUserManual();
+        filename = "User_Manual.pdf";
+      } else if (docType === "playbook") {
+        blob = await getPlaybook();
+        filename = "Business_Playbook.pdf";
+      }
+
+      if (blob) {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", filename);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
+    } catch (error) {
+      console.error(`Error downloading ${docType}:`, error);
+    }
+  };
 
   return (
     <div>
@@ -72,10 +106,9 @@ const Home = () => {
               return (
                 <button
                   key={option.value}
-                  // onClick={() => {
-                  //   handleViewChange(option.value);
-                  //   handleMetricSelect(option.value, index);
-                  // }}
+                  onClick={() => {
+                    handleDownload(option.value);
+                  }}
                   className={selectedButton === index ? "active" : ""}
                 >
                   {option.label}
