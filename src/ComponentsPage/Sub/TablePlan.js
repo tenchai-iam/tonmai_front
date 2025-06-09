@@ -78,7 +78,7 @@ const PlanTable = ({ data }) => {
                 ค่าใข้จ่าย (บาท) {renderSortArrow("cost")}
               </th>
               <th onClick={() => handleSort("customer")}>
-                ระดับผลกระทบกับลูกค้า {renderSortArrow("customer")}
+                จำนวนลูกค้าที่ได้รับผลกระทบ {renderSortArrow("customer")}
               </th>
 
               <th onClick={() => handleSort("outage")}>

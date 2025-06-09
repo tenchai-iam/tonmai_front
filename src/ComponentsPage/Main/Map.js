@@ -5,6 +5,7 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanTable from "../Sub/TablePlan.js";
+import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
@@ -15,7 +16,6 @@ import {
 
 import {
   useGeoAoj,
-  useGeoFeeders,
   useGeoCorridors,
   useGeoDevices,
 } from "../Sub_Query/GeoQuery.js";
@@ -189,6 +189,30 @@ const Map = () => {
       density: Number(item.vegetation_density_pct) * 100,
     })) || [];
 
+  const handleDataCorridorPlan = () => {
+    const headers = [
+      { label: "รหัส", key: "code" },
+      { label: "กฟฟ.", key: "name" },
+      { label: "feeder", key: "feeder" },
+      { label: "ระยะทาง (km)", key: "length" },
+      { label: "ความหนาแน่นของต้นไม้", key: "density" },
+      { label: "ความถี่ในการตัด", key: "frequency" },
+      { label: "อุปกรณ์", key: "device" },
+      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
+      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
+      { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
+      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
+    ];
+
+    downloadTable({
+      data: dataCorridorPlan,
+      headers: headers,
+      fileName: "Corridor_Data",
+      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} สำหรับ ${selectedAoj}`,
+      extraInfoRows: [],
+    });
+  };
+
   const { data: planSummary } = usePlanSummaryQuery(
     selectedScenario1,
     selectedDistrict,
@@ -209,6 +233,14 @@ const Map = () => {
       <NavbarComponent />
       <div className="header-container">แผนการตัดต้นไม้</div>
       <div className="main-container">
+        <div className="remark">
+          <p>หมายเหตุ</p>
+          <p>
+            SAIFI = Number of Customer Interruptions
+            (จำนวนลูกค้าที่คาดว่าจะกระทบกับไฟฟ้าดับ) / Total Number of Customers
+            (จำนวนลูกค้าทั้งหมด)
+          </p>
+        </div>
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
             <select
@@ -385,12 +417,31 @@ const Map = () => {
             </div>
             <div className="download-button">
               <button
-                // onClick={handleDownloadCorridorPlan}
+                onClick={handleDataCorridorPlan}
                 className={`download-button-style${false ? " selected" : ""}`}
               >
                 Download
               </button>
             </div>
+          </div>
+          <div className="remark">
+            <p>
+              customers_affected_adjusted (จำนวนลูกค้าที่ได้รับผลกระทบ) Low:
+              น้อยกว่า 1000 ราย, Medium: 1,000-10,000 ราย, High: มากกว่า 10,000
+              ราย
+            </p>
+            <p>
+              probability_of_outage_pct (ความเสี่ยงไฟดับจากต้นไม้): Low:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
+            </p>
+            <p>
+              risk_customer_interruptions (ความเสี่ยงในการกระทบกับลูกค้า): Low:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
+            </p>
           </div>
           <PlanTable data={dataCorridorPlan} />
         </div>

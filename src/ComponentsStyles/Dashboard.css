@@ -140,3 +140,9 @@
   text-align: right; /* Align right for numbers */
   margin-top: 4px; /* Space between label and value */
 }
+
+.remark {
+  font: italic;
+  font-size: 0.8rem;
+  gap: 5px;
+}

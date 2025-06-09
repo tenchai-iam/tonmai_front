@@ -4,6 +4,7 @@ import Select from "react-select";
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import PlanTable from "../Sub/TablePlan.js";
+import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useDistrictOption,
@@ -161,16 +162,13 @@ const Manage = () => {
     }
   };
 
-  const [selectedDistrict, setSelectedDistrict] = useSessionStorage(
-    "selectedDistrict",
-    ""
-  );
+  const [selectedDistrict, setSelectedDistrict] = useState("");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useSessionStorage("selectedAoj", "");
+  const [selectedAoj, setSelectedAoj] = useState("");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
@@ -206,6 +204,30 @@ const Manage = () => {
       density: Number(item.vegetation_density_pct) * 100,
     })) || [];
 
+  const handleDataCorridorPlan = () => {
+    const headers = [
+      { label: "รหัส", key: "code" },
+      { label: "กฟฟ.", key: "name" },
+      { label: "feeder", key: "feeder" },
+      { label: "ระยะทาง (km)", key: "length" },
+      { label: "ความหนาแน่นของต้นไม้", key: "density" },
+      { label: "ความถี่ในการตัด", key: "frequency" },
+      { label: "อุปกรณ์", key: "device" },
+      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
+      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
+      { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
+      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
+    ];
+
+    downloadTable({
+      data: dataCorridorPlan,
+      headers: headers,
+      fileName: "Corridor_Data",
+      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} สำหรับ ${selectedAoj}`,
+      extraInfoRows: [],
+    });
+  };
+
   const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
 
   const dataPlanSummary1 = [
@@ -231,6 +253,14 @@ const Manage = () => {
       <NavbarComponent />
       <div className="header-container">จัดการแผน</div>
       <div className="main-container">
+        <div className="remark">
+          <p>หมายเหตุ</p>
+          <p>
+            SAIFI = Number of Customer Interruptions
+            (จำนวนลูกค้าที่คาดว่าจะกระทบกับไฟฟ้าดับ) / Total Number of Customers
+            (จำนวนลูกค้าทั้งหมด)
+          </p>
+        </div>
         <div className="create-select-plan-container">
           {/* RISK SCENARIO SECTION */}
           <div className="input-container">
@@ -498,7 +528,7 @@ const Manage = () => {
             </div>
             <div className="download-button">
               <button
-                // onClick={handleDownloadCorridorPlan}
+                onClick={handleDataCorridorPlan}
                 className={`download-button-style${false ? " selected" : ""}`}
               >
                 Download
