@@ -1,52 +1,45 @@
 import React, { useState, useEffect } from "react";
+import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphV from "../Sub/BarGraphV.js";
+import BudgetTable from "../Sub/TableBudget.js";
+import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useBaselineTotal,
   useBaselineDistrict,
+  useBaselineTable,
 } from "../Sub_Query/ValueQuery.js";
+
+import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
 
 const Value = () => {
-  const singleData = [
-    {
-      name: "Product A",
-      base: 12000.45,
-      model: 3000.75,
-      actual: 4200.5,
-    },
-  ];
+  const [selectedDistrict, setSelectedDistrict] = useState("");
 
-  const multipleData = [
-    {
-      name: "Product A",
-      base: 12000.45,
-      model: 3000.75,
-      actual: 4200.5,
-    },
-    {
-      name: "Product A",
-      base: 12000.45,
-      model: 3000.75,
-      actual: 4200.5,
-    },
-    {
-      name: "Product A",
-      base: 12000.45,
-      model: 3000.75,
-      actual: 4200.5,
-    },
-    {
-      name: "Product A",
-      base: 12000.45,
-      model: 3000.75,
-      actual: 4200.5,
-    },
-  ];
+  const handleChangeDistrict = (event) => {
+    setSelectedDistrict(event.target.value);
+  };
+
+  const [selectedAoj, setSelectedAoj] = useState("");
+
+  const handleChangeAoj = (event) => {
+    setSelectedAoj(event.target.value);
+  };
+
+  const { data: districtOption } = useDistrictOption();
+
+  const { data: aojOption, isLoadingAojOption } =
+    useAojOption(selectedDistrict);
+
+  const aojOptionFormatted = aojOption?.map((option) => ({
+    value: option.aoj_code,
+    label: option.aoj_name,
+  }));
+
   const { data: baselineTotal } = useBaselineTotal();
 
   const dataBaselineTotal = [
@@ -72,6 +65,39 @@ const Value = () => {
     { dataKey: "model", fill: "#82ca9d" },
     { dataKey: "actual", fill: "#3e3e3e" },
   ];
+
+  const { data: baselineTable } = useBaselineTable(selectedAoj);
+
+  const dataBaselineTable =
+    baselineTable?.map((item) => ({
+      district: item.district,
+      code: item.aoj_code,
+      name: item.aoj,
+      ba: item.ba,
+      budgetBase: Number(item.budget_base_thb ?? 0) / 1000000,
+      budgetModel: Number(item.budget_model_thb ?? 0) / 1000000,
+      actual: Number(item.actual_thb ?? 0) / 1000000,
+    })) || [];
+
+  const handleDataBaselineTable = () => {
+    const headers = [
+      { label: "เขต", key: "district" },
+      { label: "รหัส กฟฟ.", key: "code" },
+      { label: "กฟฟ.", key: "name" },
+      { label: "ba", key: "ba" },
+      { label: "งบประมาณฐาน (ล้านบาท)", key: "budgetBase" },
+      { label: "งบประมาณแผน (ล้านบาท)", key: "budgetModel" },
+      { label: "ค่าใช้จ่ายจริง (ล้านบาท)", key: "actual" },
+    ];
+
+    downloadTable({
+      data: dataBaselineTable,
+      headers: headers,
+      fileName: "Stage5_Value_Data",
+      title: `สรุปข้อมูลติดตามมูลค่า ${selectedAoj}`,
+      extraInfoRows: [],
+    });
+  };
 
   return (
     <div>
@@ -106,6 +132,47 @@ const Value = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="summary-container">
+          <div className="dropdown-download-container">
+            <div className="dropdowngroup-container">
+              <select
+                value={selectedDistrict}
+                onChange={handleChangeDistrict}
+                className="border rounded-lg px-4 py-2"
+              >
+                <option value="">เลือกการไฟฟ้าเขต</option>
+                {districtOption?.map((option) => (
+                  <option key={option.region} value={option.region}>
+                    {option.region}
+                  </option>
+                ))}
+              </select>
+              <Select
+                options={aojOptionFormatted}
+                value={aojOptionFormatted?.find(
+                  (opt) => opt.value === selectedAoj
+                )}
+                onChange={(selectedOption) =>
+                  setSelectedAoj(selectedOption?.value || "")
+                }
+                isClearable
+                placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
+                noOptionsMessage={() => "ไม่พบข้อมูล"}
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
+            </div>
+            <div className="download-button">
+              <button
+                onClick={handleDataBaselineTable}
+                className={`download-button-style${false ? " selected" : ""}`}
+              >
+                Download
+              </button>
+            </div>
+          </div>
+          <BudgetTable data={dataBaselineTable} />
         </div>
       </div>
     </div>

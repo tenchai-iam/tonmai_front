@@ -11,3 +11,14 @@ export const getBaselineDistrict = async () => {
   const response = await axios.get(`${API_URL}/baseline_district`);
   return response.data; // Return the data received from the API
 };
+
+export const getBaselineTable = async (aoj_code) => {
+  const response = await axios.post(
+    `${API_URL}/baseline_table`,
+    {
+      aoj_code: aoj_code, // Pass the data format value in the request body
+    },
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};

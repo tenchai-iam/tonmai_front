@@ -4,6 +4,8 @@ import Select from "react-select";
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
+import PlanTable from "../Sub/TablePlan.js";
+import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
@@ -14,10 +16,20 @@ import {
 
 import {
   useGeoAoj,
-  useGeoFeeders,
   useGeoCorridors,
   useGeoDevices,
 } from "../Sub_Query/GeoQuery.js";
+
+import {
+  useCorridorPlan,
+  usePlanSummaryQuery,
+} from "../Sub_Query/ManageQuery.js";
+
+import {
+  formatValue,
+  formatUnit,
+  formatQuantity,
+} from "../Sub_config/Format.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Map.css";
@@ -30,25 +42,27 @@ const MapGeneral = () => {
 
   const { data: scenarioOption } = useScenarioOption();
 
-  const [selectedDistrict, setSelectedDistrict] = useSessionStorage(
-    "selectedDistrict",
-    ""
-  );
+  const [selectedDistrict, setSelectedDistrict] = useState("");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useSessionStorage("selectedAoj", "");
+  const [selectedDistrict2, setSelectedDistrict2] = useState("");
+
+  const handleChangeDistrict2 = (event) => {
+    setSelectedDistrict2(event.target.value);
+  };
+
+  const [selectedAoj, setSelectedAoj] = useState("");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
   };
 
-  const [selectedFeeder, setSelectedFeeder] = useSessionStorage(
-    "selectedFeeder",
-    ""
-  );
+  const [selectedAoj2, setSelectedAoj2] = useState("");
+
+  const [selectedFeeder, setSelectedFeeder] = useState("");
 
   const handleChangeFeeder = (event) => {
     setSelectedFeeder(event.target.value);
@@ -81,8 +95,8 @@ const MapGeneral = () => {
     useAojOption(selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.CODE,
-    label: option.NAME,
+    value: option.aoj_code,
+    label: option.aoj_name,
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
@@ -93,9 +107,21 @@ const MapGeneral = () => {
     label: option["feeder_id"],
   }));
 
+  const { data: aojOption2, isLoadingAojOption2 } =
+    useAojOption(selectedDistrict2);
+
+  const aojOptionFormatted2 = aojOption2?.map((option) => ({
+    value: option.aoj_code,
+    label: option.aoj_name,
+  }));
+
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
-  const { data: geoCorridors } = useGeoCorridors(selectedFeeder, selectedAoj);
+  const { data: geoCorridors } = useGeoCorridors(
+    selectedScenario1,
+    selectedFeeder,
+    selectedAoj
+  );
   const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
@@ -140,11 +166,81 @@ const MapGeneral = () => {
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
+  const [selectedScenario2, setSelected2Scenario] = useState("");
+  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
+
+  const { data: corridorPlan } = useCorridorPlan(
+    selectedScenario2,
+    selectedAoj2
+  );
+
+  const dataCorridorPlan =
+    corridorPlan?.map((item) => ({
+      code: item.aoj_code,
+      name: item.aoj_name,
+      frequency: item.frequency,
+      length: item.corridor_length_km,
+      cost: item.cost_to_trim_bht,
+      customer: item.customers_affected_adjusted,
+      feeder: item.feeder_id,
+      outage: item.probability_of_outage_pct,
+      customerRisk: item.risk_customer_interruptions,
+      device: item.upstream_device,
+      density: Number(item.vegetation_density_pct) * 100,
+    })) || [];
+
+  const handleDataCorridorPlan = () => {
+    const headers = [
+      { label: "รหัส", key: "code" },
+      { label: "กฟฟ.", key: "name" },
+      { label: "feeder", key: "feeder" },
+      { label: "ระยะทาง (km)", key: "length" },
+      { label: "ความหนาแน่นของต้นไม้", key: "density" },
+      { label: "ความถี่ในการตัด", key: "frequency" },
+      { label: "อุปกรณ์", key: "device" },
+      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
+      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
+      { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
+      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
+    ];
+
+    downloadTable({
+      data: dataCorridorPlan,
+      headers: headers,
+      fileName: "Corridor_Data",
+      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} สำหรับ ${selectedAoj}`,
+      extraInfoRows: [],
+    });
+  };
+
+  const { data: planSummary } = usePlanSummaryQuery(
+    selectedScenario1,
+    selectedDistrict,
+    selectedAoj,
+    selectedFeeder
+  );
+
+  const dataPlanSummary = [
+    {
+      aojCount: Number(planSummary?.aoj_count || 0), // raw count
+      cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
+      risk: Number(planSummary?.total_risk || 0) / 1_000_000, // in millions
+    },
+  ];
+
   return (
     <div>
       <NavbarComponent />
       <div className="header-container">แผนการตัดต้นไม้</div>
       <div className="main-container">
+        <div className="remark">
+          <p>หมายเหตุ</p>
+          <p>
+            SAIFI = Number of Customer Interruptions
+            (จำนวนลูกค้าที่คาดว่าจะกระทบกับไฟฟ้าดับ) / Total Number of Customers
+            (จำนวนลูกค้าทั้งหมด)
+          </p>
+        </div>
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
             <select
@@ -154,8 +250,8 @@ const MapGeneral = () => {
             >
               <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
               {scenarioOption?.map((option) => (
-                <option key={option.scenario_id} value={option.scenario_id}>
-                  {option.scenario_id}
+                <option key={option.scenario_name} value={option.scenario_name}>
+                  {option.scenario_name}
                 </option>
               ))}
             </select>
@@ -164,9 +260,7 @@ const MapGeneral = () => {
               onChange={handleChangeDistrict}
               className="border rounded-lg px-4 py-2"
             >
-              <option value="" disabled>
-                เลือกการไฟฟ้าเขต
-              </option>
+              <option value="">เลือกการไฟฟ้าเขต</option>
               {districtOption?.map((option) => (
                 <option key={option.region} value={option.region}>
                   {option.region}
@@ -203,7 +297,7 @@ const MapGeneral = () => {
             />
           </div>
         </div>
-        <div className="dropdowngroup-container">
+        <div className="map-button-container">
           <div className="mapview-toggle-container">
             <button
               className={`mapview-btn ${
@@ -244,37 +338,62 @@ const MapGeneral = () => {
             </div>
           )}
         </div>
-
-        <GeoMap
-          geoJsonPoints={geoDevices}
-          geoJsonData={geoJsonToShow}
-          colorMode={colorMode}
-          showLegend={currentMapView === "corridor"}
-        />
+        <div className="metric-map-container">
+          <div className="metric-mapbox-container">
+            <div className="text-box-subcontainer">
+              <label className="text">จำนวนพื้นที่ AOJ</label>
+              <div className="value">
+                {formatQuantity(dataPlanSummary[0]?.aojCount)}
+              </div>
+            </div>
+            <div className="text-box-subcontainer">
+              <label className="text">SAIFI</label>
+              <div className="value">
+                {formatUnit(dataPlanSummary[0]?.risk)}
+              </div>
+            </div>
+            <div className="text-box-subcontainer">
+              <label className="text">งบประมาณ (ล้านบาท)</label>
+              <div className="value">
+                {formatValue(dataPlanSummary[0]?.cost)}
+              </div>
+            </div>
+          </div>
+          <div className="map-container">
+            {" "}
+            <GeoMap
+              geoJsonPoints={geoDevices}
+              geoJsonData={geoJsonToShow}
+              colorMode={colorMode}
+              showLegend={currentMapView === "corridor"}
+            />
+          </div>
+        </div>
 
         <div className="summary-container">
-          <div className="dropdown-dropdown-container">
+          <div className="dropdown-download-container">
             <div className="dropdowngroup-container">
               <select
-                value={selectedScenario1}
-                onChange={handleScenario1Select}
+                value={selectedScenario2}
+                onChange={handleScenario2Select}
                 className="border rounded-lg px-4 py-2"
               >
                 <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
                 {scenarioOption?.map((option) => (
-                  <option key={option.scenario_id} value={option.scenario_id}>
-                    {option.scenario_id}
+                  <option
+                    key={option.scenario_name}
+                    value={option.scenario_name}
+                  >
+                    {option.scenario_name}
                   </option>
                 ))}
               </select>
               <select
-                value={selectedDistrict}
-                onChange={handleChangeDistrict}
+                value={selectedDistrict2}
+                onChange={handleChangeDistrict2}
                 className="border rounded-lg px-4 py-2"
               >
-                <option value="" disabled>
-                  เลือกการไฟฟ้าเขต
-                </option>
+                <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
                   <option key={option.region} value={option.region}>
                     {option.region}
@@ -282,12 +401,12 @@ const MapGeneral = () => {
                 ))}
               </select>
               <Select
-                options={aojOptionFormatted}
-                value={aojOptionFormatted?.find(
-                  (opt) => opt.value === selectedAoj
+                options={aojOptionFormatted2}
+                value={aojOptionFormatted2?.find(
+                  (opt) => opt.value === selectedAoj2
                 )}
                 onChange={(selectedOption) =>
-                  setSelectedAoj(selectedOption?.value || "")
+                  setSelectedAoj2(selectedOption?.value || "")
                 }
                 isClearable
                 placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
@@ -295,22 +414,36 @@ const MapGeneral = () => {
                 className="react-select-container"
                 classNamePrefix="react-select"
               />
-              <Select
-                options={feederOptionFormatted}
-                value={feederOptionFormatted?.find(
-                  (opt) => opt.value === selectedFeeder
-                )}
-                onChange={(selectedOption) =>
-                  setSelectedFeeder(selectedOption?.value || "")
-                }
-                isClearable
-                placeholder="ค้นหา/เลือก Feeder"
-                noOptionsMessage={() => "ไม่พบข้อมูล"}
-                className="react-select-container"
-                classNamePrefix="react-select"
-              />
+            </div>
+            <div className="download-button">
+              <button
+                onClick={handleDataCorridorPlan}
+                className={`download-button-style${false ? " selected" : ""}`}
+              >
+                Download
+              </button>
             </div>
           </div>
+          <div className="remark">
+            <p>
+              customers_affected_adjusted (จำนวนลูกค้าที่ได้รับผลกระทบ) Low:
+              น้อยกว่า 1000 ราย, Medium: 1,000-10,000 ราย, High: มากกว่า 10,000
+              ราย
+            </p>
+            <p>
+              probability_of_outage_pct (ความเสี่ยงไฟดับจากต้นไม้): Low:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
+            </p>
+            <p>
+              risk_customer_interruptions (ความเสี่ยงในการกระทบกับลูกค้า): Low:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
+              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
+            </p>
+          </div>
+          <PlanTable data={dataCorridorPlan} />
         </div>
       </div>
     </div>
