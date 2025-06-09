@@ -72,7 +72,7 @@ const Value = () => {
     baselineTable?.map((item) => ({
       district: item.district,
       code: item.aoj_code,
-      name: item.aoj,
+      name: item.aoj_name,
       ba: item.ba,
       budgetBase: Number(item.budget_base_thb ?? 0) / 1000000,
       budgetModel: Number(item.budget_model_thb ?? 0) / 1000000,
