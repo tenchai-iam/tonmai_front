@@ -32,7 +32,7 @@ export const getGeoCorridors = async (scenario_name, feeder_id, aoj_code) => {
       feeder_id: feeder_id, // Pass the data format value in the request body
       aoj_code: aoj_code,
     },
-    { timeout: 5000 }
+    { timeout: 15000 }
   );
   return response.data; // Return the data received from the API
 };

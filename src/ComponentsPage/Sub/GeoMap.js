@@ -100,9 +100,9 @@ const GeoMap = ({
                 ["get", "frequency"],
                 "T1",
                 "#2ecc71",
-                "T2",
-                "#f1c40f",
                 "T3",
+                "#f1c40f",
+                "T4",
                 "#e74c3c",
                 "#999",
               ]

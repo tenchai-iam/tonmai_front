@@ -20,7 +20,7 @@ export const createBudgetScenario = async (payload) => {
     };
 
     const response = await axios.post(
-      `${API_URL}/scenarios/create-and-run`,
+      `${API_URL}/create-and-run`,
       requestPayload,
       {
         headers: {
@@ -52,7 +52,7 @@ export const createRiskScenario = async (payload) => {
     };
 
     const response = await axios.post(
-      `${API_URL}/scenarios/create-and-run`,
+      `${API_URL}/create-and-run`,
       requestPayload,
       {
         headers: {
@@ -105,7 +105,7 @@ export const getScenarioDetails = async (scenarioId) => {
  */
 export const healthCheck = async () => {
   try {
-    const response = await axios.get(`${API_URL}/scenarios/health`);
+    const response = await axios.get(`${API_URL}/health`);
     return response.data;
   } catch (error) {
     console.error("Health Check API Error:", error);
@@ -123,15 +123,11 @@ export const healthCheck = async () => {
  */
 export const selectScenarioPlan = async (payload) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/scenarios/select-plan`,
-      payload,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.post(`${API_URL}/select-plan`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Select Scenario Plan API Error:", error);
