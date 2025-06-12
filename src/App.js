@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./Home";
+import MapG from "./ComponentsPage/Main/MapGeneral.js";
 import Map from "./ComponentsPage/Main/Map.js";
 import Manage from "./ComponentsPage/Main/Manage.js";
 import Value from "./ComponentsPage/Main/Value.js";
@@ -34,35 +35,40 @@ export default function App() {
               {/* <Route path="/" element={<ProtectedRoute element={Home} />} /> */}
 
               {/* Dashboard routes */}
-              <Route path="/map" element={<Map />} />
-              {/* <Route
-                path="/transformerHQ"
-                element={<ProtectedRoute />}
+              {/* <Route path="/map" element={<Map />} /> */}
+              <Route path="/MapG" element={<ProtectedRoute element={MapG} />} />
+
+              {/* Dashboard routes */}
+              {/* <Route path="/map" element={<Map />} /> */}
+              <Route
+                path="/Map"
+                element={<ProtectedRoute element={Map} />}
                 allowedLevels={["B", "C"]}
-              /> */}
-              <Route path="/manage" element={<Manage />} />
-              {/* <Route
-                path="/circuitBreakerHQ"
-                element={<ProtectedRoute />}
+              />
+
+              {/* <Route path="/manage" element={<Manage />} /> */}
+              <Route
+                path="/manage"
+                element={<ProtectedRoute element={Manage} />}
                 allowedLevels={["B", "C"]}
-              /> */}
+              />
 
               <Route path="/value" element={<Value />} />
 
-              <Route path="/data" element={<Data />} />
-              {/* <Route path="/transformerDistrict" element={<ProtectedRoute />} />
+              {/* <Route path="/data" element={<Data />} /> */}
               <Route
-                path="/circuitBreakerDistrict"
-                element={<ProtectedRoute />}
-              /> */}
+                path="/data"
+                element={<ProtectedRoute element={Data} />}
+                allowedLevels={["B", "C"]}
+              />
 
               {/* Upload routes */}
-
-              <Route path="/admin" element={<Admin />} />
-              {/* <Route
+              {/* <Route path="/admin" element={<Admin />} /> */}
+              <Route
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
-              /> */}
+                allowedLevels={["C"]}
+              />
               <Route path="/callback" element={<Callback />} />
 
               {/* Redirect undefined routes to Home */}
