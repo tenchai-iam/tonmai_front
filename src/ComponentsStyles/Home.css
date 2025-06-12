@@ -1,0 +1,56 @@
+.buttongroup-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.buttongroup-container button {
+  background-color: #f7ecff;
+  color: #4a0072;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  flex: 1;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+  min-height: 50px;
+}
+
+.buttongroup-container button.active {
+  background-color: #4a0072;
+  color: white;
+}
+
+.title-metric-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.roc-decile-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.roc-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+  max-width: 40%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.decile-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 60%;
+  max-width: 60%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}

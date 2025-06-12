@@ -1,0 +1,110 @@
+.mapview-toggle-container {
+  display: flex;
+  gap: 1rem;
+  /* margin: 1rem 0; */
+  justify-content: center;
+}
+
+.mapview-btn {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s ease;
+}
+
+.mapview-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.mapview-btn.active {
+  background-color: #1d4ed8;
+  color: white;
+  border-color: #1d4ed8;
+}
+
+.legend {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  font-family: "NotoSansThai";
+}
+
+.legend h4 {
+  margin: 0 0 8px;
+  font-size: 0.8 rem;
+}
+
+.legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legend li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.legend span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 1px solid #999;
+  box-sizing: border-box;
+}
+
+.metric-map-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 85%;
+  max-width: 85%;
+  gap: 20px;
+}
+
+/* .metric-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 15%;
+  max-width: 15%;
+  gap: 20px;
+} */
+
+.metric-mapbox-container {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px; /* Space between text items */
+  justify-items: center; /* Center align the text items */
+  flex: 1 1 15%;
+  max-width: 15%;
+}
+
+.text-box-subcontainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* Two columns for the two text items */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  gap: 20px; /* Space between text items */
+  justify-items: left;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

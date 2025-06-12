@@ -1,0 +1,52 @@
+/* General Container for the Line Chart */
+.line-chart-container {
+  width: 100%;
+  max-width: 100%; /* Set a maximum width for the container */
+}
+
+.title-legend-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 16px;
+}
+
+/* Chart Title */
+.line-chart-title {
+  display: flex;
+  font-size: 0.9rem;
+  color: #3e3e3e;
+  margin: 0;
+  flex: 1; /* allows title to take available space */
+  width: 100%;
+  justify-content: center;
+}
+
+.line-chart-legend {
+  display: flex;
+  gap: 5px;
+  font-size: 0.8rem;
+}
+
+.custom-tooltip {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+}
+
+.tooltip-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}

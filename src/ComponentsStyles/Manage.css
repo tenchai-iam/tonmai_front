@@ -1,0 +1,142 @@
+.confirm-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.confirm-container button {
+  background-color: #5cb338;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.compare-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.scenario-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  max-width: 50%;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.create-select-plan-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 30%;
+  max-width: 30%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inputgroup-container {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  justify-content: flex-start;
+  gap: 20px;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.input-output-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+  max-width: 40%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.field-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-field label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.input-year {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.input-year label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.input-value {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #111827;
+}
+
+.dropdown-download-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.metric-box-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Two rows for the two text items */
+  gap: 20px; /* Space between text items */
+  justify-items: center; /* Center align the text items */
+  width: 100%;
+}
+
+.text-box-subcontainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* Two columns for the two text items */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  gap: 20px; /* Space between text items */
+  justify-items: left;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

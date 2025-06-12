@@ -1,0 +1,69 @@
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1); /* Additional elevation */
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+  padding: 20px;
+}
+
+.download-container {
+  display: flex; /* Use Flexbox for layout */
+  justify-content: right;
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.download-button {
+  white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+.table-remark-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.remark-upload-container {
+  flex: 1 1 40%;
+  max-width: 40%;
+}
+
+.remark-container {
+  font-size: 0.8rem;
+  padding: 10px;
+  gap: 0px;
+  justify-self: left;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1); /* Additional elevation */
+  width: 100%;
+}
+
+.user-container {
+  /* padding: 20px; */
+  /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.user-module {
+  max-width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: black;
+  align-items: center; /* Align items vertically */
+}

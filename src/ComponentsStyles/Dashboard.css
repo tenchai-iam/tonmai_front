@@ -1,0 +1,148 @@
+.container-title {
+  display: flex;
+  font-size: 1rem;
+  font-weight: bold;
+  align-items: center; /* Centers text vertically */
+  justify-content: center; /* Centers text horizontally */
+  width: 100%; /* Ensures full width for centering */
+}
+
+.dropdown-dropdown-container {
+  display: flex; /* Use Flexbox for layout */
+  justify-content: space-between; /* Place items on opposite ends */
+  width: 100%;
+}
+
+.dropdown-button-container {
+  display: flex; /* Use Flexbox for layout */
+  justify-content: space-between; /* Place items on opposite ends */
+  width: 100%;
+}
+
+.dropdowngroup-container {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  justify-content: flex-start;
+  gap: 20px;
+  font-size: 0.8rem;
+  z-index: 99;
+}
+
+.map-button-container {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  justify-content: flex-start;
+  gap: 20px;
+  font-size: 0.8rem;
+}
+
+.download-button {
+  display: flex;
+  font-size: 0.8rem;
+  white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+.download-button-style {
+  background-color: #f0f0f0;
+  color: black;
+  text-decoration: none; /* Remove underline */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+}
+
+.download-button-style.selected {
+  background-color: #8e44ad;
+  color: white;
+}
+
+.year-select-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  justify-content: start;
+  max-width: 100px;
+}
+
+.header-container {
+  padding: 20px;
+  align-items: center; /* Align items vertically */
+  font-size: 1rem;
+  width: 100%;
+}
+
+.main-container {
+  position: relative;
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  padding: 20px;
+}
+
+.summary-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  gap: 20px; /* Space between text items */
+  justify-items: left;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.data-date {
+  font-size: 0.8rem;
+  color: #3e3e3e;
+}
+
+.year-dropdown-container {
+  display: flex;
+  justify-content: flex-end; /* This moves the dropdown to the right */
+  color: white;
+}
+
+.dropdown-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.dashboard-container {
+  position: relative;
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  padding: 20px;
+}
+
+.header-title {
+  font-size: 1rem;
+}
+
+.text-title {
+  font-size: 1rem;
+}
+
+.value {
+  font-size: 1.5rem; /* Slightly larger than label text */
+  font-weight: 600; /* Semi-bold for emphasis */
+  color: #7c00fe; /* Dark grey for readability */
+  text-align: right; /* Align right for numbers */
+  margin-top: 4px; /* Space between label and value */
+}
+
+.remark {
+  font: italic;
+  font-size: 0.8rem;
+  gap: 5px;
+}

@@ -1,0 +1,52 @@
+/* Container for the Bar Chart */
+.bar-chart-container {
+  width: 100%;
+  max-width: 100%; /* Set a maximum width for the container */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.title-legend-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+
+/* Chart Title */
+.bar-chart-title {
+  font-size: 0.9rem;
+  color: #3e3e3e;
+  flex: 1; /* allows title to take available space */
+  text-align: center;
+}
+
+.bar-chart-title-H {
+  font-size: 1rem;
+  color: #3e3e3e;
+  margin-left: 15%;
+  flex: 1; /* allows title to take available space */
+  text-align: left;
+}
+
+.bar-chart-title-HM {
+  font-size: 1rem;
+  color: #3e3e3e;
+  margin-left: 25%;
+  flex: 1; /* allows title to take available space */
+  text-align: center;
+}
+
+.bar-chart-legend {
+  display: flex;
+  gap: 5px;
+  font-size: 0.8rem;
+}
+
+.data-size {
+  font-size: 0.8rem;
+}
