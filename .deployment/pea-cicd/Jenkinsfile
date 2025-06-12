@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 // podTemplate(cloud: 'kubernetes', containers: [
 //     containerTemplate(
 //         args: '9999999', 
@@ -305,6 +307,7 @@
 
 //------------------------------------
 
+>>>>>>> develop
 podTemplate(cloud: 'kubernetes', containers: [
     containerTemplate(
         args: '9999999', 
@@ -319,7 +322,11 @@ podTemplate(cloud: 'kubernetes', containers: [
         resourceRequestEphemeralStorage: '',
         resourceRequestMemory: '', 
         workingDir: '/home/jenkins/agent'), 
+<<<<<<< HEAD
+    /*containerTemplate(
+=======
     containerTemplate(
+>>>>>>> develop
         args: '9999999', 
         command: 'sleep', 
         image: 'node:18.20-alpine', 
@@ -331,7 +338,24 @@ podTemplate(cloud: 'kubernetes', containers: [
         resourceRequestCpu: '', 
         resourceRequestEphemeralStorage: '',
         resourceRequestMemory: '', 
+<<<<<<< HEAD
+        workingDir: '/home/jenkins/agent'), */
+    containerTemplate(
+        args: '9999999', 
+        command: 'sleep', 
+        image: 'python:3.9-slim',  //'python:3.9-slim',  // ใช้ image ของ Python เวอร์ชันที่คุณต้องการ
+        livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), 
+        name: 'python',  // ตั้งชื่อ container ว่า python
+        resourceLimitCpu: '', 
+        resourceLimitEphemeralStorage: '', 
+        resourceLimitMemory: '', 
+        resourceRequestCpu: '', 
+        resourceRequestEphemeralStorage: '', 
+        resourceRequestMemory: '', 
+        workingDir: '/home/jenkins/agent'),     
+=======
         workingDir: '/home/jenkins/agent'), 
+>>>>>>> develop
     containerTemplate(
         args: '9999999', 
         command: 'sleep', 
@@ -372,6 +396,10 @@ podTemplate(cloud: 'kubernetes', containers: [
         def tag = 'latest'
         def gitRevision = ''
         def workspace = ''
+<<<<<<< HEAD
+        def appName = 'vegx-front'
+=======
+>>>>>>> develop
 
         stage("git clone") {
             container("git") {
@@ -403,21 +431,41 @@ podTemplate(cloud: 'kubernetes', containers: [
                     // git clone code
                     git branch: "${gitBranch}", credentialsId: "${gitCred}", url: "${gitUrl}"
 
+<<<<<<< HEAD
+                    echo "Git clone completed successfully."
+
                     // add git safe directory
+                    workspace = pwd()
+                    echo "Workspace directory: ${workspace}"
+=======
+                    // add git safe directory
+>>>>>>> develop
                     sh "git config --global --add safe.directory ${workspace}"
 
                     // get git revision
                     gitRevision = sh(script: "git log -n 1 --pretty=format:'%H'", returnStdout: true).substring(0, 16)
+<<<<<<< HEAD
+                    echo "Git revision: ${gitRevision}"
+=======
+>>>>>>> develop
 
                     if (mode == 'production') {
                         tag = sh(script: 'git tag --points-at HEAD | tail -1', returnStdout: true)
                         tag = tag.trim()
+<<<<<<< HEAD
+                        echo "Git tag: ${tag}"
+=======
+>>>>>>> develop
                     }
                 }
             }
         }
 
+<<<<<<< HEAD
+        /*stage("pre-build") {
+=======
         stage("pre-build") {
+>>>>>>> develop
             container("node") {
                 ansiColor('xterm') {
                     script {
@@ -436,6 +484,23 @@ podTemplate(cloud: 'kubernetes', containers: [
             container("node") {
                 ansiColor('xterm') {
                     script {
+<<<<<<< HEAD
+                        sh "npm run build"
+                    }
+                }
+            }
+        }*/
+
+        /*stage("pre-build") {
+            container("node") {
+                ansiColor('xterm') {
+                    script {
+                        try {
+                            sh "npm install --verbose --force"
+                        } catch (ex) {
+                            cleanWs()
+                            error ex.getMessage()
+=======
                         // sh "npm run build"
 
                         if (mode == 'develop') {
@@ -446,11 +511,26 @@ podTemplate(cloud: 'kubernetes', containers: [
                             sh "npm run build"
                         } else {
                             sh "npm run build:dev"
+>>>>>>> develop
                         }
                     }
                 }
             }
+<<<<<<< HEAD
+        }*/
+
+        /*stage("build") {
+            container("node") {
+                ansiColor('xterm') {
+                    script {
+                        sh "npm run build"
+                    }
+                }
+            }
+        }*/
+=======
         }
+>>>>>>> develop
 
         stage('build by kaniko') {
             container('kaniko') {
@@ -459,11 +539,32 @@ podTemplate(cloud: 'kubernetes', containers: [
                         try {
                             def image = ''
                             def preImage = "tcc-harbor.pea.co.th/operation/vegx/front"
+<<<<<<< HEAD
+                            def tagName = 'latest' 
+                            def buildMode = ''
+                            
+=======
                             def tagName = 'latest'
+>>>>>>> develop
 
                             if (mode == 'develop') {
                                 image = "${preImage}/dev"
                                 tag = tagName
+<<<<<<< HEAD
+                                buildMode = 'dev'
+                            } else if (mode == 'staging') {
+                                image = "${preImage}/stg"
+                                tag = tagName
+                                buildMode = 'staging'
+                            } else if (mode == 'production') {
+                                image = "${preImage}/prod"
+                                tag = tag
+                                buildMode = 'production'
+                            } else {
+                                image = "${preImage}/dev"
+                                tag = tagName
+                                buildMode = 'dev'
+=======
                             } else if (mode == 'staging') {
                                 image = "${preImage}/stg"
                                 tag = tagName
@@ -473,10 +574,15 @@ podTemplate(cloud: 'kubernetes', containers: [
                             } else {
                                 image = "${preImage}/dev"
                                 tag = tagName
+>>>>>>> develop
                             }
 
                             cmd = [
                                 "--dockerfile ${workspace}/.kaniko/web/TCCDockerfile",
+<<<<<<< HEAD
+                                //"--dockerfile ${workspace}/Dockerfile",
+=======
+>>>>>>> develop
                                 "--context ${workspace}",
                                 "--destination=${image}:${tag}",
                                 "--compressed-caching=false",
@@ -492,7 +598,11 @@ podTemplate(cloud: 'kubernetes', containers: [
             }
         }
 
+<<<<<<< HEAD
+         stage('deploy') {
+=======
         stage('deploy') {
+>>>>>>> develop
             ansiColor('xterm') {
                 script {
                     try {
@@ -504,7 +614,11 @@ podTemplate(cloud: 'kubernetes', containers: [
                         error ex.getMessage()
                     }
 
+<<<<<<< HEAD
+                    def helmNamespace = 'operation' //operation
+=======
                     def helmNamespace = 'operation'
+>>>>>>> develop
                     def helmValue = ''
 
                     // if else with split by mode name
@@ -540,7 +654,11 @@ podTemplate(cloud: 'kubernetes', containers: [
                                     "--namespace ${helmNamespace}",
                                     "--set image.tag=${tag}",
                                     "-f ${helmValue}",
+<<<<<<< HEAD
+                                    "${appName} ."
+=======
                                     "vegx-front ."
+>>>>>>> develop
                                 ].join(' ')
                                 sh "helm3 ${cmd}"
 
@@ -552,7 +670,11 @@ podTemplate(cloud: 'kubernetes', containers: [
                                         "--kubeconfig=config.yaml",
                                         "--context ${kubeContextName}",
                                         "--namespace ${helmNamespace}",
+<<<<<<< HEAD
+                                        "--selector=app.kubernetes.io/instance=${appName}",
+=======
                                         "--selector=app.kubernetes.io/instance=vegx-front",
+>>>>>>> develop
                                     ].join(' ')
                                     sh "kubectl ${cmd}"
                                 }
@@ -567,5 +689,8 @@ podTemplate(cloud: 'kubernetes', containers: [
         }
     }
 }
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> develop
