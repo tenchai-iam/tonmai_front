@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Default values for vegx-chart.
-=======
 # # Default values for vegx-chart.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.
@@ -114,7 +111,6 @@
 #-----------------------------------
 
 # Default values for cardinal-chart.
->>>>>>> develop
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -157,19 +153,10 @@ serviceAccount:
 
 podAnnotations: {}
 
-<<<<<<< HEAD
-podSecurityContext:
-  {}
-  # fsGroup: 2000
-
-securityContext:
-  {}
-=======
 podSecurityContext: {}
   # fsGroup: 2000
 
 securityContext: {}
->>>>>>> develop
   # capabilities:
   #   drop:
   #   - ALL
@@ -179,26 +166,12 @@ securityContext: {}
 
 service:
   type: NodePort
-<<<<<<< HEAD
-  port: 8060
-=======
   port: 80 #8060
->>>>>>> develop
 
 ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
-<<<<<<< HEAD
-    # nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    # nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-    # nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    # nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    # nginx.ingress.kubernetes.io/configuration-snippet: |
-    #   proxy_set_header Upgrade $http_upgrade;
-    #   proxy_set_header Connection "upgrade";
-=======
->>>>>>> develop
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -217,19 +190,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-<<<<<<< HEAD
-    cpu: 1
-    memory: 1Gi
-  requests:
-    cpu: 100m
-    memory: 512Mi
-=======
     cpu: 200m
     memory: 32Mi
   requests:
     cpu: 25m
     memory: 8Mi
->>>>>>> develop
 
 autoscaling:
   enabled: false
@@ -238,11 +203,6 @@ autoscaling:
   targetCPUUtilizationPercentage: 50
   targetMemoryUtilizationPercentage: 80
 
-<<<<<<< HEAD
-# nodeSelector: {}
-
-=======
->>>>>>> develop
 nodeSelector: {}
 
 tolerations: []
