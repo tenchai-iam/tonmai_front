@@ -46,12 +46,12 @@ export default function App() {
                 allowedLevels={["B", "C"]}
               />
 
-              {/* <Route path="/manage" element={<Manage />} /> */}
-              <Route
+              <Route path="/manage" element={<Manage />} />
+              {/* <Route
                 path="/manage"
                 element={<ProtectedRoute element={Manage} />}
                 allowedLevels={["B", "C"]}
-              />
+              /> */}
 
               <Route path="/value" element={<Value />} />
 
