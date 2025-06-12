@@ -50,19 +50,14 @@ export default function App() {
               <Route path="/value" element={<Value />} />
 
               <Route path="/data" element={<Data />} />
-              {/* <Route path="/transformerDistrict" element={<ProtectedRoute />} />
-              <Route
-                path="/circuitBreakerDistrict"
-                element={<ProtectedRoute />}
-              /> */}
 
               {/* Upload routes */}
 
-              <Route path="/admin" element={<Admin />} />
-              {/* <Route
+              {/* <Route path="/admin" element={<Admin />} /> */}
+              <Route
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
-              /> */}
+              />
               <Route path="/callback" element={<Callback />} />
 
               {/* Redirect undefined routes to Home */}
