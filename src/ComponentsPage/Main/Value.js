@@ -14,6 +14,8 @@ import {
 
 import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
 
+import { planDummyOptions, yearDummyOptions } from "../Sub_config/Options.js";
+
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
 
@@ -39,6 +41,10 @@ const Value = () => {
     value: option.aoj_code,
     label: option.aoj_name,
   }));
+
+  const [selectedYear, setSelectedYear] = useState("");
+
+  const handleYearSelect = (e) => setSelectedYear(e.target.value);
 
   const { data: baselineTotal } = useBaselineTotal();
 
@@ -104,6 +110,23 @@ const Value = () => {
       <NavbarComponent />
       <div className="header-container">ติดตามมูลค่า Stage 5</div>
       <div className="main-container">
+        <div className="year-select-container">
+          <div className="year-container">
+            <label>เลือกปีที่จะใช้</label>
+            <select
+              value={selectedYear}
+              onChange={handleYearSelect}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value=""></option>
+              {yearDummyOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div className="summary-container">
           <div className="bar-chart-legend">
             <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่าย Base</span>
