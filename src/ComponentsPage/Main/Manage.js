@@ -137,20 +137,22 @@ const Manage = () => {
       alert("กรุณาเลือกปีและ Scenario");
       return;
     }
-
     setIsSelectingPlan(true);
+
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedPlan);
+    const gregorianYear = buddhistYear - 543;
 
     const payload = {
       employee_id: "700001", // Fixed value for now
       scenario_name: selectedScenarioF,
-      year: parseInt(selectedPlan),
+      year: gregorianYear, // Now sends 2027 instead of 2570
     };
 
     try {
       const response = await selectScenarioPlan(payload);
       alert(`เลือกแผนสำเร็จ! Scenario: ${selectedScenarioF}`);
       console.log("Plan Selection Response:", response);
-
       // Optionally reset form or update UI
       // setSelectedPlan("");
       // setSelectedScenario1("");
