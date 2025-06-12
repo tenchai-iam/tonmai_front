@@ -193,8 +193,8 @@ resources:
     cpu: 200m
     memory: 32Mi
   requests:
-    cpu: 0.001
-    memory: 16Mi
+    cpu: 25m
+    memory: 8Mi
 
 autoscaling:
   enabled: false
