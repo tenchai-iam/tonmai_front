@@ -142,13 +142,13 @@ const Manage = () => {
 
     const payload = {
       employee_id: "700001", // Fixed value for now
-      scenario_name: selectedScenario1,
+      scenario_name: selectedScenarioF,
       year: parseInt(selectedPlan),
     };
 
     try {
       const response = await selectScenarioPlan(payload);
-      alert(`เลือกแผนสำเร็จ! Scenario: ${selectedScenario1}`);
+      alert(`เลือกแผนสำเร็จ! Scenario: ${selectedScenarioF}`);
       console.log("Plan Selection Response:", response);
 
       // Optionally reset form or update UI
