@@ -63,12 +63,12 @@ export default function App() {
               />
 
               {/* Upload routes */}
-              {/* <Route path="/admin" element={<Admin />} /> */}
-              <Route
+              <Route path="/admin" element={<Admin />} />
+              {/* <Route
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
                 allowedLevels={["C"]}
-              />
+              /> */}
               <Route path="/callback" element={<Callback />} />
 
               {/* Redirect undefined routes to Home */}

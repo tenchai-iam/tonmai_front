@@ -74,6 +74,9 @@ function NavbarComponent() {
           {/* Show First Name & Last Name */}
           <div className="user-info ms-auto me-3">
             <span>{firstName ? `${firstName} ${lastName}` : "ผู้ใช้งาน"}</span>
+            {userLevel && (
+              <small className="ms-2 text-muted">(Level: {userLevel})</small>
+            )}
           </div>
           {/* WorkD Button */}
           <Button

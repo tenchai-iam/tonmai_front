@@ -51,7 +51,7 @@
 .user-container {
   /* padding: 20px; */
   /* display: grid;
-    grid-template-columns: repeat(2, 1fr); */
+      grid-template-columns: repeat(2, 1fr); */
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
   width: 100%;
@@ -66,4 +66,8 @@
   gap: 20px;
   color: black;
   align-items: center; /* Align items vertically */
+}
+
+.text-title {
+  font-size: 1rem;
 }
