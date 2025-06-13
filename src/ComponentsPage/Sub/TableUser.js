@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../ComponentsStyles/table.css";
+import "../../ComponentsStyles/table.css";
 
 const TableUser = ({ title, data }) => {
   const [sortConfig, setSortConfig] = useState({

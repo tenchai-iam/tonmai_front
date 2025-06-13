@@ -3,26 +3,26 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getBaselineTotal,
   getBaselineDistrict,
-  getBaselineTable
+  getBaselineTable,
 } from "../../services/api_Value.js";
 
-export const useBaselineTotal = () => {
+export const useBaselineTotal = (year) => {
   return useQuery({
-    queryKey: ["baselineTotal"],
-    queryFn: () => getBaselineTotal(),
+    queryKey: ["baselineTotal", year],
+    queryFn: () => getBaselineTotal(year),
   });
 };
 
-export const useBaselineDistrict = () => {
+export const useBaselineDistrict = (year) => {
   return useQuery({
-    queryKey: ["baselineDistrict"],
-    queryFn: () => getBaselineDistrict(),
+    queryKey: ["baselineDistrict", year],
+    queryFn: () => getBaselineDistrict(year),
   });
 };
 
-export const useBaselineTable = (aoj_code) => {
+export const useBaselineTable = (year, aoj_code) => {
   return useQuery({
-    queryKey: ["baselineTable", aoj_code],
-    queryFn: () => getBaselineTable(aoj_code),
+    queryKey: ["baselineTable", year, aoj_code],
+    queryFn: () => getBaselineTable(year, aoj_code),
   });
 };

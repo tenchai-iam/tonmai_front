@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }) => {
           sessionStorage.setItem("first_name", first_name);
           sessionStorage.setItem("last_name", last_name);
           sessionStorage.setItem("user_level", user_level);
+          sessionStorage.setItem("pea_code", pea_code);
 
           // Update React state
           setUser(response.data);

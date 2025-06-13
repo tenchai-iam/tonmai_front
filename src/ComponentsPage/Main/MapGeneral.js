@@ -34,7 +34,7 @@ import {
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Map.css";
 
-const MapGeneral = () => {
+const Map = () => {
   const [lineData, setLineData] = useState([]);
 
   const [selectedScenario1, setSelected1Scenario] = useState("");
@@ -450,4 +450,4 @@ const MapGeneral = () => {
   );
 };
 
-export default MapGeneral;
+export default Map;

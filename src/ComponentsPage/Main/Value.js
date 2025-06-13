@@ -46,7 +46,7 @@ const Value = () => {
 
   const handleYearSelect = (e) => setSelectedYear(e.target.value);
 
-  const { data: baselineTotal } = useBaselineTotal();
+  const { data: baselineTotal } = useBaselineTotal(selectedYear);
 
   const dataBaselineTotal = [
     {
@@ -56,7 +56,7 @@ const Value = () => {
     },
   ];
 
-  const { data: baselineDistrict } = useBaselineDistrict();
+  const { data: baselineDistrict } = useBaselineDistrict(selectedYear);
 
   const dataBaselineDistrict =
     baselineDistrict?.map((item) => ({
@@ -72,7 +72,7 @@ const Value = () => {
     { dataKey: "actual", fill: "#3e3e3e" },
   ];
 
-  const { data: baselineTable } = useBaselineTable(selectedAoj);
+  const { data: baselineTable } = useBaselineTable(selectedYear, selectedAoj);
 
   const dataBaselineTable =
     baselineTable?.map((item) => ({

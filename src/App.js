@@ -31,12 +31,12 @@ export default function App() {
           <div className="App">
             <Routes>
               {/* Home page route */}
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/" element={<ProtectedRoute element={Home} />} /> */}
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<ProtectedRoute element={Home} />} />
 
               {/* Dashboard routes */}
-              {/* <Route path="/map" element={<Map />} /> */}
-              <Route path="/MapG" element={<ProtectedRoute element={MapG} />} />
+              <Route path="/mapG" element={<MapG />} />
+              {/* <Route path="/MapG" element={<ProtectedRoute element={MapG} />} /> */}
 
               {/* Dashboard routes */}
               {/* <Route path="/map" element={<Map />} /> */}
@@ -63,12 +63,12 @@ export default function App() {
               />
 
               {/* Upload routes */}
-              {/* <Route path="/admin" element={<Admin />} /> */}
-              <Route
+              <Route path="/admin" element={<Admin />} />
+              {/* <Route
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
                 allowedLevels={["C"]}
-              />
+              /> */}
               <Route path="/callback" element={<Callback />} />
 
               {/* Redirect undefined routes to Home */}
