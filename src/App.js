@@ -55,12 +55,12 @@ export default function App() {
 
               <Route path="/value" element={<Value />} />
 
-              <Route path="/data" element={<Data />} />
-              {/* <Route
+              {/* <Route path="/data" element={<Data />} /> */}
+              <Route
                 path="/data"
                 element={<ProtectedRoute element={Data} />}
                 allowedLevels={["B", "C"]}
-              /> */}
+              />
 
               {/* Upload routes */}
               <Route path="/admin" element={<Admin />} />
