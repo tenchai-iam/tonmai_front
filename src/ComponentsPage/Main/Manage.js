@@ -236,7 +236,7 @@ const Manage = () => {
     {
       aojCount: Number(planSummary1?.aoj_count || 0), // raw count
       cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary1?.total_risk || 0) / 1_000_000, // in millions
+      risk: Number(planSummary1?.total_risk || 0), // in millions
     },
   ];
 
@@ -246,7 +246,7 @@ const Manage = () => {
     {
       aojCount: Number(planSummary2?.aoj_count || 0), // raw count
       cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary2?.total_risk || 0) / 1_000_000, // in millions
+      risk: Number(planSummary2?.total_risk || 0), // in millions
     },
   ];
 

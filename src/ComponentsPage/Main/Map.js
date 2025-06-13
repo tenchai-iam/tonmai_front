@@ -224,7 +224,7 @@ const Map = () => {
     {
       aojCount: Number(planSummary?.aoj_count || 0), // raw count
       cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary?.total_risk || 0) / 1_000_000, // in millions
+      risk: Number(planSummary?.total_risk || 0), // in millions
     },
   ];
 
