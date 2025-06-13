@@ -31,20 +31,20 @@ export default function App() {
           <div className="App">
             <Routes>
               {/* Home page route */}
-              {/* <Route path="/" element={<Home />} /> */}
-              <Route path="/" element={<ProtectedRoute element={Home} />} />
+              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<ProtectedRoute element={Home} />} /> */}
 
               {/* Dashboard routes */}
               <Route path="/mapG" element={<MapG />} />
-              {/* <Route path="/MapG" element={<ProtectedRoute element={MapG} />} /> */}
+              {/* <Route path="/mapG" element={<ProtectedRoute element={MapG} />} /> */}
 
               {/* Dashboard routes */}
-              {/* <Route path="/map" element={<Map />} /> */}
-              <Route
+              <Route path="/map" element={<Map />} />
+              {/* <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
                 allowedLevels={["B", "C"]}
-              />
+              /> */}
 
               <Route path="/manage" element={<Manage />} />
               {/* <Route
