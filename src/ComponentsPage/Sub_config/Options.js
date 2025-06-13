@@ -9,6 +9,11 @@ export const yearDummyOptions = [
   { label: "2570", value: "2570" },
 ];
 
+export const yearDummyOptionsG = [
+  { label: "2026", value: "2026" },
+  { label: "2027", value: "2027" },
+];
+
 export const docOptions = [
   { label: "คู่มือการใช้งานระบบ", value: "errorRate" },
   { label: "Business Solution Playbook", value: "errorRate" },

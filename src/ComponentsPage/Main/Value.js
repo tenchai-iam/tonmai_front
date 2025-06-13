@@ -14,7 +14,7 @@ import {
 
 import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
 
-import { planDummyOptions, yearDummyOptions } from "../Sub_config/Options.js";
+import { planDummyOptions, yearDummyOptionsG } from "../Sub_config/Options.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
@@ -119,7 +119,7 @@ const Value = () => {
               className="border rounded-lg px-4 py-2"
             >
               <option value=""></option>
-              {yearDummyOptions.map((option) => (
+              {yearDummyOptionsG.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
