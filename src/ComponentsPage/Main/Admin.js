@@ -125,7 +125,7 @@ const Admin = () => {
 
   // ✅ FIXED: Access the correct data structure and fix variable name
   const dataUserLevel =
-    userLevel?.data?.map((user) => ({
+    userLevel?.map((user) => ({
       costCenter: user.cost_center?.trim() || "Not Required", // Trim spaces and handle missing values
       employeeId: user.emp_id || "Not Required", // Default "Not Required" for missing values
       level: user.user_level,

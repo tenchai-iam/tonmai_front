@@ -63,12 +63,6 @@ const TableUser = ({ title, data }) => {
               <th onClick={() => handleSort("employeeId")}>
                 รหัสพนักงาน {renderSortArrow("employeeId")}
               </th>
-              <th onClick={() => handleSort("name")}>
-                ชื่อ-นามสกุล {renderSortArrow("name")}
-              </th>
-              <th onClick={() => handleSort("department")}>
-                สังกัด {renderSortArrow("department")}
-              </th>
               <th onClick={() => handleSort("costCenter")}>
                 รหัส Cost Center {renderSortArrow("costCenter")}
               </th>
@@ -81,8 +75,6 @@ const TableUser = ({ title, data }) => {
             {sortedData.map((row, index) => (
               <tr key={index}>
                 <td>{row.employeeId}</td>
-                <td>{row.name}</td>
-                <td>{row.department}</td>
                 <td>{row.costCenter}</td>
                 <td>{row.level}</td>
               </tr>
