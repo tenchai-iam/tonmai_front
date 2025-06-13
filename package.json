@@ -32,6 +32,7 @@
     "react-scripts": "^5.0.0",
     "react-select": "5.8.1",
     "recharts": "2.12.7",
+    "serialize-javascript": "^6.0.2",
     "use-resize-observer": "9.1.0",
     "xlsx-js-style": "1.2.0"
   },
