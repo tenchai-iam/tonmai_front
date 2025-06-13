@@ -50,7 +50,7 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/home">
               หน้าหลัก
             </Nav.Link>
-            <Nav.Link as={Link} to="/map">
+            <Nav.Link as={Link} to="/mapG">
               แผนการตัดต้นไม้
             </Nav.Link>
             <NavDropdown title="หน่วยงาน กบร." id="admin-dropdown">
