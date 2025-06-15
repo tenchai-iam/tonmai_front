@@ -12,11 +12,11 @@ export const getScenarios = async () => {
   return response.data; // Return the data received from the API
 };
 
-export const getAojs = async (region) => {
+export const getAojs = async (aoj_region) => {
   const response = await axios.post(
     `${API_URL}/get_aoj`,
     {
-      region: region, // Pass the data format value in the request body
+      aoj_region: aoj_region, // Pass the data format value in the request body
     },
     { timeout: 5000 }
   );

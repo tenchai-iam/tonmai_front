@@ -108,7 +108,7 @@ const GeoMap = ({
               ]
             : [
                 "match",
-                ["get", "probability_of_outage_pct"],
+                ["get", "probability_of_outage_bins"],
                 "low",
                 "#2ecc71",
                 "medium",

@@ -20,7 +20,7 @@ import "./ComponentsStyles/Dashboard.css";
 import "./ComponentsStyles/Home.css";
 
 const Home = () => {
-  const [selectedButton, setSelectedButton] = useState(""); // Track selected button index
+  const [selectedButton, setSelectedButton] = useState(null); // Track selected button index
 
   const { data: aucScore } = useAUC();
   const { data: rocCurve } = useROC();
@@ -107,6 +107,7 @@ const Home = () => {
                 <button
                   key={option.value}
                   onClick={() => {
+                    setSelectedButton(index); // store the index
                     handleDownload(option.value);
                   }}
                   className={selectedButton === index ? "active" : ""}

@@ -21,11 +21,11 @@ export const useScenarioOption = () => {
   });
 };
 
-export const useAojOption = (region) => {
+export const useAojOption = (aoj_region) => {
   return useQuery({
-    queryKey: ["districtOption", region],
-    queryFn: () => getAojs(region),
-    enabled: Boolean(region),
+    queryKey: ["districtOption", aoj_region],
+    queryFn: () => getAojs(aoj_region),
+    enabled: Boolean(aoj_region),
   });
 };
 

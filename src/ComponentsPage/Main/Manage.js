@@ -197,13 +197,13 @@ const Manage = () => {
       name: item.aoj_name,
       frequency: item.frequency,
       length: item.corridor_length_km,
-      cost: item.cost_to_trim_bht,
+      cost: item.cost_to_trim_model,
       customer: item.customers_affected_adjusted,
       feeder: item.feeder_id,
-      outage: item.probability_of_outage_pct,
-      customerRisk: item.risk_customer_interruptions,
-      device: item.upstream_device,
-      density: Number(item.vegetation_density_pct) * 100,
+      outage: item.probability_of_outage_bins,
+      customerRisk: item.risk_customer_interruptions_bins,
+      device: item.nearest_upstream_device,
+      density: Number(item.vegetation_density) * 100,
     })) || [];
 
   const handleDataCorridorPlan = () => {
@@ -508,8 +508,8 @@ const Manage = () => {
                   เลือกการไฟฟ้าเขต
                 </option>
                 {districtOption?.map((option) => (
-                  <option key={option.region} value={option.region}>
-                    {option.region}
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
                   </option>
                 ))}
               </select>

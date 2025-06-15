@@ -166,8 +166,8 @@ const Value = () => {
               >
                 <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
-                  <option key={option.region} value={option.region}>
-                    {option.region}
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
                   </option>
                 ))}
               </select>
