@@ -31,8 +31,8 @@ export default function App() {
           <div className="App">
             <Routes>
               {/* Home page route */}
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/" element={<ProtectedRoute element={Home} />} /> */}
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<ProtectedRoute element={Home} />} />
 
               {/* Dashboard routes */}
               {/* <Route path="/mapG" element={<MapG />} /> */}
