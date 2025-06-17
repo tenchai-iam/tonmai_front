@@ -60,10 +60,10 @@ const Home = () => {
 
       if (docType === "user_manual") {
         blob = await getUserManual();
-        filename = "User_Manual.pdf";
+        filename = "user_manual.pdf";
       } else if (docType === "playbook") {
         blob = await getPlaybook();
-        filename = "Business_Playbook.pdf";
+        filename = "business_playbook.pdf";
       }
 
       if (blob) {

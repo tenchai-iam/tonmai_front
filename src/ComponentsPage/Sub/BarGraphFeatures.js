@@ -92,7 +92,7 @@ const BarGraphFeatures = ({ data, xAxisKey, title, height, barKeys }) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" tickFormatter={(value) => formatValue(value)} />
-          <YAxis type="category" dataKey={xAxisKey} width={100} />
+          <YAxis type="category" dataKey={xAxisKey} width={150} />
           <Tooltip formatter={(value) => formatValue(value)} />
           {barKeys.map((barKey) => (
             <Bar key={barKey} dataKey={barKey} fill="#8884d8">

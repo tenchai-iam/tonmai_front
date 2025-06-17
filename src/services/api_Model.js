@@ -29,15 +29,15 @@ export const getPlanCorridor = async (aoj_code) => {
 };
 
 export const getUserManual = async () => {
-  const response = await axios.get(
-    `${API_URL}/download_user_manual_pdf_simple`
-  );
-  return response.data; // Return the data received from the API
+  const response = await axios.get(`${API_URL}/download_user_manual_pdf`, {
+    responseType: "blob", // IMPORTANT for binary files like PDFs
+  });
+  return response.data;
 };
 
 export const getPlaybook = async () => {
-  const response = await axios.get(
-    `${API_URL}/download_business_playbook_pdf_simple`
-  );
-  return response.data; // Return the data received from the API
+  const response = await axios.get(`${API_URL}/download_business_playbook_pdf`, {
+    responseType: "blob",
+  });
+  return response.data;
 };
