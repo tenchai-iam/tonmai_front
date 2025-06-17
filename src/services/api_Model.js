@@ -29,7 +29,9 @@ export const getPlanCorridor = async (aoj_code) => {
 };
 
 export const getUserManual = async () => {
-  const response = await axios.get(`${API_URL}/view_user_manual_pdf`);
+  const response = await axios.get(
+    `${API_URL}/download_user_manual_pdf_simple`
+  );
   return response.data; // Return the data received from the API
 };
 
