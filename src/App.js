@@ -30,54 +30,43 @@ export default function App() {
         <Router>
           <div className="App">
             <Routes>
-              {/* Home page route */}
-              {/* <Route path="/" element={<Home />} /> */}
-              <Route path="/" element={<ProtectedRoute element={Home} />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/mapG" element={<MapG />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/manage" element={<Manage />} />
+              <Route path="/value" element={<Value />} />
+              <Route path="/data" element={<Data />} />
+              <Route path="/admin" element={<Admin />} />
 
-              {/* Dashboard routes */}
-              {/* <Route path="/mapG" element={<MapG />} /> */}
+              {/* <Route path="/" element={<ProtectedRoute element={Home} />} />
               <Route path="/mapG" element={<ProtectedRoute element={MapG} />} />
-
-              {/* Dashboard routes */}
-              {/* <Route path="/map" element={<Map />} /> */}
               <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
                 allowedLevels={["B", "C"]}
               />
-
-              {/* <Route path="/manage" element={<Manage />} /> */}
               <Route
                 path="/manage"
                 element={<ProtectedRoute element={Manage} />}
                 allowedLevels={["B", "C"]}
               />
-
-              {/* <Route path="/value" element={<Value />} /> */}
               <Route
                 path="/value"
                 element={<ProtectedRoute element={Value} />}
                 allowedLevels={["B", "C"]}
               />
-
-              {/* <Route path="/data" element={<Data />} /> */}
               <Route
                 path="/data"
                 element={<ProtectedRoute element={Data} />}
                 allowedLevels={["B", "C"]}
               />
-
-              {/* Upload routes */}
-              {/* <Route path="/admin" element={<Admin />} /> */}
               <Route
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
                 allowedLevels={["C"]}
-              />
+              /> */}
 
               <Route path="/callback" element={<Callback />} />
-
-              {/* Redirect undefined routes to Home */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>

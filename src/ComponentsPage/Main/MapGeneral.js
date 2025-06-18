@@ -9,6 +9,7 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
+  useSelectedScenarioOption,
   useDistrictOption,
   useAojOption,
   useFeederOption,
@@ -40,7 +41,7 @@ const MapG = () => {
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
 
-  const { data: scenarioOption } = useScenarioOption();
+  const { data: scenarioOption } = useSelectedScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
@@ -214,15 +215,15 @@ const MapG = () => {
   };
 
   const { data: planSummary } = usePlanSummaryQuery(
-    selectedScenario1,
-    selectedDistrict,
-    selectedAoj,
-    selectedFeeder
+    selectedScenario1
+    // selectedDistrict,
+    // selectedAoj,
+    // selectedFeeder
   );
 
   const dataPlanSummary = [
     {
-      aojCount: Number(planSummary?.aoj_count || 0), // raw count
+      // aojCount: Number(planSummary?.aoj_count || 0), // raw count
       cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
       risk: Number(planSummary?.total_risk || 0), // in millions
     },
@@ -340,12 +341,12 @@ const MapG = () => {
         </div>
         <div className="metric-map-container">
           <div className="metric-mapbox-container">
-            <div className="text-box-subcontainer">
+            {/* <div className="text-box-subcontainer">
               <label className="text">จำนวนพื้นที่ AOJ</label>
               <div className="value">
                 {formatQuantity(dataPlanSummary[0]?.aojCount)}
               </div>
-            </div>
+            </div> */}
             <div className="text-box-subcontainer">
               <label className="text">SAIFI</label>
               <div className="value">

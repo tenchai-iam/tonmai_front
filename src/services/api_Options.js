@@ -12,6 +12,11 @@ export const getScenarios = async () => {
   return response.data; // Return the data received from the API
 };
 
+export const getSelectedScenarios = async () => {
+  const response = await axios.get(`${API_URL}/get_selected_scenario`);
+  return response.data; // Return the data received from the API
+};
+
 export const getAojs = async (aoj_region) => {
   const response = await axios.post(
     `${API_URL}/get_aoj`,

@@ -90,7 +90,7 @@
 
 .metric-mapbox-container {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 20px; /* Space between text items */
   justify-items: center; /* Center align the text items */
   flex: 1 1 15%;

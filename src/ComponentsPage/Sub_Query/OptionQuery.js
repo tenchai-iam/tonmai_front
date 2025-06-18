@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getDistricts,
   getScenarios,
+  getSelectedScenarios,
   getAojs,
   getFeeders,
 } from "../../services/api_Options";
@@ -18,6 +19,13 @@ export const useScenarioOption = () => {
   return useQuery({
     queryKey: ["scenarioOption"],
     queryFn: () => getScenarios(),
+  });
+};
+
+export const useSelectedScenarioOption = () => {
+  return useQuery({
+    queryKey: ["selectedScenarioOption"],
+    queryFn: () => getSelectedScenarios(),
   });
 };
 

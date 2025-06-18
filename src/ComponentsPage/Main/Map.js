@@ -214,10 +214,10 @@ const Map = () => {
   };
 
   const { data: planSummary } = usePlanSummaryQuery(
-    selectedScenario1,
-    selectedDistrict,
-    selectedAoj,
-    selectedFeeder
+    selectedScenario1
+    // selectedDistrict,
+    // selectedAoj,
+    // selectedFeeder
   );
 
   const dataPlanSummary = [
@@ -340,12 +340,12 @@ const Map = () => {
         </div>
         <div className="metric-map-container">
           <div className="metric-mapbox-container">
-            <div className="text-box-subcontainer">
+            {/* <div className="text-box-subcontainer">
               <label className="text">จำนวนพื้นที่ AOJ</label>
               <div className="value">
                 {formatQuantity(dataPlanSummary[0]?.aojCount)}
               </div>
-            </div>
+            </div> */}
             <div className="text-box-subcontainer">
               <label className="text">SAIFI</label>
               <div className="value">
