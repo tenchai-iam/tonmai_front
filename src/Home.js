@@ -20,15 +20,29 @@ import "./ComponentsStyles/Dashboard.css";
 import "./ComponentsStyles/Home.css";
 
 const Home = () => {
-  const [selectedButton, setSelectedButton] = useState(""); // Track selected button index
+  const [selectedButton, setSelectedButton] = useState(null); // Track selected button index
 
   const { data: aucScore } = useAUC();
   const { data: rocCurve } = useROC();
 
   const { data: features } = useFeatures();
 
+  const featureLabels = {
+    corridor_length: "ความยาวแนวสายไฟ",
+    outages_lag_1: "จำนวนไฟดับในปีที่ผ่านมา",
+    share_length_ACSR: "สัดส่วนความยาวสายไฟชนิดอลูมิเนียมคอนดักเตอร์ ACSR",
+    share_length_PIC: "สัดส่วนความยาวสายไฟหุ้มฉนวน PIC",
+    precipitation_sum_humid: "ปริมาณฝนรวมในฤดูฝน",
+    tree_grow_in_outages_lag_1:
+      "การเติบโตของต้นไม้ตามแนวสายไฟที่มีไฟดับในปีที่ผ่านมา",
+    outages_lag_2: "จำนวนไฟดับในปีที่ 2 ก่อนหน้า",
+    atmospheric_pressure_min: "ความกดอากาศต่ำสุดในปีที่แล้ว",
+    tree_fall_outages_lag_1: "จำนวนไฟดับจากต้นไม้ล้มในปีที่ผ่านมา",
+    precipitation_sum: "ปริมาณฝนรวมในปีที่ผ่านมา",
+  };
+
   const featuresData = features?.map((item) => ({
-    name: item.Feature,
+    name: featureLabels[item.Feature] || item.Feature,
     importance: item.Importance,
   }));
 
@@ -46,10 +60,10 @@ const Home = () => {
 
       if (docType === "user_manual") {
         blob = await getUserManual();
-        filename = "User_Manual.pdf";
+        filename = "user_manual.pdf";
       } else if (docType === "playbook") {
         blob = await getPlaybook();
-        filename = "Business_Playbook.pdf";
+        filename = "business_playbook.pdf";
       }
 
       if (blob) {
@@ -94,8 +108,8 @@ const Home = () => {
           <BarGraphFeatures
             data={featuresData}
             xAxisKey="name"
-            title="Top 15 ปัจจัยเรียงลำดับตามผลต่อการพยากรณ์ความเสี่ยง"
-            height={400}
+            title="Top 10 ปัจจัยเรียงลำดับตามผลต่อการพยากรณ์ความเสี่ยง"
+            height={500}
             barKeys={barKeys}
           />
         </div>
@@ -107,6 +121,7 @@ const Home = () => {
                 <button
                   key={option.value}
                   onClick={() => {
+                    setSelectedButton(index); // store the index
                     handleDownload(option.value);
                   }}
                   className={selectedButton === index ? "active" : ""}

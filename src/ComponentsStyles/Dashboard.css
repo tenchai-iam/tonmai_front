@@ -59,13 +59,7 @@
   color: white;
 }
 
-.year-select-container {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.8rem;
-  justify-content: start;
-  max-width: 100px;
-}
+
 
 .header-container {
   padding: 20px;

@@ -37,11 +37,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-<<<<<<< HEAD
-              containerPort: 8060
-=======
               containerPort: 80 #8060
->>>>>>> develop
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

@@ -197,13 +197,13 @@ const Manage = () => {
       name: item.aoj_name,
       frequency: item.frequency,
       length: item.corridor_length_km,
-      cost: item.cost_to_trim_bht,
+      cost: item.cost_to_trim_model,
       customer: item.customers_affected_adjusted,
       feeder: item.feeder_id,
-      outage: item.probability_of_outage_pct,
-      customerRisk: item.risk_customer_interruptions,
-      device: item.upstream_device,
-      density: Number(item.vegetation_density_pct) * 100,
+      outage: item.probability_of_outage_bins,
+      customerRisk: item.risk_customer_interruptions_bins,
+      device: item.nearest_upstream_device,
+      density: Number(item.vegetation_density) * 100,
     })) || [];
 
   const handleDataCorridorPlan = () => {
@@ -234,9 +234,9 @@ const Manage = () => {
 
   const dataPlanSummary1 = [
     {
-      aojCount: Number(planSummary1?.aoj_count || 0), // raw count
+      // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
       cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary1?.total_risk || 0) / 1_000_000, // in millions
+      risk: Number(planSummary1?.total_risk || 0), // in millions
     },
   ];
 
@@ -244,9 +244,9 @@ const Manage = () => {
 
   const dataPlanSummary2 = [
     {
-      aojCount: Number(planSummary2?.aoj_count || 0), // raw count
+      // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
       cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary2?.total_risk || 0) / 1_000_000, // in millions
+      risk: Number(planSummary2?.total_risk || 0), // in millions
     },
   ];
 
@@ -419,12 +419,12 @@ const Manage = () => {
                 </select>
               </div>
               <div className="metric-box-container">
-                <div className="text-box-subcontainer">
+                {/* <div className="text-box-subcontainer">
                   <label className="text">จำนวนพื้นที่ AOJ</label>
                   <div className="value">
                     {formatQuantity(dataPlanSummary1[0]?.aojCount)}
                   </div>
-                </div>
+                </div> */}
                 <div className="text-box-subcontainer">
                   <label className="text">SAIFI</label>
                   <div className="value">
@@ -458,12 +458,12 @@ const Manage = () => {
                 </select>
               </div>
               <div className="metric-box-container">
-                <div className="text-box-subcontainer">
+                {/* <div className="text-box-subcontainer">
                   <label className="text">จำนวนพื้นที่ AOJ</label>
                   <div className="value">
                     {formatQuantity(dataPlanSummary2[0]?.aojCount)}
                   </div>
-                </div>
+                </div> */}
                 <div className="text-box-subcontainer">
                   <label className="text">SAIFI</label>
                   <div className="value">
@@ -508,8 +508,8 @@ const Manage = () => {
                   เลือกการไฟฟ้าเขต
                 </option>
                 {districtOption?.map((option) => (
-                  <option key={option.region} value={option.region}>
-                    {option.region}
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
                   </option>
                 ))}
               </select>

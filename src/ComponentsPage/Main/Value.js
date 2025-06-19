@@ -14,6 +14,8 @@ import {
 
 import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
 
+import { planDummyOptions, yearDummyOptionsG } from "../Sub_config/Options.js";
+
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
 
@@ -40,7 +42,11 @@ const Value = () => {
     label: option.aoj_name,
   }));
 
-  const { data: baselineTotal } = useBaselineTotal();
+  const [selectedYear, setSelectedYear] = useState("");
+
+  const handleYearSelect = (e) => setSelectedYear(e.target.value);
+
+  const { data: baselineTotal } = useBaselineTotal(selectedYear);
 
   const dataBaselineTotal = [
     {
@@ -50,7 +56,7 @@ const Value = () => {
     },
   ];
 
-  const { data: baselineDistrict } = useBaselineDistrict();
+  const { data: baselineDistrict } = useBaselineDistrict(selectedYear);
 
   const dataBaselineDistrict =
     baselineDistrict?.map((item) => ({
@@ -66,7 +72,7 @@ const Value = () => {
     { dataKey: "actual", fill: "#3e3e3e" },
   ];
 
-  const { data: baselineTable } = useBaselineTable(selectedAoj);
+  const { data: baselineTable } = useBaselineTable(selectedYear, selectedAoj);
 
   const dataBaselineTable =
     baselineTable?.map((item) => ({
@@ -104,6 +110,23 @@ const Value = () => {
       <NavbarComponent />
       <div className="header-container">ติดตามมูลค่า Stage 5</div>
       <div className="main-container">
+        <div className="year-select-container">
+          <div className="year-container">
+            <label>เลือกปีที่จะใช้</label>
+            <select
+              value={selectedYear}
+              onChange={handleYearSelect}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value=""></option>
+              {yearDummyOptionsG.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div className="summary-container">
           <div className="bar-chart-legend">
             <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่าย Base</span>
@@ -143,8 +166,8 @@ const Value = () => {
               >
                 <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
-                  <option key={option.region} value={option.region}>
-                    {option.region}
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
                   </option>
                 ))}
               </select>

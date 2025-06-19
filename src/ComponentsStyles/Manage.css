@@ -123,7 +123,7 @@
 
 .metric-box-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Two rows for the two text items */
+  grid-template-columns: repeat(2, 1fr); /* Two rows for the two text items */
   gap: 20px; /* Space between text items */
   justify-items: center; /* Center align the text items */
   width: 100%;

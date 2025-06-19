@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getFeatures, getAUC, getROC} from "../../services/api_Model";
+import { getFeatures, getAUC, getROC } from "../../services/api_Model";
 
 export const useFeatures = () => {
   return useQuery({

@@ -98,17 +98,17 @@ const GeoMap = ({
             ? [
                 "match",
                 ["get", "frequency"],
-                "T1",
+                1,
                 "#2ecc71",
-                "T3",
+                2,
                 "#f1c40f",
-                "T4",
+                3,
                 "#e74c3c",
                 "#999",
               ]
             : [
                 "match",
-                ["get", "probability_of_outage_pct"],
+                ["get", "probability_of_outage_bins"],
                 "low",
                 "#2ecc71",
                 "medium",

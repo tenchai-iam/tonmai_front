@@ -180,13 +180,13 @@ const Map = () => {
       name: item.aoj_name,
       frequency: item.frequency,
       length: item.corridor_length_km,
-      cost: item.cost_to_trim_bht,
+      cost: item.cost_to_trim_model,
       customer: item.customers_affected_adjusted,
       feeder: item.feeder_id,
-      outage: item.probability_of_outage_pct,
-      customerRisk: item.risk_customer_interruptions,
-      device: item.upstream_device,
-      density: Number(item.vegetation_density_pct) * 100,
+      outage: item.probability_of_outage_bins,
+      customerRisk: item.risk_customer_interruptions_bins,
+      device: item.nearest_upstream_device,
+      density: Number(item.vegetation_density) * 100,
     })) || [];
 
   const handleDataCorridorPlan = () => {
@@ -214,17 +214,17 @@ const Map = () => {
   };
 
   const { data: planSummary } = usePlanSummaryQuery(
-    selectedScenario1,
-    selectedDistrict,
-    selectedAoj,
-    selectedFeeder
+    selectedScenario1
+    // selectedDistrict,
+    // selectedAoj,
+    // selectedFeeder
   );
 
   const dataPlanSummary = [
     {
       aojCount: Number(planSummary?.aoj_count || 0), // raw count
       cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary?.total_risk || 0) / 1_000_000, // in millions
+      risk: Number(planSummary?.total_risk || 0), // in millions
     },
   ];
 
@@ -262,8 +262,8 @@ const Map = () => {
             >
               <option value="">เลือกการไฟฟ้าเขต</option>
               {districtOption?.map((option) => (
-                <option key={option.region} value={option.region}>
-                  {option.region}
+                <option key={option.aoj_region} value={option.aoj_region}>
+                  {option.aoj_region}
                 </option>
               ))}
             </select>
@@ -340,12 +340,12 @@ const Map = () => {
         </div>
         <div className="metric-map-container">
           <div className="metric-mapbox-container">
-            <div className="text-box-subcontainer">
+            {/* <div className="text-box-subcontainer">
               <label className="text">จำนวนพื้นที่ AOJ</label>
               <div className="value">
                 {formatQuantity(dataPlanSummary[0]?.aojCount)}
               </div>
-            </div>
+            </div> */}
             <div className="text-box-subcontainer">
               <label className="text">SAIFI</label>
               <div className="value">
@@ -395,8 +395,8 @@ const Map = () => {
               >
                 <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
-                  <option key={option.region} value={option.region}>
-                    {option.region}
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
                   </option>
                 ))}
               </select>
@@ -431,14 +431,14 @@ const Map = () => {
               ราย
             </p>
             <p>
-              probability_of_outage_pct (ความเสี่ยงไฟดับจากต้นไม้): Low:
+              probability_of_outage_bins (ความเสี่ยงไฟดับจากต้นไม้): Low:
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
             </p>
             <p>
-              risk_customer_interruptions (ความเสี่ยงในการกระทบกับลูกค้า): Low:
-              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
+              risk_customer_interruptions_bins (ความเสี่ยงในการกระทบกับลูกค้า):
+              Low: ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
             </p>
