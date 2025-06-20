@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         console.log("User Data from API:", response.data); // Debugging
 
         if (response.data) {
-          const { first_name, last_name, user_level } = response.data;
+          const { first_name, last_name, user_level, pea_code } = response.data;
 
           // Store user data in sessionStorage
           sessionStorage.setItem("first_name", first_name);
