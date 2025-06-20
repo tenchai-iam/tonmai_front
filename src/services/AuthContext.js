@@ -9,6 +9,27 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem("access_token"); // Retrieve token
+
+  //   if (!token) {
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   `${API_URL}/get_hrplatform_data`;
+
+  //   axios
+  //     .get(`${API_URL}/get_hrplatform_data`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       console.log("User Data from API:", response.data); // Debugging
+
+  //       if (response.data) {
+  //         const { first_name, last_name, user_level, pea_code } = response.data;
+
   useEffect(() => {
     const token = sessionStorage.getItem("access_token"); // Retrieve token
 
@@ -16,8 +37,6 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       return;
     }
-
-    `${API_URL}/get_hrplatform_data`;
 
     axios
       .get(`${API_URL}/get_hrplatform_data`, {
@@ -28,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         console.log("User Data from API:", response.data); // Debugging
 
         if (response.data) {
-          const { first_name, last_name, user_level, pea_code } = response.data;
+          const { first_name, last_name, user_level } = response.data;
 
           // Store user data in sessionStorage
           sessionStorage.setItem("first_name", first_name);
