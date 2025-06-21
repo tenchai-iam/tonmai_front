@@ -5,6 +5,7 @@ import {
   getScenarios,
   getSelectedScenarios,
   getAojs,
+  getAuthorizedAojs,
   getFeeders,
 } from "../../services/api_Options";
 
@@ -34,6 +35,14 @@ export const useAojOption = (aoj_region) => {
     queryKey: ["districtOption", aoj_region],
     queryFn: () => getAojs(aoj_region),
     enabled: Boolean(aoj_region),
+  });
+};
+
+export const useAuthorizedAojOption = (pea_code) => {
+  return useQuery({
+    queryKey: ["authorizedAojOption", pea_code],
+    queryFn: () => getAuthorizedAojs(pea_code),
+    // enabled: Boolean(pea_code),
   });
 };
 

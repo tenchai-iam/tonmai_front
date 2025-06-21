@@ -28,6 +28,17 @@ export const getAojs = async (aoj_region) => {
   return response.data; // Return the data received from the API
 };
 
+export const getAuthorizedAojs = async (pea_code) => {
+  const response = await axios.post(
+    `${API_URL}/get_authorized_aoj`,
+    {
+      pea_code: pea_code, // Pass the data format value in the request body
+    },
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};
+
 export const getFeeders = async (aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_feeder`,
