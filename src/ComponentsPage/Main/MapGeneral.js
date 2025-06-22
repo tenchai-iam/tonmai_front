@@ -127,6 +127,14 @@ const MapG = () => {
     label: option.aoj_name,
   }));
 
+  const { data: authorizedAojOption2, isLoadingAuthorizedAojOption2 } =
+    useAuthorizedAojOption(sessionPEACode);
+
+  const authorizedAojOptionFormatted2 = authorizedAojOption2?.map((option) => ({
+    value: option.aoj_code,
+    label: option.aoj_code,
+  }));
+
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
@@ -198,7 +206,7 @@ const MapG = () => {
       outage: item.probability_of_outage_bins,
       customerRisk: item.risk_customer_interruptions_bins,
       device: item.nearest_upstream_device,
-      density: Number(item.vegetation_density) * 100,
+      density: item.density_distribution_model,
     })) || [];
 
   const handleDataCorridorPlan = () => {
@@ -400,7 +408,7 @@ const MapG = () => {
                   </option>
                 ))}
               </select>
-              <select
+              {/* <select
                 value={selectedDistrict2}
                 onChange={handleChangeDistrict2}
                 className="border rounded-lg px-4 py-2"
@@ -411,10 +419,10 @@ const MapG = () => {
                     {option.aoj_region}
                   </option>
                 ))}
-              </select>
+              </select> */}
               <Select
-                options={aojOptionFormatted2}
-                value={aojOptionFormatted2?.find(
+                options={authorizedAojOptionFormatted2}
+                value={authorizedAojOptionFormatted2?.find(
                   (opt) => opt.value === selectedAoj2
                 )}
                 onChange={(selectedOption) =>

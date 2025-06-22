@@ -96,7 +96,7 @@ const PlanTable = ({ data }) => {
                 <td>{row.name}</td>
                 <td>{row.feeder}</td>
                 <td className="number">{formatUnit(row.length)}</td>
-                <td className="number">{formatPercent(row.density)}%</td>
+                <td>{row.density}</td>
                 <td>{row.frequency}</td>
                 <td>{row.device}</td>
                 <td className="number">{formatValue(row.cost)}</td>
