@@ -108,7 +108,7 @@ const MapG = () => {
 
   const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
     value: option.aoj_code,
-    label: option.aoj_code,
+    label: option.aoj_name,
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
@@ -132,7 +132,7 @@ const MapG = () => {
 
   const authorizedAojOptionFormatted2 = authorizedAojOption2?.map((option) => ({
     value: option.aoj_code,
-    label: option.aoj_code,
+    label: option.aoj_name,
   }));
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
