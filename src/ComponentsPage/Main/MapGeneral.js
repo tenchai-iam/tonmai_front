@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
@@ -12,6 +12,7 @@ import {
   useSelectedScenarioOption,
   useDistrictOption,
   useAojOption,
+  useAuthorizedAojOption,
   useFeederOption,
 } from "../Sub_Query/OptionQuery.js";
 
@@ -37,6 +38,8 @@ import "../../ComponentsStyles/Map.css";
 
 const MapG = () => {
   const [lineData, setLineData] = useState([]);
+
+  const sessionPEACode = sessionStorage.getItem("pea_code");
 
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
@@ -98,6 +101,14 @@ const MapG = () => {
   const aojOptionFormatted = aojOption?.map((option) => ({
     value: option.aoj_code,
     label: option.aoj_name,
+  }));
+
+  const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
+    useAuthorizedAojOption(sessionPEACode);
+
+  const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
+    value: option.aoj_code,
+    label: option.aoj_code,
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
@@ -256,7 +267,7 @@ const MapG = () => {
                 </option>
               ))}
             </select>
-            <select
+            {/* <select
               value={selectedDistrict}
               onChange={handleChangeDistrict}
               className="border rounded-lg px-4 py-2"
@@ -267,11 +278,11 @@ const MapG = () => {
                   {option.aoj_region}
                 </option>
               ))}
-            </select>
+            </select> */}
             <Select
-              options={aojOptionFormatted}
-              value={aojOptionFormatted?.find(
-                (opt) => opt.value === selectedAoj
+              options={authorizedAojOptionFormatted}
+              value={authorizedAojOptionFormatted?.find(
+                (opt) => opt.value === sessionPEACode
               )}
               onChange={(selectedOption) =>
                 setSelectedAoj(selectedOption?.value || "")
