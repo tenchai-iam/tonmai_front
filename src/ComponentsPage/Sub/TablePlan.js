@@ -95,7 +95,7 @@ const PlanTable = ({ data }) => {
                 <td>{row.code}</td>
                 <td>{row.name}</td>
                 <td>{row.feeder}</td>
-                <td className="number">{formatUnit(row.length)}</td>
+                <td className="number">{formatValue(row.length)}</td>
                 <td>{row.density}</td>
                 <td>{row.frequency}</td>
                 <td>{row.device}</td>
