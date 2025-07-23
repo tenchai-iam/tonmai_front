@@ -30,7 +30,7 @@ export default function App() {
         <Router>
           <div className="App">
             <Routes>
-              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<Home />} />
               <Route path="/mapG" element={<MapG />} />
               <Route path="/map" element={<Map />} />
               <Route path="/manage" element={<Manage />} />
@@ -39,8 +39,8 @@ export default function App() {
               <Route path="/admin" element={<Admin />} />
 
               <Route path="/" element={<ProtectedRoute element={Home} />} />
-              <Route path="/mapG" element={<ProtectedRoute element={MapG} />} />
-              {/* <Route
+              <Route path="/mapG" element={<ProtectedRoute element={MapG} />} /> */}
+              <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
                 allowedLevels={["B", "C"]}
@@ -64,7 +64,7 @@ export default function App() {
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
                 allowedLevels={["C"]}
-              /> */}
+              />
 
               <Route path="/callback" element={<Callback />} />
               <Route path="*" element={<Navigate to="/" />} />
