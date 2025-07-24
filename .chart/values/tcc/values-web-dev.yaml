@@ -135,11 +135,6 @@ envs:
     value: "sa"
   - name: DB_PASSWORD
     value: "P%40ssw0rd"  
-  - name: KEYCLOAK_CLIENT_ID
-    value: "pea-TonmAI"
-  - name: KEYCLOAK_CLIENT_SECRET
-    value: "diPs41nxqA7lotAuPK2tXovTqXBONcLg"
-
 
 imagePullSecrets:
   - name: regcred
