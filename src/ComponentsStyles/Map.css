@@ -108,3 +108,11 @@
   box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
     /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.device-popup .mapboxgl-popup-content {
+  max-width: 250px;
+}
+
+.corridor-popup .mapboxgl-popup-content {
+  max-width: 500px;
+}

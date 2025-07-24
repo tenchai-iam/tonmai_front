@@ -5,7 +5,6 @@
   "keywords": [],
   "main": "src/index.tsx",
   "resolutions": {
-    "**/serialize-javascript": "^6.0.2"
   },
   "dependencies": {
     "@deck.gl/core": "8.9.24",

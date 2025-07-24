@@ -186,7 +186,7 @@ const Map = () => {
       outage: item.probability_of_outage_bins,
       customerRisk: item.risk_customer_interruptions_bins,
       device: item.nearest_upstream_device,
-      density: Number(item.vegetation_density) * 100,
+      density: item.density_distribution_model,
     })) || [];
 
   const handleDataCorridorPlan = () => {

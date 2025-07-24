@@ -289,6 +289,7 @@ const GeoMap = ({
       {/* Polygon feature popup */}
       {corridorInfo && (
         <Popup
+          className="corridor-popup"
           longitude={corridorInfo.lngLat.lng}
           latitude={corridorInfo.lngLat.lat}
           closeOnClick={false}
@@ -296,11 +297,13 @@ const GeoMap = ({
           anchor="top"
         >
           <div>
-            {Object.entries(corridorInfo.properties).map(([key, value]) => (
-              <div key={key}>
-                <strong>{key}</strong>: {String(value)}
-              </div>
-            ))}
+            {Object.entries(corridorInfo.properties)
+              .filter(([key]) => key !== "scenario_name") // ⛔ exclude this key
+              .map(([key, value]) => (
+                <div key={key}>
+                  <strong>{key}</strong>: {String(value)}
+                </div>
+              ))}
           </div>
         </Popup>
       )}
