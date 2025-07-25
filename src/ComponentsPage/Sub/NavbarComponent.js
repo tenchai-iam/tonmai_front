@@ -13,7 +13,13 @@ function NavbarComponent() {
   // Retrieve user details from sessionStorage
   const firstName = sessionStorage.getItem("first_name");
   const lastName = sessionStorage.getItem("last_name");
-  const userLevel = sessionStorage.getItem("user_level"); // "B" can access Dashboard3 & Dashboard4
+  const userLevel = sessionStorage.getItem("user_level");
+
+  // Helper function to check if user has access to specific levels
+  const hasAccess = (allowedLevels) => {
+    if (!userLevel) return false;
+    return allowedLevels.includes(userLevel);
+  };
 
   return (
     <Navbar
