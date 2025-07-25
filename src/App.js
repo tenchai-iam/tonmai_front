@@ -37,9 +37,9 @@ export default function App() {
               <Route path="/value" element={<Value />} />
               <Route path="/data" element={<Data />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/mapG" element={<ProtectedRoute element={MapG} />} /> */}
 
               <Route path="/" element={<ProtectedRoute element={Home} />} />
-              <Route path="/mapG" element={<ProtectedRoute element={MapG} />} /> */}
               <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
