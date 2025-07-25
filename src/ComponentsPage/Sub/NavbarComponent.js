@@ -53,23 +53,29 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/mapG">
               แผนการตัดต้นไม้
             </Nav.Link>
-            <NavDropdown title="หน่วยงาน กบร." id="admin-dropdown">
-              <NavDropdown.Item as={Link} to="/map">
-                แผนการตัดต้นไม้
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/manage">
-                จัดการแผน
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/value">
-                ติดตามมูลค่า Stage 5
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/data">
-                จัดการข้อมูล
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link as={Link} to="/admin">
-              จัดการระบบ
-            </Nav.Link>
+            {/* Show Admin NavLink ONLY for user_level "B" */}
+            {hasAccess(["C"]) && (
+              <NavDropdown title="หน่วยงาน กบร." id="admin-dropdown">
+                <NavDropdown.Item as={Link} to="/map">
+                  แผนการตัดต้นไม้
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/manage">
+                  จัดการแผน
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/value">
+                  ติดตามมูลค่า Stage 5
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/data">
+                  จัดการข้อมูล
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+            {/* Show Admin NavLink ONLY for user_level "C" */}
+            {hasAccess(["C"]) && (
+              <Nav.Link as={Link} to="/admin">
+                จัดการระบบ
+              </Nav.Link>
+            )}
           </Nav>
           {/* Show First Name & Last Name */}
           <div className="user-info ms-auto me-3">
