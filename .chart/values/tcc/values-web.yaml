@@ -13,8 +13,10 @@ image:
 envs:
   - name: TZ
     value: "Asia/Bangkok"
+  # - name: DB_SERVER
+  #   value: "172.16.104.40"
   - name: DB_SERVER
-    value: "172.16.104.40"
+    value: "tcc-rawdb.pea.co.th"
   - name: DB_PORT
     value: "59356"
   - name: DB_NAME
