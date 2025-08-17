@@ -62,10 +62,11 @@ const Map = () => {
 
   const [selectedAoj2, setSelectedAoj2] = useState("");
 
-  const [selectedFeeder, setSelectedFeeder] = useState("");
+  const [selectedFeeder, setSelectedFeeder] = useState([]);
 
-  const handleChangeFeeder = (event) => {
-    setSelectedFeeder(event.target.value);
+  const handleChangeFeeder = (selectedOptions) => {
+    const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+    setSelectedFeeder(selectedValues);
   };
 
   useEffect(() => {
@@ -155,7 +156,7 @@ const Map = () => {
     corridor: {
       isActive: currentMapView === "corridor",
       geoJson: combineGeoJson(geoCorridors, geoDevices),
-      required: selectedFeeder,
+      required: selectedFeeder.length > 0,
     },
   };
 
@@ -283,14 +284,13 @@ const Map = () => {
             />
             <Select
               options={feederOptionFormatted}
-              value={feederOptionFormatted?.find(
-                (opt) => opt.value === selectedFeeder
+              value={feederOptionFormatted?.filter(
+                (opt) => selectedFeeder.includes(opt.value)
               )}
-              onChange={(selectedOption) =>
-                setSelectedFeeder(selectedOption?.value || "")
-              }
+              onChange={handleChangeFeeder}
+              isMulti
               isClearable
-              placeholder="ค้นหา/เลือก Feeder"
+              placeholder="ค้นหา/เลือก Feeder (หลายตัวได้)"
               noOptionsMessage={() => "ไม่พบข้อมูล"}
               className="react-select-container"
               classNamePrefix="react-select"
