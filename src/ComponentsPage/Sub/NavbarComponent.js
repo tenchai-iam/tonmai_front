@@ -8,6 +8,7 @@ import workd from "../../pic/w-logo.svg";
 import "../../ComponentsStyles/NavbarStyles.css"; // Import your custom CSS file
 
 const workd_url = process.env.REACT_APP_WORKD_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
 function NavbarComponent() {
   // Retrieve user details from sessionStorage
@@ -92,7 +93,7 @@ function NavbarComponent() {
           </div>
           {/* WorkD Button */}
           <Button
-            className="logout-button"
+            className="logout-button me-2"
             onClick={() => {
               window.location.href = workd_url;
             }}
@@ -104,6 +105,17 @@ function NavbarComponent() {
               className="d-inline-block align-center"
               alt="WorkD"
             />
+          </Button>
+
+          {/* Logout Button */}
+          <Button
+            variant="danger"
+            className="logout-button"
+            onClick={() => {
+              window.location.href = `${API_URL}/logout`;
+            }}
+          >
+            ออกจากระบบ
           </Button>
         </Navbar.Collapse>
       </Container>
