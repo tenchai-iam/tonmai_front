@@ -144,7 +144,7 @@ export const selectScenarioPlan = async (payload) => {
  */
 export const getSelectedScenarios = async () => {
   try {
-    const response = await axios.get(`${API_URL}/get_selected_scenario`, {
+    const response = await axios.get(`${API_URL}/get_selected_plan`, {
       timeout: 5000
     });
     return response.data;

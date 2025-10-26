@@ -59,5 +59,11 @@ export const useBudgetYearOption = () => {
   return useQuery({
     queryKey: ["budgetYearOption"],
     queryFn: () => getAvailableBudgetYears(),
+    select: (data) => {
+      return data?.map((item) => ({
+        value: item.budget_year,
+        label: item.budget_year,
+      }));
+    },
   });
 };
