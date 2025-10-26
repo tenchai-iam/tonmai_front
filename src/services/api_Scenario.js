@@ -1,8 +1,11 @@
 import axios from "axios";
 
 // Configuration
-const API_URL =
+const API_BACK_URL =
   process.env.REACT_APP_API_BACK_URL || "http://localhost:5000/api";
+
+const API_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 /**
  * Create and run budget-focused scenario
@@ -20,7 +23,7 @@ export const createBudgetScenario = async (payload) => {
     };
 
     const response = await axios.post(
-      `${API_URL}/create-and-run`,
+      `${API_BACK_URL}/create-and-run`,
       requestPayload,
       {
         headers: {
@@ -52,7 +55,7 @@ export const createRiskScenario = async (payload) => {
     };
 
     const response = await axios.post(
-      `${API_URL}/create-and-run`,
+      `${API_BACK_URL}/create-and-run`,
       requestPayload,
       {
         headers: {
@@ -76,7 +79,7 @@ export const createRiskScenario = async (payload) => {
 export const getScenarios = async (filters = {}) => {
   try {
     const params = new URLSearchParams(filters);
-    const response = await axios.get(`${API_URL}/scenarios?${params}`);
+    const response = await axios.get(`${API_BACK_URL}/scenarios?${params}`);
     return response.data;
   } catch (error) {
     console.error("Get Scenarios API Error:", error);
@@ -91,7 +94,7 @@ export const getScenarios = async (filters = {}) => {
  */
 export const getScenarioDetails = async (scenarioId) => {
   try {
-    const response = await axios.get(`${API_URL}/scenarios/${scenarioId}`);
+    const response = await axios.get(`${API_BACK_URL}/scenarios/${scenarioId}`);
     return response.data;
   } catch (error) {
     console.error("Get Scenario Details API Error:", error);
@@ -105,7 +108,7 @@ export const getScenarioDetails = async (scenarioId) => {
  */
 export const healthCheck = async () => {
   try {
-    const response = await axios.get(`${API_URL}/health`);
+    const response = await axios.get(`${API_BACK_URL}/health`);
     return response.data;
   } catch (error) {
     console.error("Health Check API Error:", error);
@@ -123,7 +126,7 @@ export const healthCheck = async () => {
  */
 export const selectScenarioPlan = async (payload) => {
   try {
-    const response = await axios.post(`${API_URL}/select-plan`, payload, {
+    const response = await axios.post(`${API_BACK_URL}/select-plan`, payload, {
       headers: {
         "Content-Type": "application/json",
       },
