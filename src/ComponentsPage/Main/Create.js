@@ -100,9 +100,9 @@ const Create = () => {
       budget_reduction_percentage: parseFloat(budgetReductionPercent),
     };
 
-    // Add custom_scenario_name if provided
+    // Add description if provided
     if (budgetScenarioName.trim()) {
-      payload.custom_scenario_name = budgetScenarioName.trim();
+      payload.description = budgetScenarioName.trim();
     }
 
     try {
@@ -139,9 +139,9 @@ const Create = () => {
       risk_reduction_target: parseFloat(riskReductionPercent),
     };
 
-    // Add custom_scenario_name if provided
+    // Add description if provided
     if (riskScenarioName.trim()) {
-      payload.custom_scenario_name = riskScenarioName.trim();
+      payload.description = riskScenarioName.trim();
     }
 
     try {
@@ -299,12 +299,13 @@ const Create = () => {
     const payload = {
       year: parseInt(selectedYearRegion),
       use_regional_optimization: true,
+      use_regional_budget_table: true,
       region_col: "region",
     };
 
-    // Add custom_scenario_name if provided
+    // Add description if provided
     if (regionalScenarioName.trim()) {
-      payload.custom_scenario_name = regionalScenarioName.trim();
+      payload.description = regionalScenarioName.trim();
     }
 
     try {
