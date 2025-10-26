@@ -29,7 +29,9 @@
 
 #-----------------------
 
-FROM nginx:1.23-alpine as runtime
+# FROM nginx:1.23-alpine as runtime
+FROM tcc-harbor.pea.co.th/library/nginx:1.23-alpine as runtime
+
 WORKDIR /usr/share/nginx/html
 
 COPY build .

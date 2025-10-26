@@ -24,7 +24,6 @@
     "keycloak-js": "26.0.2",
     "mapbox-gl": "^3.12.0",
     "maplibre-gl": "4.7.1",
-    "nebula.gl-react": "0.10.5",
     "patch-package": "^8.0.0",
     "react": "^18.0.0",
     "react-bootstrap": "2.10.4",
