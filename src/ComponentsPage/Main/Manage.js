@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import PlanTable from "../Sub/TablePlan.js";
+import SelectedPlanTable from "../Sub/TableSelectedPlan.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useDistrictOption,
   useScenarioOption,
   useAojOption,
+  useBudgetYearOption,
 } from "../Sub_Query/OptionQuery.js";
 
 import {
   useCorridorPlan,
   usePlanSummaryQuery,
+  useSelectedScenarios,
 } from "../Sub_Query/ManageQuery.js";
-
-import { planDummyOptions, yearDummyOptions } from "../Sub_config/Options.js";
 
 import {
   createBudgetScenario,
@@ -35,6 +37,8 @@ import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Manage.css";
 
 const Manage = () => {
+  const queryClient = useQueryClient();
+
   const [selectedScenario1, setSelectedScenario1] = useState("");
   const handleScenario1Select = (e) => setSelectedScenario1(e.target.value);
 
@@ -48,6 +52,7 @@ const Manage = () => {
   const handleScenarioFSelect = (e) => setSelectedScenarioF(e.target.value);
 
   const { data: scenarioOption } = useScenarioOption();
+  const { data: budgetYearOption } = useBudgetYearOption();
 
   // State for scenario creation
   const [selectedYearRisk, setSelectedYearRisk] = useState("");
@@ -153,6 +158,10 @@ const Manage = () => {
       const response = await selectScenarioPlan(payload);
       alert(`เลือกแผนสำเร็จ! Scenario: ${selectedScenarioF}`);
       console.log("Plan Selection Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["selectedScenarios"]);
+
       // Optionally reset form or update UI
       // setSelectedPlan("");
       // setSelectedScenario1("");
@@ -250,6 +259,17 @@ const Manage = () => {
     },
   ];
 
+  const { data: selectedScenarios } = useSelectedScenarios();
+
+  const dataSelectedPlan =
+    selectedScenarios?.map((item) => ({
+      selectionId: item.selection_id,
+      scenarioName: item.scenario_name,
+      selectedYear: item.selected_for_year,
+      selectedAt: item.selected_at,
+      employeeId: item.employee_id,
+    })) || [];
+
   return (
     <div>
       <NavbarComponent />
@@ -264,98 +284,13 @@ const Manage = () => {
           </p>
         </div>
         <div className="create-select-plan-container">
-          {/* RISK SCENARIO SECTION */}
-          <div className="input-container">
-            สร้างแผนโดย Parameter ความเสี่ยง SAIFI
-            <div className="inputgroup-container">
-              <div className="input-year">
-                <label>เลือกปีที่จะใช้</label>
-                <select
-                  value={selectedYearRisk}
-                  onChange={(e) => setSelectedYearRisk(e.target.value)}
-                  className="border rounded-lg px-4 py-2"
-                >
-                  <option value="" disabled>
-                    เลือกปี
-                  </option>
-                  {yearDummyOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="input-field">
-                <label>% SAIFI ที่ต้องการลดจาก Base</label>
-                <input
-                  className="input-value"
-                  type="number"
-                  min="10"
-                  max="80"
-                  step="1"
-                  placeholder="เช่น 25"
-                  value={riskReductionPercent}
-                  onChange={(e) => setRiskReductionPercent(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="confirm-container">
-              <button
-                onClick={handleRiskSubmit}
-                disabled={isCreatingRiskScenario}
-              >
-                {isCreatingRiskScenario ? "กำลังสร้าง..." : "ยืนยัน"}
-              </button>
-            </div>
+          {/* EXISTING SELECTED PLAN SECTION */}
+          <div className="selected-plan-container">
+            <div className="container-title">แผนที่เลือกแล้ว</div>
+            <SelectedPlanTable data={dataSelectedPlan} />
           </div>
-
-          {/* BUDGET SCENARIO SECTION */}
-          <div className="input-container">
-            สร้างแผนโดย Parameter งบประมาณ
-            <div className="inputgroup-container">
-              <div className="input-year">
-                <label>เลือกปีที่จะใช้</label>
-                <select
-                  value={selectedYearBudget}
-                  onChange={(e) => setSelectedYearBudget(e.target.value)}
-                  className="border rounded-lg px-4 py-2"
-                >
-                  <option value="" disabled>
-                    เลือกปี
-                  </option>
-                  {yearDummyOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="input-field">
-                <label>% Budget ที่ต้องการลดจาก Base</label>
-                <input
-                  className="input-value"
-                  type="number"
-                  min="5"
-                  max="50"
-                  step="1"
-                  placeholder="เช่น 12"
-                  value={budgetReductionPercent}
-                  onChange={(e) => setBudgetReductionPercent(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="confirm-container">
-              <button
-                onClick={handleBudgetSubmit}
-                disabled={isCreatingBudgetScenario}
-              >
-                {isCreatingBudgetScenario ? "กำลังสร้าง..." : "ยืนยัน"}
-              </button>
-            </div>
-          </div>
-
           {/* EXISTING PLAN SELECTION SECTION */}
-          <div className="input-output-container">
+          <div className="plan-selection-container">
             เลือกแผนที่ใช้
             <div className="inputgroup-container">
               <div className="input-year">
@@ -366,7 +301,7 @@ const Manage = () => {
                   className="border rounded-lg px-4 py-2"
                 >
                   <option value=""></option>
-                  {yearDummyOptions.map((option) => (
+                  {budgetYearOption?.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
@@ -394,89 +329,6 @@ const Manage = () => {
             </div>
             <div className="confirm-container">
               <button onClick={handlePlanSubmit}>ยืนยัน</button>
-            </div>
-          </div>
-        </div>
-        <div className="summary-container">
-          <div className="container-title">เปรียบเทียบแผน</div>
-          <div className="compare-container">
-            <div className="scenario-container">
-              <div className="dropdowngroup-container">
-                <select
-                  value={selectedScenario1}
-                  onChange={handleScenario1Select}
-                  className="border rounded-lg px-4 py-2"
-                >
-                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-                  {scenarioOption?.map((option) => (
-                    <option
-                      key={option.scenario_name}
-                      value={option.scenario_name}
-                    >
-                      {option.scenario_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="metric-box-container">
-                {/* <div className="text-box-subcontainer">
-                  <label className="text">จำนวนพื้นที่ AOJ</label>
-                  <div className="value">
-                    {formatQuantity(dataPlanSummary1[0]?.aojCount)}
-                  </div>
-                </div> */}
-                <div className="text-box-subcontainer">
-                  <label className="text">SAIFI</label>
-                  <div className="value">
-                    {formatUnit(dataPlanSummary1[0]?.risk)}
-                  </div>
-                </div>
-                <div className="text-box-subcontainer">
-                  <label className="text">งบประมาณ (ล้านบาท)</label>
-                  <div className="value">
-                    {formatValue(dataPlanSummary1[0]?.cost)}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="scenario-container">
-              <div className="dropdowngroup-container">
-                <select
-                  value={selectedScenario2}
-                  onChange={handleScenario2Select}
-                  className="border rounded-lg px-4 py-2"
-                >
-                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-                  {scenarioOption?.map((option) => (
-                    <option
-                      key={option.scenario_name}
-                      value={option.scenario_name}
-                    >
-                      {option.scenario_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="metric-box-container">
-                {/* <div className="text-box-subcontainer">
-                  <label className="text">จำนวนพื้นที่ AOJ</label>
-                  <div className="value">
-                    {formatQuantity(dataPlanSummary2[0]?.aojCount)}
-                  </div>
-                </div> */}
-                <div className="text-box-subcontainer">
-                  <label className="text">SAIFI</label>
-                  <div className="value">
-                    {formatUnit(dataPlanSummary2[0]?.risk)}
-                  </div>
-                </div>
-                <div className="text-box-subcontainer">
-                  <label className="text">งบประมาณ (ล้านบาท)</label>
-                  <div className="value">
-                    {formatValue(dataPlanSummary2[0]?.cost)}
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

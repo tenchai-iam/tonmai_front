@@ -134,3 +134,19 @@ export const selectScenarioPlan = async (payload) => {
     throw error;
   }
 };
+
+/**
+ * Get all selected scenarios from F8_scenario_selections table
+ * @returns {Promise<Array>} List of selected scenarios
+ */
+export const getSelectedScenarios = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/get_selected_scenario`, {
+      timeout: 5000
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Get Selected Scenarios API Error:", error);
+    throw error;
+  }
+};

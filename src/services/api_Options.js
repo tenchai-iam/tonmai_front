@@ -49,3 +49,10 @@ export const getFeeders = async (aoj_code) => {
   );
   return response.data; // Return the data received from the API
 };
+
+export const getAvailableBudgetYears = async () => {
+  const response = await axios.get(`${API_URL}/get_avail_budget_year`, {
+    timeout: 5000
+  });
+  return response.data; // Return the data received from the API
+};
