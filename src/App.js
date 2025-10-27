@@ -10,6 +10,7 @@ import {
 import Home from "./Home";
 import MapG from "./ComponentsPage/Main/MapGeneral.js";
 import Map from "./ComponentsPage/Main/Map.js";
+import Create from "./ComponentsPage/Main/Create.js";
 import Manage from "./ComponentsPage/Main/Manage.js";
 import Value from "./ComponentsPage/Main/Value.js";
 import Data from "./ComponentsPage/Main/Data.js";
@@ -33,17 +34,23 @@ export default function App() {
               {/* <Route path="/" element={<Home />} />
               <Route path="/mapG" element={<MapG />} />
               <Route path="/map" element={<Map />} />
+              <Route path="/create" element={<Create />} />
               <Route path="/manage" element={<Manage />} />
               <Route path="/value" element={<Value />} />
               <Route path="/data" element={<Data />} />
-              <Route path="/admin" element={<Admin />} />
-               */}
+              <Route path="/admin" element={<Admin />} /> */}
+              
 
               <Route path="/" element={<ProtectedRoute element={Home} />} />
               <Route path="/mapG" element={<ProtectedRoute element={MapG} />} />
               <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
+                allowedLevels={["B", "C"]}
+              />
+              <Route
+                path="/create"
+                element={<ProtectedRoute element={Create} />}
                 allowedLevels={["B", "C"]}
               />
               <Route

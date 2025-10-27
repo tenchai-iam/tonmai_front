@@ -1,0 +1,80 @@
+.global-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.global-scenario-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.budget-summary-graph {
+  display: flex;
+  flex-direction: column;
+}
+
+.budget-manage-platform {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.budget-table {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 60%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.download-end-button {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+.upload-create-menu {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+  gap: 20px;
+}
+
+.upload-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -66,6 +66,9 @@ function NavbarComponent() {
                 <NavDropdown.Item as={Link} to="/map">
                   แผนการตัดต้นไม้
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/create">
+                  สร้างแผน
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/manage">
                   จัดการแผน
                 </NavDropdown.Item>

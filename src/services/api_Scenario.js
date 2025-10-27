@@ -1,8 +1,11 @@
 import axios from "axios";
 
 // Configuration
-const API_URL =
+const API_BACK_URL =
   process.env.REACT_APP_API_BACK_URL || "http://localhost:5000/api";
+
+const API_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 /**
  * Create and run budget-focused scenario
@@ -19,8 +22,22 @@ export const createBudgetScenario = async (payload) => {
       risk_reduction_target: null,
     };
 
+    // Include optional fields if provided
+    if (payload.description) {
+      requestPayload.description = payload.description;
+    }
+    if (payload.use_regional_optimization !== undefined) {
+      requestPayload.use_regional_optimization = payload.use_regional_optimization;
+    }
+    if (payload.use_regional_budget_table !== undefined) {
+      requestPayload.use_regional_budget_table = payload.use_regional_budget_table;
+    }
+    if (payload.region_col) {
+      requestPayload.region_col = payload.region_col;
+    }
+
     const response = await axios.post(
-      `${API_URL}/create-and-run`,
+      `${API_BACK_URL}/create-and-run`,
       requestPayload,
       {
         headers: {
@@ -51,8 +68,13 @@ export const createRiskScenario = async (payload) => {
       risk_reduction_target: payload.risk_reduction_target, // Convert to decimal
     };
 
+    // Include description if provided
+    if (payload.description) {
+      requestPayload.description = payload.description;
+    }
+
     const response = await axios.post(
-      `${API_URL}/create-and-run`,
+      `${API_BACK_URL}/create-and-run`,
       requestPayload,
       {
         headers: {
@@ -76,7 +98,7 @@ export const createRiskScenario = async (payload) => {
 export const getScenarios = async (filters = {}) => {
   try {
     const params = new URLSearchParams(filters);
-    const response = await axios.get(`${API_URL}/scenarios?${params}`);
+    const response = await axios.get(`${API_BACK_URL}/scenarios?${params}`);
     return response.data;
   } catch (error) {
     console.error("Get Scenarios API Error:", error);
@@ -91,7 +113,7 @@ export const getScenarios = async (filters = {}) => {
  */
 export const getScenarioDetails = async (scenarioId) => {
   try {
-    const response = await axios.get(`${API_URL}/scenarios/${scenarioId}`);
+    const response = await axios.get(`${API_BACK_URL}/scenarios/${scenarioId}`);
     return response.data;
   } catch (error) {
     console.error("Get Scenario Details API Error:", error);
@@ -105,7 +127,7 @@ export const getScenarioDetails = async (scenarioId) => {
  */
 export const healthCheck = async () => {
   try {
-    const response = await axios.get(`${API_URL}/health`);
+    const response = await axios.get(`${API_BACK_URL}/health`);
     return response.data;
   } catch (error) {
     console.error("Health Check API Error:", error);
@@ -123,7 +145,7 @@ export const healthCheck = async () => {
  */
 export const selectScenarioPlan = async (payload) => {
   try {
-    const response = await axios.post(`${API_URL}/select-plan`, payload, {
+    const response = await axios.post(`${API_BACK_URL}/select-plan`, payload, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -131,6 +153,22 @@ export const selectScenarioPlan = async (payload) => {
     return response.data;
   } catch (error) {
     console.error("Select Scenario Plan API Error:", error);
+    throw error;
+  }
+};
+
+/**
+ * Get all selected scenarios from F8_scenario_selections table
+ * @returns {Promise<Array>} List of selected scenarios
+ */
+export const getSelectedScenarios = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/get_selected_plan`, {
+      timeout: 5000
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Get Selected Scenarios API Error:", error);
     throw error;
   }
 };

@@ -7,6 +7,7 @@ import {
   getAojs,
   getAuthorizedAojs,
   getFeeders,
+  getAvailableBudgetYears,
 } from "../../services/api_Options";
 
 export const useDistrictOption = () => {
@@ -51,5 +52,18 @@ export const useFeederOption = (aoj_code) => {
     queryKey: ["feederOption"],
     queryFn: () => getFeeders(aoj_code),
     enabled: Boolean(aoj_code),
+  });
+};
+
+export const useBudgetYearOption = () => {
+  return useQuery({
+    queryKey: ["budgetYearOption"],
+    queryFn: () => getAvailableBudgetYears(),
+    select: (data) => {
+      return data?.map((item) => ({
+        value: item.budget_year,
+        label: item.budget_year,
+      }));
+    },
   });
 };
