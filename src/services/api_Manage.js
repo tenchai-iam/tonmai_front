@@ -34,25 +34,21 @@ export const getPlanSummary = async (
 };
 
 export const getRegionBudgetGraph = async (budget_year) => {
-  const params = budget_year ? { budget_year } : {};
+  const body = budget_year ? { budget_year } : {};
   const response = await axios.post(
     `${API_URL}/region_budget_graph`,
-    {
-      params,
-      timeout: 5000
-    }
+    body,
+    { timeout: 5000 }
   );
   return response.data; // Return the data received from the API
 };
 
 export const getRegionBudgetTable = async (budget_year) => {
-  const params = budget_year ? { budget_year } : {};
+  const body = budget_year ? { budget_year } : {};
   const response = await axios.post(
     `${API_URL}/region_budget_table`,
-    {
-      params,
-      timeout: 5000
-    }
+    body,
+    { timeout: 5000 }
   );
   return response.data; // Return the data received from the API
 };
