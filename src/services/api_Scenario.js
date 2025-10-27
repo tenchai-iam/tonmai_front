@@ -22,6 +22,20 @@ export const createBudgetScenario = async (payload) => {
       risk_reduction_target: null,
     };
 
+    // Include optional fields if provided
+    if (payload.description) {
+      requestPayload.description = payload.description;
+    }
+    if (payload.use_regional_optimization !== undefined) {
+      requestPayload.use_regional_optimization = payload.use_regional_optimization;
+    }
+    if (payload.use_regional_budget_table !== undefined) {
+      requestPayload.use_regional_budget_table = payload.use_regional_budget_table;
+    }
+    if (payload.region_col) {
+      requestPayload.region_col = payload.region_col;
+    }
+
     const response = await axios.post(
       `${API_BACK_URL}/create-and-run`,
       requestPayload,
@@ -53,6 +67,11 @@ export const createRiskScenario = async (payload) => {
       budget_reduction_percentage: null,
       risk_reduction_target: payload.risk_reduction_target, // Convert to decimal
     };
+
+    // Include description if provided
+    if (payload.description) {
+      requestPayload.description = payload.description;
+    }
 
     const response = await axios.post(
       `${API_BACK_URL}/create-and-run`,

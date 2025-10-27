@@ -67,17 +67,17 @@ const Create = () => {
   // State for scenario creation
   const [selectedYearRisk, setSelectedYearRisk] = useState("");
   const [riskReductionPercent, setRiskReductionPercent] = useState("");
-  const [riskScenarioName, setRiskScenarioName] = useState("");
+  const [riskDescription, setRiskDescription] = useState("");
   const [isCreatingRiskScenario, setIsCreatingRiskScenario] = useState(false);
 
   const [selectedYearBudget, setSelectedYearBudget] = useState("");
   const [budgetReductionPercent, setBudgetReductionPercent] = useState("");
-  const [budgetScenarioName, setBudgetScenarioName] = useState("");
+  const [budgetDescription, setBudgetDescription] = useState("");
   const [isCreatingBudgetScenario, setIsCreatingBudgetScenario] =
     useState(false);
 
   const [selectedYearRegion, setSelectedYearRegion] = useState("");
-  const [regionalScenarioName, setRegionalScenarioName] = useState("");
+  const [regionalDescription, setRegionalDescription] = useState("");
   const [isCreatingRegionalScenario, setIsCreatingRegionalScenario] = useState(false);
 
   // State for file upload
@@ -101,8 +101,8 @@ const Create = () => {
     };
 
     // Add description if provided
-    if (budgetScenarioName.trim()) {
-      payload.description = budgetScenarioName.trim();
+    if (budgetDescription.trim()) {
+      payload.description = budgetDescription.trim();
     }
 
     try {
@@ -113,7 +113,7 @@ const Create = () => {
       // Reset form
       setSelectedYearBudget("");
       setBudgetReductionPercent("");
-      setBudgetScenarioName("");
+      setBudgetDescription("");
 
       // Optionally refresh scenario options
       // refetchScenarioOption();
@@ -140,8 +140,8 @@ const Create = () => {
     };
 
     // Add description if provided
-    if (riskScenarioName.trim()) {
-      payload.description = riskScenarioName.trim();
+    if (riskDescription.trim()) {
+      payload.description = riskDescription.trim();
     }
 
     try {
@@ -152,7 +152,7 @@ const Create = () => {
       // Reset form
       setSelectedYearRisk("");
       setRiskReductionPercent("");
-      setRiskScenarioName("");
+      setRiskDescription("");
 
       // Optionally refresh scenario options
       // refetchScenarioOption();
@@ -304,8 +304,8 @@ const Create = () => {
     };
 
     // Add description if provided
-    if (regionalScenarioName.trim()) {
-      payload.description = regionalScenarioName.trim();
+    if (regionalDescription.trim()) {
+      payload.description = regionalDescription.trim();
     }
 
     try {
@@ -315,7 +315,7 @@ const Create = () => {
 
       // Reset form
       setSelectedYearRegion("");
-      setRegionalScenarioName("");
+      setRegionalDescription("");
 
       // Optionally refresh scenario options
       // refetchScenarioOption();
@@ -428,8 +428,8 @@ const Create = () => {
                   className="input-value"
                   type="text"
                   placeholder="เพิ่มรายละเอียดหลังชื่อแผน (ไม่เกิน 10 ตัวอักษร)"
-                  value={riskScenarioName}
-                  onChange={(e) => setRiskScenarioName(e.target.value)}
+                  value={riskDescription}
+                  onChange={(e) => setRiskDescription(e.target.value)}
                 />
               </div>
             </div>
@@ -483,8 +483,8 @@ const Create = () => {
                   className="input-value"
                   type="text"
                   placeholder="เพิ่มรายละเอียดหลังชื่อแผน (ไม่เกิน 10 ตัวอักษร)"
-                  value={budgetScenarioName}
-                  onChange={(e) => setBudgetScenarioName(e.target.value)}
+                  value={budgetDescription}
+                  onChange={(e) => setBudgetDescription(e.target.value)}
                 />
               </div>
             </div>
@@ -643,8 +643,8 @@ const Create = () => {
                           className="input-value"
                           type="text"
                           placeholder="เพิ่มรายละเอียดหลังชื่อแผน (ไม่เกิน 10 ตัวอักษร)"
-                          value={regionalScenarioName}
-                          onChange={(e) => setRegionalScenarioName(e.target.value)}
+                          value={regionalDescription}
+                          onChange={(e) => setRegionalDescription(e.target.value)}
                         />
                       </div>
                     </div>
