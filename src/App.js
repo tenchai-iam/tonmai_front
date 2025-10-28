@@ -9,6 +9,7 @@ import {
 
 import Home from "./Home";
 import MapG from "./ComponentsPage/Main/MapGeneral.js";
+import Upgrade from "./ComponentsPage/Main/Upgrade.js";
 import Map from "./ComponentsPage/Main/Map.js";
 import Create from "./ComponentsPage/Main/Create.js";
 import Manage from "./ComponentsPage/Main/Manage.js";
@@ -33,6 +34,7 @@ export default function App() {
             <Routes>
               {/* <Route path="/" element={<Home />} />
               <Route path="/mapG" element={<MapG />} />
+              <Route path="/upgrade" element={<Upgrade />} />
               <Route path="/map" element={<Map />} />
               <Route path="/create" element={<Create />} />
               <Route path="/manage" element={<Manage />} />
@@ -43,6 +45,7 @@ export default function App() {
 
               <Route path="/" element={<ProtectedRoute element={Home} />} />
               <Route path="/mapG" element={<ProtectedRoute element={MapG} />} />
+              <Route path="/upgrade" element={<ProtectedRoute element={Upgrade} />} />
               <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
