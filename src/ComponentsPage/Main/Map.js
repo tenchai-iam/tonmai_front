@@ -5,6 +5,7 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanTable from "../Sub/TablePlan.js";
+import PlanUpgradeTable from "../Sub/TablePlanUpgrade.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
@@ -188,8 +189,34 @@ const Map = () => {
         device: item.device_type,
         outage: item.probability_of_outage_bins,
         customer: item.customers_affected_adjusted_bins,
-        frequency: item.frequency_number
+        frequency: item.frequency_number,
+        upgrade: item.upgrade,
+        reason: item.reason
     })) || [];
+
+  // State for editable table data
+    const [editableTableData, setEditableTableData] = useState([]);
+
+    // Initialize editable data when dataCorridorPlan changes
+    useEffect(() => {
+      setEditableTableData(dataCorridorPlan);
+    }, [dataCorridorPlan]);
+
+    // Handler to update table row data
+    const handleUpdateRow = (index, updatedFields) => {
+      setEditableTableData((prevData) => {
+        const newData = [...prevData];
+        newData[index] = {
+          ...newData[index],
+          ...updatedFields,
+        };
+        return newData;
+      });
+
+      // Optional: Call API to save the changes
+      // You can add API call here if needed
+      console.log("Updated row", index, "with:", updatedFields);
+    };
 
   const handleDataCorridorPlan = () => {
     const headers = [
@@ -422,7 +449,9 @@ const Map = () => {
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
             </p>
           </div>
-          <PlanTable data={dataCorridorPlan} />
+          <PlanUpgradeTable               
+            data={editableTableData}
+            onUpdate={handleUpdateRow}/>
         </div>
       </div>
     </div>
