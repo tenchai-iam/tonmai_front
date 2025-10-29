@@ -18,10 +18,12 @@ import {
   useBudgetYearOption,
 } from "../Sub_Query/OptionQuery.js";
 
+import { useRegionBudgetGraph } from "../Sub_Query/BudgetQuery.js";
+
 import {
   useCorridorPlan,
   usePlanSummaryQuery,
-  useRegionBudgetGraph,
+  useRegionBudgetSummary,
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
 
@@ -348,14 +350,15 @@ const Create = () => {
   ];
 
   // Fetch regional budget graph data from API
-  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedYearRegion);
+  const { data: regionBudgetSummary } = useRegionBudgetSummary(selectedYearRegion);
 
-  const dataRegionalBudgetGraph =
-    regionBudgetGraph?.map((item) => ({
+  const dataRegionalBudgetSummary =
+    regionBudgetSummary?.map((item) => ({
       region: item.region,
-      baseline2023: item.baseline_thb,
+      baseline: item.baseline_thb,
       normalizeBaseline: item.normalize_baseline_thb,
-      budgetYear: item.budget_thb,
+      budget: item.budget_thb,
+      budgetUpgrade: item.budget_upgrade_thb
     })) || [];
 
   const { data: regionBudgetTable } = useRegionBudgetTable(selectedYearRegion);
@@ -371,6 +374,7 @@ const Create = () => {
       year: item.budget_year,
       budget: item.budget_thb,
       budgetPercentDiff: item.budget_percent_diff,
+      budgetUpgrade: item.budget_upgrade_thb || 0,
     })) || [];
 
   return (
@@ -519,15 +523,16 @@ const Create = () => {
                 </select>
               </div>
             </div>
-            <div className="budget-summary-graph">
-                งบประมาณแยกตามภูมิภาค (ล้านบาท)
+            <div className="district-budget-graph">
+                งบประมาณแยกตามเขต (บาท)
                 <div className="bar-chart-legend">
-                  <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
-                  <span style={{ color: "#C69530" }}>⬤ Normalized Baseline</span>
-                  <span style={{ color: "#A1D6B2" }}>⬤ {selectedYearRegion ? `${selectedYearRegion} Budget` : "Budget"}</span>
+                  <span style={{ color: "#8B4513" }}>⬤ งบประมาณ Baseline</span>
+                  <span style={{ color: "#C69530" }}>⬤ งบประมาณ Normalized </span>
+                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ</span>
+                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณปรับปรุง</span>
                 </div>
               <BarGraphBudget
-                data={dataRegionalBudgetGraph}
+                data={dataRegionalBudgetSummary}
                 xAxisKey="region"
                 height={400}
                 layout="horizontal"
@@ -539,19 +544,24 @@ const Create = () => {
                 maxBarSize={40}
                 barKeys={[
                   {
-                    dataKey: "baseline2023",
+                    dataKey: "baseline",
                     fill: "#8B4513",
-                    tooltipLabel: "Baseline"
+                    tooltipLabel: "งบประมาณ Baseline"
                   },
                   {
                     dataKey: "normalizeBaseline",
                     fill: "#C69530",
-                    tooltipLabel: "Normalized Baseline"
+                    tooltipLabel: "งบประมาณ Normalized"
                   },
                   {
-                    dataKey: "budgetYear",
+                    dataKey: "budget",
+                    fill: "#4F1C51",
+                    tooltipLabel: "งบประมาณ"
+                  },
+                  {
+                    dataKey: "budgetUpgrade",
                     fill: "#A1D6B2",
-                    tooltipLabel: selectedYearRegion ? `${selectedYearRegion} Budget` : "Budget"
+                    tooltipLabel: "งบประมาณปรับปรุง"
                   }
                 ]}
               />

@@ -4,7 +4,7 @@ import { formatUnit, formatPercent, formatValue } from "../Sub_config/Format.js"
 
 import "../../ComponentsStyles/table.css";
 
-const RegionBudgetTable = ({ data }) => {
+const RegionAojTable = ({ data }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
@@ -58,26 +58,17 @@ const RegionBudgetTable = ({ data }) => {
               <th onClick={() => handleSort("name")}>
                 กฟฟ. {renderSortArrow("name")}
               </th>
-              <th onClick={() => handleSort("baseline")}>
-                งบประมาณฐาน (บาท) {renderSortArrow("baseline")}
+              <th onClick={() => handleSort("baselineAdjust")}>
+                งบประมาณฐาน (บาท) {renderSortArrow("baselineAdjust")}
               </th>
-              <th onClick={() => handleSort("normalizePercent")}>
-                Normalize % {renderSortArrow("normalizePercent")}
+              <th onClick={() => handleSort("normalizeAdjust")}>
+                งบประมาณ Normalize (บาท) {renderSortArrow("normalizeAdjust")}
               </th>
-              <th onClick={() => handleSort("normalizeBaseline")}>
-                งบประมาณ Normalize {renderSortArrow("normalizeBaseline")}
+              <th onClick={() => handleSort("budgetAdjust")}>
+                งบประมาณ (บาท) {renderSortArrow("budgetAdjust")}
               </th>
-              <th onClick={() => handleSort("year")}>
-                ปี {renderSortArrow("year")}
-              </th>
-              <th onClick={() => handleSort("budget")}>
-                งบประมาณ Y-2 (บาท) {renderSortArrow("budget")}
-              </th>
-              <th onClick={() => handleSort("budgetPercentDiff")}>
-                % ส่วนต่างงบประมาณ Y-2 จากงบประมาณ Normalize (บาท) {renderSortArrow("budgetPercentDiff")}
-              </th>
-              <th onClick={() => handleSort("budget")}>
-                งบประมาณปรับปรุง (บาท) {renderSortArrow("budget")}
+              <th onClick={() => handleSort("budgetUpgradeAdjust")}>
+                งบประมาณปรับปรุง (บาท) {renderSortArrow("budgetUpgradeAdjust")}
               </th>
             </tr>
           </thead>
@@ -87,13 +78,10 @@ const RegionBudgetTable = ({ data }) => {
                 <td>{row.region}</td>
                 <td>{row.code}</td>
                 <td>{row.name}</td>
-                <td className="number">{formatValue(row.baseline)}</td>
-                <td className="number">{formatPercent(row.normalizePercent)}%</td>
-                <td className="number">{formatValue(row.normalizeBaseline)}</td>
-                <td>{row.year}</td>
-                <td className="number">{formatValue(row.budget)}</td>
-                <td className="number">{formatPercent(row.budgetPercentDiff)}%</td>
-                <td className="number">{formatValue(row.budgetUpgrade)}</td>
+                <td className="number">{formatValue(row.baselineAdjust)}</td>
+                <td className="number">{formatValue(row.normalizeAdjust)}</td>
+                <td className="number">{formatValue(row.budgetAdjust)}</td>
+                <td className="number">{formatValue(row.budgetUpgradeAdjust)}</td>
               </tr>
             ))}
           </tbody>
@@ -103,4 +91,4 @@ const RegionBudgetTable = ({ data }) => {
   );
 };
 
-export default RegionBudgetTable;
+export default RegionAojTable;
