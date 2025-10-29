@@ -197,17 +197,18 @@ const MapG = () => {
 
   const dataCorridorPlan =
     corridorPlan?.map((item) => ({
-      code: item.aoj_code,
-      name: item.aoj_name,
-      frequency: item.frequency,
-      length: item.corridor_length_km,
-      cost: item.cost_to_trim_model,
-      customer: item.customers_affected_adjusted,
-      feeder: item.feeder_id,
-      outage: item.probability_of_outage_bins,
-      customerRisk: item.risk_customer_interruptions_bins,
-      device: item.nearest_upstream_device,
-      density: item.density_distribution_model,
+        year: item.year,
+        scenarioName: item.scenario_name,
+        district: item.aoj_region,
+        code: item.aoj_code,
+        name: item.aoj_name,
+        feeder: item.feeder_id,
+        corridor: item.nearest_upstream_device,
+        length: item.corridor_length_km,
+        device: item.device_type,
+        outage: item.probability_of_outage_bins,
+        customer: item.customers_affected_adjusted_bins,
+        frequency: item.frequency_number
     })) || [];
 
   const handleDataCorridorPlan = () => {

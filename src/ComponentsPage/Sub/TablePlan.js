@@ -53,6 +53,15 @@ const PlanTable = ({ data }) => {
         <table>
           <thead>
             <tr>
+              <th onClick={() => handleSort("year")}>
+                ปีงบประมาณ {renderSortArrow("year")}
+              </th>
+              <th onClick={() => handleSort("scenarioName")}>
+                ชื่อแผน {renderSortArrow("scenarioName")}
+              </th>
+              <th onClick={() => handleSort("district")}>
+                เขต {renderSortArrow("district")}
+              </th>
               <th onClick={() => handleSort("code")}>
                 รหัส {renderSortArrow("code")}
               </th>
@@ -62,47 +71,41 @@ const PlanTable = ({ data }) => {
               <th onClick={() => handleSort("feeder")}>
                 feeder {renderSortArrow("feeder")}
               </th>
+              <th onClick={() => handleSort("corridor")}>
+                รหัส Corridor {renderSortArrow("corridor")}
+              </th>
               <th onClick={() => handleSort("length")}>
                 ระยะทาง (km) {renderSortArrow("length")}
-              </th>
-              <th onClick={() => handleSort("density")}>
-                ความหนาแน่นของต้นไม้ {renderSortArrow("density")}
-              </th>
-              <th onClick={() => handleSort("frequency")}>
-                ความถี่ในการตัด {renderSortArrow("frequency")}
               </th>
               <th onClick={() => handleSort("device")}>
                 อุปกรณ์ {renderSortArrow("device")}
               </th>
-              <th onClick={() => handleSort("cost")}>
-                ค่าใข้จ่าย (บาท) {renderSortArrow("cost")}
+              <th onClick={() => handleSort("outage")}>
+                ความเสี่ยงไฟดับจากต้นไม้ {renderSortArrow("outage")}
               </th>
               <th onClick={() => handleSort("customer")}>
                 จำนวนลูกค้าที่ได้รับผลกระทบ {renderSortArrow("customer")}
               </th>
-
-              <th onClick={() => handleSort("outage")}>
-                ความเสี่ยงไฟดับจากต้นไม้ {renderSortArrow("outage")}
-              </th>
-              <th onClick={() => handleSort("customerRisk")}>
-                ความเสี่ยงกับลูกค้า {renderSortArrow("customerRisk")}
+              <th onClick={() => handleSort("frequency")}>
+                ความถี่ในการตัด {renderSortArrow("frequency")}
               </th>
             </tr>
           </thead>
           <tbody>
             {sortedData.map((row, index) => (
               <tr key={index}>
-                <td>{row.code}</td>
-                <td>{row.name}</td>
-                <td>{row.feeder}</td>
-                <td className="number">{formatValue(row.length)}</td>
-                <td>{row.density}</td>
-                <td>{row.frequency}</td>
-                <td>{row.device}</td>
-                <td className="number">{formatValue(row.cost)}</td>
-                <td>{row.customer}</td>
-                <td>{row.outage}</td>
-                <td>{row.customerRisk}</td>
+                  <td>{row.year}</td>
+                  <td>{row.scenarioName}</td>
+                  <td>{row.district}</td>
+                  <td>{row.code}</td>
+                  <td>{row.name}</td>
+                  <td>{row.feeder}</td>
+                  <td>{row.corridor}</td>
+                  <td className="number">{formatValue(row.length)}</td>
+                  <td>{row.device}</td>
+                  <td>{row.outage}</td>
+                  <td>{row.customer}</td>
+                  <td>{row.frequency}</td>
               </tr>
             ))}
           </tbody>
