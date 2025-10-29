@@ -359,27 +359,6 @@ const MapG = () => {
             </div>
           )}
         </div>
-        <div className="metric-map-container">
-          <div className="metric-mapbox-container">
-            {/* <div className="text-box-subcontainer">
-              <label className="text">จำนวนพื้นที่ AOJ</label>
-              <div className="value">
-                {formatQuantity(dataPlanSummary[0]?.aojCount)}
-              </div>
-            </div> */}
-            <div className="text-box-subcontainer">
-              <label className="text">SAIFI</label>
-              <div className="value">
-                {formatUnit(dataPlanSummary[0]?.risk)}
-              </div>
-            </div>
-            <div className="text-box-subcontainer">
-              <label className="text">งบประมาณ (ล้านบาท)</label>
-              <div className="value">
-                {formatValue(dataPlanSummary[0]?.cost)}
-              </div>
-            </div>
-          </div>
           <div className="map-container">
             {" "}
             <GeoMap
@@ -389,7 +368,6 @@ const MapG = () => {
               showLegend={currentMapView === "corridor"}
             />
           </div>
-        </div>
 
         <div className="summary-container">
           <div className="dropdown-download-container">
