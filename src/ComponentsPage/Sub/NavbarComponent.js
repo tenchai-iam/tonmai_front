@@ -60,6 +60,11 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/mapG">
               แผนการตัดต้นไม้
             </Nav.Link>
+
+            <Nav.Link as={Link} to="/upgrade">
+              ตรวจทานแผนการตัดต้นไม้
+            </Nav.Link>
+            
             {/* Show Admin NavLink ONLY for user_level "B" */}
             {hasAccess(["C"]) && (
               <NavDropdown title="หน่วยงาน กบร." id="admin-dropdown">
@@ -80,6 +85,12 @@ function NavbarComponent() {
                 </NavDropdown.Item>
               </NavDropdown>
             )}
+
+            {/* Show Budget NavLink ONLY for user_level "X" */}
+            <Nav.Link as={Link} to="/budget">
+              ตรวจทานงบประมาณการตัดต้นไม้
+            </Nav.Link>
+
             {/* Show Admin NavLink ONLY for user_level "C" */}
             {hasAccess(["C"]) && (
               <Nav.Link as={Link} to="/admin">

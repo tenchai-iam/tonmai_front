@@ -13,6 +13,7 @@ import Upgrade from "./ComponentsPage/Main/Upgrade.js";
 import Map from "./ComponentsPage/Main/Map.js";
 import Create from "./ComponentsPage/Main/Create.js";
 import Manage from "./ComponentsPage/Main/Manage.js";
+import Budget from "./ComponentsPage/Main/Budget.js";
 import Value from "./ComponentsPage/Main/Value.js";
 import Data from "./ComponentsPage/Main/Data.js";
 import Admin from "./ComponentsPage/Main/Admin.js";
@@ -39,6 +40,7 @@ export default function App() {
               <Route path="/create" element={<Create />} />
               <Route path="/manage" element={<Manage />} />
               <Route path="/value" element={<Value />} />
+              <Route path="/value" element={<Budget />} />
               <Route path="/data" element={<Data />} />
               <Route path="/admin" element={<Admin />} /> */}
               
@@ -63,6 +65,11 @@ export default function App() {
               />
               <Route
                 path="/value"
+                element={<ProtectedRoute element={Value} />}
+                allowedLevels={["B", "C"]}
+              />
+              <Route
+                path="/budget"
                 element={<ProtectedRoute element={Value} />}
                 allowedLevels={["B", "C"]}
               />

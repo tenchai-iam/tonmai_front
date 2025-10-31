@@ -314,7 +314,7 @@ const Upgrade = () => {
   return (
     <div>
       <NavbarComponent />
-      <div className="header-container">แผนการตัดต้นไม้</div>
+      <div className="header-container">ตรวจทานแผนการตัดต้นไม้</div>
       <div className="main-container">
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
