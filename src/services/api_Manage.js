@@ -80,6 +80,44 @@ export const uploadRegionBudget = async (file) => {
 };
 
 /**
+ * Select a scenario plan for use (saves to F8_draft_scenario table)
+ * @param {Object} payload - Scenario selection data
+ * @param {string} payload.employee_id - Employee ID (e.g., "700001")
+ * @param {string} payload.scenario_name - Name of the selected scenario
+ * @param {number} payload.year - Year for the scenario
+ * @returns {Promise<Object>} Selection confirmation
+ */
+export const selectScenarioD = async (payload) => {
+  try {
+    const response = await axios.post(`${API_URL}/select_scenario_draft`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Select Scenario Draft API Error:", error);
+    throw error;
+  }
+};
+
+/**
+ * Get all selected draft scenario from F8_draft_scenario table
+ * @returns {Promise<Array>} List of selected scenarios
+ */
+export const getSelectedScenarioD = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/get_selected_scenario_draft`, {
+      timeout: 5000
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Get Selected Draft Scenario API Error:", error);
+    throw error;
+  }
+};
+
+/**
  * Select a scenario plan for use (saves to F8_scenario_selections)
  * @param {Object} payload - Scenario selection data
  * @param {string} payload.employee_id - Employee ID (e.g., "700001")
@@ -96,7 +134,7 @@ export const selectScenarioF = async (payload) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Select Scenario Plan API Error:", error);
+    console.error("Select Scenario Final API Error:", error);
     throw error;
   }
 };
