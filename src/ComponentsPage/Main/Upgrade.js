@@ -492,6 +492,9 @@ const Upgrade = () => {
                         Download
                     </button>
                 </div>
+            <div className="remark">
+              <p>ไม่สามารถปรับปรุงการตัดมากกว่า 2 ครั้งได้ในระบบ TonmAI โดยจะต้องไปทำการเปลี่ยนเป็นรายปีและเลือกเป็น 3 ครั้งในระบบ MJM </p>
+            </div>
             <PlanUpgradeTable
               data={editableTableData}
               onUpdate={handleUpdateRow}

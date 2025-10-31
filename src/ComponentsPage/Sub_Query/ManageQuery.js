@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable } from "../../services/api_Manage.js";
-import { getSelectedScenarios } from "../../services/api_Scenario.js";
+import { getSelectedScenarioF } from "../../services/api_Scenario.js";
 
 export const useCorridorPlan = (scenario_name, aoj_code) => {
   return useQuery({
@@ -40,9 +40,9 @@ export const useRegionBudgetTable = (budget_year) => {
   });
 };
 
-export const useSelectedScenarios = () => {
+export const useSelectedScenarioF = () => {
   return useQuery({
-    queryKey: ["selectedScenarios"],
-    queryFn: () => getSelectedScenarios(),
+    queryKey: ["showSelectedScenarioF"],
+    queryFn: () => getSelectedScenarioF(),
   });
 };

@@ -124,7 +124,7 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                 จำนวนลูกค้าที่ได้รับผลกระทบ {renderSortArrow("customer")}
               </th>
               <th onClick={() => handleSort("frequency")}>
-                ความถี่ในการตัด {renderSortArrow("frequency")}
+               จำนวนครั้งในการตัด (รายครั้ง) {renderSortArrow("frequency")}
               </th>
               <th onClick={() => handleSort("upgrade")}>
                 ประสงค์ขอเพิ่มความถี่ {renderSortArrow("upgrade")}
