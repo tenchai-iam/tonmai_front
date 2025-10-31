@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable } from "../../services/api_Manage.js";
-import { getSelectedScenarioF } from "../../services/api_Scenario.js";
+import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable, getSelectedScenarioF } from "../../services/api_Manage.js";
 
 export const useCorridorPlan = (scenario_name, aoj_code) => {
   return useQuery({

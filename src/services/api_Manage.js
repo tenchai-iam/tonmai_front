@@ -78,3 +78,41 @@ export const uploadRegionBudget = async (file) => {
   );
   return response.data;
 };
+
+/**
+ * Select a scenario plan for use (saves to F8_scenario_selections)
+ * @param {Object} payload - Scenario selection data
+ * @param {string} payload.employee_id - Employee ID (e.g., "700001")
+ * @param {string} payload.scenario_name - Name of the selected scenario
+ * @param {number} payload.year - Year for the scenario
+ * @returns {Promise<Object>} Selection confirmation
+ */
+export const selectScenarioF = async (payload) => {
+  try {
+    const response = await axios.post(`${API_URL}/select_scenario_final`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Select Scenario Plan API Error:", error);
+    throw error;
+  }
+};
+
+/**
+ * Get all selected scenarios from F8_scenario_selections table
+ * @returns {Promise<Array>} List of selected scenarios
+ */
+export const getSelectedScenarioF = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/get_selected_scenario_final`, {
+      timeout: 5000
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Get Selected Final Scenario API Error:", error);
+    throw error;
+  }
+};
