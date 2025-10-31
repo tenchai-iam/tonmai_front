@@ -28,6 +28,7 @@ export const useRegionBudgetSummary = (budget_year) => {
   return useQuery({
     queryKey: ["regionBudgetSummary", budget_year],
     queryFn: () => getRegionBudgetSummary(budget_year),
+    enabled: Boolean(budget_year)
   });
 };
 
@@ -35,6 +36,7 @@ export const useRegionBudgetTable = (budget_year) => {
   return useQuery({
     queryKey: ["regionBudgetTable", budget_year],
     queryFn: () => getRegionBudgetSummaryTable(budget_year),
+    enabled: Boolean(budget_year)
   });
 };
 
