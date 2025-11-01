@@ -205,35 +205,39 @@ const Upgrade = () => {
       selectedDraftEditableScenario,
       selectedAoj
     );
-  
-    const dataCorridorPlan =
-      corridorPlan?.map((item) => ({
-        year: item.year,
-        scenarioName: item.scenario_name,
-        district: item.aoj_region,
-        code: item.aoj_code,
-        name: item.aoj_name,
-        feeder: item.feeder_id,
-        corridor: item.nearest_upstream_device,
-        length: item.corridor_length_km,
-        device: item.device_type,
-        outage: item.probability_of_outage_bins,
-        customer: item.customers_affected_adjusted_bins,
-        frequency: item.frequency_number,
-        upgrade: item.upgrade,
-        reason: item.reason
-      })) || [];
 
   // State for editable table data
     const [editableTableData, setEditableTableData] = useState([]);
     const [modifiedRows, setModifiedRows] = useState(new Map());
     const [isSaving, setIsSaving] = useState(false);
 
-    // Initialize editable data when dataCorridorPlan changes
+    // Initialize editable data when corridorPlan changes (use the raw data, not the mapped version)
     useEffect(() => {
-      setEditableTableData(dataCorridorPlan);
-      setModifiedRows(new Map()); // Reset modified rows when data changes
-    }, [dataCorridorPlan]);
+      if (corridorPlan && corridorPlan.length > 0) {
+        const mappedData = corridorPlan.map((item) => ({
+          year: item.year,
+          scenarioName: item.scenario_name,
+          district: item.aoj_region,
+          code: item.aoj_code,
+          name: item.aoj_name,
+          feeder: item.feeder_id,
+          corridor: item.nearest_upstream_device,
+          length: item.corridor_length_km,
+          device: item.device_type,
+          outage: item.probability_of_outage_bins,
+          customer: item.customers_affected_adjusted_bins,
+          frequency: item.frequency_number,
+          upgrade: item.upgrade,
+          reason: item.reason
+        }));
+        setEditableTableData(mappedData);
+        setModifiedRows(new Map()); // Reset modified rows when data changes
+      } else {
+        // Clear table if no data
+        setEditableTableData([]);
+        setModifiedRows(new Map());
+      }
+    }, [corridorPlan]);
 
     // Handler to update table row data
     const handleUpdateRow = (row, updatedFields) => {
@@ -341,12 +345,12 @@ const Upgrade = () => {
         { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
         { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
       ];
-  
+
       downloadTable({
-        data: dataCorridorPlan,
+        data: editableTableData,
         headers: headers,
         fileName: "Corridor_Data",
-        title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario} สำหรับ ${selectedAoj}`,
+        title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDraftEditableScenario} สำหรับ ${selectedAoj}`,
         extraInfoRows: [],
       });
     };
