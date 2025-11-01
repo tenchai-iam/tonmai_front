@@ -158,7 +158,7 @@ export const getSelectedScenarioF = async () => {
 export const postEditableTrue = async (year) => {
   const body = year ? { year } : {};
   const response = await axios.post(
-    `${API_URL}/api/enable_scenario_edit`,
+    `${API_URL}/enable_scenario_edit`,
     body,
     { timeout: 5000 }
   );
@@ -168,7 +168,7 @@ export const postEditableTrue = async (year) => {
 export const postEditableFalse = async (year) => {
   const body = year ? { year } : {};
   const response = await axios.post(
-    `${API_URL}/api/disable_scenario_edit`,
+    `${API_URL}/disable_scenario_edit`,
     body,
     { timeout: 5000 }
   );

@@ -142,6 +142,7 @@ const Manage = () => {
       selectedYear: item.selected_for_year,
       selectedAt: item.selected_at,
       employeeId: item.employee_id,
+      editable: item.editable
     })) || [];
 
 

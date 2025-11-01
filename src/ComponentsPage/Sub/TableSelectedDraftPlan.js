@@ -53,6 +53,19 @@ const SelectedPlanTable = ({ data }) => {
     });
   };
 
+  const renderEditableStatus = (editable) => {
+    const isEditable = editable === true || editable === 1 || editable === "true";
+    return (
+      <span style={{
+        fontSize: "20px",
+        fontWeight: "bold",
+        color: isEditable ? "#28a745" : "#dc3545"
+      }}>
+        {isEditable ? "✓" : "✗"}
+      </span>
+    );
+  };
+
   return (
     <div className="table-container">
       <div className="table-wrapper">
@@ -87,7 +100,7 @@ const SelectedPlanTable = ({ data }) => {
                 <td>{row.selectedYear}</td>
                 <td>{formatDate(row.selectedAt)}</td>
                 <td>{row.employeeId}</td>
-                <td>{row.editable}</td>
+                <td>{renderEditableStatus(row.editable)}</td>
               </tr>
             ))}
           </tbody>
