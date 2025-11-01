@@ -49,17 +49,20 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
     return "";
   };
 
-  const handleEdit = (index, row) => {
-    setEditingIndex(index);
+  const handleEdit = (row) => {
+    // Use unique identifier instead of index
+    const rowId = `${row.feeder}-${row.corridor}`;
+    setEditingIndex(rowId);
     setEditedData({
       upgrade: row.upgrade,
       reason: row.reason,
     });
   };
 
-  const handleSave = (index) => {
+  const handleSave = (row) => {
     if (onUpdate) {
-      onUpdate(index, editedData);
+      // Pass the row itself instead of index
+      onUpdate(row, editedData);
     }
     setEditingIndex(null);
     setEditedData({});
@@ -136,10 +139,11 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedData.map((row, index) => {
-              const isEditing = editingIndex === index;
+            {sortedData.map((row) => {
+              const rowId = `${row.feeder}-${row.corridor}`;
+              const isEditing = editingIndex === rowId;
               return (
-                <tr key={index}>
+                <tr key={rowId}>
                   <td>{row.year}</td>
                   <td>{row.scenarioName}</td>
                   <td>{row.district}</td>
@@ -179,7 +183,7 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                     {isEditing ? (
                       <>
                         <button
-                          onClick={() => handleSave(index)}
+                          onClick={() => handleSave(row)}
                           style={{ marginRight: "5px" }}
                         >
                           บันทึก
@@ -187,7 +191,7 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                         <button onClick={handleCancel}>ยกเลิก</button>
                       </>
                     ) : (
-                      <button onClick={() => handleEdit(index, row)}>
+                      <button onClick={() => handleEdit(row)}>
                         แก้ไข
                       </button>
                     )}

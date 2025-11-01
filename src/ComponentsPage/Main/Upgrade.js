@@ -226,34 +226,40 @@ const Upgrade = () => {
 
   // State for editable table data
     const [editableTableData, setEditableTableData] = useState([]);
-    const [modifiedRows, setModifiedRows] = useState(new Set());
+    const [modifiedRows, setModifiedRows] = useState(new Map());
     const [isSaving, setIsSaving] = useState(false);
 
     // Initialize editable data when dataCorridorPlan changes
     useEffect(() => {
       setEditableTableData(dataCorridorPlan);
-      setModifiedRows(new Set()); // Reset modified rows when data changes
+      setModifiedRows(new Map()); // Reset modified rows when data changes
     }, [dataCorridorPlan]);
 
     // Handler to update table row data
-    const handleUpdateRow = (index, updatedFields) => {
+    const handleUpdateRow = (row, updatedFields) => {
+      const rowId = `${row.feeder}-${row.corridor}`;
+
       setEditableTableData((prevData) => {
-        const newData = [...prevData];
-        newData[index] = {
-          ...newData[index],
-          ...updatedFields,
-        };
+        const newData = prevData.map((item) => {
+          if (item.feeder === row.feeder && item.corridor === row.corridor) {
+            return {
+              ...item,
+              ...updatedFields,
+            };
+          }
+          return item;
+        });
         return newData;
       });
 
-      // Track which rows have been modified
+      // Track which rows have been modified using Map
       setModifiedRows((prev) => {
-        const newSet = new Set(prev);
-        newSet.add(index);
-        return newSet;
+        const newMap = new Map(prev);
+        newMap.set(rowId, { ...row, ...updatedFields });
+        return newMap;
       });
 
-      console.log("Updated row", index, "with:", updatedFields);
+      console.log("Updated row", rowId, "with:", updatedFields);
     };
 
     // Handler to batch save all modified rows
@@ -276,19 +282,25 @@ const Upgrade = () => {
 
       try {
         // Prepare batch update payload from modified rows
-        const updates = Array.from(modifiedRows).map((index) => {
-          const row = editableTableData[index];
+        const updates = Array.from(modifiedRows.values()).map((row) => {
+          // Convert boolean upgrade to number if needed
+          let upgradeValue = row.upgrade;
+          if (typeof row.upgrade === 'boolean') {
+            upgradeValue = row.upgrade ? 1 : 0;
+          }
+
           return {
             scenario_name: row.scenarioName,
             feeder_id: row.feeder,
             nearest_upstream_device: row.corridor,
-            upgrade: row.upgrade,
+            upgrade: upgradeValue,
             reason: row.reason || ""
           };
         });
 
         const payload = { updates };
 
+        console.log("Sending batch update:", payload);
         const response = await batchUpdateCorridorUpgrade(payload);
 
         alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
@@ -298,7 +310,7 @@ const Upgrade = () => {
         queryClient.invalidateQueries(["corridorPlan", selectedDraftEditableScenario, selectedAoj]);
 
         // Clear modified rows tracking
-        setModifiedRows(new Set());
+        setModifiedRows(new Map());
 
       } catch (err) {
         console.error("Batch save failed:", err);
