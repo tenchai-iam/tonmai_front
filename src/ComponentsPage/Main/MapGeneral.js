@@ -9,7 +9,7 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
-  useSelectedScenarioOption,
+  useDraftScenarioOption,
   useDistrictOption,
   useAojOption,
   useAuthorizedAojOption,
@@ -44,7 +44,7 @@ const MapG = () => {
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
 
-  const { data: scenarioOption } = useSelectedScenarioOption();
+  const { data: scenarioOption } = useDraftScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 

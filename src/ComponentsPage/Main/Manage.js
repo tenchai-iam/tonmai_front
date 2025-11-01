@@ -165,7 +165,7 @@ const Manage = () => {
           {/* EXISTING SELECTED DRAFT SCENARIO SECTION */}
           <div className="draft-selected-plan-container">
             <div className="container-title">แผน Draft ที่ส่งให้ กฟข.</div>
-            <SelectedDraftPlanTable data={dataSelectedScenarioF} />
+            <SelectedDraftPlanTable data={dataSelectedScenarioD} />
           </div>
           {/* DRAFT SCENARIO SELECTION SECTION */}
           <div className="draft-plan-selection-container">
@@ -214,7 +214,7 @@ const Manage = () => {
               <div className="input-close-year">
                 <label>เลือกปีของแผน</label>
                 <select
-                  value={selectedYearD}
+                  value={selectedYearE}
                   onChange={handleYearESelect}
                   className="border rounded-lg px-4 py-2"
                 >

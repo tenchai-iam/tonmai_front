@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getDistricts,
   getScenarios,
-  getSelectedScenarios,
+  getDraftScenarios,
+  getDraftEditableScenarios,
   getAojs,
   getAuthorizedAojs,
   getFeeders,
@@ -24,10 +25,17 @@ export const useScenarioOption = () => {
   });
 };
 
-export const useSelectedScenarioOption = () => {
+export const useDraftScenarioOption = () => {
   return useQuery({
-    queryKey: ["selectedScenarioOption"],
-    queryFn: () => getSelectedScenarios(),
+    queryKey: ["draftScenarioOption"],
+    queryFn: () => getDraftScenarios(),
+  });
+};
+
+export const useDraftEditableScenarioOption = () => {
+  return useQuery({
+    queryKey: ["draftEditableScenarioOption"],
+    queryFn: () => getDraftEditableScenarios(),
   });
 };
 

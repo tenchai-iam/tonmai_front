@@ -12,7 +12,8 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
-  useSelectedScenarioOption,
+  useDraftScenarioOption,
+  useDraftEditableScenarioOption,
   useDistrictOption,
   useAojOption,
   useAuthorizedAojOption,
@@ -54,7 +55,7 @@ const Upgrade = () => {
   const [selectedScenario, setSelected1Scenario] = useState("20251028_v22_regional_optimization_2569_TEST1");
   const handleScenarioSelect = (e) => setSelectedScenario(e.target.value);
 
-  const { data: scenarioOption } = useSelectedScenarioOption();
+  const { data: scenarioOption } = useDraftScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
