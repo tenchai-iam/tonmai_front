@@ -239,16 +239,20 @@ const Upgrade = () => {
     const handleUpdateRow = (row, updatedFields) => {
       const rowId = `${row.feeder}-${row.corridor}`;
 
+      // Update the data state
       setEditableTableData((prevData) => {
         const newData = prevData.map((item) => {
           if (item.feeder === row.feeder && item.corridor === row.corridor) {
-            return {
+            const updatedItem = {
               ...item,
               ...updatedFields,
             };
+            console.log("Updating row:", item.feeder, item.corridor, "with:", updatedFields, "result:", updatedItem);
+            return updatedItem;
           }
           return item;
         });
+        console.log("New data array:", newData);
         return newData;
       });
 
@@ -260,6 +264,9 @@ const Upgrade = () => {
       });
 
       console.log("Updated row", rowId, "with:", updatedFields);
+
+      // Return a promise to allow waiting for completion
+      return Promise.resolve();
     };
 
     // Handler to batch save all modified rows

@@ -16,6 +16,8 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedData, setEditedData] = useState({});
 
+  console.log("PlanUpgradeTable received data:", data.length, "rows");
+
   const sortedData = [...data].sort((a, b) => {
     if (sortConfig.key) {
       const aValue = a[sortConfig.key];
@@ -164,7 +166,7 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                         onChange={handleUpgradeChange}
                       />
                     ) : (
-                      <span>{row.upgrade ? "✓" : "✗"}</span>
+                      <span title={`upgrade value: ${row.upgrade}`}>{row.upgrade ? "✓" : "✗"}</span>
                     )}
                   </td>
                   <td>
