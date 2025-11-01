@@ -133,6 +133,54 @@ const Manage = () => {
     }
   };
 
+  // Handler for enabling scenario edit
+  const handleEnableEdit = async () => {
+    if (!selectedYearE) {
+      alert("กรุณาเลือกปีของแผน");
+      return;
+    }
+
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearE);
+    const gregorianYear = buddhistYear - 543;
+
+    try {
+      const response = await postEditableTrue(gregorianYear);
+      alert(`เปิดระบบปรับปรุงสำเร็จสำหรับปี ${selectedYearE}`);
+      console.log("Enable Edit Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+    } catch (err) {
+      console.error("Enable edit failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเปิดระบบปรับปรุง");
+    }
+  };
+
+  // Handler for disabling scenario edit
+  const handleDisableEdit = async () => {
+    if (!selectedYearE) {
+      alert("กรุณาเลือกปีของแผน");
+      return;
+    }
+
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearE);
+    const gregorianYear = buddhistYear - 543;
+
+    try {
+      const response = await postEditableFalse(gregorianYear);
+      alert(`ปิดระบบปรับปรุงสำเร็จสำหรับปี ${selectedYearE}`);
+      console.log("Disable Edit Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+    } catch (err) {
+      console.error("Disable edit failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างปิดระบบปรับปรุง");
+    }
+  };
+
   const { data: showSelectedScenarioD } = useSelectedScenarioD();
 
   const dataSelectedScenarioD =
@@ -229,10 +277,10 @@ const Manage = () => {
               </div>
               <div className="open-close-container">
                 <div className="open-container">
-                  <button onClick={() => postEditableTrue(selectedYearE)}>เปิด</button>
+                  <button onClick={handleEnableEdit}>เปิด</button>
                 </div>
                 <div className="close-container">
-                  <button onClick={() => postEditableFalse(selectedYearE)}>ปิด</button>
+                  <button onClick={handleDisableEdit}>ปิด</button>
                 </div>
               </div>
           </div>

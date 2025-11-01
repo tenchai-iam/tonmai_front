@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
@@ -48,14 +49,21 @@ import "../../ComponentsStyles/Upgrade.css";
 import "../../ComponentsStyles/Map.css";
 
 const Upgrade = () => {
+  const queryClient = useQueryClient();
+  
   const [lineData, setLineData] = useState([]);
 
   const sessionPEACode = sessionStorage.getItem("pea_code");
 
-  const [selectedScenario, setSelected1Scenario] = useState("20251028_v22_regional_optimization_2569_TEST1");
-  const handleScenarioSelect = (e) => setSelectedScenario(e.target.value);
+  const { data: scenarioDraftOption } = useDraftScenarioOption();
 
-  const { data: scenarioOption } = useDraftScenarioOption();
+  const [selectedDraftScenario, setSelectedDraftScenario] = useState("");
+  const handleDraftScenarioSelect = (e) => setSelectedDraftScenario(e.target.value);
+
+  const { data: scenarioDraftEditableOption } = useDraftEditableScenarioOption();
+
+  const [selectedDraftEditableScenario, setSelectedDraftEditableScenario] = useState("");
+  const handleDraftEditableScenarioSelect = (e) => setSelectedDraftEditableScenario(e.target.value);
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
@@ -63,19 +71,11 @@ const Upgrade = () => {
     setSelectedDistrict(event.target.value);
   };
 
-  const [selectedDistrict2, setSelectedDistrict2] = useState("");
-
-  const handleChangeDistrict2 = (event) => {
-    setSelectedDistrict2(event.target.value);
-  };
-
   const [selectedAoj, setSelectedAoj] = useState("1103101");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
   };
-
-  const [selectedAoj2, setSelectedAoj2] = useState("");
 
   const [selectedFeeder, setSelectedFeeder] = useState([]);
 
@@ -107,14 +107,6 @@ const Upgrade = () => {
 
   const { data: districtOption } = useDistrictOption();
 
-  const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
-
-  const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
-
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
     useAuthorizedAojOption(sessionPEACode);
 
@@ -131,26 +123,10 @@ const Upgrade = () => {
     label: option["feeder_id"],
   }));
 
-  const { data: aojOption2, isLoadingAojOption2 } =
-    useAojOption(selectedDistrict2);
-
-  const aojOptionFormatted2 = aojOption2?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
-
-  const { data: authorizedAojOption2, isLoadingAuthorizedAojOption2 } =
-    useAuthorizedAojOption(sessionPEACode);
-
-  const authorizedAojOptionFormatted2 = authorizedAojOption2?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
-
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
-    selectedScenario,
+    selectedDraftScenario,
     selectedFeeder,
     selectedAoj
   );
@@ -198,24 +174,6 @@ const Upgrade = () => {
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
-  const [selectedScenario2, setSelected2Scenario] = useState("");
-  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
-
-  const { data: planSummary } = usePlanSummaryQuery(
-    selectedScenario
-    // selectedDistrict,
-    // selectedAoj,
-    // selectedFeeder
-  );
-
-  const dataPlanSummary = [
-    {
-      // aojCount: Number(planSummary?.aoj_count || 0), // raw count
-      cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary?.total_risk || 0), // in millions
-    },
-  ];
-
   // Fetch regional budget graph data from API
   const { data: regionBudgetGraph } = useRegionBudgetGraph();
 
@@ -242,7 +200,7 @@ const Upgrade = () => {
     })) || [];
 
     const { data: corridorPlan } = useCorridorPlan(
-      selectedScenario,
+      selectedDraftEditableScenario,
       selectedAoj
     );
   
@@ -320,12 +278,12 @@ const Upgrade = () => {
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
             <select
-              value={selectedScenario}
-              onChange={handleScenarioSelect}
+              value={selectedDraftScenario}
+              onChange={handleDraftScenarioSelect}
               className="border rounded-lg px-4 py-2"
             >
               <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-              {scenarioOption?.map((option) => (
+              {scenarioDraftOption?.map((option) => (
                 <option key={option.scenario_name} value={option.scenario_name}>
                   {option.scenario_name}
                 </option>
@@ -485,14 +443,30 @@ const Upgrade = () => {
                 </div>
         </div>
         <div className="summary-container">
-                <div className="download-end-button">
-                    <button
-                        // onClick={handleDataCorridorPlan}
-                        className={`download-button-style${false ? " selected" : ""}`}
-                    >
-                        Download
-                    </button>
-                </div>
+          <div className="dropdown-dropdown-container">
+            <div className="dropdowngroup-container">
+                  <select
+                    value={selectedDraftEditableScenario}
+                    onChange={handleDraftEditableScenarioSelect}
+                    className="border rounded-lg px-4 py-2"
+                  >
+                    <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                    {scenarioDraftEditableOption?.map((option) => (
+                      <option key={option.scenario_name} value={option.scenario_name}>
+                        {option.scenario_name}
+                      </option>
+                    ))}
+                  </select>
+            </div>
+            <div className="download-end-button">
+                  <button
+                    // onClick={handleDataCorridorPlan}
+                    className={`download-button-style${false ? " selected" : ""}`}
+                  >
+                    Download
+                  </button>
+            </div>
+          </div>
             <div className="remark">
               <p>ไม่สามารถปรับปรุงการตัดมากกว่า 2 ครั้งได้ในระบบ TonmAI โดยจะต้องไปทำการเปลี่ยนเป็นรายปีและเลือกเป็น 3 ครั้งในระบบ MJM </p>
             </div>
