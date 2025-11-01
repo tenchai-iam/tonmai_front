@@ -154,3 +154,23 @@ export const getSelectedScenarioF = async () => {
     throw error;
   }
 };
+
+export const postEditableTrue = async (year) => {
+  const body = year ? { year } : {};
+  const response = await axios.post(
+    `${API_URL}/api/enable_scenario_edit`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};
+
+export const postEditableFalse = async (year) => {
+  const body = year ? { year } : {};
+  const response = await axios.post(
+    `${API_URL}/api/disable_scenario_edit`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};

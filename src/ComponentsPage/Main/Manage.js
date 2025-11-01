@@ -23,6 +23,8 @@ import {
 import {
   selectScenarioD,
   selectScenarioF,
+  postEditableTrue,
+  postEditableFalse
 } from "../../services/api_Manage.js";
 
 import "../../ComponentsStyles/Dashboard.css";
@@ -52,6 +54,9 @@ const Manage = () => {
   const handleYearFSelect = (e) => setSelectedYearF(e.target.value);
 
   const [SelectingScenarioF, setIsSelectingScenarioF] = useState(false);
+
+  const [selectedYearE, setSelectedYearE] = useState("");
+  const handleYearESelect = (e) => setSelectedYearE(e.target.value);
 
   // Updated: Draft Plan selection submit handler
   const handleScenarioDSubmit = async () => {
@@ -210,7 +215,7 @@ const Manage = () => {
                 <label>เลือกปีของแผน</label>
                 <select
                   value={selectedYearD}
-                  onChange={handleYearDSelect}
+                  onChange={handleYearESelect}
                   className="border rounded-lg px-4 py-2"
                 >
                   <option value=""></option>
@@ -223,10 +228,10 @@ const Manage = () => {
               </div>
               <div className="open-close-container">
                 <div className="open-container">
-                  <button onClick={handleScenarioDSubmit}>เปิด</button>
+                  <button onClick={() => postEditableTrue(selectedYearE)}>เปิด</button>
                 </div>
                 <div className="close-container">
-                  <button onClick={handleScenarioDSubmit}>ปิด</button>
+                  <button onClick={() => postEditableFalse(selectedYearE)}>ปิด</button>
                 </div>
               </div>
           </div>
