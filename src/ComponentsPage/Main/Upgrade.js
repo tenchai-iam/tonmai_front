@@ -38,6 +38,8 @@ import {
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
 
+import { batchUpdateCorridorUpgrade } from "../../services/api_Upgrade.js";
+
 import {
   formatValue,
   formatUnit,
@@ -224,10 +226,13 @@ const Upgrade = () => {
 
   // State for editable table data
     const [editableTableData, setEditableTableData] = useState([]);
+    const [modifiedRows, setModifiedRows] = useState(new Set());
+    const [isSaving, setIsSaving] = useState(false);
 
     // Initialize editable data when dataCorridorPlan changes
     useEffect(() => {
       setEditableTableData(dataCorridorPlan);
+      setModifiedRows(new Set()); // Reset modified rows when data changes
     }, [dataCorridorPlan]);
 
     // Handler to update table row data
@@ -241,9 +246,66 @@ const Upgrade = () => {
         return newData;
       });
 
-      // Optional: Call API to save the changes
-      // You can add API call here if needed
+      // Track which rows have been modified
+      setModifiedRows((prev) => {
+        const newSet = new Set(prev);
+        newSet.add(index);
+        return newSet;
+      });
+
       console.log("Updated row", index, "with:", updatedFields);
+    };
+
+    // Handler to batch save all modified rows
+    const handleBatchSave = async () => {
+      if (modifiedRows.size === 0) {
+        alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
+        return;
+      }
+
+      // Confirm before saving
+      const confirmSave = window.confirm(
+        `คุณต้องการบันทึกการเปลี่ยนแปลง ${modifiedRows.size} รายการหรือไม่?`
+      );
+
+      if (!confirmSave) {
+        return;
+      }
+
+      setIsSaving(true);
+
+      try {
+        // Prepare batch update payload from modified rows
+        const updates = Array.from(modifiedRows).map((index) => {
+          const row = editableTableData[index];
+          return {
+            scenario_name: row.scenarioName,
+            feeder_id: row.feeder,
+            nearest_upstream_device: row.corridor,
+            upgrade: row.upgrade,
+            reason: row.reason || ""
+          };
+        });
+
+        const payload = { updates };
+
+        const response = await batchUpdateCorridorUpgrade(payload);
+
+        alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
+        console.log("Batch Update Response:", response);
+
+        // Refresh the corridor plan data
+        queryClient.invalidateQueries(["corridorPlan", selectedDraftEditableScenario, selectedAoj]);
+
+        // Clear modified rows tracking
+        setModifiedRows(new Set());
+
+      } catch (err) {
+        console.error("Batch save failed:", err);
+        alert("เกิดข้อผิดพลาดระหว่างบันทึกข้อมูล");
+      } finally {
+        setIsSaving(false);
+      }
     };
   
     const handleDataCorridorPlan = () => {
@@ -459,6 +521,13 @@ const Upgrade = () => {
                   </select>
             </div>
             <div className="download-end-button">
+                  <button
+                    onClick={handleBatchSave}
+                    disabled={isSaving || modifiedRows.size === 0}
+                    className={`download-button-style${modifiedRows.size > 0 ? " selected" : ""}`}
+                  >
+                    {isSaving ? "กำลังบันทึก..." : `บันทึกการเปลี่ยนแปลง${modifiedRows.size > 0 ? ` (${modifiedRows.size})` : ""}`}
+                  </button>
                   <button
                     // onClick={handleDataCorridorPlan}
                     className={`download-button-style${false ? " selected" : ""}`}
