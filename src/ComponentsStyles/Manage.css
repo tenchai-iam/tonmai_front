@@ -1,3 +1,44 @@
+.scenarios-delete-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+  /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+
+.delete-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  gap: 20px;
+  padding: 20px;
+  font-size: 0.8rem;
+}
+
+.confirm-delete-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.confirm-delete-container button {
+  background-color: #D92C54;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
 .confirm-draft-container {
   display: flex; /* Use Flexbox for layout */
   align-items: center; /* Align items vertically */
@@ -99,14 +140,6 @@
   box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.create-select-de-container {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  box-sizing: border-box; /* Ensure padding is included in width */
-  width: 100%;
-}
-
 .input-container {
   display: flex;
   flex-direction: column;
@@ -129,14 +162,13 @@
   width: 100%;
 }
 
-.show-select-delete-container {
+.show-select-toggle-container {
   display: flex;
   flex-direction: row;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
   width: 100%;
 }
-
 
 .draft-selected-plan-container {
   display: flex;
@@ -164,7 +196,7 @@
     /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.delete-container {
+.toggle-container {
   display: flex;
   flex-direction: column;
   flex: 1 1 15%;
@@ -175,6 +207,14 @@
   background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
   box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
     /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.show-select-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
 }
 
 .selected-plan-container {
@@ -189,7 +229,6 @@
   box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
     /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 .plan-selection-container {
   display: flex;

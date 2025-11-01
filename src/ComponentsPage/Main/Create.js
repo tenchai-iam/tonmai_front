@@ -382,14 +382,6 @@ const Create = () => {
       <NavbarComponent />
       <div className="header-container">สร้างแผน</div>
       <div className="main-container">
-        <div className="remark">
-          <p>หมายเหตุ</p>
-          <p>
-            SAIFI = Number of Customer Interruptions
-            (จำนวนลูกค้าที่คาดว่าจะกระทบกับไฟฟ้าดับ) / Total Number of Customers
-            (จำนวนลูกค้าทั้งหมด)
-          </p>
-        </div>
         <div className="container-title">สร้างแผนโดยกระจายงบประมาณแบบ Global</div>
         <div className="create-select-plan-container">
           {/* RISK SCENARIO SECTION */}

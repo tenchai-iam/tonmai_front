@@ -174,3 +174,13 @@ export const postEditableFalse = async (year) => {
   );
   return response.data; // Return the data received from the API
 };
+
+export const deleteScenario = async (scenario_name) => {
+  const body = scenario_name ? { scenario_name } : {};
+  const response = await axios.post(
+    `${API_URL}/api/delete_scenario_data`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};

@@ -24,7 +24,8 @@ import {
   selectScenarioD,
   selectScenarioF,
   postEditableTrue,
-  postEditableFalse
+  postEditableFalse,
+  deleteScenario
 } from "../../services/api_Manage.js";
 
 import "../../ComponentsStyles/Dashboard.css";
@@ -32,6 +33,9 @@ import "../../ComponentsStyles/Manage.css";
 
 const Manage = () => {
   const queryClient = useQueryClient();
+
+    const [selectedScenarioDel, setSelectedScenarioDel] = useState("");
+  const handleScenarioDelSelect = (e) => setSelectedScenarioDel(e.target.value);
 
   const [selectedScenarioD, setSelectedScenarioD] = useState("");
   const handleScenarioDSelect = (e) => setSelectedScenarioD(e.target.value);
@@ -181,6 +185,40 @@ const Manage = () => {
     }
   };
 
+  // Handler for deleting scenario
+  const handleDeleteScenario = async () => {
+    if (!selectedScenarioDel) {
+      alert("กรุณาเลือกแผนที่ต้องการลบ");
+      return;
+    }
+
+    // Confirm before deleting
+    const confirmDelete = window.confirm(
+      `คุณต้องการลบแผน "${selectedScenarioDel}" ออกจากฐานข้อมูลหรือไม่?`
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      const response = await deleteScenario(selectedScenarioDel);
+      alert(`ลบแผน "${selectedScenarioDel}" สำเร็จ`);
+      console.log("Delete Scenario Response:", response);
+
+      // Refresh scenario options and selected scenarios
+      queryClient.invalidateQueries(["scenarioOption"]);
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+      queryClient.invalidateQueries(["showSelectedScenarioF"]);
+
+      // Reset selection
+      setSelectedScenarioDel("");
+    } catch (err) {
+      console.error("Delete scenario failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างลบแผน");
+    }
+  };
+
   const { data: showSelectedScenarioD } = useSelectedScenarioD();
 
   const dataSelectedScenarioD =
@@ -210,7 +248,31 @@ const Manage = () => {
       <NavbarComponent />
       <div className="header-container">จัดการแผน</div>
       <div className="main-container">
-        <div className="show-select-delete-container">
+        <div className="scenarios-delete-container">
+          <div className="delete-container">
+              <div className="input-field">
+                <select
+                  value={selectedScenarioDel}
+                  onChange={handleScenarioDelSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="">เลือกแผนที่จะลบออกจากฐานข้อมูลทั่วไป</option>
+                  {scenarioOption?.map((option) => (
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="confirm-delete-container">
+                <button onClick={handleDeleteScenario}>ลบ</button>
+              </div>
+          </div>
+        </div>
+        <div className="show-select-toggle-container">
           {/* EXISTING SELECTED DRAFT SCENARIO SECTION */}
           <div className="draft-selected-plan-container">
             <div className="container-title">แผน Draft ที่ส่งให้ กฟข.</div>
@@ -258,7 +320,7 @@ const Manage = () => {
               <button onClick={handleScenarioDSubmit}>ยืนยัน แผน Draft</button>
             </div>
           </div>
-          <div className="delete-container">
+          <div className="toggle-container">
             การปรับปรุงแก้ไขจาก กฟข.
               <div className="input-close-year">
                 <label>เลือกปีของแผน</label>
@@ -285,7 +347,7 @@ const Manage = () => {
               </div>
           </div>
         </div>
-        <div className="show-select-delete-container">
+        <div className="show-select-container">
           {/* EXISTING SELECTED FINAL SCENARIO SECTION */}
           <div className="selected-plan-container">
             <div className="container-title">แผน Final ที่ส่งให้ MJM</div>
