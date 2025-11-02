@@ -38,7 +38,7 @@ import {
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
 
-import { batchUpdateCorridorUpgrade } from "../../services/api_Upgrade.js";
+import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList } from "../../services/api_Upgrade.js";
 
 import {
   formatValue,
@@ -314,8 +314,31 @@ const Upgrade = () => {
         console.log("Sending batch update:", payload);
         const response = await batchUpdateCorridorUpgrade(payload);
 
-        alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
         console.log("Batch Update Response:", response);
+
+        // Prepare insert upgrade corridor list payload
+        const employeeId = sessionStorage.getItem("user") || "700001";
+
+        const inserts = Array.from(modifiedRows.values()).map((row) => ({
+          nearest_upstream_device: row.corridor,
+          feeder_id_traced: row.feeder,
+          region: row.district,
+          aoj_code: row.code,
+          aoj_name: row.name,
+          frequency_number: row.frequency,
+          upgrade: row.upgrade,
+          reason: row.reason || "",
+          employee_id: employeeId
+        }));
+
+        const insertPayload = { inserts };
+
+        console.log("Sending insert upgrade corridor list:", insertPayload);
+        const insertResponse = await insertUpgradeCorridorList(insertPayload);
+
+        console.log("Insert Upgrade Corridor List Response:", insertResponse);
+
+        alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
 
         // Refresh the corridor plan data
         queryClient.invalidateQueries(["corridorPlan", selectedDraftEditableScenario, selectedAoj]);

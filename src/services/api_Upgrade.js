@@ -31,3 +31,37 @@ export const batchUpdateCorridorUpgrade = async (payload) => {
     throw error;
   }
 };
+
+/**
+ * Insert upgrade corridor list
+ * @param {Object} payload - Insert data
+ * @param {Array} payload.inserts - Array of corridor inserts
+ * @param {string} payload.inserts[].nearest_upstream_device - Nearest upstream device
+ * @param {string} payload.inserts[].feeder_id_traced - Feeder ID traced
+ * @param {string} payload.inserts[].region - Region
+ * @param {string} payload.inserts[].aoj_code - AOJ code
+ * @param {string} payload.inserts[].aoj_name - AOJ name
+ * @param {number} payload.inserts[].frequency_number - Frequency number
+ * @param {boolean} payload.inserts[].upgrade - Upgrade flag
+ * @param {string} payload.inserts[].reason - Reason for upgrade
+ * @param {string} payload.inserts[].employee_id - Employee ID
+ * @returns {Promise<Object>} Insert operation result with success status, message, counts, and errors
+ */
+export const insertUpgradeCorridorList = async (payload) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/insert_upgrade_corridor_list`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 30000, // 30 seconds for batch operations
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Insert Upgrade Corridor List API Error:", error);
+    throw error;
+  }
+};
