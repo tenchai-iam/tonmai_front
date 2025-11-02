@@ -4,6 +4,7 @@ import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphBudget from "../Sub/BarGraphBudget.js";
+import BarGraphV from "../Sub/BarGraphV.js";
 import RegionBudgetTable from "../Sub/TableRegionBudget.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
@@ -349,6 +350,15 @@ const Create = () => {
     },
   ];
 
+  // Dummy data for optimization metrics - separated by scale
+  const riskMetricsData = [
+    { metric: "Risk", baseline: 0.05, scenario1: 0.03, scenario2: 0.02 }
+  ];
+
+  const costMetricsData = [
+    { metric: "Cost", baseline: 100000, scenario1: 80000, scenario2: 75000 }
+  ];
+
   // Fetch regional budget graph data from API
   const { data: regionBudgetSummary } = useRegionBudgetSummary(selectedYearRegion);
 
@@ -382,6 +392,47 @@ const Create = () => {
       <NavbarComponent />
       <div className="header-container">สร้างแผน</div>
       <div className="main-container">
+        <div className="container-title">Model Optimization Metrics</div>
+        <div className="summary-container">
+          <div className="district-budget-graph">
+            Risk Metrics
+            <div className="bar-chart-legend">
+              <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
+              <span style={{ color: "#C69530" }}>⬤ Scenario 1</span>
+              <span style={{ color: "#4F1C51" }}>⬤ Scenario 2</span>
+            </div>
+            <BarGraphV
+              data={riskMetricsData}
+              xAxisKey="metric"
+              yLabel="Risk Value"
+              height={300}
+              barKeys={[
+                { dataKey: "baseline", fill: "#8B4513" },
+                { dataKey: "scenario1", fill: "#C69530" },
+                { dataKey: "scenario2", fill: "#4F1C51" }
+              ]}
+            />
+          </div>
+          <div className="district-budget-graph">
+            Cost Metrics
+            <div className="bar-chart-legend">
+              <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
+              <span style={{ color: "#C69530" }}>⬤ Scenario 1</span>
+              <span style={{ color: "#4F1C51" }}>⬤ Scenario 2</span>
+            </div>
+            <BarGraphV
+              data={costMetricsData}
+              xAxisKey="metric"
+              yLabel="Cost Value (THB)"
+              height={300}
+              barKeys={[
+                { dataKey: "baseline", fill: "#8B4513" },
+                { dataKey: "scenario1", fill: "#C69530" },
+                { dataKey: "scenario2", fill: "#4F1C51" }
+              ]}
+            />
+          </div>
+        </div>
         <div className="container-title">สร้างแผนโดยกระจายงบประมาณแบบ Global</div>
         <div className="create-select-plan-container">
           {/* RISK SCENARIO SECTION */}
