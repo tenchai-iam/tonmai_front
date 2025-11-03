@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getFeatures, getAUC, getROC } from "../../services/api_Model";
+import { getFeatures, getAUC, getROC, getOptimizationMetrics } from "../../services/api_Model";
 
 export const useFeatures = () => {
   return useQuery({
@@ -20,5 +20,12 @@ export const useROC = () => {
   return useQuery({
     queryKey: ["rocCurve"],
     queryFn: () => getROC(),
+  });
+};
+
+export const useOptimizationMetrics = () => {
+  return useQuery({
+    queryKey: ["optimizationMetrics"],
+    queryFn: () => getOptimizationMetrics(),
   });
 };

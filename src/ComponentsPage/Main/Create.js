@@ -12,6 +12,8 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 import File from "../../pic/File.svg";
 import UploadButton from "../../pic/Upload.svg";
 
+import { useOptimizationMetrics } from "../Sub_Query/ModelQuery.js";
+
 import {
   useDistrictOption,
   useScenarioOption,
@@ -27,8 +29,6 @@ import {
   useRegionBudgetSummary,
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
-
-import { planDummyOptions } from "../Sub_config/Options.js";
 
 import {
   createBudgetScenario,
@@ -350,14 +350,22 @@ const Create = () => {
     },
   ];
 
-  // Dummy data for optimization metrics - separated by scale
-  const riskMetricsData = [
-    { metric: "Risk", baseline: 0.05, scenario1: 0.03, scenario2: 0.02 }
-  ];
+  // Fetch optimization metrics from API
+  const { data: optimizationMetrics } = useOptimizationMetrics();
 
-  const costMetricsData = [
-    { metric: "Cost", baseline: 100000, scenario1: 80000, scenario2: 75000 }
-  ];
+  const riskMetricsData = optimizationMetrics?.filter(item => item.baseline_risk !== undefined).map(item => ({
+    metric: "Risk",
+    baseline: item.baseline_risk,
+    scenario1: item.scenario1_risk,
+    scenario2: item.scenario2_risk
+  })) || [{ metric: "Risk", baseline: 0, scenario1: 0, scenario2: 0 }];
+
+  const costMetricsData = optimizationMetrics?.filter(item => item.baseline_cost !== undefined).map(item => ({
+    metric: "Cost",
+    baseline: item.baseline_cost,
+    scenario1: item.scenario1_cost,
+    scenario2: item.scenario2_cost
+  })) || [{ metric: "Cost", baseline: 0, scenario1: 0, scenario2: 0 }];
 
   // Fetch regional budget graph data from API
   const { data: regionBudgetSummary } = useRegionBudgetSummary(selectedYearRegion);
@@ -393,7 +401,7 @@ const Create = () => {
       <div className="header-container">สร้างแผน</div>
       <div className="main-container">
         <div className="container-title">Model Optimization Metrics</div>
-        <div className="summary-container">
+        <div className="metrics-graph-container">
           <div className="district-budget-graph">
             Risk Metrics
             <div className="bar-chart-legend">
