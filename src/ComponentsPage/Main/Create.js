@@ -330,25 +330,25 @@ const Create = () => {
     }
   };
 
-  const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
+  // const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
 
-  const dataPlanSummary1 = [
-    {
-      // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
-      cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary1?.total_risk || 0), // in millions
-    },
-  ];
+  // const dataPlanSummary1 = [
+  //   {
+  //     // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
+  //     cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
+  //     risk: Number(planSummary1?.total_risk || 0), // in millions
+  //   },
+  // ];
 
-  const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
+  // const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
 
-  const dataPlanSummary2 = [
-    {
-      // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
-      cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary2?.total_risk || 0), // in millions
-    },
-  ];
+  // const dataPlanSummary2 = [
+  //   {
+  //     // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
+  //     cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
+  //     risk: Number(planSummary2?.total_risk || 0), // in millions
+  //   },
+  // ];
 
   // Fetch optimization metrics from API
   const { data: optimizationMetrics } = useOptimizationMetrics();
@@ -406,8 +406,8 @@ const Create = () => {
             Risk Metrics
             <div className="bar-chart-legend">
               <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
-              <span style={{ color: "#C69530" }}>⬤ Scenario 1</span>
-              <span style={{ color: "#4F1C51" }}>⬤ Scenario 2</span>
+              <span style={{ color: "#C69530" }}>⬤ Maximize reliability (same cost)</span>
+              <span style={{ color: "#4F1C51" }}>⬤ Minimize Cost (similar risk)</span>
             </div>
             <BarGraphV
               data={riskMetricsData}
@@ -415,9 +415,9 @@ const Create = () => {
               yLabel="Risk Value"
               height={300}
               barKeys={[
-                { dataKey: "baseline", fill: "#8B4513" },
-                { dataKey: "scenario1", fill: "#C69530" },
-                { dataKey: "scenario2", fill: "#4F1C51" }
+                { dataKey: "baseline", fill: "#8B4513", tooltipLabel: "Baseline" },
+                { dataKey: "scenario1", fill: "#C69530", tooltipLabel: "Maximize reliability (same cost)" },
+                { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
               ]}
             />
           </div>
@@ -425,8 +425,8 @@ const Create = () => {
             Cost Metrics
             <div className="bar-chart-legend">
               <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
-              <span style={{ color: "#C69530" }}>⬤ Scenario 1</span>
-              <span style={{ color: "#4F1C51" }}>⬤ Scenario 2</span>
+              <span style={{ color: "#C69530" }}>⬤ Maximize reliability (same cost)</span>
+              <span style={{ color: "#4F1C51" }}>⬤ Minimize Cost (similar risk)</span>
             </div>
             <BarGraphV
               data={costMetricsData}
@@ -434,9 +434,9 @@ const Create = () => {
               yLabel="Cost Value (THB)"
               height={300}
               barKeys={[
-                { dataKey: "baseline", fill: "#8B4513" },
-                { dataKey: "scenario1", fill: "#C69530" },
-                { dataKey: "scenario2", fill: "#4F1C51" }
+                { dataKey: "baseline", fill: "#8B4513", tooltipLabel: "Baseline" },
+                { dataKey: "scenario1", fill: "#C69530", tooltipLabel: "Maximize reliability (same cost)" },
+                { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
               ]}
             />
           </div>

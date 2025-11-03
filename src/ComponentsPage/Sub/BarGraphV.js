@@ -17,6 +17,31 @@ const formatValue = (value) =>
   }).format(value);
 
 const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys }) => {
+  // Custom tooltip formatter
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip" style={{
+          backgroundColor: 'white',
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '4px'
+        }}>
+          {payload.map((entry, index) => {
+            const barConfig = barKeys.find(bar => bar.dataKey === entry.dataKey);
+            const label = barConfig?.tooltipLabel || entry.dataKey;
+            return (
+              <p key={index} style={{ margin: '5px 0', color: entry.color }}>
+                <strong>{label}:</strong> {formatValue(entry.value)}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="bar-chart-container">
       {title && <h3 className="bar-chart-title">{title}</h3>}
@@ -47,7 +72,7 @@ const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys }) => {
               style: { fontSize: "0.8rem", fill: "#3e3e3e" },
             }}
           />
-          <Tooltip formatter={(value) => formatValue(value)} />
+          <Tooltip content={<CustomTooltip />} />
           {barKeys.map((bar) => (
             <Bar key={bar.dataKey} dataKey={bar.dataKey} fill={bar.fill}>
               <LabelList
