@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
@@ -176,8 +176,9 @@ const Map = () => {
     selectedAoj2
   );
 
-  const dataCorridorPlan =
-    corridorPlan?.map((item) => ({
+  const dataCorridorPlan = useMemo(
+    () =>
+      corridorPlan?.map((item) => ({
         year: item.year,
         scenarioName: item.scenario_name,
         district: item.aoj_region,
@@ -191,8 +192,10 @@ const Map = () => {
         customer: item.customers_affected_adjusted_bins,
         frequency: item.frequency_number,
         upgrade: item.upgrade,
-        reason: item.reason
-    })) || [];
+        reason: item.reason,
+      })) || [],
+    [corridorPlan]
+  );
 
   // State for editable table data
     const [editableTableData, setEditableTableData] = useState([]);
