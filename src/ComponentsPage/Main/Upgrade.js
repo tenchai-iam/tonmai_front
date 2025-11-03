@@ -177,7 +177,7 @@ const Upgrade = () => {
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
   // Fetch regional budget graph data from API
-  const { data: regionBudgetGraph } = useRegionBudgetGraph();
+  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedDraftScenario, selectedDistrict);
 
   const dataRegionalBudgetGraph =
     regionBudgetGraph?.map((item) => ({
@@ -188,7 +188,7 @@ const Upgrade = () => {
       budgetUpgradeAdjust: item.budget_upgrade_adjust,
     })) || [];  
 
-  const { data: aojBudgetTable } = useAojBudgetTable();
+  const { data: aojBudgetTable } = useAojBudgetTable(selectedDraftScenario, selectedDistrict);
 
   const dataAojBudgetTable=
     aojBudgetTable?.map((item) => ({
