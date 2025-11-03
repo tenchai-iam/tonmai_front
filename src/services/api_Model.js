@@ -43,6 +43,6 @@ export const getPlaybook = async () => {
 };
 
 export const getOptimizationMetrics = async () => {
-  const response = await axios.get(`${API_URL}/api/optimization_metrics`);
+  const response = await axios.get(`${API_URL}/optimization_metrics`);
   return response.data; // Return the data received from the API
 };
