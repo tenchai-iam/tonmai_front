@@ -9,7 +9,7 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
-  useSelectedScenarioOption,
+  useDraftScenarioOption,
   useDistrictOption,
   useAojOption,
   useAuthorizedAojOption,
@@ -44,7 +44,7 @@ const MapG = () => {
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
 
-  const { data: scenarioOption } = useSelectedScenarioOption();
+  const { data: scenarioOption } = useDraftScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
@@ -197,17 +197,18 @@ const MapG = () => {
 
   const dataCorridorPlan =
     corridorPlan?.map((item) => ({
-      code: item.aoj_code,
-      name: item.aoj_name,
-      frequency: item.frequency,
-      length: item.corridor_length_km,
-      cost: item.cost_to_trim_model,
-      customer: item.customers_affected_adjusted,
-      feeder: item.feeder_id,
-      outage: item.probability_of_outage_bins,
-      customerRisk: item.risk_customer_interruptions_bins,
-      device: item.nearest_upstream_device,
-      density: item.density_distribution_model,
+        year: item.year,
+        scenarioName: item.scenario_name,
+        district: item.aoj_region,
+        code: item.aoj_code,
+        name: item.aoj_name,
+        feeder: item.feeder_id,
+        corridor: item.nearest_upstream_device,
+        length: item.corridor_length_km,
+        device: item.device_type,
+        outage: item.probability_of_outage_bins,
+        customer: item.customers_affected_adjusted_bins,
+        frequency: item.frequency_number
     })) || [];
 
   const handleDataCorridorPlan = () => {
@@ -358,27 +359,6 @@ const MapG = () => {
             </div>
           )}
         </div>
-        <div className="metric-map-container">
-          <div className="metric-mapbox-container">
-            {/* <div className="text-box-subcontainer">
-              <label className="text">จำนวนพื้นที่ AOJ</label>
-              <div className="value">
-                {formatQuantity(dataPlanSummary[0]?.aojCount)}
-              </div>
-            </div> */}
-            <div className="text-box-subcontainer">
-              <label className="text">SAIFI</label>
-              <div className="value">
-                {formatUnit(dataPlanSummary[0]?.risk)}
-              </div>
-            </div>
-            <div className="text-box-subcontainer">
-              <label className="text">งบประมาณ (ล้านบาท)</label>
-              <div className="value">
-                {formatValue(dataPlanSummary[0]?.cost)}
-              </div>
-            </div>
-          </div>
           <div className="map-container">
             {" "}
             <GeoMap
@@ -388,7 +368,6 @@ const MapG = () => {
               showLegend={currentMapView === "corridor"}
             />
           </div>
-        </div>
 
         <div className="summary-container">
           <div className="dropdown-download-container">

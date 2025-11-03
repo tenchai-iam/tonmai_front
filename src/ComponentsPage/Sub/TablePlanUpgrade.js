@@ -8,11 +8,15 @@ import {
 
 import "../../ComponentsStyles/table.css";
 
-const PlanTable = ({ data }) => {
+const PlanUpgradeTable = ({ data, onUpdate }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
   });
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedData, setEditedData] = useState({});
+
+  console.log("PlanUpgradeTable received data:", data.length, "rows");
 
   const sortedData = [...data].sort((a, b) => {
     if (sortConfig.key) {
@@ -45,6 +49,44 @@ const PlanTable = ({ data }) => {
       return sortConfig.direction === "ascending" ? "▲" : "▼";
     }
     return "";
+  };
+
+  const handleEdit = (row) => {
+    // Use unique identifier instead of index
+    const rowId = `${row.feeder}-${row.corridor}`;
+    setEditingIndex(rowId);
+    setEditedData({
+      upgrade: row.upgrade,
+      reason: row.reason,
+    });
+  };
+
+  const handleSave = (row) => {
+    if (onUpdate) {
+      // Pass the row itself instead of index
+      onUpdate(row, editedData);
+    }
+    setEditingIndex(null);
+    setEditedData({});
+  };
+
+  const handleCancel = () => {
+    setEditingIndex(null);
+    setEditedData({});
+  };
+
+  const handleUpgradeChange = (e) => {
+    setEditedData({
+      ...editedData,
+      upgrade: e.target.checked,
+    });
+  };
+
+  const handleReasonChange = (e) => {
+    setEditedData({
+      ...editedData,
+      reason: e.target.value,
+    });
   };
 
   return (
@@ -87,13 +129,23 @@ const PlanTable = ({ data }) => {
                 จำนวนลูกค้าที่ได้รับผลกระทบ {renderSortArrow("customer")}
               </th>
               <th onClick={() => handleSort("frequency")}>
-                ความถี่ในการตัด {renderSortArrow("frequency")}
+               จำนวนครั้งในการตัด (รายครั้ง) {renderSortArrow("frequency")}
               </th>
+              <th onClick={() => handleSort("upgrade")}>
+                ประสงค์ขอเพิ่มความถี่ {renderSortArrow("upgrade")}
+              </th>
+              <th onClick={() => handleSort("reason")}>
+                เหตุผล {renderSortArrow("reason")}
+              </th>
+              <th>การจัดการ</th>
             </tr>
           </thead>
           <tbody>
-            {sortedData.map((row, index) => (
-              <tr key={index}>
+            {sortedData.map((row) => {
+              const rowId = `${row.feeder}-${row.corridor}`;
+              const isEditing = editingIndex === rowId;
+              return (
+                <tr key={rowId}>
                   <td>{row.year}</td>
                   <td>{row.scenarioName}</td>
                   <td>{row.district}</td>
@@ -106,8 +158,49 @@ const PlanTable = ({ data }) => {
                   <td>{row.outage}</td>
                   <td>{row.customer}</td>
                   <td>{row.frequency}</td>
-              </tr>
-            ))}
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="checkbox"
+                        checked={editedData.upgrade || false}
+                        onChange={handleUpgradeChange}
+                      />
+                    ) : (
+                      <span title={`upgrade value: ${row.upgrade}`}>{row.upgrade ? "✓" : "✗"}</span>
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={editedData.reason || ""}
+                        onChange={handleReasonChange}
+                        style={{ width: "100%" }}
+                      />
+                    ) : (
+                      row.reason
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <>
+                        <button
+                          onClick={() => handleSave(row)}
+                          style={{ marginRight: "5px" }}
+                        >
+                          บันทึก
+                        </button>
+                        <button onClick={handleCancel}>ยกเลิก</button>
+                      </>
+                    ) : (
+                      <button onClick={() => handleEdit(row)}>
+                        แก้ไข
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -115,4 +208,4 @@ const PlanTable = ({ data }) => {
   );
 };
 
-export default PlanTable;
+export default PlanUpgradeTable;

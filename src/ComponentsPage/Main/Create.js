@@ -4,12 +4,15 @@ import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphBudget from "../Sub/BarGraphBudget.js";
+import BarGraphV from "../Sub/BarGraphV.js";
 import RegionBudgetTable from "../Sub/TableRegionBudget.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import File from "../../pic/File.svg";
 import UploadButton from "../../pic/Upload.svg";
+
+import { useOptimizationMetrics } from "../Sub_Query/ModelQuery.js";
 
 import {
   useDistrictOption,
@@ -18,14 +21,14 @@ import {
   useBudgetYearOption,
 } from "../Sub_Query/OptionQuery.js";
 
+import { useRegionBudgetGraph } from "../Sub_Query/BudgetQuery.js";
+
 import {
   useCorridorPlan,
   usePlanSummaryQuery,
-  useRegionBudgetGraph,
+  useRegionBudgetSummary,
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
-
-import { planDummyOptions } from "../Sub_config/Options.js";
 
 import {
   createBudgetScenario,
@@ -327,35 +330,53 @@ const Create = () => {
     }
   };
 
-  const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
+  // const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
 
-  const dataPlanSummary1 = [
-    {
-      // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
-      cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary1?.total_risk || 0), // in millions
-    },
-  ];
+  // const dataPlanSummary1 = [
+  //   {
+  //     // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
+  //     cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
+  //     risk: Number(planSummary1?.total_risk || 0), // in millions
+  //   },
+  // ];
 
-  const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
+  // const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
 
-  const dataPlanSummary2 = [
-    {
-      // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
-      cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary2?.total_risk || 0), // in millions
-    },
-  ];
+  // const dataPlanSummary2 = [
+  //   {
+  //     // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
+  //     cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
+  //     risk: Number(planSummary2?.total_risk || 0), // in millions
+  //   },
+  // ];
+
+  // Fetch optimization metrics from API
+  const { data: optimizationMetrics } = useOptimizationMetrics();
+
+  const riskMetricsData = optimizationMetrics?.filter(item => item.baseline_risk !== undefined).map(item => ({
+    metric: "Risk",
+    baseline: item.baseline_risk,
+    scenario1: item.scenario1_risk,
+    scenario2: item.scenario2_risk
+  })) || [{ metric: "Risk", baseline: 0, scenario1: 0, scenario2: 0 }];
+
+  const costMetricsData = optimizationMetrics?.filter(item => item.baseline_cost !== undefined).map(item => ({
+    metric: "Cost",
+    baseline: item.baseline_cost,
+    scenario1: item.scenario1_cost,
+    scenario2: item.scenario2_cost
+  })) || [{ metric: "Cost", baseline: 0, scenario1: 0, scenario2: 0 }];
 
   // Fetch regional budget graph data from API
-  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedYearRegion);
+  const { data: regionBudgetSummary } = useRegionBudgetSummary(selectedYearRegion);
 
-  const dataRegionalBudgetGraph =
-    regionBudgetGraph?.map((item) => ({
+  const dataRegionalBudgetSummary =
+    regionBudgetSummary?.map((item) => ({
       region: item.region,
-      baseline2023: item.baseline_thb,
+      baseline: item.baseline_thb,
       normalizeBaseline: item.normalize_baseline_thb,
-      budgetYear: item.budget_thb,
+      budget: item.budget_thb,
+      budgetUpgrade: item.budget_upgrade_thb
     })) || [];
 
   const { data: regionBudgetTable } = useRegionBudgetTable(selectedYearRegion);
@@ -371,6 +392,7 @@ const Create = () => {
       year: item.budget_year,
       budget: item.budget_thb,
       budgetPercentDiff: item.budget_percent_diff,
+      budgetUpgrade: item.budget_upgrade_thb || 0,
     })) || [];
 
   return (
@@ -378,13 +400,50 @@ const Create = () => {
       <NavbarComponent />
       <div className="header-container">สร้างแผน</div>
       <div className="main-container">
-        <div className="remark">
-          <p>หมายเหตุ</p>
-          <p>
-            SAIFI = Number of Customer Interruptions
-            (จำนวนลูกค้าที่คาดว่าจะกระทบกับไฟฟ้าดับ) / Total Number of Customers
-            (จำนวนลูกค้าทั้งหมด)
-          </p>
+        <div className="container-title">Model Optimization Metrics</div>
+        <div className="metrics-graph-container">
+          <div className="district-budget-graph">
+            Risk Metrics
+            <div className="bar-chart-legend">
+              <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
+              <span style={{ color: "#C69530" }}>⬤ Maximize reliability (same cost)</span>
+              <span style={{ color: "#4F1C51" }}>⬤ Minimize Cost (similar risk)</span>
+            </div>
+            <BarGraphV
+              data={riskMetricsData}
+              xAxisKey="metric"
+              yLabel="Risk Value"
+              height={300}
+              showPercentageDiff={true}
+              baselineKey="baseline"
+              barKeys={[
+                { dataKey: "baseline", fill: "#8B4513", tooltipLabel: "Baseline" },
+                { dataKey: "scenario1", fill: "#C69530", tooltipLabel: "Maximize reliability (same cost)" },
+                { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
+              ]}
+            />
+          </div>
+          <div className="district-budget-graph">
+            Cost Metrics
+            <div className="bar-chart-legend">
+              <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
+              <span style={{ color: "#C69530" }}>⬤ Maximize reliability (same cost)</span>
+              <span style={{ color: "#4F1C51" }}>⬤ Minimize Cost (similar risk)</span>
+            </div>
+            <BarGraphV
+              data={costMetricsData}
+              xAxisKey="metric"
+              yLabel="Cost Value (THB)"
+              height={300}
+              showPercentageDiff={true}
+              baselineKey="baseline"
+              barKeys={[
+                { dataKey: "baseline", fill: "#8B4513", tooltipLabel: "Baseline" },
+                { dataKey: "scenario1", fill: "#C69530", tooltipLabel: "Maximize reliability (same cost)" },
+                { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
+              ]}
+            />
+          </div>
         </div>
         <div className="container-title">สร้างแผนโดยกระจายงบประมาณแบบ Global</div>
         <div className="create-select-plan-container">
@@ -519,15 +578,16 @@ const Create = () => {
                 </select>
               </div>
             </div>
-            <div className="budget-summary-graph">
-                งบประมาณแยกตามภูมิภาค (ล้านบาท)
+            <div className="district-budget-graph">
+                งบประมาณแยกตามเขต (บาท)
                 <div className="bar-chart-legend">
-                  <span style={{ color: "#8B4513" }}>⬤ Baseline</span>
-                  <span style={{ color: "#C69530" }}>⬤ Normalized Baseline</span>
-                  <span style={{ color: "#A1D6B2" }}>⬤ {selectedYearRegion ? `${selectedYearRegion} Budget` : "Budget"}</span>
+                  <span style={{ color: "#8B4513" }}>⬤ งบประมาณ Baseline</span>
+                  <span style={{ color: "#C69530" }}>⬤ งบประมาณ Normalized </span>
+                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ</span>
+                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณปรับปรุง</span>
                 </div>
               <BarGraphBudget
-                data={dataRegionalBudgetGraph}
+                data={dataRegionalBudgetSummary}
                 xAxisKey="region"
                 height={400}
                 layout="horizontal"
@@ -539,19 +599,24 @@ const Create = () => {
                 maxBarSize={40}
                 barKeys={[
                   {
-                    dataKey: "baseline2023",
+                    dataKey: "baseline",
                     fill: "#8B4513",
-                    tooltipLabel: "Baseline"
+                    tooltipLabel: "งบประมาณ Baseline"
                   },
                   {
                     dataKey: "normalizeBaseline",
                     fill: "#C69530",
-                    tooltipLabel: "Normalized Baseline"
+                    tooltipLabel: "งบประมาณ Normalized"
                   },
                   {
-                    dataKey: "budgetYear",
+                    dataKey: "budget",
+                    fill: "#4F1C51",
+                    tooltipLabel: "งบประมาณ"
+                  },
+                  {
+                    dataKey: "budgetUpgrade",
                     fill: "#A1D6B2",
-                    tooltipLabel: selectedYearRegion ? `${selectedYearRegion} Budget` : "Budget"
+                    tooltipLabel: "งบประมาณปรับปรุง"
                   }
                 ]}
               />

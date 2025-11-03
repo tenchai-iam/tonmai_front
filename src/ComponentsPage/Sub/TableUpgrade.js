@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { formatUnit, formatPercent, formatValue } from "../Sub_config/Format.js";
+import { formatUnit, formatValue } from "../Sub_config/Format.js";
 
 import "../../ComponentsStyles/table.css";
 
-const RegionBudgetTable = ({ data }) => {
+const UpgradeTable = ({ data }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
@@ -49,6 +49,12 @@ const RegionBudgetTable = ({ data }) => {
         <table>
           <thead>
             <tr>
+              <th onClick={() => handleSort("year")}>
+                ปีงบประมาณ {renderSortArrow("year")}
+              </th>
+              <th onClick={() => handleSort("ScenarioName")}>
+                ชื่อแผน {renderSortArrow("ScenarioName")}
+              </th>
               <th onClick={() => handleSort("district")}>
                 เขต {renderSortArrow("district")}
               </th>
@@ -58,42 +64,28 @@ const RegionBudgetTable = ({ data }) => {
               <th onClick={() => handleSort("name")}>
                 กฟฟ. {renderSortArrow("name")}
               </th>
-              <th onClick={() => handleSort("baseline")}>
-                งบประมาณฐาน (บาท) {renderSortArrow("baseline")}
+              <th onClick={() => handleSort("corridorCode")}>
+                รหัส Corridor {renderSortArrow("corridorCode")}
               </th>
-              <th onClick={() => handleSort("normalizePercent")}>
-                Normalize % {renderSortArrow("normalizePercent")}
+              <th onClick={() => handleSort("frequencyNumber")}>
+                จำนวนครั้งในการตัด {renderSortArrow("frequencyNumber")}
               </th>
-              <th onClick={() => handleSort("normalizeBaseline")}>
-                งบประมาณ Normalize {renderSortArrow("normalizeBaseline")}
+              <th onClick={() => handleSort("budgetAdjust")}>
+                งบประมาณการตัด {renderSortArrow("budgetAdjust")}
               </th>
-              <th onClick={() => handleSort("year")}>
-                ปี {renderSortArrow("year")}
-              </th>
-              <th onClick={() => handleSort("budget")}>
-                งบประมาณ Y-2 (บาท) {renderSortArrow("budget")}
-              </th>
-              <th onClick={() => handleSort("budgetPercentDiff")}>
-                % ส่วนต่างงบประมาณ Y-2 จากงบประมาณ Normalize (บาท) {renderSortArrow("budgetPercentDiff")}
-              </th>
-              <th onClick={() => handleSort("budget")}>
-                งบประมาณปรับปรุง (บาท) {renderSortArrow("budget")}
+              <th onClick={() => handleSort("upgradeReason")}>
+                เหตุผลที่ขออัพเกรด {renderSortArrow("upgradeReason")}
               </th>
             </tr>
           </thead>
           <tbody>
             {sortedData.map((row, index) => (
               <tr key={index}>
-                <td>{row.region}</td>
+                <td>{row.district}</td>
                 <td>{row.code}</td>
                 <td>{row.name}</td>
-                <td className="number">{formatValue(row.baseline)}</td>
-                <td className="number">{formatPercent(row.normalizePercent)}%</td>
-                <td className="number">{formatValue(row.normalizeBaseline)}</td>
-                <td>{row.year}</td>
-                <td className="number">{formatValue(row.budget)}</td>
-                <td className="number">{formatPercent(row.budgetPercentDiff)}%</td>
-                <td className="number">{formatValue(row.budgetUpgrade)}</td>
+                <td>{row.corridorCode}</td>
+                <td>{row.upgradeReason}</td>
               </tr>
             ))}
           </tbody>
@@ -103,4 +95,4 @@ const RegionBudgetTable = ({ data }) => {
   );
 };
 
-export default RegionBudgetTable;
+export default UpgradeTable;

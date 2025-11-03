@@ -1,10 +1,116 @@
-.confirm-container {
+.scenarios-delete-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+  /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+
+.delete-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  gap: 20px;
+  padding: 20px;
+  font-size: 0.8rem;
+}
+
+.confirm-delete-container {
   display: flex; /* Use Flexbox for layout */
   align-items: center; /* Align items vertically */
   font-size: 0.8rem;
 }
 
-.confirm-container button {
+.confirm-delete-container button {
+  background-color: #D92C54;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.confirm-draft-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.confirm-draft-container button {
+  background-color: #4F1C51;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.open-close-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.open-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.open-container button {
+  background-color: #5cb338;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.close-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.close-container button {
+  background-color: #ff6961;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.confirm-final-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.confirm-final-container button {
   background-color: #5cb338;
   color: white;
   text-decoration: none;
@@ -34,14 +140,6 @@
   box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.create-select-plan-container {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  box-sizing: border-box; /* Ensure padding is included in width */
-  width: 100%;
-}
-
 .input-container {
   display: flex;
   flex-direction: column;
@@ -64,11 +162,66 @@
   width: 100%;
 }
 
+.show-select-toggle-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.draft-selected-plan-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+  max-width: 40%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.draft-plan-selection-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  max-width: 50%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 10%;
+  max-width: 10%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
+  box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
+    /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.show-select-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
 .selected-plan-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 60%;
-  max-width: 60%;
+  flex: 1 1 50%;
+  max-width: 50%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -80,8 +233,8 @@
 .plan-selection-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 40%;
-  max-width: 40%;
+  flex: 1 1 50%;
+  max-width: 50%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -111,6 +264,18 @@
   display: flex;
   flex-direction: column;
   width: 30%;
+}
+
+.input-close-year {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.input-close-year label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
 }
 
 .input-year label {

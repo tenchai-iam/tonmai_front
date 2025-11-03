@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanTable from "../Sub/TablePlan.js";
+import PlanUpgradeTable from "../Sub/TablePlanUpgrade.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
@@ -175,20 +176,50 @@ const Map = () => {
     selectedAoj2
   );
 
-  const dataCorridorPlan =
-    corridorPlan?.map((item) => ({
-      code: item.aoj_code,
-      name: item.aoj_name,
-      frequency: item.frequency,
-      length: item.corridor_length_km,
-      cost: item.cost_to_trim_model,
-      customer: item.customers_affected_adjusted,
-      feeder: item.feeder_id,
-      outage: item.probability_of_outage_bins,
-      customerRisk: item.risk_customer_interruptions_bins,
-      device: item.nearest_upstream_device,
-      density: item.density_distribution_model,
-    })) || [];
+  const dataCorridorPlan = useMemo(
+    () =>
+      corridorPlan?.map((item) => ({
+        year: item.year,
+        scenarioName: item.scenario_name,
+        district: item.aoj_region,
+        code: item.aoj_code,
+        name: item.aoj_name,
+        feeder: item.feeder_id,
+        corridor: item.nearest_upstream_device,
+        length: item.corridor_length_km,
+        device: item.device_type,
+        outage: item.probability_of_outage_bins,
+        customer: item.customers_affected_adjusted_bins,
+        frequency: item.frequency_number,
+        upgrade: item.upgrade,
+        reason: item.reason,
+      })) || [],
+    [corridorPlan]
+  );
+
+  // State for editable table data
+    const [editableTableData, setEditableTableData] = useState([]);
+
+    // Initialize editable data when dataCorridorPlan changes
+    useEffect(() => {
+      setEditableTableData(dataCorridorPlan);
+    }, [dataCorridorPlan]);
+
+    // Handler to update table row data
+    const handleUpdateRow = (index, updatedFields) => {
+      setEditableTableData((prevData) => {
+        const newData = [...prevData];
+        newData[index] = {
+          ...newData[index],
+          ...updatedFields,
+        };
+        return newData;
+      });
+
+      // Optional: Call API to save the changes
+      // You can add API call here if needed
+      console.log("Updated row", index, "with:", updatedFields);
+    };
 
   const handleDataCorridorPlan = () => {
     const headers = [
@@ -338,27 +369,6 @@ const Map = () => {
             </div>
           )}
         </div>
-        <div className="metric-map-container">
-          <div className="metric-mapbox-container">
-            {/* <div className="text-box-subcontainer">
-              <label className="text">จำนวนพื้นที่ AOJ</label>
-              <div className="value">
-                {formatQuantity(dataPlanSummary[0]?.aojCount)}
-              </div>
-            </div> */}
-            <div className="text-box-subcontainer">
-              <label className="text">SAIFI</label>
-              <div className="value">
-                {formatUnit(dataPlanSummary[0]?.risk)}
-              </div>
-            </div>
-            <div className="text-box-subcontainer">
-              <label className="text">งบประมาณ (ล้านบาท)</label>
-              <div className="value">
-                {formatValue(dataPlanSummary[0]?.cost)}
-              </div>
-            </div>
-          </div>
           <div className="map-container">
             {" "}
             <GeoMap
@@ -368,7 +378,6 @@ const Map = () => {
               showLegend={currentMapView === "corridor"}
             />
           </div>
-        </div>
 
         <div className="summary-container">
           <div className="dropdown-download-container">
@@ -443,7 +452,9 @@ const Map = () => {
               ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
             </p>
           </div>
-          <PlanTable data={dataCorridorPlan} />
+          <PlanUpgradeTable               
+            data={editableTableData}
+            onUpdate={handleUpdateRow}/>
         </div>
       </div>
     </div>

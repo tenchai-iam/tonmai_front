@@ -1,3 +1,11 @@
+.metrics-graph-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
 .global-container {
   display: flex;
   flex-direction: row;
@@ -77,4 +85,31 @@
   background-color: rgba(118, 118, 128, 0.08); /* Base dark color */
   box-shadow: 0px 1px 3px rgba(118, 118, 128, 0.08),
     /* Subtle shadow with #767680 */ 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-select-plan-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.confirm-container {
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Align items vertically */
+  font-size: 0.8rem;
+}
+
+.confirm-container button {
+  background-color: #5cb338;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  min-width: 100px;
 }

@@ -16,7 +16,87 @@ const formatValue = (value) =>
     maximumFractionDigits: 2,
   }).format(value);
 
-const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys }) => {
+const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys, showPercentageDiff = false, baselineKey = "baseline" }) => {
+  // Custom label renderer with percentage difference
+  const renderCustomLabel = (props, dataKey) => {
+    const { x, y, width, value, index } = props;
+
+    if (!showPercentageDiff || value === undefined || value === null) {
+      return (
+        <text
+          x={x + width / 2}
+          y={y - 5}
+          fill="#000"
+          textAnchor="middle"
+          fontSize="12"
+        >
+          {formatValue(value)}
+        </text>
+      );
+    }
+
+    // Get baseline value from the data row
+    const dataRow = data[index];
+    const baselineValue = dataRow?.[baselineKey];
+
+    // If this is the baseline column or baseline is invalid, just show the value
+    if (dataKey === baselineKey || !baselineValue || baselineValue === 0) {
+      return (
+        <text
+          x={x + width / 2}
+          y={y - 5}
+          fill="#000"
+          textAnchor="middle"
+          fontSize="12"
+        >
+          {formatValue(value)}
+        </text>
+      );
+    }
+
+    // Calculate percentage difference
+    const percentDiff = ((value - baselineValue) / baselineValue) * 100;
+    const percentText = percentDiff >= 0
+      ? `+${percentDiff.toFixed(1)}%`
+      : `${percentDiff.toFixed(1)}%`;
+
+    return (
+      <text
+        x={x + width / 2}
+        y={y - 5}
+        fill="#000"
+        textAnchor="middle"
+        fontSize="11"
+      >
+        {formatValue(value)} ({percentText})
+      </text>
+    );
+  };
+  // Custom tooltip formatter
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip" style={{
+          backgroundColor: 'white',
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '4px'
+        }}>
+          {payload.map((entry, index) => {
+            const barConfig = barKeys.find(bar => bar.dataKey === entry.dataKey);
+            const label = barConfig?.tooltipLabel || entry.dataKey;
+            return (
+              <p key={index} style={{ margin: '5px 0', color: entry.color }}>
+                <strong>{label}:</strong> {formatValue(entry.value)}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="bar-chart-container">
       {title && <h3 className="bar-chart-title">{title}</h3>}
@@ -47,13 +127,13 @@ const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys }) => {
               style: { fontSize: "0.8rem", fill: "#3e3e3e" },
             }}
           />
-          <Tooltip formatter={(value) => formatValue(value)} />
+          <Tooltip content={<CustomTooltip />} />
           {barKeys.map((bar) => (
             <Bar key={bar.dataKey} dataKey={bar.dataKey} fill={bar.fill}>
               <LabelList
                 dataKey={bar.dataKey}
                 position="top"
-                formatter={formatValue}
+                content={(props) => renderCustomLabel(props, bar.dataKey)}
               />
             </Bar>
           ))}

@@ -1,0 +1,35 @@
+.map-general-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  max-width: 100%;
+  gap: 20px;
+}
+
+.graph-table-platform {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.district-budget-graph {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 60%;
+}
+
+.download-end-button {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+.aoj-budget-table {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+  gap: 20px;
+}

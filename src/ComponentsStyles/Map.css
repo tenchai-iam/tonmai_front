@@ -75,8 +75,8 @@
 .map-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 85%;
-  max-width: 85%;
+  flex: 1 1 100%;
+  max-width: 100%;
   gap: 20px;
 }
 

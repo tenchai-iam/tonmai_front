@@ -3,8 +3,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
-import useSessionStorage from "../Sub/UseSessionStorage.js";
 import PlanTable from "../Sub/TablePlan.js";
+import SelectedDraftPlanTable from "../Sub/TableSelectedDraftPlan.js";
 import SelectedPlanTable from "../Sub/TableSelectedPlan.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
@@ -16,22 +16,17 @@ import {
 } from "../Sub_Query/OptionQuery.js";
 
 import {
-  useCorridorPlan,
-  usePlanSummaryQuery,
-  useSelectedScenarios,
+  useSelectedScenarioD,
+  useSelectedScenarioF
 } from "../Sub_Query/ManageQuery.js";
 
 import {
-  createBudgetScenario,
-  createRiskScenario,
-  selectScenarioPlan,
-} from "../../services/api_Scenario.js";
-
-import {
-  formatValue,
-  formatUnit,
-  formatQuantity,
-} from "../Sub_config/Format.js";
+  selectScenarioD,
+  selectScenarioF,
+  postEditableTrue,
+  postEditableFalse,
+  deleteScenario
+} from "../../services/api_Manage.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Manage.css";
@@ -39,113 +34,82 @@ import "../../ComponentsStyles/Manage.css";
 const Manage = () => {
   const queryClient = useQueryClient();
 
-  const [selectedScenario1, setSelectedScenario1] = useState("");
-  const handleScenario1Select = (e) => setSelectedScenario1(e.target.value);
+    const [selectedScenarioDel, setSelectedScenarioDel] = useState("");
+  const handleScenarioDelSelect = (e) => setSelectedScenarioDel(e.target.value);
 
-  const [selectedScenario2, setSelectedScenario2] = useState("");
-  const handleScenario2Select = (e) => setSelectedScenario2(e.target.value);
-
-  const [selectedScenario3, setSelectedScenario3] = useState("");
-  const handleScenario3Select = (e) => setSelectedScenario3(e.target.value);
+  const [selectedScenarioD, setSelectedScenarioD] = useState("");
+  const handleScenarioDSelect = (e) => setSelectedScenarioD(e.target.value);
 
   const [selectedScenarioF, setSelectedScenarioF] = useState("");
   const handleScenarioFSelect = (e) => setSelectedScenarioF(e.target.value);
 
-  const { data: scenarioOption } = useScenarioOption();
   const { data: budgetYearOption } = useBudgetYearOption();
+  const { data: scenarioOption } = useScenarioOption();
 
-  // State for scenario creation
-  const [selectedYearRisk, setSelectedYearRisk] = useState("");
-  const [riskReductionPercent, setRiskReductionPercent] = useState("");
-  const [isCreatingRiskScenario, setIsCreatingRiskScenario] = useState(false);
+  // Final Scenarion selection state
+  const [selectedYearD, setSelectedYearD] = useState("");
+  const handleYearDSelect = (e) => setSelectedYearD(e.target.value);
 
-  const [selectedYearBudget, setSelectedYearBudget] = useState("");
-  const [budgetReductionPercent, setBudgetReductionPercent] = useState("");
-  const [isCreatingBudgetScenario, setIsCreatingBudgetScenario] =
-    useState(false);
+  const [SelectingScenarioD, setIsSelectingScenarioD] = useState(false);
+  
 
-  const [selectedPlan, setSelectedPlan] = useState("");
-  const handlePlanSelect = (e) => setSelectedPlan(e.target.value);
+  // Final Scenarion selection state
+  const [selectedYearF, setSelectedYearF] = useState("");
+  const handleYearFSelect = (e) => setSelectedYearF(e.target.value);
 
-  // NEW: Budget scenario submit handler
-  const handleBudgetSubmit = async () => {
-    if (!selectedYearBudget || !budgetReductionPercent) {
-      alert("กรุณาเลือกปีและกรอกเปอร์เซ็นต์งบประมาณ");
-      return;
-    }
+  const [SelectingScenarioF, setIsSelectingScenarioF] = useState(false);
 
-    setIsCreatingBudgetScenario(true);
+  const [selectedYearE, setSelectedYearE] = useState("");
+  const handleYearESelect = (e) => setSelectedYearE(e.target.value);
 
-    const payload = {
-      year: parseInt(selectedYearBudget),
-      budget_reduction_percentage: parseFloat(budgetReductionPercent),
-    };
-
-    try {
-      const response = await createBudgetScenario(payload);
-      alert(`สร้าง Budget Scenario สำเร็จ! ID: ${response.scenario_id}`);
-      console.log("Budget Scenario Response:", response);
-
-      // Reset form
-      setSelectedYearBudget("");
-      setBudgetReductionPercent("");
-
-      // Optionally refresh scenario options
-      // refetchScenarioOption();
-    } catch (err) {
-      console.error("Budget scenario creation failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างสร้าง Budget Scenario");
-    } finally {
-      setIsCreatingBudgetScenario(false);
-    }
-  };
-
-  // NEW: Risk scenario submit handler
-  const handleRiskSubmit = async () => {
-    if (!selectedYearRisk || !riskReductionPercent) {
-      alert("กรุณาเลือกปีและกรอกเปอร์เซ็นต์ SAIFI");
-      return;
-    }
-
-    setIsCreatingRiskScenario(true);
-
-    const payload = {
-      year: parseInt(selectedYearRisk),
-      risk_reduction_target: parseFloat(riskReductionPercent),
-    };
-
-    try {
-      const response = await createRiskScenario(payload);
-      alert(`สร้าง Risk Scenario สำเร็จ! ID: ${response.scenario_id}`);
-      console.log("Risk Scenario Response:", response);
-
-      // Reset form
-      setSelectedYearRisk("");
-      setRiskReductionPercent("");
-
-      // Optionally refresh scenario options
-      // refetchScenarioOption();
-    } catch (err) {
-      console.error("Risk scenario creation failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างสร้าง Risk Scenario");
-    } finally {
-      setIsCreatingRiskScenario(false);
-    }
-  };
-
-  // NEW: Plan selection state
-  const [SelectingPlan, setIsSelectingPlan] = useState(false);
-
-  // Updated: Plan selection submit handler
-  const handlePlanSubmit = async () => {
-    if (!selectedPlan || !selectedScenarioF) {
+  // Updated: Draft Plan selection submit handler
+  const handleScenarioDSubmit = async () => {
+    if (!selectedYearD || !selectedScenarioD) {
       alert("กรุณาเลือกปีและ Scenario");
       return;
     }
-    setIsSelectingPlan(true);
+    setIsSelectingScenarioD(true);
 
     // Convert Buddhist year to Gregorian year
-    const buddhistYear = parseInt(selectedPlan);
+    const buddhistYear = parseInt(selectedYearD);
+    const gregorianYear = buddhistYear - 543;
+
+    const payload = {
+      employee_id: "700001", // Fixed value for now
+      scenario_name: selectedScenarioD,
+      year: gregorianYear, // Now sends 2027 instead of 2570
+    };
+
+    try {
+      const response = await selectScenarioD(payload);
+      alert(`เลือกแผน Draft สำเร็จ! Scenario: ${selectedScenarioD}`);
+      console.log("Draft Scenario Selection Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+
+      // Optionally reset form or update UI
+      // setSelectedPlan("");
+      // setSelectedScenario1("");
+    } catch (err) {
+      console.error("Scenario selection failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเลือกแผน Draft");
+    } finally {
+      setIsSelectingScenarioD(false);
+    }
+  };
+  
+
+  // Updated: Final Plan selection submit handler
+  const handleScenarioFSubmit = async () => {
+    if (!selectedYearF || !selectedScenarioF) {
+      alert("กรุณาเลือกปีและ Scenario");
+      return;
+    }
+    setIsSelectingScenarioF(true);
+
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearF);
     const gregorianYear = buddhistYear - 543;
 
     const payload = {
@@ -155,114 +119,123 @@ const Manage = () => {
     };
 
     try {
-      const response = await selectScenarioPlan(payload);
-      alert(`เลือกแผนสำเร็จ! Scenario: ${selectedScenarioF}`);
-      console.log("Plan Selection Response:", response);
+      const response = await selectScenarioF(payload);
+      alert(`เลือก Final แผนสำเร็จ! Scenario: ${selectedScenarioF}`);
+      console.log("Final Scenario Selection Response:", response);
 
       // Refresh the selected scenarios table
-      queryClient.invalidateQueries(["selectedScenarios"]);
+      queryClient.invalidateQueries(["showSelectedScenarioF"]);
 
       // Optionally reset form or update UI
       // setSelectedPlan("");
       // setSelectedScenario1("");
     } catch (err) {
-      console.error("Plan selection failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างเลือกแผน");
+      console.error("Final Scenario selection failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเลือกแผน Final");
     } finally {
-      setIsSelectingPlan(false);
+      setIsSelectingScenarioF(false);
     }
   };
 
-  const [selectedDistrict, setSelectedDistrict] = useState("");
+  // Handler for enabling scenario edit
+  const handleEnableEdit = async () => {
+    if (!selectedYearE) {
+      alert("กรุณาเลือกปีของแผน");
+      return;
+    }
 
-  const handleChangeDistrict = (event) => {
-    setSelectedDistrict(event.target.value);
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearE);
+    const gregorianYear = buddhistYear - 543;
+
+    try {
+      const response = await postEditableTrue(gregorianYear);
+      alert(`เปิดระบบปรับปรุงสำเร็จสำหรับปี ${selectedYearE}`);
+      console.log("Enable Edit Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+    } catch (err) {
+      console.error("Enable edit failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเปิดระบบปรับปรุง");
+    }
   };
 
-  const [selectedAoj, setSelectedAoj] = useState("");
+  // Handler for disabling scenario edit
+  const handleDisableEdit = async () => {
+    if (!selectedYearE) {
+      alert("กรุณาเลือกปีของแผน");
+      return;
+    }
 
-  const handleChangeAoj = (event) => {
-    setSelectedAoj(event.target.value);
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearE);
+    const gregorianYear = buddhistYear - 543;
+
+    try {
+      const response = await postEditableFalse(gregorianYear);
+      alert(`ปิดระบบปรับปรุงสำเร็จสำหรับปี ${selectedYearE}`);
+      console.log("Disable Edit Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+    } catch (err) {
+      console.error("Disable edit failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างปิดระบบปรับปรุง");
+    }
   };
 
-  const { data: districtOption } = useDistrictOption();
+  // Handler for deleting scenario
+  const handleDeleteScenario = async () => {
+    if (!selectedScenarioDel) {
+      alert("กรุณาเลือกแผนที่ต้องการลบ");
+      return;
+    }
 
-  const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
+    // Confirm before deleting
+    const confirmDelete = window.confirm(
+      `คุณต้องการลบแผน "${selectedScenarioDel}" ออกจากฐานข้อมูลหรือไม่?`
+    );
 
-  const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
+    if (!confirmDelete) {
+      return;
+    }
 
-  const { data: corridorPlan } = useCorridorPlan(
-    selectedScenario3,
-    selectedAoj
-  );
+    try {
+      const response = await deleteScenario(selectedScenarioDel);
+      alert(`ลบแผน "${selectedScenarioDel}" สำเร็จ`);
+      console.log("Delete Scenario Response:", response);
 
-  const dataCorridorPlan =
-    corridorPlan?.map((item) => ({
-      code: item.aoj_code,
-      name: item.aoj_name,
-      frequency: item.frequency,
-      length: item.corridor_length_km,
-      cost: item.cost_to_trim_model,
-      customer: item.customers_affected_adjusted,
-      feeder: item.feeder_id,
-      outage: item.probability_of_outage_bins,
-      customerRisk: item.risk_customer_interruptions_bins,
-      device: item.nearest_upstream_device,
-      density: Number(item.vegetation_density) * 100,
+      // Refresh scenario options and selected scenarios
+      queryClient.invalidateQueries(["scenarioOption"]);
+      queryClient.invalidateQueries(["showSelectedScenarioD"]);
+      queryClient.invalidateQueries(["showSelectedScenarioF"]);
+
+      // Reset selection
+      setSelectedScenarioDel("");
+    } catch (err) {
+      console.error("Delete scenario failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างลบแผน");
+    }
+  };
+
+  const { data: showSelectedScenarioD } = useSelectedScenarioD();
+
+  const dataSelectedScenarioD =
+    showSelectedScenarioD?.map((item) => ({
+      selectionId: item.selection_id,
+      scenarioName: item.scenario_name,
+      selectedYear: item.selected_for_year,
+      selectedAt: item.selected_at,
+      employeeId: item.employee_id,
+      editable: item.editable
     })) || [];
 
-  const handleDataCorridorPlan = () => {
-    const headers = [
-      { label: "รหัส", key: "code" },
-      { label: "กฟฟ.", key: "name" },
-      { label: "feeder", key: "feeder" },
-      { label: "ระยะทาง (km)", key: "length" },
-      { label: "ความหนาแน่นของต้นไม้", key: "density" },
-      { label: "ความถี่ในการตัด", key: "frequency" },
-      { label: "อุปกรณ์", key: "device" },
-      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
-      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
-      { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
-      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
-    ];
 
-    downloadTable({
-      data: dataCorridorPlan,
-      headers: headers,
-      fileName: "Corridor_Data",
-      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} สำหรับ ${selectedAoj}`,
-      extraInfoRows: [],
-    });
-  };
+  const { data: showSelectedScenarioF } = useSelectedScenarioF();
 
-  const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
-
-  const dataPlanSummary1 = [
-    {
-      // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
-      cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary1?.total_risk || 0), // in millions
-    },
-  ];
-
-  const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
-
-  const dataPlanSummary2 = [
-    {
-      // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
-      cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary2?.total_risk || 0), // in millions
-    },
-  ];
-
-  const { data: selectedScenarios } = useSelectedScenarios();
-
-  const dataSelectedPlan =
-    selectedScenarios?.map((item) => ({
+  const dataSelectedScenarioF =
+    showSelectedScenarioF?.map((item) => ({
       selectionId: item.selection_id,
       scenarioName: item.scenario_name,
       selectedYear: item.selected_for_year,
@@ -275,29 +248,120 @@ const Manage = () => {
       <NavbarComponent />
       <div className="header-container">จัดการแผน</div>
       <div className="main-container">
-        <div className="remark">
-          <p>หมายเหตุ</p>
-          <p>
-            SAIFI = Number of Customer Interruptions
-            (จำนวนลูกค้าที่คาดว่าจะกระทบกับไฟฟ้าดับ) / Total Number of Customers
-            (จำนวนลูกค้าทั้งหมด)
-          </p>
-        </div>
-        <div className="create-select-plan-container">
-          {/* EXISTING SELECTED PLAN SECTION */}
-          <div className="selected-plan-container">
-            <div className="container-title">แผนที่เลือกแล้ว</div>
-            <SelectedPlanTable data={dataSelectedPlan} />
+        <div className="scenarios-delete-container">
+          <div className="delete-container">
+              <div className="input-field">
+                <select
+                  value={selectedScenarioDel}
+                  onChange={handleScenarioDelSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="">เลือกแผนที่จะลบออกจากฐานข้อมูลทั่วไป</option>
+                  {scenarioOption?.map((option) => (
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="confirm-delete-container">
+                <button onClick={handleDeleteScenario}>ลบ</button>
+              </div>
           </div>
-          {/* EXISTING PLAN SELECTION SECTION */}
-          <div className="plan-selection-container">
-            เลือกแผนที่ใช้
+        </div>
+        <div className="show-select-toggle-container">
+          {/* EXISTING SELECTED DRAFT SCENARIO SECTION */}
+          <div className="draft-selected-plan-container">
+            <div className="container-title">แผน Draft ที่ส่งให้ กฟข.</div>
+            <SelectedDraftPlanTable data={dataSelectedScenarioD} />
+          </div>
+          {/* DRAFT SCENARIO SELECTION SECTION */}
+          <div className="draft-plan-selection-container">
+            เลือกแผน Draft ให้ กฟข. พิจารณา
             <div className="inputgroup-container">
               <div className="input-year">
                 <label>เลือกปีที่จะใช้</label>
                 <select
-                  value={selectedPlan}
-                  onChange={handlePlanSelect}
+                  value={selectedYearD}
+                  onChange={handleYearDSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {budgetYearOption?.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="input-field">
+                <label>เลือกแผนที่จะใช้</label>
+                <select
+                  value={selectedScenarioD}
+                  onChange={handleScenarioDSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {scenarioOption?.map((option) => (
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="confirm-draft-container">
+              <button onClick={handleScenarioDSubmit}>ยืนยัน แผน Draft</button>
+            </div>
+          </div>
+          <div className="toggle-container">
+            การปรับปรุงแก้ไขจาก กฟข.
+              <div className="input-close-year">
+                <label>เลือกปีของแผน</label>
+                <select
+                  value={selectedYearE}
+                  onChange={handleYearESelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {budgetYearOption?.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {/* <div className="open-close-container"> */}
+                <div className="open-container">
+                  <button onClick={handleEnableEdit}>เปิด</button>
+                </div>
+                <div className="close-container">
+                  <button onClick={handleDisableEdit}>ปิด</button>
+                </div>
+              {/* </div> */}
+          </div>
+        </div>
+        <div className="show-select-container">
+          {/* EXISTING SELECTED FINAL SCENARIO SECTION */}
+          <div className="selected-plan-container">
+            <div className="container-title">แผน Final ที่ส่งให้ MJM</div>
+            <SelectedPlanTable data={dataSelectedScenarioF} />
+          </div>
+          {/* FINAL SCENARIO SELECTION SECTION */}
+          <div className="plan-selection-container">
+            เลือกแผน Final ส่งเข้า MJM
+            <div className="inputgroup-container">
+              <div className="input-year">
+                <label>เลือกปีที่จะใช้</label>
+                <select
+                  value={selectedYearF}
+                  onChange={handleYearFSelect}
                   className="border rounded-lg px-4 py-2"
                 >
                   <option value=""></option>
@@ -327,69 +391,10 @@ const Manage = () => {
                 </select>
               </div>
             </div>
-            <div className="confirm-container">
-              <button onClick={handlePlanSubmit}>ยืนยัน</button>
+            <div className="confirm-final-container">
+              <button onClick={handleScenarioFSubmit}>ยืนยันแผน Final</button>
             </div>
           </div>
-        </div>
-        <div className="summary-container">
-          <div className="container-title">ข้อมูลแผน</div>
-          <div className="dropdown-download-container">
-            <div className="dropdowngroup-container">
-              <select
-                value={selectedScenario3}
-                onChange={handleScenario3Select}
-                className="border rounded-lg px-4 py-2"
-              >
-                <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-                {scenarioOption?.map((option) => (
-                  <option
-                    key={option.scenario_name}
-                    value={option.scenario_name}
-                  >
-                    {option.scenario_name}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={selectedDistrict}
-                onChange={handleChangeDistrict}
-                className="border rounded-lg px-4 py-2"
-              >
-                <option value="" disabled>
-                  เลือกการไฟฟ้าเขต
-                </option>
-                {districtOption?.map((option) => (
-                  <option key={option.aoj_region} value={option.aoj_region}>
-                    {option.aoj_region}
-                  </option>
-                ))}
-              </select>
-              <Select
-                options={aojOptionFormatted}
-                value={aojOptionFormatted?.find(
-                  (opt) => opt.value === selectedAoj
-                )}
-                onChange={(selectedOption) =>
-                  setSelectedAoj(selectedOption?.value || "")
-                }
-                isClearable
-                placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
-                noOptionsMessage={() => "ไม่พบข้อมูล"}
-                className="react-select-container"
-                classNamePrefix="react-select"
-              />
-            </div>
-            <div className="download-button">
-              <button
-                onClick={handleDataCorridorPlan}
-                className={`download-button-style${false ? " selected" : ""}`}
-              >
-                Download
-              </button>
-            </div>
-          </div>
-          <PlanTable data={dataCorridorPlan} />
         </div>
       </div>
     </div>

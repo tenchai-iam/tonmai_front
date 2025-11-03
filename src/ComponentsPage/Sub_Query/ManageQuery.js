@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getCorridorPlan, getPlanSummary, getRegionBudgetGraph, getRegionBudgetTable } from "../../services/api_Manage.js";
-import { getSelectedScenarios } from "../../services/api_Scenario.js";
+import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable, getSelectedScenarioD, getSelectedScenarioF } from "../../services/api_Manage.js";
 
 export const useCorridorPlan = (scenario_name, aoj_code) => {
   return useQuery({
@@ -24,23 +23,32 @@ export const usePlanSummaryQuery = (
   });
 };
 
-export const useRegionBudgetGraph = (budget_year) => {
+export const useRegionBudgetSummary = (budget_year) => {
   return useQuery({
-    queryKey: ["regionBudgetGraph", budget_year],
-    queryFn: () => getRegionBudgetGraph(budget_year),
+    queryKey: ["regionBudgetSummary", budget_year],
+    queryFn: () => getRegionBudgetSummary(budget_year),
+    enabled: Boolean(budget_year)
   });
 };
 
 export const useRegionBudgetTable = (budget_year) => {
   return useQuery({
     queryKey: ["regionBudgetTable", budget_year],
-    queryFn: () => getRegionBudgetTable(budget_year),
+    queryFn: () => getRegionBudgetSummaryTable(budget_year),
+    enabled: Boolean(budget_year)
   });
 };
 
-export const useSelectedScenarios = () => {
+export const useSelectedScenarioD = () => {
   return useQuery({
-    queryKey: ["selectedScenarios"],
-    queryFn: () => getSelectedScenarios(),
+    queryKey: ["showSelectedScenarioD"],
+    queryFn: () => getSelectedScenarioD(),
+  });
+};
+
+export const useSelectedScenarioF = () => {
+  return useQuery({
+    queryKey: ["showSelectedScenarioF"],
+    queryFn: () => getSelectedScenarioF(),
   });
 };

@@ -9,9 +9,11 @@ import {
 
 import Home from "./Home";
 import MapG from "./ComponentsPage/Main/MapGeneral.js";
+import Upgrade from "./ComponentsPage/Main/Upgrade.js";
 import Map from "./ComponentsPage/Main/Map.js";
 import Create from "./ComponentsPage/Main/Create.js";
 import Manage from "./ComponentsPage/Main/Manage.js";
+import Budget from "./ComponentsPage/Main/Budget.js";
 import Value from "./ComponentsPage/Main/Value.js";
 import Data from "./ComponentsPage/Main/Data.js";
 import Admin from "./ComponentsPage/Main/Admin.js";
@@ -31,18 +33,21 @@ export default function App() {
         <Router>
           <div className="App">
             <Routes>
-              {/* <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/mapG" element={<MapG />} />
+              <Route path="/upgrade" element={<Upgrade />} />
               <Route path="/map" element={<Map />} />
               <Route path="/create" element={<Create />} />
               <Route path="/manage" element={<Manage />} />
               <Route path="/value" element={<Value />} />
+              <Route path="/budget" element={<Budget />} />
               <Route path="/data" element={<Data />} />
-              <Route path="/admin" element={<Admin />} /> */}
+              <Route path="/admin" element={<Admin />} />
               
 
-              <Route path="/" element={<ProtectedRoute element={Home} />} />
+              {/* <Route path="/" element={<ProtectedRoute element={Home} />} />
               <Route path="/mapG" element={<ProtectedRoute element={MapG} />} />
+              <Route path="/upgrade" element={<ProtectedRoute element={Upgrade} />} />
               <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
@@ -64,6 +69,11 @@ export default function App() {
                 allowedLevels={["B", "C"]}
               />
               <Route
+                path="/budget"
+                element={<ProtectedRoute element={Budget} />}
+                allowedLevels={["B", "C"]}
+              />
+              <Route
                 path="/data"
                 element={<ProtectedRoute element={Data} />}
                 allowedLevels={["B", "C"]}
@@ -72,7 +82,7 @@ export default function App() {
                 path="/admin"
                 element={<ProtectedRoute element={Admin} />}
                 allowedLevels={["C"]}
-              />
+              /> */}
 
               <Route path="/callback" element={<Callback />} />
               <Route path="*" element={<Navigate to="/" />} />
