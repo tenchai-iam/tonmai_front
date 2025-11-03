@@ -173,8 +173,8 @@
 .draft-selected-plan-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 50%;
-  max-width: 50%;
+  flex: 1 1 40%;
+  max-width: 40%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -186,8 +186,8 @@
 .draft-plan-selection-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 35%;
-  max-width: 35%;
+  flex: 1 1 50%;
+  max-width: 50%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -199,8 +199,8 @@
 .toggle-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 15%;
-  max-width: 15%;
+  flex: 1 1 10%;
+  max-width: 10%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -220,8 +220,8 @@
 .selected-plan-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 60%;
-  max-width: 60%;
+  flex: 1 1 50%;
+  max-width: 50%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -233,8 +233,8 @@
 .plan-selection-container {
   display: flex;
   flex-direction: column;
-  flex: 1 1 40%;
-  max-width: 40%;
+  flex: 1 1 50%;
+  max-width: 50%;
   padding: 20px;
   gap: 20px;
   box-sizing: border-box; /* Ensure padding is included in width */

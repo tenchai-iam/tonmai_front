@@ -337,14 +337,14 @@ const Manage = () => {
                   ))}
                 </select>
               </div>
-              <div className="open-close-container">
+              {/* <div className="open-close-container"> */}
                 <div className="open-container">
                   <button onClick={handleEnableEdit}>เปิด</button>
                 </div>
                 <div className="close-container">
                   <button onClick={handleDisableEdit}>ปิด</button>
                 </div>
-              </div>
+              {/* </div> */}
           </div>
         </div>
         <div className="show-select-container">
