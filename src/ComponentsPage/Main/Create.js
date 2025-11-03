@@ -414,6 +414,8 @@ const Create = () => {
               xAxisKey="metric"
               yLabel="Risk Value"
               height={300}
+              showPercentageDiff={true}
+              baselineKey="baseline"
               barKeys={[
                 { dataKey: "baseline", fill: "#8B4513", tooltipLabel: "Baseline" },
                 { dataKey: "scenario1", fill: "#C69530", tooltipLabel: "Maximize reliability (same cost)" },
@@ -433,6 +435,8 @@ const Create = () => {
               xAxisKey="metric"
               yLabel="Cost Value (THB)"
               height={300}
+              showPercentageDiff={true}
+              baselineKey="baseline"
               barKeys={[
                 { dataKey: "baseline", fill: "#8B4513", tooltipLabel: "Baseline" },
                 { dataKey: "scenario1", fill: "#C69530", tooltipLabel: "Maximize reliability (same cost)" },

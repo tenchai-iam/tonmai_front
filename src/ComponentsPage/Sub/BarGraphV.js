@@ -16,7 +16,62 @@ const formatValue = (value) =>
     maximumFractionDigits: 2,
   }).format(value);
 
-const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys }) => {
+const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys, showPercentageDiff = false, baselineKey = "baseline" }) => {
+  // Custom label renderer with percentage difference
+  const renderCustomLabel = (props, dataKey) => {
+    const { x, y, width, value, index } = props;
+
+    if (!showPercentageDiff || value === undefined || value === null) {
+      return (
+        <text
+          x={x + width / 2}
+          y={y - 5}
+          fill="#000"
+          textAnchor="middle"
+          fontSize="12"
+        >
+          {formatValue(value)}
+        </text>
+      );
+    }
+
+    // Get baseline value from the data row
+    const dataRow = data[index];
+    const baselineValue = dataRow?.[baselineKey];
+
+    // If this is the baseline column or baseline is invalid, just show the value
+    if (dataKey === baselineKey || !baselineValue || baselineValue === 0) {
+      return (
+        <text
+          x={x + width / 2}
+          y={y - 5}
+          fill="#000"
+          textAnchor="middle"
+          fontSize="12"
+        >
+          {formatValue(value)}
+        </text>
+      );
+    }
+
+    // Calculate percentage difference
+    const percentDiff = ((value - baselineValue) / baselineValue) * 100;
+    const percentText = percentDiff >= 0
+      ? `+${percentDiff.toFixed(1)}%`
+      : `${percentDiff.toFixed(1)}%`;
+
+    return (
+      <text
+        x={x + width / 2}
+        y={y - 5}
+        fill="#000"
+        textAnchor="middle"
+        fontSize="11"
+      >
+        {formatValue(value)} ({percentText})
+      </text>
+    );
+  };
   // Custom tooltip formatter
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -78,7 +133,7 @@ const BarGraphV = ({ data, xAxisKey, title, yLabel, height, barKeys }) => {
               <LabelList
                 dataKey={bar.dataKey}
                 position="top"
-                formatter={formatValue}
+                content={(props) => renderCustomLabel(props, bar.dataKey)}
               />
             </Bar>
           ))}
