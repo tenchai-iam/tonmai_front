@@ -38,7 +38,7 @@ import {
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
 
-import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList } from "../../services/api_Upgrade.js";
+import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList, updateUpgradeScenarioAojBudget, updateBudgetUpgradeRegionalTable } from "../../services/api_Upgrade.js";
 
 import {
   formatValue,
@@ -67,7 +67,7 @@ const Upgrade = () => {
   const [selectedDraftEditableScenario, setSelectedDraftEditableScenario] = useState("");
   const handleDraftEditableScenarioSelect = (e) => setSelectedDraftEditableScenario(e.target.value);
 
-  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("S2");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
@@ -338,10 +338,30 @@ const Upgrade = () => {
 
         console.log("Insert Upgrade Corridor List Response:", insertResponse);
 
+        // Update budget for the scenario
+        const scenarioName = selectedDraftEditableScenario || selectedDraftScenario;
+        if (scenarioName) {
+          console.log("Updating AOJ budget for scenario:", scenarioName);
+          const budgetUpdateResponse = await updateUpgradeScenarioAojBudget({
+            scenario_name: scenarioName
+          });
+          console.log("AOJ Budget Update Response:", budgetUpdateResponse);
+
+          console.log("Updating regional budget for scenario:", scenarioName);
+          const regionalBudgetUpdateResponse = await updateBudgetUpgradeRegionalTable({
+            scenario_name: scenarioName
+          });
+          console.log("Regional Budget Update Response:", regionalBudgetUpdateResponse);
+        }
+
         alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
 
         // Refresh the corridor plan data
         queryClient.invalidateQueries(["corridorPlan", selectedDraftEditableScenario, selectedAoj]);
+
+        // Refresh budget data (graph and table)
+        queryClient.invalidateQueries(["regionBudgetGraph"]);
+        queryClient.invalidateQueries(["aojBudgetTable"]);
 
         // Clear modified rows tracking
         setModifiedRows(new Map());

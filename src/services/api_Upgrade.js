@@ -65,3 +65,53 @@ export const insertUpgradeCorridorList = async (payload) => {
     throw error;
   }
 };
+
+/**
+ * Update budget_upgrade_adjust in F8_scenario_aoj_budget by summing from F8_processed_corridor_features
+ * @param {Object} payload - Update data
+ * @param {string} payload.scenario_name - Scenario name (required)
+ * @returns {Promise<Object>} Update operation result
+ */
+export const updateUpgradeScenarioAojBudget = async (payload) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/update_upgrade_scenario_aoj_budget`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 30000, // 30 seconds for batch operations
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Update Upgrade Scenario AOJ Budget API Error:", error);
+    throw error;
+  }
+};
+
+/**
+ * Update budget_upgrade_thb in regional_budget by summing budget_upgrade_adjust from F8_processed_corridor_features
+ * @param {Object} payload - Update data
+ * @param {string} payload.scenario_name - Scenario name (required)
+ * @returns {Promise<Object>} Update operation result
+ */
+export const updateBudgetUpgradeRegionalTable = async (payload) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/update_budget_upgrade_regional_table`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 30000, // 30 seconds for batch operations
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Update Budget Upgrade Regional Table API Error:", error);
+    throw error;
+  }
+};
