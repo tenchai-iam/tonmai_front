@@ -38,6 +38,12 @@ const Data = () => {
       downloadEndpoint: `${API_URL}/baseline_download`, // Add a download API
       filename: "baseline.xlsx",
     },
+    {
+      title: "ข้อมูล Corridor ที่จะ Upgrade",
+      endpoint: `${API_URL}/upgrade_corridor_list_upload`,
+      downloadEndpoint: `${API_URL}/api/upgrade_corridor_list_download`, // Add a download API
+      filename: "upgrade_corridor_list.xlsx",
+    },
   ];
 
   const uploadSectionsTransformer = [];
