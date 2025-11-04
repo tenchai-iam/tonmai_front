@@ -55,10 +55,10 @@ export const useAuthorizedAojOption = (pea_code) => {
   });
 };
 
-export const useFeederOption = (aoj_code) => {
+export const useFeederOption = (aoj_code, scenario_name) => {
   return useQuery({
-    queryKey: ["feederOption"],
-    queryFn: () => getFeeders(aoj_code),
+    queryKey: ["feederOption", aoj_code, scenario_name],
+    queryFn: () => getFeeders(aoj_code, scenario_name),
     enabled: Boolean(aoj_code),
   });
 };
