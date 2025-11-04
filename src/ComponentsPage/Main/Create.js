@@ -393,6 +393,7 @@ const Create = () => {
       budget: item.budget_thb,
       budgetPercentDiff: item.budget_percent_diff,
       budgetUpgrade: item.budget_upgrade_thb || 0,
+      scenarioName: item.scenario_name
     })) || [];
 
   return (

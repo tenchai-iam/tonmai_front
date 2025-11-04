@@ -79,6 +79,9 @@ const RegionBudgetTable = ({ data }) => {
               <th onClick={() => handleSort("budget")}>
                 งบประมาณปรับปรุง (บาท) {renderSortArrow("budget")}
               </th>
+              <th onClick={() => handleSort("scenarioName")}>
+                แผน Draft Active {renderSortArrow("scenarioName")}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -94,6 +97,7 @@ const RegionBudgetTable = ({ data }) => {
                 <td className="number">{formatValue(row.budget)}</td>
                 <td className="number">{formatPercent(row.budgetPercentDiff)}%</td>
                 <td className="number">{formatValue(row.budgetUpgrade)}</td>
+                <td>{row.scenarioName}</td>
               </tr>
             ))}
           </tbody>
