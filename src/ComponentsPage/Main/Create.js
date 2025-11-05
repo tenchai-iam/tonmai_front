@@ -4,8 +4,8 @@ import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphV from "../Sub/BarGraphV.js";
-import RegionBudgetTable from "../Sub/TableRegionBudget.js";
-import useSessionStorage from "../Sub/UseSessionStorage.js";
+import BarGraphScenario from "../Sub/BarGraphScenario.js";
+import TableScenarioAojSummary from "../Sub/TableScenarioAojSummary.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import { useOptimizationMetrics } from "../Sub_Query/ModelQuery.js";
@@ -17,7 +17,7 @@ import {
   useBudgetYearOption,
 } from "../Sub_Query/OptionQuery.js";
 
-import { useRegionBudgetGraph } from "../Sub_Query/BudgetQuery.js";
+import { useScenarioRegionSummary, useScenarioAojSummary } from "../Sub_Query/BudgetQuery.js";
 
 import {
   createBudgetScenario,
@@ -144,27 +144,13 @@ const Create = () => {
     }
   };
 
+  const { data: districtOption } = useDistrictOption();
+
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
-
-  const [selectedAoj, setSelectedAoj] = useState("");
-
-  const handleChangeAoj = (event) => {
-    setSelectedAoj(event.target.value);
-  };
-
-  const { data: districtOption } = useDistrictOption();
-
-  const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
-
-  const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
 
   // Fetch optimization metrics from API
   const { data: optimizationMetrics } = useOptimizationMetrics();
@@ -182,6 +168,32 @@ const Create = () => {
     scenario1: item.scenario1_cost,
     scenario2: item.scenario2_cost
   })) || [{ metric: "Cost", baseline: 0, scenario1: 0, scenario2: 0 }];
+
+  // Fetch regional budget graph data from API
+  const { data: scenarioRegionSummary } = useScenarioRegionSummary(selectedScenario1);
+  
+  const dataScenarioRegionBudgetSummary =
+      scenarioRegionSummary?.map((item) => ({
+        region: item.aoj_region,
+        budgetAdjust: item.budget_adjust
+      })) || [];
+
+  const dataScenarioRegionRiskSummary =
+      scenarioRegionSummary?.map((item) => ({
+        region: item.aoj_region,
+        systemRisk: item.system_risk
+      })) || [];
+
+  const { data: scenarioAojSummary } = useScenarioAojSummary(selectedScenario1, selectedDistrict);
+
+  const dataScenarioAojSummary =
+      scenarioAojSummary?.map((item) => ({
+        region: item.aoj_region,
+        code: item.aoj_code,
+        name: item.aoj_name,
+        budgetAdjust: item.budget_adjust,
+        systemRisk: item.system_risk
+      })) || [];
 
   return (
     <div>
@@ -344,6 +356,88 @@ const Create = () => {
               </button>
             </div>
           </div>
+        </div>
+        <div className="summary-container">
+          <div className="container-title">ข้อมูลสรุปของแผนแยกตามเขต</div>
+            <div className="dropdown-dropdown-container">
+              <div className="dropdowngroup-container">
+                <select
+                  value={selectedScenario1}
+                  onChange={handleScenario1Select}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                  {scenarioOption?.map((option) => (
+                    <option key={option.scenario_name} value={option.scenario_name}>
+                      {option.scenario_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="district-budget-graph">
+                งบประมาณแยกตามเขต (บาท)
+              <BarGraphScenario
+                data={dataScenarioRegionBudgetSummary}
+                xAxisKey="region"
+                height={400}
+                layout="horizontal"
+                showPercentage={false}
+                hideLabels={false}
+                yAxisWidth={60}
+                valueLabelPosition="top"
+                rightMargin={50}
+                maxBarSize={40}
+                barKeys={[
+                  {
+                    dataKey: "budgetAdjust",
+                    fill: "#8B4513",
+                    tooltipLabel: "งบประมาณ"
+                  }
+                ]}
+              />
+            </div>
+            <div className="district-budget-graph">
+                ความเสี่ยงในระบบแยกตามเขต
+              <BarGraphScenario
+                data={dataScenarioRegionRiskSummary}
+                xAxisKey="region"
+                height={400}
+                layout="horizontal"
+                showPercentage={false}
+                hideLabels={false}
+                yAxisWidth={60}
+                valueLabelPosition="top"
+                rightMargin={50}
+                maxBarSize={40}
+                barKeys={[
+                  {
+                    dataKey: "systemRisk",
+                    fill: "#4F1C51",
+                    tooltipLabel: "ความเสี่ยงในระบบ"
+                  }
+                ]}
+              />
+            </div>
+        </div>
+        <div className="summary-container">
+          <div className="dropdown-dropdown-container">
+            <div className="dropdowngroup-container">
+              <select
+                value={selectedDistrict}
+                onChange={handleChangeDistrict}
+                className="border rounded-lg px-4 py-2"
+              >
+                <option value="">เลือกการไฟฟ้าเขต</option>
+                {districtOption?.map((option) => (
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+                <TableScenarioAojSummary data={dataScenarioAojSummary} />
         </div>
       </div>
     </div>

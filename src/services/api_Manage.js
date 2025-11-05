@@ -2,12 +2,13 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getCorridorPlan = async (scenario_name, aoj_code) => {
+export const getCorridorPlan = async (scenario_name, aoj_code, feeder_id) => {
   const response = await axios.post(
     `${API_URL}/corridor_table`,
     {
       scenario_name: scenario_name,
       aoj_code: aoj_code, // Pass the data format value in the request body
+      feeder_id: feeder_id
     },
     { timeout: 5000 }
   );
