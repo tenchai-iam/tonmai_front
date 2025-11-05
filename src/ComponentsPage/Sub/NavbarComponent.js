@@ -74,7 +74,7 @@ function NavbarComponent() {
                 <NavDropdown.Item as={Link} to="/create">
                   สร้างแผน - Global
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/createRegion">
+                <NavDropdown.Item as={Link} to="/createR">
                   สร้างแผน - Region
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/manage">

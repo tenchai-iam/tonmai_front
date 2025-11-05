@@ -283,7 +283,7 @@ const Create = () => {
             <div className="confirm-container">
               <button
                 onClick={handleRiskSubmit}
-                disabled={isCreatingRiskScenario || isCreatingBudgetScenario || isCreatingRegionalScenario}
+                disabled={isCreatingRiskScenario || isCreatingBudgetScenario}
               >
                 {isCreatingRiskScenario ? "กำลังสร้าง..." : "ยืนยัน"}
               </button>
@@ -338,7 +338,7 @@ const Create = () => {
             <div className="confirm-container">
               <button
                 onClick={handleBudgetSubmit}
-                disabled={isCreatingBudgetScenario || isCreatingRiskScenario || isCreatingRegionalScenario}
+                disabled={isCreatingBudgetScenario || isCreatingRiskScenario}
               >
                 {isCreatingBudgetScenario ? "กำลังสร้าง..." : "ยืนยัน"}
               </button>

@@ -384,7 +384,7 @@ const CreateR = () => {
                     <div className="confirm-container">
                       <button
                         onClick={handleRegionSubmit}
-                        disabled={isCreatingRegionalScenario || isCreatingRiskScenario || isCreatingBudgetScenario}
+                        disabled={isCreatingRegionalScenario}
                       >
                         {isCreatingRegionalScenario ? "กำลังสร้าง..." : "ยืนยัน"}
                       </button>
