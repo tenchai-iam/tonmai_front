@@ -68,22 +68,30 @@ const Upgrade = () => {
   const handleDraftEditableScenarioSelect = (e) => setSelectedDraftEditableScenario(e.target.value);
 
   const [selectedDistrict, setSelectedDistrict] = useState("S2");
+  const [selectedDistrictE, setSelectedDistrictE] = useState("S2");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
 
   const [selectedAoj, setSelectedAoj] = useState("1103101");
+  const [selectedAojE, setSelectedAojE] = useState("1103101");
 
   const handleChangeAoj = (event) => {
     setSelectedAoj(event.target.value);
   };
 
   const [selectedFeeder, setSelectedFeeder] = useState([]);
+  const [selectedFeederE, setSelectedFeederE] = useState([]);
 
   const handleChangeFeeder = (selectedOptions) => {
     const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
     setSelectedFeeder(selectedValues);
+  };
+
+  const handleChangeFeederE = (selectedOptions) => {
+    const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+    setSelectedFeederE(selectedValues);
   };
 
   useEffect(() => {
@@ -203,7 +211,8 @@ const Upgrade = () => {
 
     const { data: corridorPlan } = useCorridorPlan(
       selectedDraftEditableScenario,
-      selectedAoj
+      selectedAojE,
+      selectedFeederE
     );
 
   // State for editable table data
@@ -585,6 +594,33 @@ const Upgrade = () => {
                       </option>
                     ))}
                   </select>
+                  <Select
+                    options={authorizedAojOptionFormatted}
+                    value={authorizedAojOptionFormatted?.find(
+                      (opt) => opt.value === sessionPEACode
+                    )}
+                    onChange={(selectedOption) =>
+                      setSelectedAojE(selectedOption?.value || "")
+                    }
+                    isClearable
+                    placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
+                    noOptionsMessage={() => "ไม่พบข้อมูล"}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                  />
+                  <Select
+                    options={feederOptionFormatted}
+                    value={feederOptionFormatted?.filter(
+                      (opt) => selectedFeederE.includes(opt.value)
+                    )}
+                    onChange={handleChangeFeederE}
+                    isMulti
+                    isClearable
+                    placeholder="ค้นหา/เลือก Feeder (หลายตัวได้)"
+                    noOptionsMessage={() => "ไม่พบข้อมูล"}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                  />
             </div>
             <div className="download-end-button">
                   <button

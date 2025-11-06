@@ -3,14 +3,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
-import BarGraphBudget from "../Sub/BarGraphBudget.js";
 import BarGraphV from "../Sub/BarGraphV.js";
-import RegionBudgetTable from "../Sub/TableRegionBudget.js";
-import useSessionStorage from "../Sub/UseSessionStorage.js";
+import BarGraphScenario from "../Sub/BarGraphScenario.js";
+import TableScenarioAojSummary from "../Sub/TableScenarioAojSummary.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
-
-import File from "../../pic/File.svg";
-import UploadButton from "../../pic/Upload.svg";
 
 import { useOptimizationMetrics } from "../Sub_Query/ModelQuery.js";
 
@@ -21,22 +17,13 @@ import {
   useBudgetYearOption,
 } from "../Sub_Query/OptionQuery.js";
 
-import { useRegionBudgetGraph } from "../Sub_Query/BudgetQuery.js";
-
-import {
-  useCorridorPlan,
-  usePlanSummaryQuery,
-  useRegionBudgetSummary,
-  useRegionBudgetTable
-} from "../Sub_Query/ManageQuery.js";
+import { useScenarioRegionSummary, useScenarioAojSummary } from "../Sub_Query/BudgetQuery.js";
 
 import {
   createBudgetScenario,
   createRiskScenario,
   selectScenarioPlan,
 } from "../../services/api_Scenario.js";
-
-import { getRegionBudgetTableDownload, uploadRegionBudget } from "../../services/api_Manage.js";
 
 import {
   formatValue,
@@ -78,16 +65,6 @@ const Create = () => {
   const [budgetDescription, setBudgetDescription] = useState("");
   const [isCreatingBudgetScenario, setIsCreatingBudgetScenario] =
     useState(false);
-
-  const [selectedYearRegion, setSelectedYearRegion] = useState("");
-  const [regionalDescription, setRegionalDescription] = useState("");
-  const [isCreatingRegionalScenario, setIsCreatingRegionalScenario] = useState(false);
-
-  // State for file upload
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
-  const fileInputRef = useRef(null);
 
   // NEW: Budget scenario submit handler
   const handleBudgetSubmit = async () => {
@@ -167,188 +144,13 @@ const Create = () => {
     }
   };
 
+  const { data: districtOption } = useDistrictOption();
+
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
-
-  const [selectedAoj, setSelectedAoj] = useState("");
-
-  const handleChangeAoj = (event) => {
-    setSelectedAoj(event.target.value);
-  };
-
-  const { data: districtOption } = useDistrictOption();
-
-  const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
-
-  const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
-
-  const { data: corridorPlan } = useCorridorPlan(
-    selectedScenario3,
-    selectedAoj
-  );
-
-  const dataCorridorPlan =
-    corridorPlan?.map((item) => ({
-      code: item.aoj_code,
-      name: item.aoj_name,
-      frequency: item.frequency,
-      length: item.corridor_length_km,
-      cost: item.cost_to_trim_model,
-      customer: item.customers_affected_adjusted,
-      feeder: item.feeder_id,
-      outage: item.probability_of_outage_bins,
-      customerRisk: item.risk_customer_interruptions_bins,
-      device: item.nearest_upstream_device,
-      density: Number(item.vegetation_density) * 100,
-    })) || [];
-
-  const handleDataCorridorPlan = () => {
-    const headers = [
-      { label: "รหัส", key: "code" },
-      { label: "กฟฟ.", key: "name" },
-      { label: "feeder", key: "feeder" },
-      { label: "ระยะทาง (km)", key: "length" },
-      { label: "ความหนาแน่นของต้นไม้", key: "density" },
-      { label: "ความถี่ในการตัด", key: "frequency" },
-      { label: "อุปกรณ์", key: "device" },
-      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
-      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
-      { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
-      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
-    ];
-
-    downloadTable({
-      data: dataCorridorPlan,
-      headers: headers,
-      fileName: "Corridor_Data",
-      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} สำหรับ ${selectedAoj}`,
-      extraInfoRows: [],
-    });
-  };
-
-  const handleDownloadRegionBudget = async () => {
-    try {
-      const blob = await getRegionBudgetTableDownload(selectedYearRegion);
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      const fileName = selectedYearRegion
-        ? `Regional_Budget_${selectedYearRegion}.xlsx`
-        : "Regional_Budget.xlsx";
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("เกิดข้อผิดพลาดในการดาวน์โหลดไฟล์");
-    }
-  };
-
-  // Upload handlers
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setUploadStatus(""); // Clear previous status
-  };
-
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      alert("กรุณาเลือกไฟล์ที่ต้องการอัพโหลด");
-      return;
-    }
-
-    setIsUploading(true);
-    setUploadStatus("");
-
-    try {
-      const response = await uploadRegionBudget(selectedFile);
-      setUploadStatus(response.message || "อัพโหลดสำเร็จ!");
-      setSelectedFile(null); // Clear selected file after successful upload
-
-      // Refetch the table data and graph data
-      queryClient.invalidateQueries(["regionBudgetTable"]);
-      queryClient.invalidateQueries(["regionBudgetGraph"]);
-    } catch (error) {
-      console.error("Upload error:", error);
-      setUploadStatus(
-        error.response?.data?.message || "เกิดข้อผิดพลาดในการอัพโหลดไฟล์"
-      );
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
-
-  // NEW: Regional optimization submit handler
-  const handleRegionSubmit = async () => {
-    if (!selectedYearRegion) {
-      alert("กรุณาเลือกปีที่จะใช้");
-      return;
-    }
-
-    setIsCreatingRegionalScenario(true);
-
-    const payload = {
-      year: parseInt(selectedYearRegion),
-      use_regional_optimization: true,
-      use_regional_budget_table: true,
-      region_col: "region",
-    };
-
-    // Add description if provided
-    if (regionalDescription.trim()) {
-      payload.description = regionalDescription.trim();
-    }
-
-    try {
-      const response = await createBudgetScenario(payload); // Using the same API endpoint
-      alert(`สร้าง Regional Scenario สำเร็จ! ID: ${response.scenario_id}`);
-      console.log("Regional Scenario Response:", response);
-
-      // Reset form
-      setSelectedYearRegion("");
-      setRegionalDescription("");
-
-      // Optionally refresh scenario options
-      // refetchScenarioOption();
-    } catch (err) {
-      console.error("Regional scenario creation failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างสร้าง Regional Scenario");
-    } finally {
-      setIsCreatingRegionalScenario(false);
-    }
-  };
-
-  // const { data: planSummary1 } = usePlanSummaryQuery(selectedScenario1);
-
-  // const dataPlanSummary1 = [
-  //   {
-  //     // aojCount: Number(planSummary1?.aoj_count || 0), // raw count
-  //     cost: Number(planSummary1?.total_cost || 0) / 1_000_000, // in millions
-  //     risk: Number(planSummary1?.total_risk || 0), // in millions
-  //   },
-  // ];
-
-  // const { data: planSummary2 } = usePlanSummaryQuery(selectedScenario2);
-
-  // const dataPlanSummary2 = [
-  //   {
-  //     // aojCount: Number(planSummary2?.aoj_count || 0), // raw count
-  //     cost: Number(planSummary2?.total_cost || 0) / 1_000_000, // in millions
-  //     risk: Number(planSummary2?.total_risk || 0), // in millions
-  //   },
-  // ];
 
   // Fetch optimization metrics from API
   const { data: optimizationMetrics } = useOptimizationMetrics();
@@ -368,33 +170,30 @@ const Create = () => {
   })) || [{ metric: "Cost", baseline: 0, scenario1: 0, scenario2: 0 }];
 
   // Fetch regional budget graph data from API
-  const { data: regionBudgetSummary } = useRegionBudgetSummary(selectedYearRegion);
+  const { data: scenarioRegionSummary } = useScenarioRegionSummary(selectedScenario1);
+  
+  const dataScenarioRegionBudgetSummary =
+      scenarioRegionSummary?.map((item) => ({
+        region: item.aoj_region,
+        budgetAdjust: item.budget_adjust
+      })) || [];
 
-  const dataRegionalBudgetSummary =
-    regionBudgetSummary?.map((item) => ({
-      region: item.region,
-      baseline: item.baseline_thb,
-      normalizeBaseline: item.normalize_baseline_thb,
-      budget: item.budget_thb,
-      budgetUpgrade: item.budget_upgrade_thb
-    })) || [];
+  const dataScenarioRegionRiskSummary =
+      scenarioRegionSummary?.map((item) => ({
+        region: item.aoj_region,
+        systemRisk: item.system_risk
+      })) || [];
 
-  const { data: regionBudgetTable } = useRegionBudgetTable(selectedYearRegion);
+  const { data: scenarioAojSummary } = useScenarioAojSummary(selectedScenario1, selectedDistrict);
 
-  const dataRegionalBudgetTable=
-    regionBudgetTable?.map((item) => ({
-      region: item.region,
-      code: item.aoj_code,
-      name: item.aoj_name,
-      baseline: item.baseline_thb,
-      normalizePercent: item.normalize_percent,
-      normalizeBaseline: item.normalize_baseline_thb,
-      year: item.budget_year,
-      budget: item.budget_thb,
-      budgetPercentDiff: item.budget_percent_diff,
-      budgetUpgrade: item.budget_upgrade_thb || 0,
-      scenarioName: item.scenario_name
-    })) || [];
+  const dataScenarioAojSummary =
+      scenarioAojSummary?.map((item) => ({
+        region: item.aoj_region,
+        code: item.aoj_code,
+        name: item.aoj_name,
+        budgetAdjust: item.budget_adjust,
+        systemRisk: item.system_risk
+      })) || [];
 
   return (
     <div>
@@ -496,7 +295,7 @@ const Create = () => {
             <div className="confirm-container">
               <button
                 onClick={handleRiskSubmit}
-                disabled={isCreatingRiskScenario || isCreatingBudgetScenario || isCreatingRegionalScenario}
+                disabled={isCreatingRiskScenario || isCreatingBudgetScenario}
               >
                 {isCreatingRiskScenario ? "กำลังสร้าง..." : "ยืนยัน"}
               </button>
@@ -551,29 +350,26 @@ const Create = () => {
             <div className="confirm-container">
               <button
                 onClick={handleBudgetSubmit}
-                disabled={isCreatingBudgetScenario || isCreatingRiskScenario || isCreatingRegionalScenario}
+                disabled={isCreatingBudgetScenario || isCreatingRiskScenario}
               >
                 {isCreatingBudgetScenario ? "กำลังสร้าง..." : "ยืนยัน"}
               </button>
             </div>
           </div>
         </div>
-        <div className="container-title">สร้างแผนโดยกระจายงบประมาณแบบ Regional</div>
         <div className="summary-container">
-            <div className="inputgroup-container">
-              <div className="input-year">
-                <label>เลือกปีงบประมาณ</label>
+          <div className="container-title">ข้อมูลสรุปของแผนแยกตามเขต</div>
+            <div className="dropdown-dropdown-container">
+              <div className="dropdowngroup-container">
                 <select
-                  value={selectedYearRegion}
-                  onChange={(e) => setSelectedYearRegion(e.target.value)}
+                  value={selectedScenario1}
+                  onChange={handleScenario1Select}
                   className="border rounded-lg px-4 py-2"
                 >
-                  <option value="" disabled>
-                    เลือกปี
-                  </option>
-                  {budgetYearOption?.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
+                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                  {scenarioOption?.map((option) => (
+                    <option key={option.scenario_name} value={option.scenario_name}>
+                      {option.scenario_name}
                     </option>
                   ))}
                 </select>
@@ -581,14 +377,8 @@ const Create = () => {
             </div>
             <div className="district-budget-graph">
                 งบประมาณแยกตามเขต (บาท)
-                <div className="bar-chart-legend">
-                  <span style={{ color: "#8B4513" }}>⬤ งบประมาณ Baseline</span>
-                  <span style={{ color: "#C69530" }}>⬤ งบประมาณ Normalized </span>
-                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ</span>
-                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณปรับปรุง</span>
-                </div>
-              <BarGraphBudget
-                data={dataRegionalBudgetSummary}
+              <BarGraphScenario
+                data={dataScenarioRegionBudgetSummary}
                 xAxisKey="region"
                 height={400}
                 layout="horizontal"
@@ -600,131 +390,55 @@ const Create = () => {
                 maxBarSize={40}
                 barKeys={[
                   {
-                    dataKey: "baseline",
+                    dataKey: "budgetAdjust",
                     fill: "#8B4513",
-                    tooltipLabel: "งบประมาณ Baseline"
-                  },
-                  {
-                    dataKey: "normalizeBaseline",
-                    fill: "#C69530",
-                    tooltipLabel: "งบประมาณ Normalized"
-                  },
-                  {
-                    dataKey: "budget",
-                    fill: "#4F1C51",
                     tooltipLabel: "งบประมาณ"
-                  },
+                  }
+                ]}
+              />
+            </div>
+            <div className="district-budget-graph">
+                ความเสี่ยงในระบบแยกตามเขต
+              <BarGraphScenario
+                data={dataScenarioRegionRiskSummary}
+                xAxisKey="region"
+                height={400}
+                layout="horizontal"
+                showPercentage={false}
+                hideLabels={false}
+                yAxisWidth={60}
+                valueLabelPosition="top"
+                rightMargin={50}
+                maxBarSize={40}
+                barKeys={[
                   {
-                    dataKey: "budgetUpgrade",
-                    fill: "#A1D6B2",
-                    tooltipLabel: "งบประมาณปรับปรุง"
+                    dataKey: "systemRisk",
+                    fill: "#4F1C51",
+                    tooltipLabel: "ความเสี่ยงในระบบ"
                   }
                 ]}
               />
             </div>
         </div>
-            <div className="budget-manage-platform">
-                <div className="budget-table">
-                  <div className="download-end-button">
-                    <button
-                      onClick={handleDownloadRegionBudget}
-                      className={`download-button-style${false ? " selected" : ""}`}
-                    >
-                      Download
-                    </button>
-                  </div>
-                  <RegionBudgetTable data={dataRegionalBudgetTable} />
-                </div>
-                <div className="upload-create-menu">
-                  <div className="upload-menu">
-                    <h3 className="text-title">Upload Region Budget</h3>
-                    <div className="form-container">
-                      <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                        accept=".xlsx,.xls"
-                        style={{ display: "none" }}
-                      />
-
-                      {/* Image for file selection */}
-                      <img
-                        src={File}
-                        alt="Select File"
-                        className="file-image"
-                        onClick={handleImageClick}
-                        style={{ cursor: "pointer" }}
-                      />
-
-                      {selectedFile && (
-                        <p className="selected-file-name">
-                          เลือกไฟล์: {selectedFile.name}
-                        </p>
-                      )}
-
-                      {/* Image acting as the upload button */}
-                      <img
-                        src={UploadButton}
-                        alt="Upload"
-                        className="upload-button-image"
-                        onClick={handleUpload}
-                        style={{
-                          cursor: isUploading ? "not-allowed" : "pointer",
-                          opacity: isUploading ? 0.6 : 1,
-                        }}
-                      />
-
-                      {isUploading && <p className="upload-status">กำลังอัพโหลด...</p>}
-                    </div>
-
-                    {uploadStatus && (
-                      <p className={`upload-status ${uploadStatus.includes("สำเร็จ") ? "success" : "error"}`}>
-                        {uploadStatus}
-                      </p>
-                    )}
-                  </div>
-                  <div className="create-menu">
-                    สร้างแผนโดยจำกัดงบประมาณตามเขต
-                    <div className="inputgroup-container">
-                      <div className="input-year">
-                        <label>เลือกปีที่จะใช้</label>
-                        <select
-                          value={selectedYearRegion}
-                          onChange={(e) => setSelectedYearRegion(e.target.value)}
-                          className="border rounded-lg px-4 py-2"
-                        >
-                          <option value="" disabled>
-                            เลือกปี
-                          </option>
-                          {budgetYearOption?.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="input-field">
-                        <label>หมายเหตุ</label>
-                        <input
-                          className="input-value"
-                          type="text"
-                          placeholder="เพิ่มรายละเอียดหลังชื่อแผน (ไม่เกิน 10 ตัวอักษร)"
-                          value={regionalDescription}
-                          onChange={(e) => setRegionalDescription(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="confirm-container">
-                      <button
-                        onClick={handleRegionSubmit}
-                        disabled={isCreatingRegionalScenario || isCreatingRiskScenario || isCreatingBudgetScenario}
-                      >
-                        {isCreatingRegionalScenario ? "กำลังสร้าง..." : "ยืนยัน"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
+        <div className="summary-container">
+          <div className="dropdown-dropdown-container">
+            <div className="dropdowngroup-container">
+              <select
+                value={selectedDistrict}
+                onChange={handleChangeDistrict}
+                className="border rounded-lg px-4 py-2"
+              >
+                <option value="">เลือกการไฟฟ้าเขต</option>
+                {districtOption?.map((option) => (
+                  <option key={option.aoj_region} value={option.aoj_region}>
+                    {option.aoj_region}
+                  </option>
+                ))}
+              </select>
             </div>
+          </div>
+                <TableScenarioAojSummary data={dataScenarioAojSummary} />
+        </div>
       </div>
     </div>
   );

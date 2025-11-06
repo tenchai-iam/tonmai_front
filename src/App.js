@@ -12,6 +12,7 @@ import MapG from "./ComponentsPage/Main/MapGeneral.js";
 import Upgrade from "./ComponentsPage/Main/Upgrade.js";
 import Map from "./ComponentsPage/Main/Map.js";
 import Create from "./ComponentsPage/Main/Create.js";
+import CreateR from "./ComponentsPage/Main/CreateR.js";
 import Manage from "./ComponentsPage/Main/Manage.js";
 import Budget from "./ComponentsPage/Main/Budget.js";
 import Value from "./ComponentsPage/Main/Value.js";
@@ -38,6 +39,7 @@ export default function App() {
               <Route path="/upgrade" element={<Upgrade />} />
               <Route path="/map" element={<Map />} />
               <Route path="/create" element={<Create />} />
+              <Route path="/createR" element={<CreateR />} />              
               <Route path="/manage" element={<Manage />} />
               <Route path="/value" element={<Value />} />
               <Route path="/budget" element={<Budget />} />
@@ -56,6 +58,11 @@ export default function App() {
               <Route
                 path="/create"
                 element={<ProtectedRoute element={Create} />}
+                allowedLevels={["B", "C"]}
+              />
+              <Route
+                path="/createR"
+                element={<ProtectedRoute element={CreateR} />}
                 allowedLevels={["B", "C"]}
               />
               <Route

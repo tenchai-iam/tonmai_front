@@ -21,3 +21,23 @@ export const getAojBudgetTable = async (scenario_name, region) => {
   );
   return response.data; // Return the data received from the API
 };
+
+export const getScenarioRegionSummary = async (scenario_name) => {
+  const body = { scenario_name};
+  const response = await axios.post(
+    `${API_URL}/scenario_region_summary`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};
+
+export const getScenarioAojSummary = async (scenario_name, region) => {
+  const body = { scenario_name, region };
+  const response = await axios.post(
+    `${API_URL}/scenario_aoj_summary`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};
