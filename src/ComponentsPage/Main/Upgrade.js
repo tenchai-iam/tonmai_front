@@ -622,7 +622,7 @@ const Upgrade = () => {
                     classNamePrefix="react-select"
                   />
             </div>
-            <div className="download-end-button">
+            <div className="download-end-group-button">
                   <button
                     onClick={handleBatchSave}
                     disabled={isSaving || modifiedRows.size === 0}

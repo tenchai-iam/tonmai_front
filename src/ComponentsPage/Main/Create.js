@@ -195,6 +195,24 @@ const Create = () => {
         systemRisk: item.system_risk
       })) || [];
 
+  const handleDataScenarioAojSummary = () => {
+    const headers = [
+      { label: "เขต", key: "region" },
+      { label: "รหัส กฟส.", key: "code" },
+      { label: "กฟส.", key: "name" },
+      { label: "งบประมาณ (บาท)", key: "budgetAdjust" },
+      { label: "ความเสี่ยงในระบบ", key: "systemRisk" },
+    ];
+
+    downloadTable({
+      data: dataScenarioAojSummary,
+      headers: headers,
+      fileName: "Scenario_Aoj_Summary",
+      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} แยกตามกฟส. ${selectedDistrict}`,
+      extraInfoRows: [],
+    });
+  };
+
   return (
     <div>
       <NavbarComponent />
@@ -222,6 +240,11 @@ const Create = () => {
                 { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
               ]}
             />
+            <div className="remark">
+              <p>
+                Risk = จำนวนลูกค้าคาดการณ์ที่ได้รับผลกระทบจากไฟดับ (ผลรวมของ โอกาสในการเกิดไฟดับ x จำนวนลูกค้า ของแต่ละ Corridor)
+              </p>
+            </div>
           </div>
           <div className="district-budget-graph">
             Cost Metrics
@@ -243,6 +266,11 @@ const Create = () => {
                 { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
               ]}
             />
+            <div className="remark">
+              <p>
+                Cost = ค่าใช้จ่ายในการตัดต้นไม้ (ผลรวมของ จำนวนครั้ง x ค่าใช้จ่ายต่อครั้งตาม Rate Card x กิโลเมตร ของแต่ละ Corridor)
+              </p>
+            </div>
           </div>
         </div>
         <div className="container-title">สร้างแผนโดยกระจายงบประมาณแบบ Global</div>
@@ -421,6 +449,7 @@ const Create = () => {
             </div>
         </div>
         <div className="summary-container">
+          <div className="container-title">งบประมาณและความเสี่ยงในระบบแยกตามกฟส.</div>
           <div className="dropdown-dropdown-container">
             <div className="dropdowngroup-container">
               <select
@@ -435,6 +464,14 @@ const Create = () => {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="download-end-button">
+              <button
+                onClick={handleDataScenarioAojSummary}
+                className={`download-button-style${false ? " selected" : ""}`}
+              >
+                Download
+              </button>
             </div>
           </div>
                 <TableScenarioAojSummary data={dataScenarioAojSummary} />

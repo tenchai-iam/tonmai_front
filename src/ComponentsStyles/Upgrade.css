@@ -27,6 +27,14 @@
   white-space: nowrap; /* Prevent the text from wrapping */
 }
 
+.download-end-group-button {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  gap:20px;
+  white-space: nowrap; /* Prevent the text from wrapping */
+}
+
 .aoj-budget-table {
   display: flex;
   flex-direction: column;
