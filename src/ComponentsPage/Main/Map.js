@@ -223,17 +223,19 @@ const Map = () => {
 
   const handleDataCorridorPlan = () => {
     const headers = [
+      { label: "ปีงบประมาณ", key: "year" },
+      { label: "ชื่อแผน", key: "scenarioName" },
+      { label: "เขต.", key: "district" },
       { label: "รหัส", key: "code" },
       { label: "กฟฟ.", key: "name" },
       { label: "feeder", key: "feeder" },
+      { label: "รหัส Corridor", key: "corridor" },
       { label: "ระยะทาง (km)", key: "length" },
-      { label: "ความหนาแน่นของต้นไม้", key: "density" },
-      { label: "ความถี่ในการตัด", key: "frequency" },
       { label: "อุปกรณ์", key: "device" },
-      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
-      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
       { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
-      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
+      { label: "จำนวนลูกค้าที่ได้ผลกระทบ", key: "customer" },
+      { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
+      { label: "เหตุผล", key: "reason" },
     ];
 
     downloadTable({
