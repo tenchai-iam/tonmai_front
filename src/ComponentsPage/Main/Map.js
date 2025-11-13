@@ -13,6 +13,7 @@ import {
   useDistrictOption,
   useAojOption,
   useFeederOption,
+  useCorridorOption
 } from "../Sub_Query/OptionQuery.js";
 
 import {
@@ -40,6 +41,9 @@ const Map = () => {
 
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
+
+  const [selectedScenario2, setSelected2Scenario] = useState("");
+  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
 
   const { data: scenarioOption } = useScenarioOption();
 
@@ -69,6 +73,10 @@ const Map = () => {
     const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
     setSelectedFeeder(selectedValues);
   };
+
+  const [selectedFeeder2, setSelectedFeeder2] = useState([]);
+
+  const [selectedCorridor, setSelectedCorridor] = useState("");
 
   useEffect(() => {
     // Later replace this with fetch or API call
@@ -107,6 +115,13 @@ const Map = () => {
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
     label: option["feeder_id"],
+  }));
+
+  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedAoj2);
+
+  const corridorOptionFormatted = corridorOption?.map((option) => ({
+    value: option["nearest_upstream_device"],
+    label: option["nearest_upstream_device"],
   }));
 
   const { data: aojOption2, isLoadingAojOption2 } =
@@ -168,12 +183,11 @@ const Map = () => {
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
-  const [selectedScenario2, setSelected2Scenario] = useState("");
-  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
-
   const { data: corridorPlan } = useCorridorPlan(
     selectedScenario2,
-    selectedAoj2
+    selectedAoj2,
+    selectedFeeder2,
+    selectedCorridor
   );
 
   const dataCorridorPlan = useMemo(
@@ -421,6 +435,20 @@ const Map = () => {
                 }
                 isClearable
                 placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
+                noOptionsMessage={() => "ไม่พบข้อมูล"}
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
+              <Select
+                options={corridorOptionFormatted}
+                value={corridorOptionFormatted?.find(
+                  (opt) => opt.value === selectedCorridor
+                )}
+                onChange={(selectedOption) =>
+                  setSelectedCorridor(selectedOption?.value || "")
+                }
+                isClearable
+                placeholder="ค้นหา/เลือก Corridor"
                 noOptionsMessage={() => "ไม่พบข้อมูล"}
                 className="react-select-container"
                 classNamePrefix="react-select"

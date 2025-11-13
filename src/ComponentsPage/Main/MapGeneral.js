@@ -14,6 +14,7 @@ import {
   useAojOption,
   useAuthorizedAojOption,
   useFeederOption,
+  useCorridorOption
 } from "../Sub_Query/OptionQuery.js";
 
 import {
@@ -44,6 +45,9 @@ const MapG = () => {
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
 
+  const [selectedScenario2, setSelected2Scenario] = useState("");
+  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
+
   const { data: scenarioOption } = useDraftScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -64,7 +68,7 @@ const MapG = () => {
     setSelectedAoj(event.target.value);
   };
 
-  const [selectedAoj2, setSelectedAoj2] = useState("");
+  const [selectedAoj2, setSelectedAoj2] = useState("1103101");
 
   const [selectedFeeder, setSelectedFeeder] = useState([]);
 
@@ -72,6 +76,10 @@ const MapG = () => {
     const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
     setSelectedFeeder(selectedValues);
   };
+
+  const [selectedFeeder2, setSelectedFeeder2] = useState([]);
+
+  const [selectedCorridor, setSelectedCorridor] = useState("");
 
   useEffect(() => {
     // Later replace this with fetch or API call
@@ -118,6 +126,13 @@ const MapG = () => {
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
     label: option["feeder_id"],
+  }));
+
+  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedAoj2);
+
+  const corridorOptionFormatted = corridorOption?.map((option) => ({
+    value: option["nearest_upstream_device"],
+    label: option["nearest_upstream_device"],
   }));
 
   const { data: aojOption2, isLoadingAojOption2 } =
@@ -187,12 +202,11 @@ const MapG = () => {
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
-  const [selectedScenario2, setSelected2Scenario] = useState("");
-  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
-
   const { data: corridorPlan } = useCorridorPlan(
     selectedScenario2,
-    selectedAoj2
+    selectedAoj2,
+    selectedFeeder2,
+    selectedCorridor
   );
 
   const dataCorridorPlan =
@@ -411,6 +425,20 @@ const MapG = () => {
                 }
                 isClearable
                 placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
+                noOptionsMessage={() => "ไม่พบข้อมูล"}
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
+              <Select
+                options={corridorOptionFormatted}
+                value={corridorOptionFormatted?.find(
+                  (opt) => opt.value === selectedCorridor
+                )}
+                onChange={(selectedOption) =>
+                  setSelectedCorridor(selectedOption?.value || "")
+                }
+                isClearable
+                placeholder="ค้นหา/เลือก Corridor"
                 noOptionsMessage={() => "ไม่พบข้อมูล"}
                 className="react-select-container"
                 classNamePrefix="react-select"

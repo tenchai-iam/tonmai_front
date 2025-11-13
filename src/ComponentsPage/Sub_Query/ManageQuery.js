@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable, getSelectedScenarioD, getSelectedScenarioF } from "../../services/api_Manage.js";
 
-export const useCorridorPlan = (scenario_name, aoj_code, feeder_id) => {
+export const useCorridorPlan = (scenario_name, aoj_code, feeder_id, corridor) => {
   return useQuery({
-    queryKey: ["corridorPlan", scenario_name, aoj_code, feeder_id],
-    queryFn: () => getCorridorPlan(scenario_name, aoj_code, feeder_id),
+    queryKey: ["corridorPlan", scenario_name, aoj_code, feeder_id, corridor],
+    queryFn: () => getCorridorPlan(scenario_name, aoj_code, feeder_id, corridor),
     enabled: Boolean(scenario_name) && Boolean(aoj_code),
   });
 };

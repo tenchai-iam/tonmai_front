@@ -9,6 +9,7 @@ import {
   getAuthorizedAojs,
   getFeeders,
   getAvailableBudgetYears,
+  getCorridors
 } from "../../services/api_Options";
 
 export const useDistrictOption = () => {
@@ -73,5 +74,13 @@ export const useBudgetYearOption = () => {
         label: item.budget_year,
       }));
     },
+  });
+};
+
+export const useCorridorOption = (scenario_name, aoj_code) => {
+  return useQuery({
+    queryKey: ["corridorOption", scenario_name, aoj_code],
+    queryFn: () => getCorridors(scenario_name, aoj_code),
+    enabled: Boolean(scenario_name) && Boolean(aoj_code),
   });
 };

@@ -19,6 +19,7 @@ import {
   useAojOption,
   useAuthorizedAojOption,
   useFeederOption,
+  useCorridorOption
 } from "../Sub_Query/OptionQuery.js";
 
 import { 
@@ -94,6 +95,8 @@ const Upgrade = () => {
     setSelectedFeederE(selectedValues);
   };
 
+  const [selectedCorridor, setSelectedCorridor] = useState("");
+
   useEffect(() => {
     // Later replace this with fetch or API call
     const dummyData = [
@@ -131,6 +134,13 @@ const Upgrade = () => {
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
     label: option["feeder_id"],
+  }));
+
+  const { data: corridorOption } = useCorridorOption(selectedDraftEditableScenario, selectedAojE);
+
+  const corridorOptionFormatted = corridorOption?.map((option) => ({
+    value: option["nearest_upstream_device"],
+    label: option["nearest_upstream_device"],
   }));
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
@@ -212,7 +222,8 @@ const Upgrade = () => {
     const { data: corridorPlan } = useCorridorPlan(
       selectedDraftEditableScenario,
       selectedAojE,
-      selectedFeederE
+      selectedFeederE,
+      selectedCorridor
     );
 
   // State for editable table data
@@ -610,7 +621,7 @@ const Upgrade = () => {
                     className="react-select-container"
                     classNamePrefix="react-select"
                   />
-                  <Select
+                  {/* <Select
                     options={feederOptionFormatted}
                     value={feederOptionFormatted?.filter(
                       (opt) => selectedFeederE.includes(opt.value)
@@ -619,6 +630,20 @@ const Upgrade = () => {
                     isMulti
                     isClearable
                     placeholder="ค้นหา/เลือก Feeder (หลายตัวได้)"
+                    noOptionsMessage={() => "ไม่พบข้อมูล"}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                  /> */}
+                  <Select
+                    options={corridorOptionFormatted}
+                    value={corridorOptionFormatted?.find(
+                      (opt) => opt.value === selectedCorridor
+                    )}
+                    onChange={(selectedOption) =>
+                      setSelectedCorridor(selectedOption?.value || "")
+                    }
+                    isClearable
+                    placeholder="ค้นหา/เลือก Corridor"
                     noOptionsMessage={() => "ไม่พบข้อมูล"}
                     className="react-select-container"
                     classNamePrefix="react-select"
