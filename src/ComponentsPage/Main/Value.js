@@ -129,8 +129,8 @@ const Value = () => {
         </div>
         <div className="summary-container">
           <div className="bar-chart-legend">
-            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่าย Base</span>
-            <span style={{ color: "#82ca9d" }}>⬤ ค่าใช้จ่ายประเมินจาก AI</span>
+            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่ายปีฐาน 2567</span>
+            <span style={{ color: "#82ca9d" }}>⬤ งบประมาณแผน</span>
             <span style={{ color: "#3e3e3e" }}>⬤ ค่าใช้จ่ายจริง</span>
           </div>
           <div className="all-district-container">

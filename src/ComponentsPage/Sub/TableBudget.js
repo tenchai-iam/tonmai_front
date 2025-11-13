@@ -62,7 +62,7 @@ const BudgetTable = ({ data }) => {
                 ba {renderSortArrow("ba")}
               </th>
               <th onClick={() => handleSort("budgetBase")}>
-                งบประมาณฐาน (ล้านบาท) {renderSortArrow("budgetBase")}
+                ค่าใช้จ่ายฐานปี 2567 (ล้านบาท) {renderSortArrow("budgetBase")}
               </th>
               <th onClick={() => handleSort("budgetModel")}>
                 งบประมาณแผน (ล้านบาท) {renderSortArrow("budgetModel")}
