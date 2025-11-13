@@ -14,7 +14,8 @@ import {
   useAojOption,
   useAuthorizedAojOption,
   useFeederOption,
-  useCorridorOption
+  useCorridorOption,
+  useFrequencyOption
 } from "../Sub_Query/OptionQuery.js";
 
 import {
@@ -62,10 +63,12 @@ const MapG = () => {
     setSelectedDistrict2(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useState("");
+  const [selectedAoj, setSelectedAoj] = useState("1103101");
 
-  const handleChangeAoj = (event) => {
-    setSelectedAoj(event.target.value);
+  const [selectedFrequency, setSelectedFrequency] = useState("");
+
+  const handleChangeFrequency = (event) => {
+    setSelectedFrequency(event.target.value);
   };
 
   const [selectedAoj2, setSelectedAoj2] = useState("1103101");
@@ -127,6 +130,7 @@ const MapG = () => {
     value: option["feeder_id"],
     label: option["feeder_id"],
   }));
+  const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedAoj, selectedFeeder);
 
   const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedAoj2);
 
@@ -156,9 +160,10 @@ const MapG = () => {
   const { data: geoCorridors } = useGeoCorridors(
     selectedScenario1,
     selectedFeeder,
-    selectedAoj
+    selectedAoj,
+    selectedFrequency
   );
-  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj);
+  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
     "currentMapView",
@@ -332,6 +337,18 @@ const MapG = () => {
               className="react-select-container"
               classNamePrefix="react-select"
             />
+            <select
+              value={selectedFrequency}
+              onChange={handleChangeFrequency}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือกความถี่ในการตัด</option>
+              {frequencyOption?.map((option) => (
+                <option key={option.frequency_number} value={option.frequency_number}>
+                  {option.frequency_number}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">

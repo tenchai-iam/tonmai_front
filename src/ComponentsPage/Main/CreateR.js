@@ -301,6 +301,11 @@ const CreateR = () => {
                     </button>
                   </div>
                   <RegionBudgetTable data={dataRegionalBudgetTable} />
+                  <div className="remark">
+                    <p>
+                      หมายเหตุ: งบประมาณ Normalize คือการปรับฐานจากค่าใช้จ่ายจริงจากปัจจัยต่างๆเช่น เงินเฟ้อ ระยะทางที่เพิ่มจากเดิม
+                    </p>
+                  </div>
                 </div>
                 <div className="upload-create-menu">
                   <div className="upload-menu">

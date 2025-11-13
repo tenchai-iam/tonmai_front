@@ -59,7 +59,7 @@ const RegionBudgetTable = ({ data }) => {
                 กฟฟ. {renderSortArrow("name")}
               </th>
               <th onClick={() => handleSort("baseline")}>
-                งบประมาณฐาน (บาท) {renderSortArrow("baseline")}
+                ค่าใช้จ่ายจริง Y-1 (บาท) {renderSortArrow("baseline")}
               </th>
               <th onClick={() => handleSort("normalizePercent")}>
                 Normalize % {renderSortArrow("normalizePercent")}
@@ -71,7 +71,7 @@ const RegionBudgetTable = ({ data }) => {
                 ปี {renderSortArrow("year")}
               </th>
               <th onClick={() => handleSort("budget")}>
-                งบประมาณ Y-2 (บาท) {renderSortArrow("budget")}
+                งบประมาณแผน (บาท) {renderSortArrow("budget")}
               </th>
               <th onClick={() => handleSort("budgetPercentDiff")}>
                 % ส่วนต่างงบประมาณ Y-2 จากงบประมาณ Normalize (บาท) {renderSortArrow("budgetPercentDiff")}

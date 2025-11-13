@@ -19,7 +19,8 @@ import {
   useAojOption,
   useAuthorizedAojOption,
   useFeederOption,
-  useCorridorOption
+  useCorridorOption,
+  useFrequencyOption
 } from "../Sub_Query/OptionQuery.js";
 
 import { 
@@ -78,8 +79,10 @@ const Upgrade = () => {
   const [selectedAoj, setSelectedAoj] = useState("1103101");
   const [selectedAojE, setSelectedAojE] = useState("1103101");
 
-  const handleChangeAoj = (event) => {
-    setSelectedAoj(event.target.value);
+  const [selectedFrequency, setSelectedFrequency] = useState("");
+
+  const handleChangeFrequency = (event) => {
+    setSelectedFrequency(event.target.value);
   };
 
   const [selectedFeeder, setSelectedFeeder] = useState([]);
@@ -136,6 +139,8 @@ const Upgrade = () => {
     label: option["feeder_id"],
   }));
 
+  const { data: frequencyOption } = useFrequencyOption(selectedDraftScenario, selectedAoj, selectedFeeder);
+
   const { data: corridorOption } = useCorridorOption(selectedDraftEditableScenario, selectedAojE);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
@@ -148,9 +153,10 @@ const Upgrade = () => {
   const { data: geoCorridors } = useGeoCorridors(
     selectedDraftScenario,
     selectedFeeder,
-    selectedAoj
+    selectedAoj,
+    selectedFrequency
   );
-  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj);
+  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
     "currentMapView",
@@ -478,6 +484,18 @@ const Upgrade = () => {
               className="react-select-container"
               classNamePrefix="react-select"
             />
+            <select
+              value={selectedFrequency}
+              onChange={handleChangeFrequency}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือกความถี่ในการตัด</option>
+              {frequencyOption?.map((option) => (
+                <option key={option.frequency_number} value={option.frequency_number}>
+                  {option.frequency_number}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">
@@ -589,6 +607,11 @@ const Upgrade = () => {
                     </button>
                   </div>
                   <AojBudgetTable data={dataAojBudgetTable} />
+                  <div className="remark">
+                    <p>
+                      หมายเหตุ: งบประมาณ Normalize คือการปรับฐานจากค่าใช้จ่ายจริงจากปัจจัยต่างๆเช่น เงินเฟ้อ ระยะทางที่เพิ่มจากเดิม
+                    </p>
+                  </div>
                 </div>
                 </div>
         </div>

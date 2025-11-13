@@ -54,7 +54,7 @@ function NavbarComponent() {
             {" "}
             {/* Right-align menu items */}
             {/* Main Links */}
-            <Nav.Link as={Link} to="/home">
+            <Nav.Link as={Link} to="/">
               หน้าหลัก
             </Nav.Link>
             <Nav.Link as={Link} to="/mapG">
