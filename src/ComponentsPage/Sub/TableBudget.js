@@ -49,6 +49,9 @@ const BudgetTable = ({ data }) => {
         <table>
           <thead>
             <tr>
+              <th onClick={() => handleSort("year")}>
+                ปี {renderSortArrow("year")}
+              </th>
               <th onClick={() => handleSort("district")}>
                 เขต {renderSortArrow("district")}
               </th>
@@ -64,9 +67,6 @@ const BudgetTable = ({ data }) => {
               <th onClick={() => handleSort("budgetBase")}>
                 ค่าใช้จ่ายฐานปี 2567 (ล้านบาท) {renderSortArrow("budgetBase")}
               </th>
-              <th onClick={() => handleSort("budgetModel")}>
-                งบประมาณแผน (ล้านบาท) {renderSortArrow("budgetModel")}
-              </th>
               <th onClick={() => handleSort("actual")}>
                 ค่าใช้จ่ายจริง (ล้านบาท) {renderSortArrow("actual")}
               </th>
@@ -75,12 +75,12 @@ const BudgetTable = ({ data }) => {
           <tbody>
             {sortedData.map((row, index) => (
               <tr key={index}>
+                <td>{row.year}</td>    
                 <td>{row.district}</td>
                 <td>{row.code}</td>
                 <td>{row.name}</td>
                 <td>{row.ba}</td>
-                <td className="number">{formatValue(row.budgetBase)}</td>
-                <td className="number">{formatValue(row.budgetModel)}</td>
+                <td className="number">{formatValue(row.base)}</td>
                 <td className="number">{formatValue(row.actual)}</td>
               </tr>
             ))}

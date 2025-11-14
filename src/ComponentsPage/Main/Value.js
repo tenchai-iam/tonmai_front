@@ -9,7 +9,7 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   useBaselineTotal,
   useBaselineDistrict,
-  useBaselineTable,
+  useValueTable,
 } from "../Sub_Query/ValueQuery.js";
 
 import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
@@ -72,32 +72,32 @@ const Value = () => {
     { dataKey: "actual", fill: "#3e3e3e" },
   ];
 
-  const { data: baselineTable } = useBaselineTable(selectedYear, selectedAoj);
+  const { data: valueTable } = useValueTable(selectedYear, selectedAoj);
 
-  const dataBaselineTable =
-    baselineTable?.map((item) => ({
+  const dataValueTable =
+    valueTable?.map((item) => ({
+      year: item.year,
       district: item.district,
       code: item.aoj_code,
       name: item.aoj_name,
       ba: item.ba,
-      budgetBase: Number(item.budget_base_thb ?? 0) / 1000000,
-      budgetModel: Number(item.budget_model_thb ?? 0) / 1000000,
-      actual: Number(item.actual_thb ?? 0) / 1000000,
+      base: Number(item.base ?? 0) / 1000000,
+      actual: Number(item.actual ?? 0) / 1000000,
     })) || [];
 
-  const handleDataBaselineTable = () => {
+  const handleDataValueTable = () => {
     const headers = [
+      { label: "ปี", key: "year" },
       { label: "เขต", key: "district" },
       { label: "รหัส กฟฟ.", key: "code" },
       { label: "กฟฟ.", key: "name" },
       { label: "ba", key: "ba" },
-      { label: "งบประมาณฐาน (ล้านบาท)", key: "budgetBase" },
-      { label: "งบประมาณแผน (ล้านบาท)", key: "budgetModel" },
+      { label: "ค่าใช้จ่ายฐานปี 2566 (ล้านบาท)", key: "ิbase" },
       { label: "ค่าใช้จ่ายจริง (ล้านบาท)", key: "actual" },
     ];
 
     downloadTable({
-      data: dataBaselineTable,
+      data: dataValueTable,
       headers: headers,
       fileName: "Stage5_Value_Data",
       title: `สรุปข้อมูลติดตามมูลค่า ${selectedAoj}`,
@@ -188,14 +188,14 @@ const Value = () => {
             </div>
             <div className="download-button">
               <button
-                onClick={handleDataBaselineTable}
+                onClick={handleDataValueTable}
                 className={`download-button-style${false ? " selected" : ""}`}
               >
                 Download
               </button>
             </div>
           </div>
-          <BudgetTable data={dataBaselineTable} />
+          <BudgetTable data={dataValueTable} />
         </div>
       </div>
     </div>
