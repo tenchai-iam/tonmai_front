@@ -7,6 +7,11 @@ export const getDistricts = async () => {
   return response.data; // Return the data received from the API
 };
 
+export const getValueDistricts = async () => {
+  const response = await axios.get(`${API_URL}/get_value_district`);
+  return response.data; // Return the data received from the API
+};
+
 export const getScenarios = async () => {
   const response = await axios.get(`${API_URL}/get_scenario`);
   return response.data; // Return the data received from the API
@@ -41,6 +46,11 @@ export const getAuthorizedAojs = async (pea_code) => {
     },
     { timeout: 5000 }
   );
+  return response.data; // Return the data received from the API
+};
+
+export const getValueAojs = async () => {
+  const response = await axios.get(`${API_URL}/get_value_aoj`);
   return response.data; // Return the data received from the API
 };
 

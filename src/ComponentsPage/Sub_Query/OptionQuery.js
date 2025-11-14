@@ -8,6 +8,7 @@ import {
   getDraftScenarios,
   getDraftEditableScenarios,
   getAojs,
+  getValueAojs,
   getAuthorizedAojs,
   getFeeders,
   getAvailableBudgetYears,
@@ -19,6 +20,13 @@ export const useDistrictOption = () => {
   return useQuery({
     queryKey: ["districtOption"],
     queryFn: () => getDistricts(),
+  });
+};
+
+export const useValueDistrictOption = () => {
+  return useQuery({
+    queryKey: ["valueDistrictOption"],
+    queryFn: () => getValueDistricts(),
   });
 };
 
@@ -56,6 +64,13 @@ export const useAuthorizedAojOption = (pea_code) => {
     queryKey: ["authorizedAojOption", pea_code],
     queryFn: () => getAuthorizedAojs(pea_code),
     // enabled: Boolean(pea_code),
+  });
+};
+
+export const useValueAojOption = () => {
+  return useQuery({
+    queryKey: ["valueAojOption"],
+    queryFn: () => getValueAojs(),
   });
 };
 

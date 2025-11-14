@@ -20,9 +20,9 @@ export const useBaselineDistrict = (year) => {
   });
 };
 
-export const useValueTable = (year, aoj_code) => {
+export const useValueTable = (year, district, aoj_code) => {
   return useQuery({
-    queryKey: ["valueTable", year, aoj_code],
-    queryFn: () => getValueTable(year, aoj_code),
+    queryKey: ["valueTable", year, district, aoj_code],
+    queryFn: () => getValueTable(year, district, aoj_code),
   });
 };

@@ -12,7 +12,11 @@ import {
   useValueTable,
 } from "../Sub_Query/ValueQuery.js";
 
-import { useDistrictOption, useAojOption, useValueYearOption } from "../Sub_Query/OptionQuery.js";
+import { 
+        useValueDistrictOption,
+        useValueAojOption,
+        useValueYearOption
+ } from "../Sub_Query/OptionQuery.js";
 
 import { planDummyOptions, yearDummyOptionsG } from "../Sub_config/Options.js";
 
@@ -32,10 +36,10 @@ const Value = () => {
     setSelectedAoj(event.target.value);
   };
 
-  const { data: districtOption } = useDistrictOption();
+  const { data: districtOption } = useValueDistrictOption();
 
   const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
+    useValueAojOption(selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
     value: option.aoj_code,
@@ -74,7 +78,7 @@ const Value = () => {
     { dataKey: "actual", fill: "#3e3e3e" },
   ];
 
-  const { data: valueTable } = useValueTable(selectedYear, selectedAoj);
+  const { data: valueTable } = useValueTable(selectedYear, selectedDistrict, selectedAoj);
 
   const dataValueTable =
     valueTable?.map((item) => ({
@@ -168,8 +172,8 @@ const Value = () => {
               >
                 <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
-                  <option key={option.aoj_region} value={option.aoj_region}>
-                    {option.aoj_region}
+                  <option key={option.district} value={option.district}>
+                    {option.district}
                   </option>
                 ))}
               </select>
