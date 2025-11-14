@@ -7,18 +7,16 @@ import BudgetTable from "../Sub/TableBudget.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
-  useBaselineTotal,
-  useBaselineDistrict,
+  useValueTotal,
+  useValueDistrict,
   useValueTable,
 } from "../Sub_Query/ValueQuery.js";
 
 import { 
-        useValueDistrictOption,
-        useValueAojOption,
-        useValueYearOption
- } from "../Sub_Query/OptionQuery.js";
-
-import { planDummyOptions, yearDummyOptionsG } from "../Sub_config/Options.js";
+  useValueDistrictOption,
+  useValueAojOption,
+  useValueYearOption
+} from "../Sub_Query/OptionQuery.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
@@ -52,30 +50,27 @@ const Value = () => {
 
   const { data: valueYearOption } = useValueYearOption();
 
-  const { data: baselineTotal } = useBaselineTotal(selectedYear);
+  const { data: valueTotal } = useValueTotal(selectedYear);
 
-  const dataBaselineTotal = [
+  const dataValueTotal = [
     {
-      base: (baselineTotal?.total_budget_base_thb ?? 0) / 1000000,
-      model: (baselineTotal?.total_budget_model_thb ?? 0) / 1000000,
-      actual: (baselineTotal?.total_actual_thb ?? 0) / 1000000,
+      base: (valueTotal?.total_base ?? 0) / 1000000,
+      actual: (valueTotal?.total_actual ?? 0) / 1000000,
     },
   ];
 
-  const { data: baselineDistrict } = useBaselineDistrict(selectedYear);
+  const { data: valueDistrict } = useValueDistrict(selectedYear);
 
-  const dataBaselineDistrict =
-    baselineDistrict?.map((item) => ({
+  const dataValueDistrict =
+    valueDistrict?.map((item) => ({
       name: item.district,
-      base: (item.total_budget_base_thb ?? 0) / 1000000,
-      model: (item.total_budget_model_thb ?? 0) / 1000000,
-      actual: (item.total_actual_thb ?? 0) / 1000000,
+      base: (item.total_base ?? 0) / 1000000,
+      actual: (item.total_actual ?? 0) / 1000000,
     })) || [];
 
   const barKeys = [
-    { dataKey: "base", fill: "#8884d8" },
-    { dataKey: "model", fill: "#82ca9d" },
-    { dataKey: "actual", fill: "#3e3e3e" },
+    { dataKey: "base", fill: "#8884d8", tooltipLabel: `ค่าใช้จ่ายปีฐาน 2566` },
+    { dataKey: "actual", fill: "#3e3e3e", tooltipLabel: `ค่าใช้จ่ายจริง ${selectedYear}` }
   ];
 
   const { data: valueTable } = useValueTable(selectedYear, selectedDistrict, selectedAoj);
@@ -124,7 +119,7 @@ const Value = () => {
               onChange={handleYearSelect}
               className="border rounded-lg px-4 py-2"
             >
-              <option year=""></option>
+              <option year="" disabled></option>
               {valueYearOption?.map((option) => (
                 <option key={option.year} value={option.year}>
                   {option.year}
@@ -135,14 +130,13 @@ const Value = () => {
         </div>
         <div className="summary-container">
           <div className="bar-chart-legend">
-            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่ายปีฐาน 2567</span>
-            <span style={{ color: "#82ca9d" }}>⬤ งบประมาณแผน</span>
-            <span style={{ color: "#3e3e3e" }}>⬤ ค่าใช้จ่ายจริง</span>
+            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่ายปีฐาน 2566</span>
+            <span style={{ color: "#3e3e3e" }}>⬤ ค่าใช้จ่ายจริง {selectedYear}</span>
           </div>
           <div className="all-district-container">
             <div className="all-container">
               <BarGraphV
-                data={dataBaselineTotal}
+                data={dataValueTotal}
                 xAxisKey="name"
                 title="ภาพรวมค่าใช้จ่ายในการตัดต้นไม้"
                 yLabel="ล้านบาท"
@@ -152,7 +146,7 @@ const Value = () => {
             </div>
             <div className="district-container">
               <BarGraphV
-                data={dataBaselineDistrict}
+                data={dataValueDistrict}
                 xAxisKey="name"
                 title="ค่าใช้จ่ายในการตัดต้นไม้แยกตามเขต"
                 yLabel="ล้านบาท"
@@ -201,7 +195,7 @@ const Value = () => {
               </button>
             </div>
           </div>
-          <BudgetTable data={dataValueTable} />
+          <BudgetTable data={dataValueTable} selectedYear={selectedYear} />
         </div>
       </div>
     </div>

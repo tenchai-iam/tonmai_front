@@ -32,7 +32,12 @@ import {
   selectScenarioPlan,
 } from "../../services/api_Scenario.js";
 
-import { getRegionBudgetTableDownload, uploadRegionBudget } from "../../services/api_Manage.js";
+import { 
+  getRegionBudgetTableDownload,
+  getRegionBudgetDistrictTemplateDownload,
+  getRegionBudgetAojTemplateDownload,
+  uploadRegionBudget 
+} from "../../services/api_Manage.js";
 
 import {
   formatValue,
@@ -95,9 +100,29 @@ const CreateR = () => {
     label: option.aoj_name,
   }));
 
-  const handleDownloadRegionBudget = async () => {
+  const handleDownloadRegionBudgetDistrictTemplate = async () => {
     try {
-      const blob = await getRegionBudgetTableDownload(selectedYearRegion);
+      const blob = await getRegionBudgetDistrictTemplateDownload(selectedYearRegion);
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      const fileName = selectedYearRegion
+        ? `Regional_Budget_${selectedYearRegion}.xlsx`
+        : "Regional_Budget.xlsx";
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("เกิดข้อผิดพลาดในการดาวน์โหลดไฟล์");
+    }
+  };
+
+  const handleDownloadRegionBudgetAojTemplate = async () => {
+    try {
+      const blob = await getRegionBudgetAojTemplateDownload(selectedYearRegion);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -198,10 +223,10 @@ const CreateR = () => {
   const dataRegionalBudgetSummary =
     regionBudgetSummary?.map((item) => ({
       region: item.region,
-      baseline: item.baseline_thb,
-      normalizeBaseline: item.normalize_baseline_thb,
-      budget: item.budget_thb,
-      budgetUpgrade: item.budget_upgrade_thb
+      baseline: item.baseline_thb /1000000,
+      normalizeBaseline: item.normalize_baseline_thb /1000000,
+      budget: item.budget_thb /1000000,
+      budgetUpgrade: item.budget_upgrade_thb /1000000
     })) || [];
 
   const { data: regionBudgetTable } = useRegionBudgetTable(selectedYearRegion);
@@ -249,10 +274,9 @@ const CreateR = () => {
             <div className="district-budget-graph">
                 งบประมาณแยกตามเขต (บาท)
                 <div className="bar-chart-legend">
-                  <span style={{ color: "#8B4513" }}>⬤ งบประมาณ Baseline</span>
-                  <span style={{ color: "#C69530" }}>⬤ งบประมาณ Normalized </span>
-                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ</span>
-                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณปรับปรุง</span>
+                  <span style={{ color: "#8B4513" }}>⬤ ค่าใช้จ่าย {selectedYearRegion - 1}</span>
+                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ {selectedYearRegion}</span>
+                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณ {selectedYearRegion} ปรับปรุง</span>
                 </div>
               <BarGraphBudget
                 data={dataRegionalBudgetSummary}
@@ -261,30 +285,25 @@ const CreateR = () => {
                 layout="horizontal"
                 showPercentage={false}
                 hideLabels={false}
-                yAxisWidth={60}
+                yAxisWidth={25}
                 valueLabelPosition="top"
-                rightMargin={50}
-                maxBarSize={40}
+                rightMargin={25}
+                maxBarSize={30}
                 barKeys={[
                   {
                     dataKey: "baseline",
                     fill: "#8B4513",
-                    tooltipLabel: "งบประมาณ Baseline"
-                  },
-                  {
-                    dataKey: "normalizeBaseline",
-                    fill: "#C69530",
-                    tooltipLabel: "งบประมาณ Normalized"
+                    tooltipLabel: `ค่าใช้จ่าย ${selectedYearRegion - 1}`
                   },
                   {
                     dataKey: "budget",
                     fill: "#4F1C51",
-                    tooltipLabel: "งบประมาณ"
+                    tooltipLabel: `งบประมาณ ${selectedYearRegion}`
                   },
                   {
                     dataKey: "budgetUpgrade",
                     fill: "#A1D6B2",
-                    tooltipLabel: "งบประมาณปรับปรุง"
+                    tooltipLabel: `งบประมาณ ${selectedYearRegion} ปรับปรุง`
                   }
                 ]}
               />
@@ -294,13 +313,19 @@ const CreateR = () => {
                 <div className="budget-table">
                   <div className="download-end-button">
                     <button
-                      onClick={handleDownloadRegionBudget}
+                      onClick={handleDownloadRegionBudgetDistrictTemplate}
                       className={`download-button-style${false ? " selected" : ""}`}
                     >
-                      Download
+                      Download Template ระดับเขต
+                    </button>
+                    <button
+                      onClick={handleDownloadRegionBudgetAojTemplate}
+                      className={`download-button-style${false ? " selected" : ""}`}
+                    >
+                      Download Template ระดับกฟฟ.
                     </button>
                   </div>
-                  <RegionBudgetTable data={dataRegionalBudgetTable} />
+                  <RegionBudgetTable data={dataRegionalBudgetTable} selectedYear={selectedYearRegion} />
                   <div className="remark">
                     <p>
                       หมายเหตุ: งบประมาณ Normalize คือการปรับฐานจากค่าใช้จ่ายจริงจากปัจจัยต่างๆเช่น เงินเฟ้อ ระยะทางที่เพิ่มจากเดิม

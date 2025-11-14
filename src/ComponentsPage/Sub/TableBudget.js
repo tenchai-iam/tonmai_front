@@ -4,7 +4,7 @@ import { formatUnit, formatValue } from "../Sub_config/Format.js";
 
 import "../../ComponentsStyles/table.css";
 
-const BudgetTable = ({ data }) => {
+const BudgetTable = ({ data, selectedYear }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
@@ -65,10 +65,10 @@ const BudgetTable = ({ data }) => {
                 ba {renderSortArrow("ba")}
               </th>
               <th onClick={() => handleSort("budgetBase")}>
-                ค่าใช้จ่ายฐานปี 2567 (ล้านบาท) {renderSortArrow("budgetBase")}
+                ค่าใช้จ่ายฐานปี 2566 (ล้านบาท) {renderSortArrow("budgetBase")}
               </th>
               <th onClick={() => handleSort("actual")}>
-                ค่าใช้จ่ายจริง (ล้านบาท) {renderSortArrow("actual")}
+                ค่าใช้จ่ายจริง {selectedYear} (ล้านบาท) {renderSortArrow("actual")}
               </th>
             </tr>
           </thead>

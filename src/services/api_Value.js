@@ -2,9 +2,9 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getBaselineTotal = async (year) => {
+export const getValueTotal = async (year) => {
   const response = await axios.post(
-    `${API_URL}/baseline_total`,
+    `${API_URL}/value_total`,
     {
       year: year,
     },
@@ -13,9 +13,9 @@ export const getBaselineTotal = async (year) => {
   return response.data; // Return the data received from the API
 };
 
-export const getBaselineDistrict = async (year) => {
+export const getValueDistrict = async (year) => {
   const response = await axios.post(
-    `${API_URL}/baseline_district`,
+    `${API_URL}/value_district`,
     {
       year: year,
     },

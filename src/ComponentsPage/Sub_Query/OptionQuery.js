@@ -67,10 +67,11 @@ export const useAuthorizedAojOption = (pea_code) => {
   });
 };
 
-export const useValueAojOption = () => {
+export const useValueAojOption = (district) => {
   return useQuery({
-    queryKey: ["valueAojOption"],
-    queryFn: () => getValueAojs(),
+    queryKey: ["valueAojOption", district],
+    queryFn: () => getValueAojs(district),
+    enabled: Boolean(district),
   });
 };
 

@@ -65,6 +65,27 @@ export const getRegionBudgetTableDownload = async (budget_year) => {
   return response.data;
 };
 
+export const getRegionBudgetDistrictTemplateDownload = async (year) => {
+  const params = year ? { year } : {};
+  const response = await axios.get(`${API_URL}/regional_budget_district_template_download`, {
+    params,
+    responseType: "blob",
+    timeout: 10000
+  });
+  return response.data;
+};
+
+export const getRegionBudgetAojTemplateDownload = async (year) => {
+  const params = year ? { year } : {};
+  const response = await axios.get(`${API_URL}/regional_budget_aoj_template_download`, {
+    params,
+    responseType: "blob",
+    timeout: 10000
+  });
+  return response.data;
+};
+
+
 export const uploadRegionBudget = async (file) => {
   const formData = new FormData();
   formData.append("file", file);

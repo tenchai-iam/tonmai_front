@@ -49,8 +49,13 @@ export const getAuthorizedAojs = async (pea_code) => {
   return response.data; // Return the data received from the API
 };
 
-export const getValueAojs = async () => {
-  const response = await axios.get(`${API_URL}/get_value_aoj`);
+export const getValueAojs = async (district) => {
+  const response = await axios.post(`${API_URL}/get_value_aoj`,
+  {
+      district: district, // Pass the data format value in the request body
+    },
+    { timeout: 5000 }
+  );
   return response.data; // Return the data received from the API
 };
 
