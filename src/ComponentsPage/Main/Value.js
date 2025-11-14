@@ -12,7 +12,7 @@ import {
   useValueTable,
 } from "../Sub_Query/ValueQuery.js";
 
-import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
+import { useDistrictOption, useAojOption, useValueYearOption } from "../Sub_Query/OptionQuery.js";
 
 import { planDummyOptions, yearDummyOptionsG } from "../Sub_config/Options.js";
 
@@ -45,6 +45,8 @@ const Value = () => {
   const [selectedYear, setSelectedYear] = useState("");
 
   const handleYearSelect = (e) => setSelectedYear(e.target.value);
+
+  const { data: valueYearOption } = useValueYearOption();
 
   const { data: baselineTotal } = useBaselineTotal(selectedYear);
 
@@ -92,7 +94,7 @@ const Value = () => {
       { label: "รหัส กฟฟ.", key: "code" },
       { label: "กฟฟ.", key: "name" },
       { label: "ba", key: "ba" },
-      { label: "ค่าใช้จ่ายฐานปี 2566 (ล้านบาท)", key: "ิbase" },
+      { label: "ค่าใช้จ่ายฐานปี 2566 (ล้านบาท)", key: "base" },
       { label: "ค่าใช้จ่ายจริง (ล้านบาท)", key: "actual" },
     ];
 
@@ -118,10 +120,10 @@ const Value = () => {
               onChange={handleYearSelect}
               className="border rounded-lg px-4 py-2"
             >
-              <option value=""></option>
-              {yearDummyOptionsG.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              <option year=""></option>
+              {valueYearOption?.map((option) => (
+                <option key={option.year} value={option.year}>
+                  {option.year}
                 </option>
               ))}
             </select>

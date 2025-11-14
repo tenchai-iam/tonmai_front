@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   getDistricts,
+  getValueDistricts,
+  getAvailableValueYears,
   getScenarios,
   getDraftScenarios,
   getDraftEditableScenarios,
@@ -75,6 +77,13 @@ export const useBudgetYearOption = () => {
         label: item.budget_year,
       }));
     },
+  });
+};
+
+export const useValueYearOption = () => {
+  return useQuery({
+    queryKey: ["valueYearOption"],
+    queryFn: () => getAvailableValueYears(),
   });
 };
 

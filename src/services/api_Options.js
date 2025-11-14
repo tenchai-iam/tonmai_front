@@ -88,3 +88,10 @@ export const getFrequency = async (scenario_name, aoj_code, feeder_id) => {
   );
   return response.data; // Return the data received from the API
 };
+
+export const getAvailableValueYears = async () => {
+  const response = await axios.get(`${API_URL}/get_avail_value_year`, {
+    timeout: 5000
+  });
+  return response.data; // Return the data received from the API
+};
