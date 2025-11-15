@@ -6,6 +6,7 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphBudget from "../Sub/BarGraphBudget.js";
 import BarGraphV from "../Sub/BarGraphV.js";
 import RegionBudgetTable from "../Sub/TableRegionBudget.js";
+import ScenarioNotifications from "../Sub/ScenarioNotifications.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
@@ -191,6 +192,7 @@ const CreateR = () => {
       use_regional_optimization: true,
       use_regional_budget_table: true,
       region_col: "region",
+      async: true, // Enable async execution
     };
 
     // Add description if provided
@@ -200,18 +202,23 @@ const CreateR = () => {
 
     try {
       const response = await createBudgetScenario(payload); // Using the same API endpoint
-      alert(`สร้าง Regional Scenario สำเร็จ! ID: ${response.scenario_id}`);
-      console.log("Regional Scenario Response:", response);
+      console.log("Regional Scenario Created:", response);
+
+      // Show success message
+      alert(`เริ่มสร้าง Regional Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์`);
 
       // Reset form
       setSelectedYearRegion("");
       setRegionalDescription("");
 
-      // Optionally refresh scenario options
-      // refetchScenarioOption();
+      // Refresh scenario options and budget data
+      queryClient.invalidateQueries(["scenarioOption"]);
+      queryClient.invalidateQueries(["regionBudgetTable"]);
+      queryClient.invalidateQueries(["regionBudgetGraph"]);
+
     } catch (err) {
       console.error("Regional scenario creation failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างสร้าง Regional Scenario");
+      alert("เกิดข้อผิดพลาดระหว่างสร้าง Regional Scenario: " + (err.response?.data?.message || err.message));
     } finally {
       setIsCreatingRegionalScenario(false);
     }
@@ -422,6 +429,9 @@ const CreateR = () => {
                   </div>
                 </div>
             </div>
+
+        {/* Scenario Completion Notifications */}
+        <ScenarioNotifications pollInterval={5000} enabled={true} />
       </div>
     </div>
   );

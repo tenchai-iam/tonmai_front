@@ -12,14 +12,16 @@ const API_URL =
  * @param {Object} payload - Budget scenario configuration
  * @param {number} payload.year - Analysis year (e.g., 2025)
  * @param {number} payload.budget_reduction_percentage - Budget reduction as percentage (e.g., 12 for 12%)
+ * @param {boolean} payload.async - Run asynchronously (default: true)
  * @returns {Promise<Object>} Scenario creation and execution results
  */
 export const createBudgetScenario = async (payload) => {
   try {
     const requestPayload = {
       year: payload.year,
-      budget_reduction_percentage: payload.budget_reduction_percentage, // Convert to decimal
+      budget_reduction_percentage: payload.budget_reduction_percentage,
       risk_reduction_target: null,
+      async: payload.async !== undefined ? payload.async : true, // Default to async
     };
 
     // Include optional fields if provided
@@ -43,7 +45,7 @@ export const createBudgetScenario = async (payload) => {
         headers: {
           "Content-Type": "application/json",
         },
-        timeout: 300000, // 5 minutes
+        timeout: requestPayload.async ? 30000 : 300000, // Shorter timeout for async
       }
     );
     return response.data;
@@ -58,6 +60,7 @@ export const createBudgetScenario = async (payload) => {
  * @param {Object} payload - Risk scenario configuration
  * @param {number} payload.year - Analysis year (e.g., 2025)
  * @param {number} payload.risk_reduction_target - Risk reduction as percentage (e.g., 25 for 25%)
+ * @param {boolean} payload.async - Run asynchronously (default: true)
  * @returns {Promise<Object>} Scenario creation and execution results
  */
 export const createRiskScenario = async (payload) => {
@@ -65,7 +68,8 @@ export const createRiskScenario = async (payload) => {
     const requestPayload = {
       year: payload.year,
       budget_reduction_percentage: null,
-      risk_reduction_target: payload.risk_reduction_target, // Convert to decimal
+      risk_reduction_target: payload.risk_reduction_target,
+      async: payload.async !== undefined ? payload.async : true, // Default to async
     };
 
     // Include description if provided
@@ -80,7 +84,7 @@ export const createRiskScenario = async (payload) => {
         headers: {
           "Content-Type": "application/json",
         },
-        timeout: 300000, // 5 minutes
+        timeout: requestPayload.async ? 30000 : 300000, // Shorter timeout for async
       }
     );
     return response.data;
@@ -90,5 +94,80 @@ export const createRiskScenario = async (payload) => {
   }
 };
 
+/**
+ * Check scenario execution status
+ * @param {string} scenarioName - Scenario name to check status
+ * @returns {Promise<Object>} Scenario status information
+ */
+export const checkScenarioStatus = async (scenarioName) => {
+  try {
+    const response = await axios.post(
+      `${API_BACK_URL}/status`,
+      { scenario_name: scenarioName },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 10000, // 10 seconds
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Scenario Status Check Error:", error);
+    throw error;
+  }
+};
 
+/**
+ * Get scenario notifications from webhook system
+ * @param {boolean} unreadOnly - Fetch only unread notifications (default: true)
+ * @param {number} limit - Number of notifications to fetch (default: 50)
+ * @returns {Promise<Object>} Notifications data
+ */
+export const getScenarioNotifications = async (unreadOnly = true, limit = 50) => {
+  try {
+    const response = await axios.get(
+      `${API_BACK_URL}/webhook/notifications`,
+      {
+        params: {
+          unread_only: unreadOnly,
+          limit: limit,
+        },
+        timeout: 10000,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Fetch Notifications Error:", error);
+    throw error;
+  }
+};
 
+/**
+ * Mark a notification as read
+ * @param {number} notificationId - Notification ID to mark as read
+ * @returns {Promise<Object>} Response data
+ */
+export const markNotificationAsRead = async (notificationId) => {
+  try {
+    const response = await axios.post(
+      `${API_BACK_URL}/webhook/notifications/${notificationId}/mark-read`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 10000,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Mark Notification Read Error:", error);
+    throw error;
+  }
+};
+
+export const selectScenarioPlan = async (payload) => {
+  const response = await axios.post(`${API_URL}/select-scenario-plan`, payload);
+  return response.data;
+};
