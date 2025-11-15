@@ -1,0 +1,279 @@
+/* ScenarioNotifications Component Styles */
+
+.scenario-notifications-container {
+  margin: 24px 0;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.notifications-title {
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #2c3e50;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.mark-all-read-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-family: 'Sarabun', sans-serif;
+  transition: background 0.3s ease;
+}
+
+.mark-all-read-btn:hover {
+  background: #5a6268;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notification-card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: slideIn 0.3s ease-out;
+  position: relative;
+  border-left: 5px solid transparent;
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.notification-card.notification-completed {
+  border-left-color: #28a745;
+}
+
+.notification-card.notification-failed {
+  border-left-color: #dc3545;
+}
+
+.notification-icon {
+  font-size: 2.5em;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.notification-status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: bold;
+  font-family: 'Sarabun', sans-serif;
+  color: white;
+}
+
+.notification-completed .notification-status-badge {
+  background: #28a745;
+}
+
+.notification-failed .notification-status-badge {
+  background: #dc3545;
+}
+
+.notification-timestamp {
+  font-size: 0.85em;
+  color: #6c757d;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.notification-body {
+  margin-bottom: 12px;
+}
+
+.scenario-name {
+  margin: 0 0 12px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #2c3e50;
+  font-family: 'Sarabun', sans-serif;
+  word-wrap: break-word;
+}
+
+.scenario-id {
+  margin: 8px 0;
+  font-size: 0.9em;
+  color: #495057;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.completion-details,
+.failure-details {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  background: #f8f9fa;
+}
+
+.completion-details {
+  border-left: 3px solid #28a745;
+}
+
+.failure-details {
+  border-left: 3px solid #dc3545;
+}
+
+.execution-time,
+.notebooks-completed,
+.error-message,
+.failed-notebook {
+  margin: 6px 0;
+  font-size: 0.9em;
+  font-family: 'Sarabun', sans-serif;
+  line-height: 1.5;
+}
+
+.execution-time {
+  color: #28a745;
+}
+
+.notebooks-completed {
+  color: #007bff;
+}
+
+.error-message {
+  color: #dc3545;
+  word-wrap: break-word;
+}
+
+.failed-notebook {
+  color: #6c757d;
+}
+
+.dismiss-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #e9ecef;
+  color: #495057;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-family: 'Sarabun', sans-serif;
+  font-weight: bold;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dismiss-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+/* Loading and Error states */
+.notifications-loading,
+.notifications-error {
+  padding: 20px;
+  text-align: center;
+  font-family: 'Sarabun', sans-serif;
+  border-radius: 8px;
+}
+
+.notifications-loading {
+  background: #e7f3ff;
+  color: #0056b3;
+}
+
+.notifications-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.loading-icon {
+  font-size: 1.5em;
+  display: inline-block;
+  margin-right: 8px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .scenario-notifications-container {
+    padding: 16px;
+  }
+
+  .notification-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .notification-icon {
+    font-size: 2em;
+  }
+
+  .notifications-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .mark-all-read-btn {
+    width: 100%;
+  }
+
+  .dismiss-btn {
+    position: static;
+    width: 100%;
+    margin-top: 12px;
+  }
+}

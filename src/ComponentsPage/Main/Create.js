@@ -6,6 +6,7 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import BarGraphV from "../Sub/BarGraphV.js";
 import BarGraphScenario from "../Sub/BarGraphScenario.js";
 import TableScenarioAojSummary from "../Sub/TableScenarioAojSummary.js";
+import ScenarioNotifications from "../Sub/ScenarioNotifications.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import { useOptimizationMetrics } from "../Sub_Query/ModelQuery.js";
@@ -78,6 +79,7 @@ const Create = () => {
     const payload = {
       year: parseInt(selectedYearBudget),
       budget_reduction_percentage: parseFloat(budgetReductionPercent),
+      async: true, // Enable async execution
     };
 
     // Add description if provided
@@ -87,19 +89,22 @@ const Create = () => {
 
     try {
       const response = await createBudgetScenario(payload);
-      alert(`สร้าง Budget Scenario สำเร็จ! ID: ${response.scenario_id}`);
-      console.log("Budget Scenario Response:", response);
+      console.log("Budget Scenario Created:", response);
+
+      // Show success message
+      alert(`เริ่มสร้าง Budget Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์`);
 
       // Reset form
       setSelectedYearBudget("");
       setBudgetReductionPercent("");
       setBudgetDescription("");
 
-      // Optionally refresh scenario options
-      // refetchScenarioOption();
+      // Refresh scenario options
+      queryClient.invalidateQueries(["scenarioOption"]);
+
     } catch (err) {
       console.error("Budget scenario creation failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างสร้าง Budget Scenario");
+      alert("เกิดข้อผิดพลาดระหว่างสร้าง Budget Scenario: " + (err.response?.data?.message || err.message));
     } finally {
       setIsCreatingBudgetScenario(false);
     }
@@ -117,6 +122,7 @@ const Create = () => {
     const payload = {
       year: parseInt(selectedYearRisk),
       risk_reduction_target: parseFloat(riskReductionPercent),
+      async: true, // Enable async execution
     };
 
     // Add description if provided
@@ -126,19 +132,22 @@ const Create = () => {
 
     try {
       const response = await createRiskScenario(payload);
-      alert(`สร้าง Risk Scenario สำเร็จ! ID: ${response.scenario_id}`);
-      console.log("Risk Scenario Response:", response);
+      console.log("Risk Scenario Created:", response);
+
+      // Show success message
+      alert(`เริ่มสร้าง Risk Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์`);
 
       // Reset form
       setSelectedYearRisk("");
       setRiskReductionPercent("");
       setRiskDescription("");
 
-      // Optionally refresh scenario options
-      // refetchScenarioOption();
+      // Refresh scenario options
+      queryClient.invalidateQueries(["scenarioOption"]);
+
     } catch (err) {
       console.error("Risk scenario creation failed:", err);
-      alert("เกิดข้อผิดพลาดระหว่างสร้าง Risk Scenario");
+      alert("เกิดข้อผิดพลาดระหว่างสร้าง Risk Scenario: " + (err.response?.data?.message || err.message));
     } finally {
       setIsCreatingRiskScenario(false);
     }
@@ -195,6 +204,24 @@ const Create = () => {
         systemRisk: item.system_risk
       })) || [];
 
+  const handleDataScenarioAojSummary = () => {
+    const headers = [
+      { label: "เขต", key: "region" },
+      { label: "รหัส กฟส.", key: "code" },
+      { label: "กฟส.", key: "name" },
+      { label: "งบประมาณ (บาท)", key: "budgetAdjust" },
+      { label: "ความเสี่ยงในระบบ", key: "systemRisk" },
+    ];
+
+    downloadTable({
+      data: dataScenarioAojSummary,
+      headers: headers,
+      fileName: "Scenario_Aoj_Summary",
+      title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedScenario1} แยกตามกฟส. ${selectedDistrict}`,
+      extraInfoRows: [],
+    });
+  };
+
   return (
     <div>
       <NavbarComponent />
@@ -222,6 +249,11 @@ const Create = () => {
                 { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
               ]}
             />
+            <div className="remark">
+              <p>
+                Risk = จำนวนลูกค้าคาดการณ์ที่ได้รับผลกระทบจากไฟดับ (ผลรวมของ โอกาสในการเกิดไฟดับ x จำนวนลูกค้า ของแต่ละ Corridor)
+              </p>
+            </div>
           </div>
           <div className="district-budget-graph">
             Cost Metrics
@@ -243,6 +275,11 @@ const Create = () => {
                 { dataKey: "scenario2", fill: "#4F1C51", tooltipLabel: "Minimize Cost (similar risk)" }
               ]}
             />
+            <div className="remark">
+              <p>
+                Cost = ค่าใช้จ่ายในการตัดต้นไม้ (ผลรวมของ จำนวนครั้ง x ค่าใช้จ่ายต่อครั้งตาม Rate Card x กิโลเมตร ของแต่ละ Corridor)
+              </p>
+            </div>
           </div>
         </div>
         <div className="container-title">สร้างแผนโดยกระจายงบประมาณแบบ Global</div>
@@ -421,6 +458,7 @@ const Create = () => {
             </div>
         </div>
         <div className="summary-container">
+          <div className="container-title">งบประมาณและความเสี่ยงในระบบแยกตามกฟส.</div>
           <div className="dropdown-dropdown-container">
             <div className="dropdowngroup-container">
               <select
@@ -436,9 +474,20 @@ const Create = () => {
                 ))}
               </select>
             </div>
+            <div className="download-end-button">
+              <button
+                onClick={handleDataScenarioAojSummary}
+                className={`download-button-style${false ? " selected" : ""}`}
+              >
+                Download
+              </button>
+            </div>
           </div>
                 <TableScenarioAojSummary data={dataScenarioAojSummary} />
         </div>
+
+        {/* Scenario Completion Notifications */}
+        <ScenarioNotifications pollInterval={5000} enabled={true} />
       </div>
     </div>
   );

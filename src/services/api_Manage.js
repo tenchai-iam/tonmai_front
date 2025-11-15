@@ -2,13 +2,14 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getCorridorPlan = async (scenario_name, aoj_code, feeder_id) => {
+export const getCorridorPlan = async (scenario_name, aoj_code, feeder_id, corridor) => {
   const response = await axios.post(
     `${API_URL}/corridor_table`,
     {
       scenario_name: scenario_name,
       aoj_code: aoj_code, // Pass the data format value in the request body
-      feeder_id: feeder_id
+      feeder_id: feeder_id,
+      corridor: corridor,     
     },
     { timeout: 5000 }
   );
@@ -63,6 +64,27 @@ export const getRegionBudgetTableDownload = async (budget_year) => {
   });
   return response.data;
 };
+
+export const getRegionBudgetDistrictTemplateDownload = async (year) => {
+  const params = year ? { year } : {};
+  const response = await axios.get(`${API_URL}/regional_budget_district_template_download`, {
+    params,
+    responseType: "blob",
+    timeout: 10000
+  });
+  return response.data;
+};
+
+export const getRegionBudgetAojTemplateDownload = async (year) => {
+  const params = year ? { year } : {};
+  const response = await axios.get(`${API_URL}/regional_budget_aoj_template_download`, {
+    params,
+    responseType: "blob",
+    timeout: 10000
+  });
+  return response.data;
+};
+
 
 export const uploadRegionBudget = async (file) => {
   const formData = new FormData();

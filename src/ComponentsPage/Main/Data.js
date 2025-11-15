@@ -41,7 +41,7 @@ const Data = () => {
     {
       title: "ข้อมูล Corridor ที่จะ Upgrade",
       endpoint: `${API_URL}/upgrade_corridor_list_upload`,
-      downloadEndpoint: `${API_URL}/api/upgrade_corridor_list_download`, // Add a download API
+      downloadEndpoint: `${API_URL}/upgrade_corridor_list_download`, // Add a download API
       filename: "upgrade_corridor_list.xlsx",
     },
   ];

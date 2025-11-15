@@ -2,19 +2,31 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   getDistricts,
+  getValueDistricts,
+  getAvailableValueYears,
   getScenarios,
   getDraftScenarios,
   getDraftEditableScenarios,
   getAojs,
+  getValueAojs,
   getAuthorizedAojs,
   getFeeders,
   getAvailableBudgetYears,
+  getCorridors,
+  getFrequency
 } from "../../services/api_Options";
 
 export const useDistrictOption = () => {
   return useQuery({
     queryKey: ["districtOption"],
     queryFn: () => getDistricts(),
+  });
+};
+
+export const useValueDistrictOption = () => {
+  return useQuery({
+    queryKey: ["valueDistrictOption"],
+    queryFn: () => getValueDistricts(),
   });
 };
 
@@ -55,6 +67,14 @@ export const useAuthorizedAojOption = (pea_code) => {
   });
 };
 
+export const useValueAojOption = (district) => {
+  return useQuery({
+    queryKey: ["valueAojOption", district],
+    queryFn: () => getValueAojs(district),
+    enabled: Boolean(district),
+  });
+};
+
 export const useFeederOption = (aoj_code, scenario_name) => {
   return useQuery({
     queryKey: ["feederOption", aoj_code, scenario_name],
@@ -73,5 +93,28 @@ export const useBudgetYearOption = () => {
         label: item.budget_year,
       }));
     },
+  });
+};
+
+export const useValueYearOption = () => {
+  return useQuery({
+    queryKey: ["valueYearOption"],
+    queryFn: () => getAvailableValueYears(),
+  });
+};
+
+export const useCorridorOption = (scenario_name, aoj_code) => {
+  return useQuery({
+    queryKey: ["corridorOption", scenario_name, aoj_code],
+    queryFn: () => getCorridors(scenario_name, aoj_code),
+    enabled: Boolean(scenario_name) && Boolean(aoj_code),
+  });
+};
+
+export const useFrequencyOption = (scenario_name, aoj_code, feeder_id) => {
+  return useQuery({
+    queryKey: ["frequencyOption", scenario_name, aoj_code, feeder_id],
+    queryFn: () => getFrequency(scenario_name, aoj_code, feeder_id),
+    enabled: Boolean(scenario_name) && Boolean(aoj_code) && (Array.isArray(feeder_id) ? feeder_id.length > 0 : Boolean(feeder_id)),
   });
 };

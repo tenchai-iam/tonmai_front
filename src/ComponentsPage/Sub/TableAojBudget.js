@@ -59,13 +59,13 @@ const RegionAojTable = ({ data }) => {
                 กฟฟ. {renderSortArrow("name")}
               </th>
               <th onClick={() => handleSort("baselineAdjust")}>
-                งบประมาณฐาน (บาท) {renderSortArrow("baselineAdjust")}
+                ค่าใช้จ่ายจริง Y-1 (บาท) {renderSortArrow("baselineAdjust")}
               </th>
               <th onClick={() => handleSort("normalizeAdjust")}>
                 งบประมาณ Normalize (บาท) {renderSortArrow("normalizeAdjust")}
               </th>
               <th onClick={() => handleSort("budgetAdjust")}>
-                งบประมาณ (บาท) {renderSortArrow("budgetAdjust")}
+                งบประมาณแผน (บาท) {renderSortArrow("budgetAdjust")}
               </th>
               <th onClick={() => handleSort("budgetUpgradeAdjust")}>
                 งบประมาณปรับปรุง (บาท) {renderSortArrow("budgetUpgradeAdjust")}

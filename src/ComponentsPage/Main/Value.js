@@ -7,14 +7,16 @@ import BudgetTable from "../Sub/TableBudget.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
-  useBaselineTotal,
-  useBaselineDistrict,
-  useBaselineTable,
+  useValueTotal,
+  useValueDistrict,
+  useValueTable,
 } from "../Sub_Query/ValueQuery.js";
 
-import { useDistrictOption, useAojOption } from "../Sub_Query/OptionQuery.js";
-
-import { planDummyOptions, yearDummyOptionsG } from "../Sub_config/Options.js";
+import { 
+  useValueDistrictOption,
+  useValueAojOption,
+  useValueYearOption
+} from "../Sub_Query/OptionQuery.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Value.css";
@@ -32,10 +34,10 @@ const Value = () => {
     setSelectedAoj(event.target.value);
   };
 
-  const { data: districtOption } = useDistrictOption();
+  const { data: districtOption } = useValueDistrictOption();
 
   const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
+    useValueAojOption(selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
     value: option.aoj_code,
@@ -46,58 +48,57 @@ const Value = () => {
 
   const handleYearSelect = (e) => setSelectedYear(e.target.value);
 
-  const { data: baselineTotal } = useBaselineTotal(selectedYear);
+  const { data: valueYearOption } = useValueYearOption();
 
-  const dataBaselineTotal = [
+  const { data: valueTotal } = useValueTotal(selectedYear);
+
+  const dataValueTotal = [
     {
-      base: (baselineTotal?.total_budget_base_thb ?? 0) / 1000000,
-      model: (baselineTotal?.total_budget_model_thb ?? 0) / 1000000,
-      actual: (baselineTotal?.total_actual_thb ?? 0) / 1000000,
+      base: (valueTotal?.total_base ?? 0) / 1000000,
+      actual: (valueTotal?.total_actual ?? 0) / 1000000,
     },
   ];
 
-  const { data: baselineDistrict } = useBaselineDistrict(selectedYear);
+  const { data: valueDistrict } = useValueDistrict(selectedYear);
 
-  const dataBaselineDistrict =
-    baselineDistrict?.map((item) => ({
+  const dataValueDistrict =
+    valueDistrict?.map((item) => ({
       name: item.district,
-      base: (item.total_budget_base_thb ?? 0) / 1000000,
-      model: (item.total_budget_model_thb ?? 0) / 1000000,
-      actual: (item.total_actual_thb ?? 0) / 1000000,
+      base: (item.total_base ?? 0) / 1000000,
+      actual: (item.total_actual ?? 0) / 1000000,
     })) || [];
 
   const barKeys = [
-    { dataKey: "base", fill: "#8884d8" },
-    { dataKey: "model", fill: "#82ca9d" },
-    { dataKey: "actual", fill: "#3e3e3e" },
+    { dataKey: "base", fill: "#8884d8", tooltipLabel: `ค่าใช้จ่ายปีฐาน 2566` },
+    { dataKey: "actual", fill: "#3e3e3e", tooltipLabel: `ค่าใช้จ่ายจริง ${selectedYear}` }
   ];
 
-  const { data: baselineTable } = useBaselineTable(selectedYear, selectedAoj);
+  const { data: valueTable } = useValueTable(selectedYear, selectedDistrict, selectedAoj);
 
-  const dataBaselineTable =
-    baselineTable?.map((item) => ({
+  const dataValueTable =
+    valueTable?.map((item) => ({
+      year: item.year,
       district: item.district,
       code: item.aoj_code,
       name: item.aoj_name,
       ba: item.ba,
-      budgetBase: Number(item.budget_base_thb ?? 0) / 1000000,
-      budgetModel: Number(item.budget_model_thb ?? 0) / 1000000,
-      actual: Number(item.actual_thb ?? 0) / 1000000,
+      base: Number(item.base ?? 0) / 1000000,
+      actual: Number(item.actual ?? 0) / 1000000,
     })) || [];
 
-  const handleDataBaselineTable = () => {
+  const handleDataValueTable = () => {
     const headers = [
+      { label: "ปี", key: "year" },
       { label: "เขต", key: "district" },
       { label: "รหัส กฟฟ.", key: "code" },
       { label: "กฟฟ.", key: "name" },
       { label: "ba", key: "ba" },
-      { label: "งบประมาณฐาน (ล้านบาท)", key: "budgetBase" },
-      { label: "งบประมาณแผน (ล้านบาท)", key: "budgetModel" },
+      { label: "ค่าใช้จ่ายฐานปี 2566 (ล้านบาท)", key: "base" },
       { label: "ค่าใช้จ่ายจริง (ล้านบาท)", key: "actual" },
     ];
 
     downloadTable({
-      data: dataBaselineTable,
+      data: dataValueTable,
       headers: headers,
       fileName: "Stage5_Value_Data",
       title: `สรุปข้อมูลติดตามมูลค่า ${selectedAoj}`,
@@ -118,10 +119,10 @@ const Value = () => {
               onChange={handleYearSelect}
               className="border rounded-lg px-4 py-2"
             >
-              <option value=""></option>
-              {yearDummyOptionsG.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              <option year="" disabled></option>
+              {valueYearOption?.map((option) => (
+                <option key={option.year} value={option.year}>
+                  {option.year}
                 </option>
               ))}
             </select>
@@ -129,14 +130,13 @@ const Value = () => {
         </div>
         <div className="summary-container">
           <div className="bar-chart-legend">
-            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่าย Base</span>
-            <span style={{ color: "#82ca9d" }}>⬤ ค่าใช้จ่ายประเมินจาก AI</span>
-            <span style={{ color: "#3e3e3e" }}>⬤ ค่าใช้จ่ายจริง</span>
+            <span style={{ color: "#8884d8" }}>⬤ ค่าใช้จ่ายปีฐาน 2566</span>
+            <span style={{ color: "#3e3e3e" }}>⬤ ค่าใช้จ่ายจริง {selectedYear}</span>
           </div>
           <div className="all-district-container">
             <div className="all-container">
               <BarGraphV
-                data={dataBaselineTotal}
+                data={dataValueTotal}
                 xAxisKey="name"
                 title="ภาพรวมค่าใช้จ่ายในการตัดต้นไม้"
                 yLabel="ล้านบาท"
@@ -146,7 +146,7 @@ const Value = () => {
             </div>
             <div className="district-container">
               <BarGraphV
-                data={dataBaselineDistrict}
+                data={dataValueDistrict}
                 xAxisKey="name"
                 title="ค่าใช้จ่ายในการตัดต้นไม้แยกตามเขต"
                 yLabel="ล้านบาท"
@@ -166,8 +166,8 @@ const Value = () => {
               >
                 <option value="">เลือกการไฟฟ้าเขต</option>
                 {districtOption?.map((option) => (
-                  <option key={option.aoj_region} value={option.aoj_region}>
-                    {option.aoj_region}
+                  <option key={option.district} value={option.district}>
+                    {option.district}
                   </option>
                 ))}
               </select>
@@ -188,14 +188,14 @@ const Value = () => {
             </div>
             <div className="download-button">
               <button
-                onClick={handleDataBaselineTable}
+                onClick={handleDataValueTable}
                 className={`download-button-style${false ? " selected" : ""}`}
               >
                 Download
               </button>
             </div>
           </div>
-          <BudgetTable data={dataBaselineTable} />
+          <BudgetTable data={dataValueTable} selectedYear={selectedYear} />
         </div>
       </div>
     </div>

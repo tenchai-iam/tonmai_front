@@ -1,28 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 
 import {
-  getBaselineTotal,
-  getBaselineDistrict,
-  getBaselineTable,
+  getValueTotal,
+  getValueDistrict,
+  getValueTable,
 } from "../../services/api_Value.js";
 
-export const useBaselineTotal = (year) => {
+export const useValueTotal = (year) => {
   return useQuery({
-    queryKey: ["baselineTotal", year],
-    queryFn: () => getBaselineTotal(year),
+    queryKey: ["valueTotal", year],
+    queryFn: () => getValueTotal(year),
+    enabled: Boolean(year)
   });
 };
 
-export const useBaselineDistrict = (year) => {
+export const useValueDistrict = (year) => {
   return useQuery({
-    queryKey: ["baselineDistrict", year],
-    queryFn: () => getBaselineDistrict(year),
+    queryKey: ["valueDistrict", year],
+    queryFn: () => getValueDistrict(year),
+    enabled: Boolean(year)
   });
 };
 
-export const useBaselineTable = (year, aoj_code) => {
+export const useValueTable = (year, district, aoj_code) => {
   return useQuery({
-    queryKey: ["baselineTable", year, aoj_code],
-    queryFn: () => getBaselineTable(year, aoj_code),
+    queryKey: ["valueTable", year, district, aoj_code],
+    queryFn: () => getValueTable(year, district, aoj_code),
+    enabled: Boolean(year),
   });
 };

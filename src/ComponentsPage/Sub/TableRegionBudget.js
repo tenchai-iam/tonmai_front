@@ -4,7 +4,7 @@ import { formatUnit, formatPercent, formatValue } from "../Sub_config/Format.js"
 
 import "../../ComponentsStyles/table.css";
 
-const RegionBudgetTable = ({ data }) => {
+const RegionBudgetTable = ({ data, selectedYear }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
@@ -59,25 +59,25 @@ const RegionBudgetTable = ({ data }) => {
                 กฟฟ. {renderSortArrow("name")}
               </th>
               <th onClick={() => handleSort("baseline")}>
-                งบประมาณฐาน (บาท) {renderSortArrow("baseline")}
+                ค่าใช้จ่ายจริง {selectedYear - 1} (บาท) {renderSortArrow("baseline")}
               </th>
               <th onClick={() => handleSort("normalizePercent")}>
                 Normalize % {renderSortArrow("normalizePercent")}
               </th>
               <th onClick={() => handleSort("normalizeBaseline")}>
-                งบประมาณ Normalize {renderSortArrow("normalizeBaseline")}
+                งบประมาณ {selectedYear - 1} Normalize {renderSortArrow("normalizeBaseline")}
               </th>
               <th onClick={() => handleSort("year")}>
                 ปี {renderSortArrow("year")}
               </th>
               <th onClick={() => handleSort("budget")}>
-                งบประมาณ Y-2 (บาท) {renderSortArrow("budget")}
+                งบประมาณแผน {selectedYear} (บาท) {renderSortArrow("budget")}
               </th>
               <th onClick={() => handleSort("budgetPercentDiff")}>
-                % ส่วนต่างงบประมาณ Y-2 จากงบประมาณ Normalize (บาท) {renderSortArrow("budgetPercentDiff")}
+                % ส่วนต่างจากงบประมาณ {selectedYear - 1} Normalize (บาท) {renderSortArrow("budgetPercentDiff")}
               </th>
               <th onClick={() => handleSort("budget")}>
-                งบประมาณปรับปรุง (บาท) {renderSortArrow("budget")}
+                งบประมาณ {selectedYear} ปรับปรุง (บาท) {renderSortArrow("budget")}
               </th>
               <th onClick={() => handleSort("scenarioName")}>
                 แผน Draft Active {renderSortArrow("scenarioName")}

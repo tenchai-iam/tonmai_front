@@ -4,7 +4,7 @@ import { formatUnit, formatValue } from "../Sub_config/Format.js";
 
 import "../../ComponentsStyles/table.css";
 
-const BudgetTable = ({ data }) => {
+const BudgetTable = ({ data, selectedYear }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
@@ -49,6 +49,9 @@ const BudgetTable = ({ data }) => {
         <table>
           <thead>
             <tr>
+              <th onClick={() => handleSort("year")}>
+                ปี {renderSortArrow("year")}
+              </th>
               <th onClick={() => handleSort("district")}>
                 เขต {renderSortArrow("district")}
               </th>
@@ -62,25 +65,22 @@ const BudgetTable = ({ data }) => {
                 ba {renderSortArrow("ba")}
               </th>
               <th onClick={() => handleSort("budgetBase")}>
-                งบประมาณฐาน (ล้านบาท) {renderSortArrow("budgetBase")}
-              </th>
-              <th onClick={() => handleSort("budgetModel")}>
-                งบประมาณแผน (ล้านบาท) {renderSortArrow("budgetModel")}
+                ค่าใช้จ่ายฐานปี 2566 (ล้านบาท) {renderSortArrow("budgetBase")}
               </th>
               <th onClick={() => handleSort("actual")}>
-                ค่าใช้จ่ายจริง (ล้านบาท) {renderSortArrow("actual")}
+                ค่าใช้จ่ายจริง {selectedYear} (ล้านบาท) {renderSortArrow("actual")}
               </th>
             </tr>
           </thead>
           <tbody>
             {sortedData.map((row, index) => (
               <tr key={index}>
+                <td>{row.year}</td>    
                 <td>{row.district}</td>
                 <td>{row.code}</td>
                 <td>{row.name}</td>
                 <td>{row.ba}</td>
-                <td className="number">{formatValue(row.budgetBase)}</td>
-                <td className="number">{formatValue(row.budgetModel)}</td>
+                <td className="number">{formatValue(row.base)}</td>
                 <td className="number">{formatValue(row.actual)}</td>
               </tr>
             ))}

@@ -13,6 +13,8 @@ import {
   useDistrictOption,
   useAojOption,
   useFeederOption,
+  useCorridorOption,
+  useFrequencyOption
 } from "../Sub_Query/OptionQuery.js";
 
 import {
@@ -41,6 +43,9 @@ const Map = () => {
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
 
+  const [selectedScenario2, setSelected2Scenario] = useState("");
+  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
+
   const { data: scenarioOption } = useScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -61,6 +66,12 @@ const Map = () => {
     setSelectedAoj(event.target.value);
   };
 
+  const [selectedFrequency, setSelectedFrequency] = useState("");
+
+  const handleChangeFrequency = (event) => {
+    setSelectedFrequency(event.target.value);
+  };
+
   const [selectedAoj2, setSelectedAoj2] = useState("");
 
   const [selectedFeeder, setSelectedFeeder] = useState([]);
@@ -69,6 +80,11 @@ const Map = () => {
     const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
     setSelectedFeeder(selectedValues);
   };
+
+  const [selectedFeeder2, setSelectedFeeder2] = useState([]);
+
+  const [selectedCorridor, setSelectedCorridor] = useState("");
+
 
   useEffect(() => {
     // Later replace this with fetch or API call
@@ -109,6 +125,15 @@ const Map = () => {
     label: option["feeder_id"],
   }));
 
+  const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedAoj, selectedFeeder);
+
+  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedAoj2);
+
+  const corridorOptionFormatted = corridorOption?.map((option) => ({
+    value: option["nearest_upstream_device"],
+    label: option["nearest_upstream_device"],
+  }));
+
   const { data: aojOption2, isLoadingAojOption2 } =
     useAojOption(selectedDistrict2);
 
@@ -122,9 +147,10 @@ const Map = () => {
   const { data: geoCorridors } = useGeoCorridors(
     selectedScenario1,
     selectedFeeder,
-    selectedAoj
+    selectedAoj,
+    selectedFrequency
   );
-  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj);
+  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
     "currentMapView",
@@ -168,12 +194,11 @@ const Map = () => {
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
-  const [selectedScenario2, setSelected2Scenario] = useState("");
-  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
-
   const { data: corridorPlan } = useCorridorPlan(
     selectedScenario2,
-    selectedAoj2
+    selectedAoj2,
+    selectedFeeder2,
+    selectedCorridor
   );
 
   const dataCorridorPlan = useMemo(
@@ -223,17 +248,19 @@ const Map = () => {
 
   const handleDataCorridorPlan = () => {
     const headers = [
+      { label: "ปีงบประมาณ", key: "year" },
+      { label: "ชื่อแผน", key: "scenarioName" },
+      { label: "เขต.", key: "district" },
       { label: "รหัส", key: "code" },
       { label: "กฟฟ.", key: "name" },
       { label: "feeder", key: "feeder" },
+      { label: "รหัส Corridor", key: "corridor" },
       { label: "ระยะทาง (km)", key: "length" },
-      { label: "ความหนาแน่นของต้นไม้", key: "density" },
-      { label: "ความถี่ในการตัด", key: "frequency" },
       { label: "อุปกรณ์", key: "device" },
-      { label: "ค่าใช้จ่าย (บาท)", key: "cost" },
-      { label: "ระดับผลกระทบกับลูกค้า", key: "customer" },
       { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
-      { label: "ความเสี่ยงกับลูกค้า", key: "customerRisk" },
+      { label: "จำนวนลูกค้าที่ได้ผลกระทบ", key: "customer" },
+      { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
+      { label: "เหตุผล", key: "reason" },
     ];
 
     downloadTable({
@@ -244,21 +271,6 @@ const Map = () => {
       extraInfoRows: [],
     });
   };
-
-  const { data: planSummary } = usePlanSummaryQuery(
-    selectedScenario1
-    // selectedDistrict,
-    // selectedAoj,
-    // selectedFeeder
-  );
-
-  const dataPlanSummary = [
-    {
-      aojCount: Number(planSummary?.aoj_count || 0), // raw count
-      cost: Number(planSummary?.total_cost || 0) / 1_000_000, // in millions
-      risk: Number(planSummary?.total_risk || 0), // in millions
-    },
-  ];
 
   return (
     <div>
@@ -326,6 +338,18 @@ const Map = () => {
               className="react-select-container"
               classNamePrefix="react-select"
             />
+            <select
+              value={selectedFrequency}
+              onChange={handleChangeFrequency}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือกความถี่ในการตัด</option>
+              {frequencyOption?.map((option) => (
+                <option key={option.frequency_number} value={option.frequency_number}>
+                  {option.frequency_number}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">
@@ -419,6 +443,20 @@ const Map = () => {
                 }
                 isClearable
                 placeholder="ค้นหา/เลือกการไฟฟ้าสาขา"
+                noOptionsMessage={() => "ไม่พบข้อมูล"}
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
+              <Select
+                options={corridorOptionFormatted}
+                value={corridorOptionFormatted?.find(
+                  (opt) => opt.value === selectedCorridor
+                )}
+                onChange={(selectedOption) =>
+                  setSelectedCorridor(selectedOption?.value || "")
+                }
+                isClearable
+                placeholder="ค้นหา/เลือก Corridor"
                 noOptionsMessage={() => "ไม่พบข้อมูล"}
                 className="react-select-container"
                 classNamePrefix="react-select"

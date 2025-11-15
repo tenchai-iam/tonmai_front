@@ -54,6 +54,7 @@
 .download-end-button {
   display: flex;
   justify-content: flex-end;
+  gap:20px;
   font-size: 0.8rem;
   white-space: nowrap; /* Prevent the text from wrapping */
 }

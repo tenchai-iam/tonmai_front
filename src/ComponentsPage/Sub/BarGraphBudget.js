@@ -183,7 +183,7 @@ const BarGraphBudget = ({ data, xAxisKey, title, height, barKeys, xAxisLabel, cu
           margin={{
             top: 25,
             right: rightMargin,
-            left: layout === "vertical" ? (yAxisWidth ? yAxisWidth + 10 : (hideLabels ? 20 : 150)) : 75,
+            left: layout === "vertical" ? (yAxisWidth ? yAxisWidth + 10 : (hideLabels ? 20 : 150)) : 25,
             bottom: layout === "horizontal" ? 25 : 15,
           }}
         >
