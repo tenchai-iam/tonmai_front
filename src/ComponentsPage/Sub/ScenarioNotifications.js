@@ -2,15 +2,20 @@ import React from "react";
 import { useScenarioNotifications } from "../Sub_Query/NotificationQuery.js";
 import "../../ComponentsStyles/ScenarioNotifications.css";
 
-const ScenarioNotifications = ({ pollInterval = 5000, enabled = true }) => {
+const ScenarioNotifications = ({
+  pollInterval = 5000,
+  lastScenarioCreationTime = null,
+  onPollingComplete = null
+}) => {
   const {
     notifications,
     loading,
     error,
     markAsRead,
     markAllAsRead,
-    count
-  } = useScenarioNotifications(pollInterval, enabled);
+    count,
+    isPolling
+  } = useScenarioNotifications(pollInterval, lastScenarioCreationTime, 15 * 60 * 1000, onPollingComplete);
 
   // Show loading state only on initial load
   if (loading && notifications.length === 0) {

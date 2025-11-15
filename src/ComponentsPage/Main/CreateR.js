@@ -73,6 +73,15 @@ const CreateR = () => {
   const [regionalDescription, setRegionalDescription] = useState("");
   const [isCreatingRegionalScenario, setIsCreatingRegionalScenario] = useState(false);
 
+  // Track last scenario creation time for time-based polling
+  const [lastScenarioCreationTime, setLastScenarioCreationTime] = useState(null);
+
+  // Callback when polling completes (either by time or dismissal)
+  const handlePollingComplete = () => {
+    console.log('Polling complete - clearing scenario creation time');
+    setLastScenarioCreationTime(null);
+  };
+
   // State for file upload
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
@@ -204,8 +213,11 @@ const CreateR = () => {
       const response = await createBudgetScenario(payload); // Using the same API endpoint
       console.log("Regional Scenario Created:", response);
 
+      // Update last creation time to trigger 15-minute polling
+      setLastScenarioCreationTime(Date.now());
+
       // Show success message
-      alert(`เริ่มสร้าง Regional Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์`);
+      alert(`เริ่มสร้าง Regional Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์ (ภายใน 15 นาที)`);
 
       // Reset form
       setSelectedYearRegion("");
@@ -431,7 +443,11 @@ const CreateR = () => {
             </div>
 
         {/* Scenario Completion Notifications */}
-        <ScenarioNotifications pollInterval={5000} enabled={true} />
+        <ScenarioNotifications
+          pollInterval={5000}
+          lastScenarioCreationTime={lastScenarioCreationTime}
+          onPollingComplete={handlePollingComplete}
+        />
       </div>
     </div>
   );
