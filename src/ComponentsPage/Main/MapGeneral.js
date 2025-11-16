@@ -63,7 +63,7 @@ const MapG = () => {
     setSelectedDistrict2(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useState("1103101");
+  const [selectedAoj, setSelectedAoj] = useState("");
 
   const [selectedFrequency, setSelectedFrequency] = useState("");
 
@@ -71,7 +71,7 @@ const MapG = () => {
     setSelectedFrequency(event.target.value);
   };
 
-  const [selectedAoj2, setSelectedAoj2] = useState("1103101");
+  const [selectedAoj2, setSelectedAoj2] = useState("");
 
   const [selectedFeeder, setSelectedFeeder] = useState([]);
 
