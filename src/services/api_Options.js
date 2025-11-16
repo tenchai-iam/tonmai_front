@@ -2,8 +2,13 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getDistricts = async () => {
-  const response = await axios.get(`${API_URL}/get_district`);
+export const getDistricts = async (scenario_name) => {
+  const response = await axios.post(`${API_URL}/get_district`,
+      {
+      scenario_name: scenario_name, // Pass the data format value in the request body
+    },
+    { timeout: 5000 }
+  );
   return response.data; // Return the data received from the API
 };
 
@@ -27,11 +32,12 @@ export const getDraftEditableScenarios = async () => {
   return response.data; // Return the data received from the API
 };
 
-export const getAojs = async (aoj_region) => {
+export const getAojs = async (scenario_name, aoj_region) => {
   const response = await axios.post(
     `${API_URL}/get_aoj`,
     {
-      aoj_region: aoj_region, // Pass the data format value in the request body
+      scenario_name: scenario_name,
+      aoj_region: aoj_region // Pass the data format value in the request body
     },
     { timeout: 5000 }
   );
@@ -59,12 +65,12 @@ export const getValueAojs = async (district) => {
   return response.data; // Return the data received from the API
 };
 
-export const getFeeders = async (aoj_code, scenario_name) => {
+export const getFeeders = async (scenario_name, aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_feeder`,
     {
-      aoj_code: aoj_code, // Pass the data format value in the request body
       scenario_name: scenario_name, // Pass the scenario name in the request body
+      aoj_code: aoj_code, // Pass the data format value in the request body
     },
     { timeout: 5000 }
   );

@@ -16,10 +16,11 @@ import {
   getFrequency
 } from "../../services/api_Options";
 
-export const useDistrictOption = () => {
+export const useDistrictOption = (scenario_name) => {
   return useQuery({
-    queryKey: ["districtOption"],
-    queryFn: () => getDistricts(),
+    queryKey: ["districtOption", scenario_name],
+    queryFn: () => getDistricts(scenario_name),
+    enabled: Boolean(scenario_name),
   });
 };
 
@@ -27,6 +28,38 @@ export const useValueDistrictOption = () => {
   return useQuery({
     queryKey: ["valueDistrictOption"],
     queryFn: () => getValueDistricts(),
+  });
+};
+
+export const useAojOption = (scenario_name, aoj_region) => {
+  return useQuery({
+    queryKey: ["districtOption", scenario_name, aoj_region],
+    queryFn: () => getAojs(scenario_name, aoj_region),
+    enabled: Boolean(aoj_region),
+  });
+};
+
+export const useAuthorizedAojOption = (pea_code,scenario_name) => {
+  return useQuery({
+    queryKey: ["authorizedAojOption", pea_code,scenario_name],
+    queryFn: () => getAuthorizedAojs(pea_code,scenario_name),
+    enabled: Boolean(scenario_name),
+  });
+};
+
+export const useValueAojOption = (district) => {
+  return useQuery({
+    queryKey: ["valueAojOption", district],
+    queryFn: () => getValueAojs(district),
+    enabled: Boolean(district),
+  });
+};
+
+export const useFeederOption = (scenario_name, aoj_code) => {
+  return useQuery({
+    queryKey: ["feederOption", scenario_name, aoj_code],
+    queryFn: () => getFeeders(scenario_name, aoj_code),
+    enabled: Boolean(aoj_code),
   });
 };
 
@@ -48,38 +81,6 @@ export const useDraftEditableScenarioOption = () => {
   return useQuery({
     queryKey: ["draftEditableScenarioOption"],
     queryFn: () => getDraftEditableScenarios(),
-  });
-};
-
-export const useAojOption = (aoj_region) => {
-  return useQuery({
-    queryKey: ["districtOption", aoj_region],
-    queryFn: () => getAojs(aoj_region),
-    enabled: Boolean(aoj_region),
-  });
-};
-
-export const useAuthorizedAojOption = (pea_code,scenario_name) => {
-  return useQuery({
-    queryKey: ["authorizedAojOption", pea_code,scenario_name],
-    queryFn: () => getAuthorizedAojs(pea_code,scenario_name),
-    enabled: Boolean(scenario_name),
-  });
-};
-
-export const useValueAojOption = (district) => {
-  return useQuery({
-    queryKey: ["valueAojOption", district],
-    queryFn: () => getValueAojs(district),
-    enabled: Boolean(district),
-  });
-};
-
-export const useFeederOption = (aoj_code, scenario_name) => {
-  return useQuery({
-    queryKey: ["feederOption", aoj_code, scenario_name],
-    queryFn: () => getFeeders(aoj_code, scenario_name),
-    enabled: Boolean(aoj_code),
   });
 };
 
