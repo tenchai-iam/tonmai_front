@@ -116,7 +116,7 @@ const MapG = () => {
   }));
 
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
-    useAuthorizedAojOption(sessionPEACode);
+    useAuthorizedAojOption(sessionPEACode, selectedScenario1);
 
   const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
     value: option.aoj_code,

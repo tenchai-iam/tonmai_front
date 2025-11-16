@@ -69,15 +69,15 @@ const Upgrade = () => {
   const [selectedDraftEditableScenario, setSelectedDraftEditableScenario] = useState("");
   const handleDraftEditableScenarioSelect = (e) => setSelectedDraftEditableScenario(e.target.value);
 
-  const [selectedDistrict, setSelectedDistrict] = useState("S2");
-  const [selectedDistrictE, setSelectedDistrictE] = useState("S2");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedDistrictE, setSelectedDistrictE] = useState("");
 
   const handleChangeDistrict = (event) => {
     setSelectedDistrict(event.target.value);
   };
 
-  const [selectedAoj, setSelectedAoj] = useState("1103101");
-  const [selectedAojE, setSelectedAojE] = useState("1103101");
+  const [selectedAoj, setSelectedAoj] = useState("");
+  const [selectedAojE, setSelectedAojE] = useState("");
 
   const [selectedFrequency, setSelectedFrequency] = useState("");
 
@@ -124,7 +124,7 @@ const Upgrade = () => {
   const { data: districtOption } = useDistrictOption();
 
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
-    useAuthorizedAojOption(sessionPEACode);
+    useAuthorizedAojOption(sessionPEACode, selectedDraftScenario);
 
   const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
     value: option.aoj_code,

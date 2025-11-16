@@ -59,11 +59,11 @@ export const useAojOption = (aoj_region) => {
   });
 };
 
-export const useAuthorizedAojOption = (pea_code) => {
+export const useAuthorizedAojOption = (pea_code,scenario_name) => {
   return useQuery({
-    queryKey: ["authorizedAojOption", pea_code],
-    queryFn: () => getAuthorizedAojs(pea_code),
-    // enabled: Boolean(pea_code),
+    queryKey: ["authorizedAojOption", pea_code,scenario_name],
+    queryFn: () => getAuthorizedAojs(pea_code,scenario_name),
+    enabled: Boolean(scenario_name),
   });
 };
 
