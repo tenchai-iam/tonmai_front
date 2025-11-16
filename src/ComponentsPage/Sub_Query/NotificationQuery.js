@@ -22,7 +22,7 @@ export function useScenarioNotifications(
 
   const emptyPollCountRef = useRef(0); // Count consecutive empty polls
 
-  const fetchNotifications = useCallback(async () => {
+  const fetchNotifications = useCallback(async (isActivePolling = false) => {
     try {
       const data = await getScenarioNotifications(true, 50);
       const newNotifications = data.notifications || [];
@@ -31,8 +31,8 @@ export function useScenarioNotifications(
       setError(null);
       setLastFetchTime(new Date());
 
-      // Track empty polls for early stop
-      if (newNotifications.length === 0) {
+      // Track empty polls for early stop - but only when NOT in active polling mode
+      if (newNotifications.length === 0 && !isActivePolling) {
         emptyPollCountRef.current += 1;
 
         // If we've had 5 consecutive empty polls, stop polling early
@@ -43,10 +43,12 @@ export function useScenarioNotifications(
             onPollingComplete();
           }
         }
-      } else {
+      } else if (newNotifications.length > 0) {
         // Reset empty poll counter when we get notifications
         emptyPollCountRef.current = 0;
       }
+      // Note: Don't increment emptyPollCountRef when isActivePolling=true
+      // This ensures we keep polling for the full duration after scenario creation
     } catch (err) {
       console.error('Failed to fetch notifications:', err);
       setError(err.message || 'Failed to fetch notifications');
@@ -60,18 +62,7 @@ export function useScenarioNotifications(
       await markNotificationAsRead(notificationId);
 
       // Remove from notifications list
-      setNotifications(prev => {
-        const updated = prev.filter(n => n.id !== notificationId);
-
-        // If no more notifications after dismissing, reset empty poll counter
-        // This allows 5 more polls to check for any other notifications
-        if (updated.length === 0) {
-          emptyPollCountRef.current = 0;
-          console.log('All notifications dismissed - will poll 5 more times then stop');
-        }
-
-        return updated;
-      });
+      setNotifications(prev => prev.filter(n => n.id !== notificationId));
 
       return true;
     } catch (err) {
@@ -90,10 +81,6 @@ export function useScenarioNotifications(
       // Clear notifications list
       setNotifications([]);
 
-      // Reset empty poll counter - will poll 5 more times then stop
-      emptyPollCountRef.current = 0;
-      console.log('All notifications dismissed - will poll 5 more times then stop');
-
       return true;
     } catch (err) {
       console.error('Failed to mark all notifications as read:', err);
@@ -103,7 +90,7 @@ export function useScenarioNotifications(
 
   // Initial fetch on mount to check for existing notifications
   useEffect(() => {
-    fetchNotifications();
+    fetchNotifications(false);
   }, [fetchNotifications]);
 
   useEffect(() => {
@@ -137,11 +124,11 @@ export function useScenarioNotifications(
     console.log(`Polling for notifications - ${Math.floor(remainingTime / 60000)} minutes remaining`);
     setIsPolling(true);
 
-    // Initial fetch
-    fetchNotifications();
+    // Initial fetch with active polling flag
+    fetchNotifications(true);
 
-    // Set up polling
-    const interval = setInterval(fetchNotifications, pollInterval);
+    // Set up polling with active polling flag
+    const interval = setInterval(() => fetchNotifications(true), pollInterval);
 
     // Set timeout to stop polling after duration expires
     const stopTimeout = setTimeout(() => {

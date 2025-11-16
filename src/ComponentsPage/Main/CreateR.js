@@ -328,6 +328,14 @@ const CreateR = () => {
               />
             </div>
         </div>
+            <div className="notifications-container">
+            {/* Scenario Completion Notifications */}
+              <ScenarioNotifications
+                pollInterval={5000}
+                lastScenarioCreationTime={lastScenarioCreationTime}
+                onPollingComplete={handlePollingComplete}
+              />
+            </div>
             <div className="budget-manage-platform">
                 <div className="budget-table">
                   <div className="download-end-button">
@@ -441,13 +449,6 @@ const CreateR = () => {
                   </div>
                 </div>
             </div>
-
-        {/* Scenario Completion Notifications */}
-        <ScenarioNotifications
-          pollInterval={5000}
-          lastScenarioCreationTime={lastScenarioCreationTime}
-          onPollingComplete={handlePollingComplete}
-        />
       </div>
     </div>
   );
