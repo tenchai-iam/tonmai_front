@@ -101,12 +101,17 @@ export function useScenarioNotifications(
     }
   }, [notifications]);
 
+  // Initial fetch on mount to check for existing notifications
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
+
   useEffect(() => {
     // Time-based polling logic:
     // Only poll for {pollingDuration} minutes after last scenario creation
 
     if (!lastScenarioCreationTime) {
-      // No scenarios created yet, don't poll
+      // No scenarios created yet, don't start intensive polling
       setIsPolling(false);
       return;
     }

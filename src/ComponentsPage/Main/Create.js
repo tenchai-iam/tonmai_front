@@ -409,6 +409,14 @@ const Create = () => {
             </div>
           </div>
         </div>
+        <div className="notifications-container">
+          {/* Scenario Completion Notifications */}
+          <ScenarioNotifications
+            pollInterval={5000}
+            lastScenarioCreationTime={lastScenarioCreationTime}
+            onPollingComplete={handlePollingComplete}
+          />
+        </div>
         <div className="summary-container">
           <div className="container-title">ข้อมูลสรุปของแผนแยกตามเขต</div>
             <div className="dropdown-dropdown-container">
@@ -500,13 +508,6 @@ const Create = () => {
           </div>
                 <TableScenarioAojSummary data={dataScenarioAojSummary} />
         </div>
-
-        {/* Scenario Completion Notifications */}
-        <ScenarioNotifications
-          pollInterval={5000}
-          lastScenarioCreationTime={lastScenarioCreationTime}
-          onPollingComplete={handlePollingComplete}
-        />
       </div>
     </div>
   );
