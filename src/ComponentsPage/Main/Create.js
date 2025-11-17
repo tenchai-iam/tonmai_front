@@ -67,6 +67,15 @@ const Create = () => {
   const [isCreatingBudgetScenario, setIsCreatingBudgetScenario] =
     useState(false);
 
+  // Track last scenario creation time for time-based polling
+  const [lastScenarioCreationTime, setLastScenarioCreationTime] = useState(null);
+
+  // Callback when polling completes (either by time or dismissal)
+  const handlePollingComplete = () => {
+    console.log('Polling complete - clearing scenario creation time');
+    setLastScenarioCreationTime(null);
+  };
+
   // NEW: Budget scenario submit handler
   const handleBudgetSubmit = async () => {
     if (!selectedYearBudget || !budgetReductionPercent) {
@@ -91,8 +100,11 @@ const Create = () => {
       const response = await createBudgetScenario(payload);
       console.log("Budget Scenario Created:", response);
 
+      // Update last creation time to trigger 15-minute polling
+      setLastScenarioCreationTime(Date.now());
+
       // Show success message
-      alert(`เริ่มสร้าง Budget Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์`);
+      alert(`เริ่มสร้าง Budget Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์ (ภายใน 15 นาที)`);
 
       // Reset form
       setSelectedYearBudget("");
@@ -134,8 +146,11 @@ const Create = () => {
       const response = await createRiskScenario(payload);
       console.log("Risk Scenario Created:", response);
 
+      // Update last creation time to trigger 15-minute polling
+      setLastScenarioCreationTime(Date.now());
+
       // Show success message
-      alert(`เริ่มสร้าง Risk Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์`);
+      alert(`เริ่มสร้าง Risk Scenario แล้ว!\nScenario ID: ${response.scenario_id}\n\nจะได้รับการแจ้งเตือนเมื่อเสร็จสมบูรณ์ (ภายใน 15 นาที)`);
 
       // Reset form
       setSelectedYearRisk("");
@@ -153,7 +168,7 @@ const Create = () => {
     }
   };
 
-  const { data: districtOption } = useDistrictOption();
+  const { data: districtOption } = useDistrictOption(selectedScenario1);
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
@@ -394,6 +409,14 @@ const Create = () => {
             </div>
           </div>
         </div>
+        <div className="notifications-container">
+          {/* Scenario Completion Notifications */}
+          <ScenarioNotifications
+            pollInterval={5000}
+            lastScenarioCreationTime={lastScenarioCreationTime}
+            onPollingComplete={handlePollingComplete}
+          />
+        </div>
         <div className="summary-container">
           <div className="container-title">ข้อมูลสรุปของแผนแยกตามเขต</div>
             <div className="dropdown-dropdown-container">
@@ -485,9 +508,6 @@ const Create = () => {
           </div>
                 <TableScenarioAojSummary data={dataScenarioAojSummary} />
         </div>
-
-        {/* Scenario Completion Notifications */}
-        <ScenarioNotifications pollInterval={5000} enabled={true} />
       </div>
     </div>
   );

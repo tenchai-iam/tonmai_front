@@ -2,15 +2,20 @@ import React from "react";
 import { useScenarioNotifications } from "../Sub_Query/NotificationQuery.js";
 import "../../ComponentsStyles/ScenarioNotifications.css";
 
-const ScenarioNotifications = ({ pollInterval = 5000, enabled = true }) => {
+const ScenarioNotifications = ({
+  pollInterval = 5000,
+  lastScenarioCreationTime = null,
+  onPollingComplete = null
+}) => {
   const {
     notifications,
     loading,
     error,
     markAsRead,
     markAllAsRead,
-    count
-  } = useScenarioNotifications(pollInterval, enabled);
+    count,
+    isPolling
+  } = useScenarioNotifications(pollInterval, lastScenarioCreationTime, 15 * 60 * 1000, onPollingComplete);
 
   // Show loading state only on initial load
   if (loading && notifications.length === 0) {
@@ -41,10 +46,10 @@ const ScenarioNotifications = ({ pollInterval = 5000, enabled = true }) => {
     if (!seconds) return 'N/A';
 
     if (seconds < 60) {
-      return `${seconds} วินาที`;
+      return `${Math.floor(seconds)} วินาที`;
     }
     const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
+    const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes} นาที ${remainingSeconds} วินาที`;
   };
 
