@@ -107,10 +107,10 @@ const Map = () => {
     setLineData(dummyData);
   }, []);
 
-  const { data: districtOption } = useDistrictOption();
+  const { data: districtOption } = useDistrictOption(selectedScenario1);
 
   const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
+    useAojOption(selectedScenario1, selectedDistrict);
 
   const aojOptionFormatted = aojOption?.map((option) => ({
     value: option.aoj_code,
@@ -118,7 +118,7 @@ const Map = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedAoj, selectedScenario1);
+    useFeederOption(selectedScenario1, selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
@@ -127,7 +127,7 @@ const Map = () => {
 
   const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedAoj2);
+  const { data: corridorOption } = useCorridorOption(selectedScenario1, selectedAoj2);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
@@ -135,7 +135,7 @@ const Map = () => {
   }));
 
   const { data: aojOption2, isLoadingAojOption2 } =
-    useAojOption(selectedDistrict2);
+    useAojOption(selectedScenario1, selectedDistrict2);
 
   const aojOptionFormatted2 = aojOption2?.map((option) => ({
     value: option.aoj_code,
@@ -195,7 +195,7 @@ const Map = () => {
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
   const { data: corridorPlan } = useCorridorPlan(
-    selectedScenario2,
+    selectedScenario1,
     selectedAoj2,
     selectedFeeder2,
     selectedCorridor
@@ -406,7 +406,7 @@ const Map = () => {
         <div className="summary-container">
           <div className="dropdown-download-container">
             <div className="dropdowngroup-container">
-              <select
+              {/* <select
                 value={selectedScenario2}
                 onChange={handleScenario2Select}
                 className="border rounded-lg px-4 py-2"
@@ -420,7 +420,7 @@ const Map = () => {
                     {option.scenario_name}
                   </option>
                 ))}
-              </select>
+              </select> */}
               <select
                 value={selectedDistrict2}
                 onChange={handleChangeDistrict2}

@@ -168,7 +168,7 @@ const Create = () => {
     }
   };
 
-  const { data: districtOption } = useDistrictOption();
+  const { data: districtOption } = useDistrictOption(selectedScenario1);
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
