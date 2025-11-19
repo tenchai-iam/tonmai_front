@@ -207,3 +207,8 @@ export const deleteScenario = async (scenario_name) => {
   );
   return response.data; // Return the data received from the API
 };
+
+export const getFinalScenario = async () => {
+  const response = await axios.get(`${API_URL}/create_corridor_features_filtered`);
+  return response.data; // Create table from table for MJM
+};

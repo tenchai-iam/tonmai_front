@@ -25,7 +25,8 @@ import {
   selectScenarioF,
   postEditableTrue,
   postEditableFalse,
-  deleteScenario
+  deleteScenario,
+  getFinalScenario
 } from "../../services/api_Manage.js";
 
 import "../../ComponentsStyles/Dashboard.css";
@@ -74,8 +75,11 @@ const Manage = () => {
     const buddhistYear = parseInt(selectedYearD);
     const gregorianYear = buddhistYear - 543;
 
+    // Get employee_id from session storage
+    const employeeId = sessionStorage.getItem("user") || "700001";
+
     const payload = {
-      employee_id: "700001", // Fixed value for now
+      employee_id: employeeId,
       scenario_name: selectedScenarioD,
       year: gregorianYear, // Now sends 2027 instead of 2570
     };
@@ -112,8 +116,11 @@ const Manage = () => {
     const buddhistYear = parseInt(selectedYearF);
     const gregorianYear = buddhistYear - 543;
 
+    // Get employee_id from session storage
+    const employeeId = sessionStorage.getItem("user") || "700001";
+
     const payload = {
-      employee_id: "700001", // Fixed value for now
+      employee_id: employeeId,
       scenario_name: selectedScenarioF,
       year: gregorianYear, // Now sends 2027 instead of 2570
     };
@@ -122,6 +129,15 @@ const Manage = () => {
       const response = await selectScenarioF(payload);
       alert(`เลือก Final แผนสำเร็จ! Scenario: ${selectedScenarioF}`);
       console.log("Final Scenario Selection Response:", response);
+
+      // Trigger getFinalScenario after selectScenarioF completes
+      try {
+        const finalScenarioResponse = await getFinalScenario();
+        console.log("Final Scenario Created:", finalScenarioResponse);
+      } catch (finalScenarioErr) {
+        console.error("getFinalScenario failed:", finalScenarioErr);
+        alert("เลือกแผนสำเร็จแต่เกิดข้อผิดพลาดในการสร้างตาราง corridor features");
+      }
 
       // Refresh the selected scenarios table
       queryClient.invalidateQueries(["showSelectedScenarioF"]);
