@@ -16,6 +16,7 @@ import {
   useDraftScenarioOption,
   useDraftEditableScenarioOption,
   useDistrictOption,
+  useAuthorizedDistrictOption,
   useAojOption,
   useAuthorizedAojOption,
   useFeederOption,
@@ -122,10 +123,10 @@ const Upgrade = () => {
     setLineData(dummyData);
   }, []);
 
-  const { data: districtOption } = useDistrictOption();
+  const { data: authorizedDistrictOption } = useAuthorizedDistrictOption(sessionPEACode, selectedDraftScenario);
 
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
-    useAuthorizedAojOption(sessionPEACode, selectedDraftScenario);
+    useAuthorizedAojOption(sessionPEACode, selectedDraftScenario, selectedDistrict);
 
   const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
     value: option.aoj_code,
@@ -447,18 +448,18 @@ const Upgrade = () => {
                 </option>
               ))}
             </select>
-            {/* <select
+            <select
               value={selectedDistrict}
               onChange={handleChangeDistrict}
               className="border rounded-lg px-4 py-2"
             >
               <option value="">เลือกการไฟฟ้าเขต</option>
-              {districtOption?.map((option) => (
-                <option key={option.aoj_region} value={option.aoj_region}>
-                  {option.aoj_region}
+              {authorizedDistrictOption?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
                 </option>
               ))}
-            </select> */}
+            </select>
             <Select
               options={authorizedAojOptionFormatted}
               value={authorizedAojOptionFormatted?.find(

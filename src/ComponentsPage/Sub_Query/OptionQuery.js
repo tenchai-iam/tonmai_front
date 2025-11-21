@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   getDistricts,
+  getAuthorizedDistricts,
   getValueDistricts,
   getAvailableValueYears,
   getScenarios,
@@ -24,6 +25,14 @@ export const useDistrictOption = (scenario_name) => {
   });
 };
 
+export const useAuthorizedDistrictOption = (pea_code,scenario_name) => {
+  return useQuery({
+    queryKey: ["authorizedDistrictOption", pea_code,scenario_name],
+    queryFn: () => getAuthorizedDistricts(pea_code,scenario_name),
+    enabled: Boolean(scenario_name),
+  });
+};
+
 export const useValueDistrictOption = () => {
   return useQuery({
     queryKey: ["valueDistrictOption"],
@@ -39,10 +48,10 @@ export const useAojOption = (scenario_name, aoj_region) => {
   });
 };
 
-export const useAuthorizedAojOption = (pea_code,scenario_name) => {
+export const useAuthorizedAojOption = (pea_code,scenario_name,child_district) => {
   return useQuery({
-    queryKey: ["authorizedAojOption", pea_code,scenario_name],
-    queryFn: () => getAuthorizedAojs(pea_code,scenario_name),
+    queryKey: ["authorizedAojOption", pea_code,scenario_name, child_district],
+    queryFn: () => getAuthorizedAojs(pea_code,scenario_name, child_district),
     enabled: Boolean(scenario_name),
   });
 };

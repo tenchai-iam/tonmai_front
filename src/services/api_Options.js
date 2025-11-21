@@ -12,6 +12,17 @@ export const getDistricts = async (scenario_name) => {
   return response.data; // Return the data received from the API
 };
 
+export const getAuthorizedDistricts = async (pea_code) => {
+  const response = await axios.post(
+    `${API_URL}/get_authorized_district`,
+    {
+      pea_code: pea_code // Pass the data format value in the request body
+    },
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};
+
 export const getValueDistricts = async () => {
   const response = await axios.get(`${API_URL}/get_value_district`);
   return response.data; // Return the data received from the API
@@ -44,11 +55,13 @@ export const getAojs = async (scenario_name, aoj_region) => {
   return response.data; // Return the data received from the API
 };
 
-export const getAuthorizedAojs = async (pea_code) => {
+export const getAuthorizedAojs = async (pea_code, scenario_name, child_district) => {
   const response = await axios.post(
     `${API_URL}/get_authorized_aoj`,
     {
       pea_code: pea_code, // Pass the data format value in the request body
+      scenario_name: scenario_name,
+      child_district: child_district
     },
     { timeout: 5000 }
   );
