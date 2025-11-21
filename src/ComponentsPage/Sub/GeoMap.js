@@ -225,14 +225,9 @@ const GeoMap = ({
     id: "sub-point-layer",
     type: "symbol",
     layout: {
-      "text-field": "■",
-      "text-size": 18,
-      "text-allow-overlap": true,
-    },
-    paint: {
-      "text-color": "#27ae60",
-      "text-halo-color": "#fff",
-      "text-halo-width": 2,
+      "icon-image": "square-icon",
+      "icon-size": 0.5,
+      "icon-allow-overlap": true,
     },
   };
 
@@ -241,11 +236,32 @@ const GeoMap = ({
       <p>Substation</p>
       <ul>
         <li>
-          <span style={{ backgroundColor: "#27ae60", borderRadius: 0 }}></span> Connector
+          <span style={{ backgroundColor: "#27ae60", borderRadius: 0 }}></span> Substation
         </li>
       </ul>
     </div>
   );
+
+  // Create square icon when map loads
+  const handleMapLoad = (e) => {
+    const map = e.target;
+    if (!map.hasImage("square-icon")) {
+      const size = 32;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+
+      // Draw square with border
+      ctx.fillStyle = "#27ae60";
+      ctx.fillRect(2, 2, size - 4, size - 4);
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(2, 2, size - 4, size - 4);
+
+      map.addImage("square-icon", { width: size, height: size, data: ctx.getImageData(0, 0, size, size).data });
+    }
+  };
 
   return (
     <Map
@@ -258,6 +274,7 @@ const GeoMap = ({
         zoom: 4.5,
       }}
       style={{ height: "600px", width: "100%" }}
+      onLoad={handleMapLoad}
       onMouseMove={(e) => {
         // Look for sub point first
         const subFeature = e.features?.find(
