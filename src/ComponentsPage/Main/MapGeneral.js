@@ -22,6 +22,7 @@ import {
   useGeoAoj,
   useGeoCorridors,
   useGeoDevices,
+  useGeoSub,
 } from "../Sub_Query/GeoQuery.js";
 
 import {
@@ -164,6 +165,7 @@ const MapG = () => {
     selectedFrequency
   );
   const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
+  const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
     "currentMapView",
@@ -396,6 +398,7 @@ const MapG = () => {
             {" "}
             <GeoMap
               geoJsonPoints={geoDevices}
+              geoSubPoints={geoSub}
               geoJsonData={geoJsonToShow}
               colorMode={colorMode}
               showLegend={currentMapView === "corridor"}
