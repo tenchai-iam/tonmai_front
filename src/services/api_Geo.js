@@ -52,3 +52,17 @@ export const getGeoDevices = async (feeder_id, aoj_code, frequency) => {
   );
   return response.data; // Return the data received from the API
 };
+
+export const getGeoSub = async (feeder_id, aoj_code, frequency) => {
+  const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
+  const response = await axios.post(
+    `${API_URL}/get_geo_sub`,
+    {
+      feeder_id: feeder_ids,
+      aoj_code: aoj_code,
+      frequency: frequency
+    },
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};

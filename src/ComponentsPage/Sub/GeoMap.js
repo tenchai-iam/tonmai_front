@@ -26,6 +26,7 @@ const thailandOutlineLayer = {
 const GeoMap = ({
   geoJsonData,
   geoJsonPoints,
+  geoSubPoints,
   showThailand = true,
   colorMode,
   showLegend,
@@ -34,6 +35,7 @@ const GeoMap = ({
   const [thailandGeoJson, setThailandGeoJson] = useState(null);
   const [hasZoomedToThailand, setHasZoomedToThailand] = useState(false);
   const [deviceInfo, setDeviceInfo] = useState(null);
+  const [subInfo, setSubInfo] = useState(null);
   const [corridorInfo, setCorridorInfo] = useState(null);
 
   const frequencyLegend = (
@@ -184,12 +186,66 @@ const GeoMap = ({
     id: "device-point-layer",
     type: "circle",
     paint: {
-      "circle-radius": 5,
-      "circle-color": "#007cbf",
+      "circle-radius": 7,
+      "circle-color": [
+        "match",
+        ["get", "device_type"],
+        "Recloser", "#e74c3c",      // Red
+        "Switch", "#3498db",         // Blue
+        "Fuse", "#f39c12",           // Orange
+        "Circuit Breaker", "#9b59b6", // Purple
+        "#95a5a6"                    // Gray default
+      ],
       "circle-stroke-width": 2,
       "circle-stroke-color": "#fff",
     },
   };
+
+  const deviceLegend = (
+    <div className="legend device-legend">
+      <p>ประเภทอุปกรณ์ (Device Type)</p>
+      <ul>
+        <li>
+          <span style={{ backgroundColor: "#e74c3c" }}></span> Recloser
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#3498db" }}></span> Switch
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#f39c12" }}></span> Fuse
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#9b59b6" }}></span> Circuit Breaker
+        </li>
+      </ul>
+    </div>
+  );
+
+  const subPointLayer = {
+    id: "sub-point-layer",
+    type: "symbol",
+    layout: {
+      "text-field": "■",
+      "text-size": 18,
+      "text-allow-overlap": true,
+    },
+    paint: {
+      "text-color": "#27ae60",
+      "text-halo-color": "#fff",
+      "text-halo-width": 2,
+    },
+  };
+
+  const subLegend = (
+    <div className="legend sub-legend">
+      <p>Substation</p>
+      <ul>
+        <li>
+          <span style={{ backgroundColor: "#27ae60", borderRadius: 0 }}></span> Connector
+        </li>
+      </ul>
+    </div>
+  );
 
   return (
     <Map
@@ -203,7 +259,21 @@ const GeoMap = ({
       }}
       style={{ height: "600px", width: "100%" }}
       onMouseMove={(e) => {
-        // Look for device point first
+        // Look for sub point first
+        const subFeature = e.features?.find(
+          (f) => f.layer.id === "sub-point-layer"
+        );
+        if (subFeature) {
+          setSubInfo({
+            lngLat: e.lngLat,
+            properties: subFeature.properties,
+          });
+          setDeviceInfo(null);
+          setCorridorInfo(null);
+          return;
+        }
+
+        // Look for device point
         const deviceFeature = e.features?.find(
           (f) => f.layer.id === "device-point-layer"
         );
@@ -212,7 +282,8 @@ const GeoMap = ({
             lngLat: e.lngLat,
             properties: deviceFeature.properties,
           });
-          setCorridorInfo(null); // Clear polygon popup
+          setSubInfo(null);
+          setCorridorInfo(null);
           return;
         }
 
@@ -225,15 +296,17 @@ const GeoMap = ({
             lngLat: e.lngLat,
             properties: polygonFeature.properties,
           });
-          setDeviceInfo(null); // Clear device popup
+          setDeviceInfo(null);
+          setSubInfo(null);
           return;
         }
 
         // Clear all popups if none found
         setDeviceInfo(null);
+        setSubInfo(null);
         setCorridorInfo(null);
       }}
-      interactiveLayerIds={["device-point-layer", "geojson-outline"]}
+      interactiveLayerIds={["sub-point-layer", "device-point-layer", "geojson-outline"]}
     >
       {/* Esri satellite imagery */}
       <Source
@@ -261,6 +334,13 @@ const GeoMap = ({
         </Source>
       )}
 
+      {/* ✅ Substation/Connector (square points) */}
+      {geoSubPoints && (
+        <Source id="geojson-sub-source" type="geojson" data={geoSubPoints}>
+          <Layer {...subPointLayer} />
+        </Source>
+      )}
+
       {/* Dynamic GeoJSON overlay */}
       {geoJsonData && (
         <Source id="geojson-source" type="geojson" data={geoJsonData}>
@@ -278,6 +358,23 @@ const GeoMap = ({
         >
           <div>
             {Object.entries(deviceInfo.properties).map(([key, value]) => (
+              <div key={key}>
+                <strong>{key}</strong>: {value}
+              </div>
+            ))}
+          </div>
+        </Popup>
+      )}
+
+      {subInfo && (
+        <Popup
+          longitude={subInfo.lngLat.lng}
+          latitude={subInfo.lngLat.lat}
+          closeOnClick={false}
+          onClose={() => setSubInfo(null)}
+        >
+          <div>
+            {Object.entries(subInfo.properties).map(([key, value]) => (
               <div key={key}>
                 <strong>{key}</strong>: {value}
               </div>
@@ -311,6 +408,8 @@ const GeoMap = ({
       {/* Legend inside Map */}
       {showLegend && colorMode === "frequency" && frequencyLegend}
       {showLegend && colorMode === "risk" && riskLegend}
+      {showLegend && geoJsonPoints && deviceLegend}
+      {showLegend && geoSubPoints && subLegend}
     </Map>
   );
 };
