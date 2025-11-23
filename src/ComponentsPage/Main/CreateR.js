@@ -20,7 +20,7 @@ import {
   useBudgetYearOption,
 } from "../Sub_Query/OptionQuery.js";
 
-import { useRegionBudgetGraph } from "../Sub_Query/BudgetQuery.js";
+import { useRegionBudgetGraphAdmin } from "../Sub_Query/BudgetQuery.js";
 
 import {
   useRegionBudgetSummary,
@@ -247,6 +247,18 @@ const CreateR = () => {
       budget: item.budget_thb /1000000,
       budgetUpgrade: item.budget_upgrade_thb /1000000
     })) || [];
+  
+  // Fetch regional budget graph data from API
+  const { data: regionBudgetGraph } = useRegionBudgetGraphAdmin(selectedScenario1, selectedDistrict);
+  
+  const dataRegionalBudgetGraph =
+      regionBudgetGraph?.map((item) => ({
+        region: item.region,
+        baselineAdjust: item.baseline_adjust,
+        normalizeAdjust: item.normalize_adjust,
+        budgetAdjust: item.budget_adjust,
+        budgetUpgradeAdjust: item.budget_upgrade_adjust,
+      })) || [];
 
   const { data: regionBudgetTable } = useRegionBudgetTable(selectedYearRegion);
 
@@ -271,20 +283,17 @@ const CreateR = () => {
       <div className="header-container">สร้างแผน Region</div>
       <div className="main-container">
         <div className="summary-container">
-            <div className="inputgroup-container">
-              <div className="input-year">
-                <label>เลือกปีงบประมาณ</label>
+            <div className="dropdown-dropdown-container">
+              <div className="dropdowngroup-container">
                 <select
-                  value={selectedYearRegion}
-                  onChange={(e) => setSelectedYearRegion(e.target.value)}
+                  value={selectedScenario1}
+                  onChange={handleScenario1Select}
                   className="border rounded-lg px-4 py-2"
                 >
-                  <option value="" disabled>
-                    เลือกปี
-                  </option>
-                  {budgetYearOption?.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
+                  <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
+                  {scenarioOption?.map((option) => (
+                    <option key={option.scenario_name} value={option.scenario_name}>
+                      {option.scenario_name}
                     </option>
                   ))}
                 </select>
@@ -293,12 +302,13 @@ const CreateR = () => {
             <div className="district-budget-graph">
                 งบประมาณแยกตามเขต (บาท)
                 <div className="bar-chart-legend">
-                  <span style={{ color: "#8B4513" }}>⬤ ค่าใช้จ่าย {selectedYearRegion - 1}</span>
-                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ {selectedYearRegion}</span>
-                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณ {selectedYearRegion} ปรับปรุง</span>
+                  <span style={{ color: "#8B4513" }}>⬤ ค่าใข้จ่ายจริง Y-1</span>
+                  <span style={{ color: "#C69530" }}>⬤ งบประมาณ Normalized </span>
+                  <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ</span>
+                  <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณปรับปรุง</span>
                 </div>
               <BarGraphBudget
-                data={dataRegionalBudgetSummary}
+                data={dataRegionalBudgetGraph}
                 xAxisKey="region"
                 height={400}
                 layout="horizontal"
@@ -310,19 +320,24 @@ const CreateR = () => {
                 maxBarSize={30}
                 barKeys={[
                   {
-                    dataKey: "baseline",
+                    dataKey: "baselineAdjust",
                     fill: "#8B4513",
-                    tooltipLabel: `ค่าใช้จ่าย ${selectedYearRegion - 1}`
+                    tooltipLabel: "งบประมาณ Baseline"
                   },
                   {
-                    dataKey: "budget",
+                    dataKey: "normalizeAdjust",
+                    fill: "#C69530",
+                    tooltipLabel: "งบประมาณ Normalized"
+                  },
+                  {
+                    dataKey: "budgetAdjust",
                     fill: "#4F1C51",
-                    tooltipLabel: `งบประมาณ ${selectedYearRegion}`
+                    tooltipLabel: "งบประมาณ"
                   },
                   {
-                    dataKey: "budgetUpgrade",
+                    dataKey: "budgetUpgradeAdjust",
                     fill: "#A1D6B2",
-                    tooltipLabel: `งบประมาณ ${selectedYearRegion} ปรับปรุง`
+                    tooltipLabel: "งบประมาณปรับปรุง"
                   }
                 ]}
               />
@@ -338,19 +353,40 @@ const CreateR = () => {
             </div>
             <div className="budget-manage-platform">
                 <div className="budget-table">
-                  <div className="download-end-button">
-                    <button
-                      onClick={handleDownloadRegionBudgetDistrictTemplate}
-                      className={`download-button-style${false ? " selected" : ""}`}
-                    >
-                      Download Template ระดับเขต
-                    </button>
-                    <button
-                      onClick={handleDownloadRegionBudgetAojTemplate}
-                      className={`download-button-style${false ? " selected" : ""}`}
-                    >
-                      Download Template ระดับกฟฟ.
-                    </button>
+                  <div className="dropdown-dropdown-container">
+                  <div className="inputgroup-container">
+                      <div className="input-year">
+                        <label>เลือกปีงบประมาณ</label>
+                        <select
+                          value={selectedYearRegion}
+                          onChange={(e) => setSelectedYearRegion(e.target.value)}
+                          className="border rounded-lg px-4 py-2"
+                        >
+                          <option value="" disabled>
+                            เลือกปี
+                          </option>
+                          {budgetYearOption?.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="download-end-button">
+                      <button
+                        onClick={handleDownloadRegionBudgetDistrictTemplate}
+                        className={`download-button-style${false ? " selected" : ""}`}
+                      >
+                        Download Template ระดับเขต
+                      </button>
+                      <button
+                        onClick={handleDownloadRegionBudgetAojTemplate}
+                        className={`download-button-style${false ? " selected" : ""}`}
+                      >
+                        Download Template ระดับกฟฟ.
+                      </button>
+                    </div>
                   </div>
                   <RegionBudgetTable data={dataRegionalBudgetTable} selectedYear={selectedYearRegion} />
                   <div className="remark">
