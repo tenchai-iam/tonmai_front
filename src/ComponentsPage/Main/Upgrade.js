@@ -147,7 +147,7 @@ const Upgrade = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedAoj, selectedDraftScenario);
+    useFeederOption(selectedDraftScenario, selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
