@@ -44,12 +44,6 @@ import {
 
 import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList, updateUpgradeScenarioAojBudget, updateBudgetUpgradeRegionalTable } from "../../services/api_Upgrade.js";
 
-import {
-  formatValue,
-  formatUnit,
-  formatQuantity,
-} from "../Sub_config/Format.js";
-
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Upgrade.css";
 import "../../ComponentsStyles/Map.css";
@@ -425,11 +419,41 @@ const Upgrade = () => {
       }
     };
   
+    const handleDownloadAojBudget = () => {
+      const headers = [
+        { label: "เขต", key: "region" },
+        { label: "รหัส กฟฟ.", key: "code" },
+        { label: "กฟฟ.", key: "name" },
+        { label: "ค่าใช้จ่ายจริง Y-1 (บาท)", key: "baselineAdjust" },
+        { label: "งบประมาณ Normalize (บาท)", key: "normalizeAdjust" },
+        { label: "งบประมาณแผน (บาท)", key: "budgetAdjust" },
+        { label: "งบประมาณปรับปรุง (บาท)", key: "budgetUpgradeAdjust" }
+      ];
+
+      const fileName = selectedDraftScenario
+        ? `AOJ_Budget_${selectedDraftScenario}`
+        : "AOJ_Budget";
+
+      const title = selectedDraftScenario && selectedDistrict
+        ? `สรุปงบประมาณ กฟฟ. แผน ${selectedDraftScenario} เขต ${selectedDistrict}`
+        : selectedDraftScenario
+        ? `สรุปงบประมาณ กฟฟ. แผน ${selectedDraftScenario}`
+        : "สรุปงบประมาณ กฟฟ.";
+
+      downloadTable({
+        data: dataAojBudgetTable,
+        headers: headers,
+        fileName: fileName,
+        title: title,
+        extraInfoRows: []
+      });
+    };
+
     const handleDataCorridorPlan = () => {
       const headers = [
         { label: "ปีงบประมาณ", key: "year" },
         { label: "ชื่อแผน", key: "scenarioName" },
-        { label: "เขต.", key: "district" },
+        { label: "เขต", key: "district" },
         { label: "รหัส", key: "code" },
         { label: "กฟฟ.", key: "name" },
         { label: "feeder", key: "feeder" },
@@ -437,16 +461,27 @@ const Upgrade = () => {
         { label: "ระยะทาง (km)", key: "length" },
         { label: "อุปกรณ์", key: "device" },
         { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
-        { label: "จำนวนลูกค้าที่ได้ผลกระทบ", key: "customer" },
+        { label: "จำนวนลูกค้าที่ได้รับผลกระทบ", key: "customer" },
+        { label: "จำนวนครั้งในการตัด (รายครั้ง)", key: "frequency" },
         { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
         { label: "เหตุผล", key: "reason" },
       ];
 
+      const fileName = selectedDraftEditableScenario
+        ? `Corridor_Plan_${selectedDraftEditableScenario}`
+        : "Corridor_Plan";
+
+      const title = selectedDraftEditableScenario && selectedAojE
+        ? `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDraftEditableScenario} สำหรับ ${selectedAojE}`
+        : selectedDraftEditableScenario
+        ? `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDraftEditableScenario}`
+        : "สรุปข้อมูลแผนการตัดต้นไม้";
+
       downloadTable({
         data: editableTableData,
         headers: headers,
-        fileName: "Corridor_Data",
-        title: `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDraftEditableScenario} สำหรับ ${selectedAoj}`,
+        fileName: fileName,
+        title: title,
         extraInfoRows: [],
       });
     };
@@ -626,8 +661,8 @@ const Upgrade = () => {
                 <div className="aoj-budget-table">
                   <div className="download-end-button">
                     <button
-                      // onClick={handleDataCorridorPlan}
-                      className={`download-button-style${false ? " selected" : ""}`}
+                      onClick={handleDownloadAojBudget}
+                      className={`download-button-style${dataAojBudgetTable.length > 0 ? " selected" : ""}`}
                     >
                       Download
                     </button>
@@ -707,8 +742,8 @@ const Upgrade = () => {
                     {isSaving ? "กำลังบันทึก..." : `บันทึกการเปลี่ยนแปลง${modifiedRows.size > 0 ? ` (${modifiedRows.size})` : ""}`}
                   </button>
                   <button
-                    // onClick={handleDataCorridorPlan}
-                    className={`download-button-style${false ? " selected" : ""}`}
+                    onClick={handleDataCorridorPlan}
+                    className={`download-button-style${editableTableData.length > 0 ? " selected" : ""}`}
                   >
                     Download
                   </button>

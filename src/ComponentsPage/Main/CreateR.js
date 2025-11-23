@@ -27,11 +27,6 @@ import {
   useRegionBudgetTable
 } from "../Sub_Query/ManageQuery.js";
 
-import { 
-    useRegionBudgetGraph,
-    useAojBudgetTable
- } from "../Sub_Query/BudgetQuery.js";
-
 import {
   createBudgetScenario,
   createRiskScenario,
@@ -254,7 +249,7 @@ const CreateR = () => {
     })) || [];
   
   // Fetch regional budget graph data from API
-  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedScenario1, selectedDistrict);
+  const { data: regionBudgetGraph } = useRegionBudgetGraphAdmin(selectedScenario1, selectedDistrict);
   
   const dataRegionalBudgetGraph =
       regionBudgetGraph?.map((item) => ({

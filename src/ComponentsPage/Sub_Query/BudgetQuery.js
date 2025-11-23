@@ -26,6 +26,14 @@ export const useAojBudgetTable = (scenario_name, region) => {
   });
 };
 
+export const useAojBudgetTableAdmin = (scenario_name, region) => {
+  return useQuery({
+    queryKey: ["aojBudgetTable", scenario_name, region],
+    queryFn: () => getAojBudgetTable(scenario_name, region),
+    enabled: Boolean(scenario_name)
+  });
+};
+
 export const useScenarioRegionSummary = (scenario_name) => {
   return useQuery({
     queryKey: ["scenarioRegionSummary", scenario_name],
