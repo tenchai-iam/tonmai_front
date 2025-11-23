@@ -510,7 +510,7 @@ const Upgrade = () => {
               onChange={handleChangeDistrict}
               className="border rounded-lg px-4 py-2"
             >
-              <option value="">เลือกการไฟฟ้าเขต</option>
+              <option value="" disabled>เลือกการไฟฟ้าเขต</option>
               {authorizedDistrictOption?.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
