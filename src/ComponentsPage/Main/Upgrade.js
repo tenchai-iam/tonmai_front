@@ -78,6 +78,25 @@ const Upgrade = () => {
     setSelectedDistrict(event.target.value);
   };
 
+  // Convert district code from A-L format to N1-S3 format for API calls
+  const convertDistrictCode = (districtCode) => {
+    const districtMapping = {
+      'A': 'N1',
+      'B': 'N2',
+      'C': 'N3',
+      'D': 'NE1',
+      'E': 'NE2',
+      'F': 'NE3',
+      'G': 'C1',
+      'H': 'C2',
+      'I': 'C3',
+      'J': 'S1',
+      'K': 'S2',
+      'L': 'S3'
+    };
+    return districtMapping[districtCode] || districtCode;
+  };
+
   const [selectedAoj, setSelectedAoj] = useState("");
   const [selectedAojE, setSelectedAojE] = useState("");
 
@@ -203,8 +222,11 @@ const Upgrade = () => {
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
+  // Convert district code for API calls
+  const convertedDistrictCode = convertDistrictCode(selectedDistrict);
+
   // Fetch regional budget graph data from API
-  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedDraftScenario, selectedDistrict);
+  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedDraftScenario, convertedDistrictCode);
 
   const dataRegionalBudgetGraph =
     regionBudgetGraph?.map((item) => ({
@@ -213,9 +235,9 @@ const Upgrade = () => {
       normalizeAdjust: item.normalize_adjust,
       budgetAdjust: item.budget_adjust,
       budgetUpgradeAdjust: item.budget_upgrade_adjust,
-    })) || [];  
+    })) || [];
 
-  const { data: aojBudgetTable } = useAojBudgetTable(selectedDraftScenario, selectedDistrict);
+  const { data: aojBudgetTable } = useAojBudgetTable(selectedDraftScenario, convertedDistrictCode);
 
   const dataAojBudgetTable=
     aojBudgetTable?.map((item) => ({
