@@ -583,7 +583,7 @@ const Upgrade = () => {
             <div className="district-budget-graph">
                 งบประมาณเขต (บาท)
                 <div className="bar-chart-legend">
-                  <span style={{ color: "#8B4513" }}>⬤ งบประมาณ Baseline</span>
+                  <span style={{ color: "#8B4513" }}>⬤ ค่าใข้จ่ายจริง Y-1</span>
                   <span style={{ color: "#C69530" }}>⬤ งบประมาณ Normalized </span>
                   <span style={{ color: "#4F1C51" }}>⬤ งบประมาณ</span>
                   <span style={{ color: "#A1D6B2" }}>⬤ งบประมาณปรับปรุง</span>
