@@ -4,6 +4,7 @@ import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import PlanTable from "../Sub/TablePlan.js";
+import SelectedDiscoveryPlanTable from "../Sub/TableSelectedDiscoveryPlan.js";
 import SelectedDraftPlanTable from "../Sub/TableSelectedDraftPlan.js";
 import SelectedPlanTable from "../Sub/TableSelectedPlan.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
@@ -16,13 +17,17 @@ import {
 } from "../Sub_Query/OptionQuery.js";
 
 import {
+  useSelectedScenarioDC,
   useSelectedScenarioD,
   useSelectedScenarioF
 } from "../Sub_Query/ManageQuery.js";
 
 import {
+  selectScenarioDC,
   selectScenarioD,
   selectScenarioF,
+  postEditableDCTrue,
+  postEditableDCFalse,
   postEditableTrue,
   postEditableFalse,
   deleteScenario,
@@ -35,8 +40,11 @@ import "../../ComponentsStyles/Manage.css";
 const Manage = () => {
   const queryClient = useQueryClient();
 
-    const [selectedScenarioDel, setSelectedScenarioDel] = useState("");
+  const [selectedScenarioDel, setSelectedScenarioDel] = useState("");
   const handleScenarioDelSelect = (e) => setSelectedScenarioDel(e.target.value);
+
+  const [selectedScenarioDC, setSelectedScenarioDC] = useState("");
+  const handleScenarioDCSelect = (e) => setSelectedScenarioDC(e.target.value);
 
   const [selectedScenarioD, setSelectedScenarioD] = useState("");
   const handleScenarioDSelect = (e) => setSelectedScenarioD(e.target.value);
@@ -47,21 +55,68 @@ const Manage = () => {
   const { data: budgetYearOption } = useBudgetYearOption();
   const { data: scenarioOption } = useScenarioOption();
 
+  const [selectedYearDC, setSelectedYearDC] = useState("");
+  const handleYearDCSelect = (e) => setSelectedYearDC(e.target.value);
+
+  const [SelectingScenarioDC, setIsSelectingScenarioDC] = useState(false);
+
   // Final Scenarion selection state
   const [selectedYearD, setSelectedYearD] = useState("");
   const handleYearDSelect = (e) => setSelectedYearD(e.target.value);
 
   const [SelectingScenarioD, setIsSelectingScenarioD] = useState(false);
   
-
   // Final Scenarion selection state
   const [selectedYearF, setSelectedYearF] = useState("");
   const handleYearFSelect = (e) => setSelectedYearF(e.target.value);
 
   const [SelectingScenarioF, setIsSelectingScenarioF] = useState(false);
 
+  const [selectedYearEDC, setSelectedYearEDC] = useState("");
+  const handleYearEDCSelect = (e) => setSelectedYearEDC(e.target.value);
+
   const [selectedYearE, setSelectedYearE] = useState("");
   const handleYearESelect = (e) => setSelectedYearE(e.target.value);
+
+// Updated: Draft Plan selection submit handler
+  const handleScenarioDCSubmit = async () => {
+    if (!selectedYearDC || !selectedScenarioDC) {
+      alert("กรุณาเลือกปีและ Scenario");
+      return;
+    }
+    setIsSelectingScenarioDC(true);
+
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearDC);
+    const gregorianYear = buddhistYear - 543;
+
+    // Get employee_id from session storage
+    const employeeId = sessionStorage.getItem("user") || "700001";
+
+    const payload = {
+      employee_id: employeeId,
+      scenario_name: selectedScenarioDC,
+      year: gregorianYear, // Now sends 2027 instead of 2570
+    };
+
+    try {
+      const response = await selectScenarioDC(payload);
+      alert(`เลือกแผน Discovery สำเร็จ! Scenario: ${selectedScenarioDC}`);
+      console.log("Discovery Scenario Selection Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioDC"]);
+
+      // Optionally reset form or update UI
+      // setSelectedPlan("");
+      // setSelectedScenario1("");
+    } catch (err) {
+      console.error("Scenario selection failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเลือกแผน Draft");
+    } finally {
+      setIsSelectingScenarioDC(false);
+    }
+  };
 
   // Updated: Draft Plan selection submit handler
   const handleScenarioDSubmit = async () => {
@@ -152,8 +207,55 @@ const Manage = () => {
       setIsSelectingScenarioF(false);
     }
   };
+// Handler for enabling discovery scenario edit
+  const handleEnableDCEdit = async () => {
+    if (!selectedYearEDC) {
+      alert("กรุณาเลือกปีของแผน");
+      return;
+    }
 
-  // Handler for enabling scenario edit
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearEDC);
+    const gregorianYear = buddhistYear - 543;
+
+    try {
+      const response = await postEditableDCTrue(gregorianYear);
+      alert(`เปิดระบบปรับปรุงสำเร็จสำหรับปี ${selectedYearEDC}`);
+      console.log("Enable Edit Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioDC"]);
+    } catch (err) {
+      console.error("Enable edit failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างเปิดระบบปรับปรุง");
+    }
+  };
+
+  // Handler for disabling discovery scenario edit
+  const handleDisableDCEdit = async () => {
+    if (!selectedYearEDC) {
+      alert("กรุณาเลือกปีของแผน");
+      return;
+    }
+
+    // Convert Buddhist year to Gregorian year
+    const buddhistYear = parseInt(selectedYearEDC);
+    const gregorianYear = buddhistYear - 543;
+
+    try {
+      const response = await postEditableDCFalse(gregorianYear);
+      alert(`ปิดระบบปรับปรุงสำเร็จสำหรับปี ${selectedYearEDC}`);
+      console.log("Disable Edit Response:", response);
+
+      // Refresh the selected scenarios table
+      queryClient.invalidateQueries(["showSelectedScenarioDC"]);
+    } catch (err) {
+      console.error("Disable edit failed:", err);
+      alert("เกิดข้อผิดพลาดระหว่างปิดระบบปรับปรุง");
+    }
+  };
+
+  // Handler for enabling draft scenario edit
   const handleEnableEdit = async () => {
     if (!selectedYearE) {
       alert("กรุณาเลือกปีของแผน");
@@ -177,7 +279,7 @@ const Manage = () => {
     }
   };
 
-  // Handler for disabling scenario edit
+  // Handler for disabling draft scenario edit
   const handleDisableEdit = async () => {
     if (!selectedYearE) {
       alert("กรุณาเลือกปีของแผน");
@@ -235,6 +337,18 @@ const Manage = () => {
     }
   };
 
+  const { data: showSelectedScenarioDC } = useSelectedScenarioDC();
+
+  const dataSelectedScenarioDC =
+    showSelectedScenarioDC?.map((item) => ({
+      selectionId: item.selection_id,
+      scenarioName: item.scenario_name,
+      selectedYear: item.selected_for_year,
+      selectedAt: item.selected_at,
+      employeeId: item.employee_id,
+      editable: item.editable
+    })) || [];
+
   const { data: showSelectedScenarioD } = useSelectedScenarioD();
 
   const dataSelectedScenarioD =
@@ -289,6 +403,81 @@ const Manage = () => {
           </div>
         </div>
         <div className="show-select-toggle-container">
+          {/* EXISTING SELECTED DISCOVERY SCENARIO SECTION */}
+          <div className="draft-selected-plan-container">
+            <div className="container-title">แผน Discovery ที่ส่งให้ กฟข. และ กฟฟ.</div>
+            <SelectedDraftPlanTable data={dataSelectedScenarioDC} />
+          </div>
+          {/* DISCOVERY SCENARIO SELECTION SECTION */}
+          <div className="draft-plan-selection-container">
+            เลือกแผน Discovery ให้ กฟข. และกฟฟ. พิจารณา
+            <div className="inputgroup-container">
+              <div className="input-year">
+                <label>เลือกปี</label>
+                <select
+                  value={selectedYearD}
+                  onChange={handleYearDCSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {budgetYearOption?.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="input-field">
+                <label>เลือกแผน</label>
+                <select
+                  value={selectedScenarioD}
+                  onChange={handleScenarioDCSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {scenarioOption?.map((option) => (
+                    <option
+                      key={option.scenario_name}
+                      value={option.scenario_name}
+                    >
+                      {option.scenario_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="confirm-draft-container">
+              <button onClick={handleScenarioDCSubmit}>ยืนยัน แผน Discovery</button>
+            </div>
+          </div>
+          <div className="toggle-container">
+            การปรับปรุงแก้ไขแผน Discovery
+              <div className="input-close-year">
+                <label>เลือกปีของแผน</label>
+                <select
+                  value={selectedYearEDC}
+                  onChange={handleYearEDCSelect}
+                  className="border rounded-lg px-4 py-2"
+                >
+                  <option value=""></option>
+                  {budgetYearOption?.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {/* <div className="open-close-container"> */}
+                <div className="open-container">
+                  <button onClick={handleEnableDCEdit}>เปิด</button>
+                </div>
+                <div className="close-container">
+                  <button onClick={handleDisableDCEdit}>ปิด</button>
+                </div>
+              {/* </div> */}
+          </div>
+        </div>
+        <div className="show-select-toggle-container">
           {/* EXISTING SELECTED DRAFT SCENARIO SECTION */}
           <div className="draft-selected-plan-container">
             <div className="container-title">แผน Draft ที่ส่งให้ กฟข.</div>
@@ -299,7 +488,7 @@ const Manage = () => {
             เลือกแผน Draft ให้ กฟข. พิจารณา
             <div className="inputgroup-container">
               <div className="input-year">
-                <label>เลือกปีที่จะใช้</label>
+                <label>เลือกปี</label>
                 <select
                   value={selectedYearD}
                   onChange={handleYearDSelect}
@@ -314,7 +503,7 @@ const Manage = () => {
                 </select>
               </div>
               <div className="input-field">
-                <label>เลือกแผนที่จะใช้</label>
+                <label>เลือกแผน</label>
                 <select
                   value={selectedScenarioD}
                   onChange={handleScenarioDSelect}
@@ -337,7 +526,7 @@ const Manage = () => {
             </div>
           </div>
           <div className="toggle-container">
-            การปรับปรุงแก้ไขจาก กฟข.
+            การปรับปรุงแก้ไขแผน Draft
               <div className="input-close-year">
                 <label>เลือกปีของแผน</label>
                 <select
@@ -374,7 +563,7 @@ const Manage = () => {
             เลือกแผน Final ส่งเข้า MJM
             <div className="inputgroup-container">
               <div className="input-year">
-                <label>เลือกปีที่จะใช้</label>
+                <label>เลือกปี</label>
                 <select
                   value={selectedYearF}
                   onChange={handleYearFSelect}
@@ -389,7 +578,7 @@ const Manage = () => {
                 </select>
               </div>
               <div className="input-field">
-                <label>เลือกแผนที่จะใช้</label>
+                <label>เลือกแผน</label>
                 <select
                   value={selectedScenarioF}
                   onChange={handleScenarioFSelect}

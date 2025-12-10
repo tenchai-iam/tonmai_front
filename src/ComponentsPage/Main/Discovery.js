@@ -11,6 +11,8 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
   useScenarioOption,
+  useDiscoveryScenarioOption,
+  useDiscoveryEditableScenarioOption,
   useDraftScenarioOption,
   useDraftEditableScenarioOption,
   useDistrictOption,
@@ -53,15 +55,15 @@ const Discovery = () => {
 
   const sessionPEACode = sessionStorage.getItem("pea_code");
 
-  const { data: scenarioDraftOption } = useDraftScenarioOption();
+  const { data: scenarioDiscoveryOption } = useDiscoveryScenarioOption();
 
-  const [selectedDraftScenario, setSelectedDraftScenario] = useState("");
-  const handleDraftScenarioSelect = (e) => setSelectedDraftScenario(e.target.value);
+  const [selecteDiscoveryScenario, setSelectedDiscoveryScenario] = useState("");
+  const handleDiscoveryScenarioSelect = (e) => setSelectedDiscoveryScenario(e.target.value);
 
-  const { data: scenarioDraftEditableOption } = useDraftEditableScenarioOption();
+  const { data: scenarioDiscoveryEditableOption } = useDiscoveryEditableScenarioOption(); 
 
-  const [selectedDraftEditableScenario, setSelectedDraftEditableScenario] = useState("");
-  const handleDraftEditableScenarioSelect = (e) => setSelectedDraftEditableScenario(e.target.value);
+  const [selectedDiscoveryEditableScenario, setSelectedDiscoveryEditableScenario] = useState("");
+  const handleDiscoveryEditableScenarioSelect = (e) => setSelectedDiscoveryEditableScenario(e.target.value);
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedDistrictE, setSelectedDistrictE] = useState("");
@@ -435,12 +437,12 @@ const Discovery = () => {
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
             <select
-              value={selectedDraftScenario}
-              onChange={handleDraftScenarioSelect}
+              value={selectedDiscoveryScenario}
+              onChange={handleDiscoveryScenarioSelect}
               className="border rounded-lg px-4 py-2"
             >
               <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-              {scenarioDraftOption?.map((option) => (
+              {scenarioDiscoveryOption?.map((option) => (
                 <option key={option.scenario_name} value={option.scenario_name}>
                   {option.scenario_name}
                 </option>
@@ -542,12 +544,12 @@ const Discovery = () => {
           <div className="dropdown-dropdown-container">
             <div className="dropdowngroup-container">
                   <select
-                    value={selectedDraftEditableScenario}
-                    onChange={handleDraftEditableScenarioSelect}
+                    value={selectedDiscoveryEditableScenario}
+                    onChange={handleDiscoveryEditableScenarioSelect}
                     className="border rounded-lg px-4 py-2"
                   >
                     <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-                    {scenarioDraftEditableOption?.map((option) => (
+                    {scenarioDiscoveryEditableOption?.map((option) => (
                       <option key={option.scenario_name} value={option.scenario_name}>
                         {option.scenario_name}
                       </option>

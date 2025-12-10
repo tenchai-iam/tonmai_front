@@ -33,6 +33,16 @@ export const getScenarios = async () => {
   return response.data; // Return the data received from the API
 };
 
+export const getDiscoveryScenarios = async () => {
+  const response = await axios.get(`${API_URL}/get_discovery_scenarios`);
+  return response.data; // Return the data received from the API
+};
+
+export const getDiscoveryEditableScenarios = async () => {
+  const response = await axios.get(`${API_URL}/get_editable_discovery_scenarios`);
+  return response.data; // Return the data received from the API
+};
+
 export const getDraftScenarios = async () => {
   const response = await axios.get(`${API_URL}/get_draft_scenarios`);
   return response.data; // Return the data received from the API
