@@ -57,7 +57,7 @@ const Discovery = () => {
 
   const { data: scenarioDiscoveryOption } = useDiscoveryScenarioOption();
 
-  const [selecteDiscoveryScenario, setSelectedDiscoveryScenario] = useState("");
+  const [selectedDiscoveryScenario, setSelectedDiscoveryScenario] = useState("");
   const handleDiscoveryScenarioSelect = (e) => setSelectedDiscoveryScenario(e.target.value);
 
   const { data: scenarioDiscoveryEditableOption } = useDiscoveryEditableScenarioOption(); 
@@ -136,10 +136,10 @@ const Discovery = () => {
     setLineData(dummyData);
   }, []);
 
-  const { data: authorizedDistrictOption } = useAuthorizedDistrictOption(sessionPEACode, selectedDraftScenario);
+  const { data: authorizedDistrictOption } = useAuthorizedDistrictOption(sessionPEACode, selectedDiscoveryScenario);
 
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
-    useAuthorizedAojOption(sessionPEACode, selectedDraftScenario, selectedDistrict);
+    useAuthorizedAojOption(sessionPEACode, selectedDiscoveryScenario, selectedDistrict);
 
   const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
     value: option.aoj_code,
@@ -147,16 +147,16 @@ const Discovery = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedDraftScenario, selectedAoj);
+    useFeederOption(selectedDiscoveryScenario, selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
     label: option["feeder_id"],
   }));
 
-  const { data: frequencyOption } = useFrequencyOption(selectedDraftScenario, selectedAoj, selectedFeeder);
+  const { data: frequencyOption } = useFrequencyOption(selectedDiscoveryScenario, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedDraftEditableScenario, selectedAojE);
+  const { data: corridorOption } = useCorridorOption(selectedDiscoveryEditableScenario, selectedAojE);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
@@ -166,7 +166,7 @@ const Discovery = () => {
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
-    selectedDraftScenario,
+    selectedDiscoveryScenario,
     selectedFeeder,
     selectedAoj,
     selectedFrequency
@@ -220,7 +220,7 @@ const Discovery = () => {
   const convertedDistrictCode = convertDistrictCode(selectedDistrict);
 
     const { data: corridorPlan } = useCorridorPlan(
-      selectedDraftEditableScenario,
+      selectedDiscoveryEditableScenario,
       selectedAojE,
       selectedFeederE,
       selectedCorridor
@@ -357,7 +357,7 @@ const Discovery = () => {
         console.log("Insert Upgrade Corridor List Response:", insertResponse);
 
         // Update budget for the scenario
-        const scenarioName = selectedDraftEditableScenario || selectedDraftScenario;
+        const scenarioName = selectedDiscoveryEditableScenario || selectedDiscoveryScenario;
         if (scenarioName) {
           console.log("Updating AOJ budget for scenario:", scenarioName);
           const budgetUpdateResponse = await updateUpgradeScenarioAojBudget({
@@ -375,7 +375,7 @@ const Discovery = () => {
         alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
 
         // Refresh the corridor plan data
-        queryClient.invalidateQueries(["corridorPlan", selectedDraftEditableScenario, selectedAoj]);
+        queryClient.invalidateQueries(["corridorPlan", selectedDiscoveryEditableScenario, selectedAoj]);
 
         // Refresh budget data (graph and table)
         queryClient.invalidateQueries(["regionBudgetGraph"]);
@@ -410,14 +410,14 @@ const Discovery = () => {
         { label: "เหตุผล", key: "reason" },
       ];
 
-      const fileName = selectedDraftEditableScenario
-        ? `Corridor_Plan_${selectedDraftEditableScenario}`
+      const fileName = selectedDiscoveryEditableScenario
+        ? `Corridor_Plan_${selectedDiscoveryEditableScenario}`
         : "Corridor_Plan";
 
-      const title = selectedDraftEditableScenario && selectedAojE
-        ? `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDraftEditableScenario} สำหรับ ${selectedAojE}`
-        : selectedDraftEditableScenario
-        ? `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDraftEditableScenario}`
+      const title = selectedDiscoveryEditableScenario && selectedAojE
+        ? `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDiscoveryEditableScenario} สำหรับ ${selectedAojE}`
+        : selectedDiscoveryEditableScenario
+        ? `สรุปข้อมูลแผนการตัดต้นไม้ ${selectedDiscoveryEditableScenario}`
         : "สรุปข้อมูลแผนการตัดต้นไม้";
 
       downloadTable({
