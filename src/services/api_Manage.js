@@ -103,6 +103,44 @@ export const uploadRegionBudget = async (file) => {
 };
 
 /**
+ * Select a scenario plan for use (saves to F8_discovery_scenario table)
+ * @param {Object} payload - Scenario selection data
+ * @param {string} payload.employee_id - Employee ID (e.g., "700001")
+ * @param {string} payload.scenario_name - Name of the selected scenario
+ * @param {number} payload.year - Year for the scenario
+ * @returns {Promise<Object>} Selection confirmation
+ */
+export const selectScenarioDC = async (payload) => {
+  try {
+    const response = await axios.post(`${API_URL}/select_scenario_discovery`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Select Scenario Discovery API Error:", error);
+    throw error;
+  }
+};
+
+/**
+ * Get all selected draft scenario from F8_draft_scenario table
+ * @returns {Promise<Array>} List of selected scenarios
+ */
+export const getSelectedScenarioDC = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/get_selected_scenario_discovery`, {
+      timeout: 5000
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Get Selected Draft Scenario API Error:", error);
+    throw error;
+  }
+};
+
+/**
  * Select a scenario plan for use (saves to F8_draft_scenario table)
  * @param {Object} payload - Scenario selection data
  * @param {string} payload.employee_id - Employee ID (e.g., "700001")
@@ -176,6 +214,26 @@ export const getSelectedScenarioF = async () => {
     console.error("Get Selected Final Scenario API Error:", error);
     throw error;
   }
+};
+
+export const postEditableDCTrue = async (year) => {
+  const body = year ? { year } : {};
+  const response = await axios.post(
+    `${API_URL}/enable_scenario_discovery_edit`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
+};
+
+export const postEditableDCFalse = async (year) => {
+  const body = year ? { year } : {};
+  const response = await axios.post(
+    `${API_URL}/disable_scenario_discovery_edit`,
+    body,
+    { timeout: 5000 }
+  );
+  return response.data; // Return the data received from the API
 };
 
 export const postEditableTrue = async (year) => {

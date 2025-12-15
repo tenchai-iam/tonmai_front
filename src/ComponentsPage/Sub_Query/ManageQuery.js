@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable, getSelectedScenarioD, getSelectedScenarioF } from "../../services/api_Manage.js";
+import { getCorridorPlan, getPlanSummary, getRegionBudgetSummary, getRegionBudgetSummaryTable, getSelectedScenarioDC, getSelectedScenarioD, getSelectedScenarioF } from "../../services/api_Manage.js";
 
 export const useCorridorPlan = (scenario_name, aoj_code, feeder_id, corridor) => {
   return useQuery({
@@ -36,6 +36,13 @@ export const useRegionBudgetTable = (budget_year) => {
     queryKey: ["regionBudgetTable", budget_year],
     queryFn: () => getRegionBudgetSummaryTable(budget_year),
     enabled: Boolean(budget_year)
+  });
+};
+
+export const useSelectedScenarioDC = () => {
+  return useQuery({
+    queryKey: ["showSelectedScenarioDC"],
+    queryFn: () => getSelectedScenarioDC(),
   });
 };
 

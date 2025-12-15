@@ -6,6 +6,8 @@ import {
   getValueDistricts,
   getAvailableValueYears,
   getScenarios,
+  getDiscoveryScenarios,
+  getDiscoveryEditableScenarios,
   getDraftScenarios,
   getDraftEditableScenarios,
   getAojs,
@@ -76,6 +78,20 @@ export const useScenarioOption = () => {
   return useQuery({
     queryKey: ["scenarioOption"],
     queryFn: () => getScenarios(),
+  });
+};
+
+export const useDiscoveryScenarioOption = () => {
+  return useQuery({
+    queryKey: ["discoveryScenarioOption"],
+    queryFn: () => getDiscoveryScenarios(),
+  });
+};
+
+export const useDiscoveryEditableScenarioOption = () => {
+  return useQuery({
+    queryKey: ["discoveryEditableScenarioOption"],
+    queryFn: () => getDiscoveryEditableScenarios(),
   });
 };
 
