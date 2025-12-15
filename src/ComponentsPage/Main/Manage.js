@@ -415,7 +415,7 @@ const Manage = () => {
               <div className="input-year">
                 <label>เลือกปี</label>
                 <select
-                  value={selectedYearD}
+                  value={selectedYearDC}
                   onChange={handleYearDCSelect}
                   className="border rounded-lg px-4 py-2"
                 >
@@ -430,7 +430,7 @@ const Manage = () => {
               <div className="input-field">
                 <label>เลือกแผน</label>
                 <select
-                  value={selectedScenarioD}
+                  value={selectedScenarioDC}
                   onChange={handleScenarioDCSelect}
                   className="border rounded-lg px-4 py-2"
                 >
