@@ -6,7 +6,7 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMapDiscovery from "../Sub/GeoMapDiscovery.js";
-import PlanDiscoveryTable from "../Sub/TablePlanUpgrade.js";
+import PlanDiscoveryTable from "../Sub/TablePlanDiscovery.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 
 import {
@@ -32,6 +32,7 @@ import {
 import {
   useGeoAoj,
   useGeoCorridors,
+  useGeoCorridorsDiscovery,
   useGeoDevices,
   useGeoSub,
 } from "../Sub_Query/GeoQuery.js";
@@ -165,7 +166,7 @@ const Discovery = () => {
 
   const { data: geoAoj } = useGeoAoj(selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
-  const { data: geoCorridors } = useGeoCorridors(
+  const { data: geoCorridorsDiscovery } = useGeoCorridorsDiscovery(
     selectedDiscoveryScenario,
     selectedFeeder,
     selectedAoj,
@@ -204,7 +205,7 @@ const Discovery = () => {
     // },
     corridor: {
       isActive: currentMapView === "corridor",
-      geoJson: combineGeoJson(geoCorridors, geoDevices),
+      geoJson: combineGeoJson(geoCorridorsDiscovery, geoDevices),
       required: selectedFeeder.length > 0,
     },
   };

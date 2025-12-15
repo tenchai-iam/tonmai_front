@@ -39,6 +39,21 @@ export const getGeoCorridors = async (scenario_name, feeder_id, aoj_code, freque
   return response.data; // Return the data received from the API
 };
 
+export const getGeoCorridorsDiscovery = async (scenario_name, feeder_id, aoj_code, frequency) => {
+  const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
+  const response = await axios.post(
+    `${API_URL}/get_geo_corridors_discovery`,
+    {
+      scenario_name: scenario_name,
+      feeder_id: feeder_ids,
+      aoj_code: aoj_code,
+      frequency: frequency
+    },
+    { timeout: 15000 }
+  );
+  return response.data; // Return the data received from the API
+};
+
 export const getGeoDevices = async (feeder_id, aoj_code, frequency) => {
   const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
   const response = await axios.post(
