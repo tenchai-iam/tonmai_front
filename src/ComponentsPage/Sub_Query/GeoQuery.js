@@ -37,11 +37,11 @@ export const useGeoCorridors = (scenario_name, feeder_id, aoj_code, frequency) =
   });
 };
 
-export const useGeoCorridorsDiscovery = (scenario_name, feeder_id, aoj_code, frequency) => {
+export const useGeoCorridorsDiscovery = (scenario_name, feeder_id, aoj_code) => {
   const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
   return useQuery({
-    queryKey: ["geoCorridorsDiscovery", scenario_name, feeder_ids, aoj_code, frequency],
-    queryFn: () => getGeoCorridorsDiscovery(scenario_name, feeder_id, aoj_code, frequency),
+    queryKey: ["geoCorridorsDiscovery", scenario_name, feeder_ids, aoj_code],
+    queryFn: () => getGeoCorridorsDiscovery(scenario_name, feeder_id, aoj_code),
     enabled: Boolean(aoj_code) && Boolean(feeder_id) && Boolean(scenario_name) && 
              (Array.isArray(feeder_id) ? feeder_id.length > 0 : true),
     // staleTime: 5 * 60 * 1000,

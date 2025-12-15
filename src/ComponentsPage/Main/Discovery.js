@@ -169,8 +169,7 @@ const Discovery = () => {
   const { data: geoCorridorsDiscovery } = useGeoCorridorsDiscovery(
     selectedDiscoveryScenario,
     selectedFeeder,
-    selectedAoj,
-    selectedFrequency
+    selectedAoj
   );
   const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
