@@ -114,6 +114,9 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
               <th onClick={() => handleSort("corridor")}>
                 รหัส Corridor {renderSortArrow("corridor")}
               </th>
+              <th onClick={() => handleSort("vip")}>
+                Vip {renderSortArrow("vip")}
+              </th>
               <th onClick={() => handleSort("length")}>
                 ระยะทาง (km) {renderSortArrow("length")}
               </th>
@@ -148,6 +151,7 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
                   <td>{row.name}</td>
                   <td>{row.feeder}</td>
                   <td>{row.corridor}</td>
+                  <td>{row.vip}</td>
                   <td className="number">{formatValue(row.length)}</td>
                   <td>{row.device}</td>
                   <td>{row.outage}</td>
