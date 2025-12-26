@@ -59,6 +59,20 @@ const GeoMapDiscovery = ({
     </div>
   );
 
+  const vipLegend = (
+    <div className="legend">
+      <p>VIP Corridor</p>
+      <ul>
+        <li>
+          <span style={{ backgroundColor: "#f1c40f" }}></span> VIP
+        </li>
+        <li>
+          <span style={{ backgroundColor: "#999" }}></span> Non-VIP
+        </li>
+      </ul>
+    </div>
+  );
+
   const fillLayer = useMemo(
     () => ({
       id: "geojson-fill",
@@ -76,7 +90,11 @@ const GeoMapDiscovery = ({
       id: "geojson-outline",
       type: "line",
       paint: {
-        "line-color":
+        "line-color": [
+          "case",
+          ["==", ["get", "vip"], "Yes"],
+          "#f1c40f", // Yellow for VIP
+          // Non-VIP: apply frequency/risk coloring
           colorMode === "frequency"
             ? [
                 "match",
@@ -100,6 +118,7 @@ const GeoMapDiscovery = ({
                 "#e74c3c",
                 "#999",
               ],
+        ],
         "line-width": 3,
       },
     }),
@@ -405,6 +424,7 @@ const GeoMapDiscovery = ({
 
       {/* Legend inside Map */}
       {showLegend && colorMode === "risk" && riskLegend}
+      {showLegend && geoJsonData && vipLegend}
       {showLegend && geoJsonPoints && deviceLegend}
       {showLegend && geoSubPoints && subLegend}
     </Map>

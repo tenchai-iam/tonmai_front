@@ -60,9 +60,9 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/discovery">
               สำรวจ VIP Corridor
             </Nav.Link>
-            <Nav.Link as={Link} to="/mapG">
+            {/* <Nav.Link as={Link} to="/mapG">
               แผนการตัดต้นไม้
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link as={Link} to="/upgrade">
               ตรวจทานแผนการตัดต้นไม้
             </Nav.Link>

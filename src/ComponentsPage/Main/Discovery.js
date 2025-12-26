@@ -242,6 +242,7 @@ const Discovery = () => {
           name: item.aoj_name,
           feeder: item.feeder_id,
           corridor: item.nearest_upstream_device,
+          vip: item.vip,
           length: item.corridor_length_km,
           device: item.device_type,
           outage: item.probability_of_outage_bins,
