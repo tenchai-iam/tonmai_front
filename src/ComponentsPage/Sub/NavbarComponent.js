@@ -67,8 +67,8 @@ function NavbarComponent() {
               ตรวจทานแผนการตัดต้นไม้
             </Nav.Link>
             
-            {/* Show Admin NavLink ONLY for user_level "B" */}
-            {hasAccess(["C"]) && (
+            {/* Show Admin NavLink ONLY for user_level "C" */}
+            {hasAccess(["B","C"]) && (
               <NavDropdown title="หน่วยงาน กบร." id="admin-dropdown">
                 <NavDropdown.Item as={Link} to="/map">
                   แผนการตัดต้นไม้
