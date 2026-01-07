@@ -60,6 +60,11 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
   };
 
   const handleSave = (row) => {
+    // Validate: if upgrade is checked, reason must be filled in
+    if (editedData.upgrade && !editedData.reason?.trim()) {
+      alert("กรุณาระบุเหตุผล เมื่อเลือกระบุ VIP");
+      return;
+    }
     if (onUpdate) {
       // Pass the row itself instead of index
       onUpdate(row, editedData);
@@ -74,9 +79,12 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
   };
 
   const handleUpgradeChange = (e) => {
+    const isChecked = e.target.checked;
     setEditedData({
       ...editedData,
-      upgrade: e.target.checked,
+      upgrade: isChecked,
+      // Clear reason when upgrade is unchecked
+      reason: isChecked ? editedData.reason : "",
     });
   };
 
@@ -173,7 +181,13 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
                         type="text"
                         value={editedData.reason || ""}
                         onChange={handleReasonChange}
-                        style={{ width: "100%" }}
+                        disabled={!editedData.upgrade}
+                        style={{
+                          width: "100%",
+                          backgroundColor: editedData.upgrade ? "white" : "#e9ecef",
+                          cursor: editedData.upgrade ? "text" : "not-allowed"
+                        }}
+                        placeholder={editedData.upgrade ? "กรุณาระบุเหตุผล" : ""}
                       />
                     ) : (
                       row.reason
