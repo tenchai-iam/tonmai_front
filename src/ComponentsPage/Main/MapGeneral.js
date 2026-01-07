@@ -226,7 +226,7 @@ const MapG = () => {
         feeder: item.feeder_id,
         corridor: item.nearest_upstream_device,
         length: item.corridor_length_km,
-        device: item.device_type,
+        device: item.raw_device_type,
         outage: item.probability_of_outage_bins,
         customer: item.customers_affected_adjusted_bins,
         frequency: item.frequency_number
