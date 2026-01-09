@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import NavbarComponent from "../Sub/NavbarComponent.js";
@@ -29,6 +30,8 @@ import {
   usePlanSummaryQuery,
 } from "../Sub_Query/ManageQuery.js";
 
+import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList, updateUpgradeScenarioAojBudget, updateBudgetUpgradeRegionalTable } from "../../services/api_Upgrade.js";
+
 import {
   formatValue,
   formatUnit,
@@ -39,6 +42,8 @@ import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Map.css";
 
 const Map = () => {
+  const queryClient = useQueryClient();
+
   const [lineData, setLineData] = useState([]);
 
   const [selectedScenario1, setSelected1Scenario] = useState("");
@@ -226,26 +231,153 @@ const Map = () => {
 
   // State for editable table data
     const [editableTableData, setEditableTableData] = useState([]);
+    const [modifiedRows, setModifiedRows] = useState(new Map());
+    const [isSaving, setIsSaving] = useState(false);
 
     // Initialize editable data when dataCorridorPlan changes
     useEffect(() => {
-      setEditableTableData(dataCorridorPlan);
+      if (dataCorridorPlan && dataCorridorPlan.length > 0) {
+        setEditableTableData(dataCorridorPlan);
+        setModifiedRows(new Map()); // Reset modified rows when data changes
+      } else {
+        setEditableTableData([]);
+        setModifiedRows(new Map());
+      }
     }, [dataCorridorPlan]);
 
     // Handler to update table row data
-    const handleUpdateRow = (index, updatedFields) => {
+    const handleUpdateRow = (row, updatedFields) => {
+      const rowId = `${row.feeder}-${row.corridor}`;
+
+      // Update the data state
       setEditableTableData((prevData) => {
-        const newData = [...prevData];
-        newData[index] = {
-          ...newData[index],
-          ...updatedFields,
-        };
+        const newData = prevData.map((item) => {
+          if (item.feeder === row.feeder && item.corridor === row.corridor) {
+            const updatedItem = {
+              ...item,
+              ...updatedFields,
+            };
+            console.log("Updating row:", item.feeder, item.corridor, "with:", updatedFields, "result:", updatedItem);
+            return updatedItem;
+          }
+          return item;
+        });
+        console.log("New data array:", newData);
         return newData;
       });
 
-      // Optional: Call API to save the changes
-      // You can add API call here if needed
-      console.log("Updated row", index, "with:", updatedFields);
+      // Track which rows have been modified using Map
+      setModifiedRows((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(rowId, { ...row, ...updatedFields });
+        return newMap;
+      });
+
+      console.log("Updated row", rowId, "with:", updatedFields);
+
+      // Return a promise to allow waiting for completion
+      return Promise.resolve();
+    };
+
+    // Handler to batch save all modified rows
+    const handleBatchSave = async () => {
+      if (modifiedRows.size === 0) {
+        alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
+        return;
+      }
+
+      // Confirm before saving
+      const confirmSave = window.confirm(
+        `คุณต้องการบันทึกการเปลี่ยนแปลง ${modifiedRows.size} รายการหรือไม่?`
+      );
+
+      if (!confirmSave) {
+        return;
+      }
+
+      setIsSaving(true);
+
+      try {
+        // Prepare batch update payload from modified rows
+        const updates = Array.from(modifiedRows.values()).map((row) => {
+          // Convert boolean upgrade to number if needed
+          let upgradeValue = row.upgrade;
+          if (typeof row.upgrade === 'boolean') {
+            upgradeValue = row.upgrade ? 1 : 0;
+          }
+
+          return {
+            scenario_name: row.scenarioName,
+            feeder_id: row.feeder,
+            nearest_upstream_device: row.corridor,
+            upgrade: upgradeValue,
+            reason: row.reason || ""
+          };
+        });
+
+        const payload = { updates };
+
+        console.log("Sending batch update:", payload);
+        const response = await batchUpdateCorridorUpgrade(payload);
+
+        console.log("Batch Update Response:", response);
+
+        // Prepare insert upgrade corridor list payload
+        const employeeId = sessionStorage.getItem("user") || "700001";
+
+        const inserts = Array.from(modifiedRows.values()).map((row) => ({
+          nearest_upstream_device: row.corridor,
+          feeder_id_traced: row.feeder,
+          region: row.district,
+          aoj_code: row.code,
+          aoj_name: row.name,
+          frequency_number: row.frequency,
+          upgrade: row.upgrade,
+          reason: row.reason || "",
+          employee_id: employeeId
+        }));
+
+        const insertPayload = { inserts };
+
+        console.log("Sending insert upgrade corridor list:", insertPayload);
+        const insertResponse = await insertUpgradeCorridorList(insertPayload);
+
+        console.log("Insert Upgrade Corridor List Response:", insertResponse);
+
+        // Update budget for the scenario
+        const scenarioName = selectedScenario1;
+        if (scenarioName) {
+          console.log("Updating AOJ budget for scenario:", scenarioName);
+          const budgetUpdateResponse = await updateUpgradeScenarioAojBudget({
+            scenario_name: scenarioName
+          });
+          console.log("AOJ Budget Update Response:", budgetUpdateResponse);
+
+          console.log("Updating regional budget for scenario:", scenarioName);
+          const regionalBudgetUpdateResponse = await updateBudgetUpgradeRegionalTable({
+            scenario_name: scenarioName
+          });
+          console.log("Regional Budget Update Response:", regionalBudgetUpdateResponse);
+        }
+
+        alert(`บันทึกข้อมูลสำเร็จ ${modifiedRows.size} รายการ`);
+
+        // Refresh the corridor plan data
+        queryClient.invalidateQueries(["corridorPlan", selectedScenario1, selectedAoj2]);
+
+        // Refresh budget data (graph and table)
+        queryClient.invalidateQueries(["regionBudgetGraph"]);
+        queryClient.invalidateQueries(["aojBudgetTable"]);
+
+        // Clear modified rows tracking
+        setModifiedRows(new Map());
+
+      } catch (err) {
+        console.error("Batch save failed:", err);
+        alert("เกิดข้อผิดพลาดระหว่างบันทึกข้อมูล");
+      } finally {
+        setIsSaving(false);
+      }
     };
 
   const handleDataCorridorPlan = () => {
@@ -465,10 +597,17 @@ const Map = () => {
                 classNamePrefix="react-select"
               />
             </div>
-            <div className="download-button">
+            <div className="download-end-group-button">
+              <button
+                onClick={handleBatchSave}
+                disabled={isSaving || modifiedRows.size === 0}
+                className={`download-button-style${modifiedRows.size > 0 ? " selected" : ""}`}
+              >
+                {isSaving ? "กำลังบันทึก..." : `บันทึกการเปลี่ยนแปลง${modifiedRows.size > 0 ? ` (${modifiedRows.size})` : ""}`}
+              </button>
               <button
                 onClick={handleDataCorridorPlan}
-                className={`download-button-style${false ? " selected" : ""}`}
+                className={`download-button-style${editableTableData.length > 0 ? " selected" : ""}`}
               >
                 Download
               </button>
