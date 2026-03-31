@@ -88,16 +88,17 @@ export const getValueAojs = async (district) => {
   return response.data; // Return the data received from the API
 };
 
-export const getFeeders = async (scenario_name, aoj_code) => {
+export const getFeeders = async (scenario_name, district, aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_feeder`,
     {
-      scenario_name: scenario_name, // Pass the scenario name in the request body
-      aoj_code: aoj_code, // Pass the data format value in the request body
+      scenario_name: scenario_name,
+      district: district,
+      aoj_code: aoj_code,
     },
     { timeout: 5000 }
   );
-  return response.data; // Return the data received from the API
+  return response.data;
 };
 
 export const getAvailableBudgetYears = async () => {
