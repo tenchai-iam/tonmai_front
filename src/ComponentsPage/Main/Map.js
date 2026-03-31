@@ -41,7 +41,7 @@ import {
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Map.css";
 
-const Map = () => {
+const MapPage = () => {
   const queryClient = useQueryClient();
 
   const [lineData, setLineData] = useState([]);
@@ -641,4 +641,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default MapPage;
