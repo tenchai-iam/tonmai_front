@@ -88,12 +88,12 @@ export const getValueAojs = async (district) => {
   return response.data; // Return the data received from the API
 };
 
-export const getFeeders = async (scenario_name, district, aoj_code) => {
+export const getFeeders = async (scenario_name, aoj_region, aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_feeder`,
     {
       scenario_name: scenario_name,
-      district: district,
+      aoj_region: aoj_region,
       aoj_code: aoj_code,
     },
     { timeout: 5000 }

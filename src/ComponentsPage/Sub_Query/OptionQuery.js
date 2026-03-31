@@ -66,11 +66,11 @@ export const useValueAojOption = (district) => {
   });
 };
 
-export const useFeederOption = (scenario_name, district, aoj_code) => {
+export const useFeederOption = (scenario_name, aoj_region, aoj_code) => {
   return useQuery({
-    queryKey: ["feederOption", scenario_name, district, aoj_code],
-    queryFn: () => getFeeders(scenario_name, district, aoj_code),
-    enabled: Boolean(district),
+    queryKey: ["feederOption", scenario_name, aoj_region, aoj_code],
+    queryFn: () => getFeeders(scenario_name, aoj_region, aoj_code),
+    enabled: Boolean(aoj_region),
   });
 };
 
