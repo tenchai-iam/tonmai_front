@@ -70,7 +70,7 @@ export const useFeederOption = (scenario_name, aoj_code) => {
   return useQuery({
     queryKey: ["feederOption", scenario_name, aoj_code],
     queryFn: () => getFeeders(scenario_name, aoj_code),
-    enabled: Boolean(aoj_code),
+    // enabled: Boolean(aoj_code),
   });
 };
 
