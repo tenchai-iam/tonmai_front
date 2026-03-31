@@ -8,11 +8,15 @@ import {
 
 import "../../ComponentsStyles/table.css";
 
-const PlanTable = ({ data }) => {
+const PlanTable = ({ data, onUpdate }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
   });
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedData, setEditedData] = useState({});
+
+  console.log("PlanUpgradeTable received data:", data.length, "rows");
 
   const sortedData = [...data].sort((a, b) => {
     if (sortConfig.key) {
@@ -47,6 +51,44 @@ const PlanTable = ({ data }) => {
     return "";
   };
 
+  const handleEdit = (row) => {
+    // Use unique identifier instead of index
+    const rowId = `${row.feeder}-${row.corridor}`;
+    setEditingIndex(rowId);
+    setEditedData({
+      upgrade: row.upgrade,
+      reason: row.reason,
+    });
+  };
+
+  const handleSave = (row) => {
+    if (onUpdate) {
+      // Pass the row itself instead of index
+      onUpdate(row, editedData);
+    }
+    setEditingIndex(null);
+    setEditedData({});
+  };
+
+  const handleCancel = () => {
+    setEditingIndex(null);
+    setEditedData({});
+  };
+
+  const handleUpgradeChange = (e) => {
+    setEditedData({
+      ...editedData,
+      upgrade: e.target.checked,
+    });
+  };
+
+  const handleReasonChange = (e) => {
+    setEditedData({
+      ...editedData,
+      reason: e.target.value,
+    });
+  };
+
   return (
     <div className="table-container">
       <div className="table-wrapper">
@@ -74,6 +116,9 @@ const PlanTable = ({ data }) => {
               <th onClick={() => handleSort("corridor")}>
                 รหัส Corridor {renderSortArrow("corridor")}
               </th>
+              <th onClick={() => handleSort("vip")}>
+                Vip {renderSortArrow("vip")}
+              </th>
               <th onClick={() => handleSort("length")}>
                 ระยะทาง (km) {renderSortArrow("length")}
               </th>
@@ -87,13 +132,16 @@ const PlanTable = ({ data }) => {
                 จำนวนลูกค้าที่ได้รับผลกระทบ {renderSortArrow("customer")}
               </th>
               <th onClick={() => handleSort("frequency")}>
-                ความถี่ในการตัด {renderSortArrow("frequency")}
+               จำนวนครั้งในการตัด (รายครั้ง) {renderSortArrow("frequency")}
               </th>
             </tr>
           </thead>
           <tbody>
-            {sortedData.map((row, index) => (
-              <tr key={index}>
+            {sortedData.map((row) => {
+              const rowId = `${row.feeder}-${row.corridor}`;
+              const isEditing = editingIndex === rowId;
+              return (
+                <tr key={rowId}>
                   <td>{row.year}</td>
                   <td>{row.scenarioName}</td>
                   <td>{row.district}</td>
@@ -101,13 +149,15 @@ const PlanTable = ({ data }) => {
                   <td>{row.name}</td>
                   <td>{row.feeder}</td>
                   <td>{row.corridor}</td>
+                  <td>{row.vip}</td>
                   <td className="number">{formatValue(row.length)}</td>
                   <td>{row.device}</td>
                   <td>{row.outage}</td>
                   <td>{row.customer}</td>
                   <td>{row.frequency}</td>
-              </tr>
-            ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

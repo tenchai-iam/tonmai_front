@@ -125,7 +125,7 @@ const MapG = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedScenario1, selectedAoj);
+    useFeederOption(selectedScenario1, selectedDistrict, selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],

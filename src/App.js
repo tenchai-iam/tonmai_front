@@ -48,17 +48,19 @@ export default function App() {
               <Route path="/admin" element={<Admin />} /> */}
 
               {/* <Route path="/mapG" element={<MapG />} /> */}
+
+                            <Route path="/map" element={<Map />} />
               
 
               <Route path="/" element={<ProtectedRoute element={Home} />} />
               <Route path="/discovery" element={<ProtectedRoute element={Discovery} />} />
               {/* <Route path="/mapG" element={<ProtectedRoute element={MapG} />} /> */}
               <Route path="/upgrade" element={<ProtectedRoute element={Upgrade} />} />
-              <Route
+              {/* <Route
                 path="/Map"
                 element={<ProtectedRoute element={Map} />}
                 allowedLevels={["B", "C"]}
-              />
+              /> */}
               <Route
                 path="/create"
                 element={<ProtectedRoute element={Create} />}
