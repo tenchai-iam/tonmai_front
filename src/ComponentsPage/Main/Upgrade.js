@@ -154,24 +154,25 @@ const Upgrade = () => {
     label: option["feeder_id"],
   }));
 
-  const { data: frequencyOption } = useFrequencyOption(selectedDraftScenario, selectedAoj, selectedFeeder);
+  const { data: frequencyOption } = useFrequencyOption(selectedDraftScenario, selectedDistrict, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedDraftEditableScenario, selectedAojE);
+  const { data: corridorOption } = useCorridorOption(selectedDraftEditableScenario, selectedDistrictE, selectedAojE);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
     label: option["nearest_upstream_device"],
   }));
 
-  const { data: geoAoj } = useGeoAoj(selectedAoj);
+  const { data: geoAoj } = useGeoAoj(selectedDistrict, selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
     selectedDraftScenario,
+    selectedDistrict,
     selectedFeeder,
     selectedAoj,
     selectedFrequency
   );
-  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
+  const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(

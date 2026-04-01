@@ -2,11 +2,12 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getGeoAoj = async (aoj_code) => {
+export const getGeoAoj = async (aoj_region, aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_geo_aoj`,
     {
-      aoj_code: aoj_code, // Pass the data format value in the request body
+      aoj_region: aoj_region,
+      aoj_code: aoj_code,
     },
     { timeout: 5000 }
   );
@@ -24,12 +25,13 @@ export const getGeoFeeders = async (feeder_id) => {
   return response.data; // Return the data received from the API
 };
 
-export const getGeoCorridors = async (scenario_name, feeder_id, aoj_code, frequency) => {
+export const getGeoCorridors = async (scenario_name, aoj_region, feeder_id, aoj_code, frequency) => {
   const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
   const response = await axios.post(
     `${API_URL}/get_geo_corridors`,
     {
       scenario_name: scenario_name,
+      aoj_region: aoj_region,
       feeder_id: feeder_ids,
       aoj_code: aoj_code,
       frequency: frequency
@@ -39,12 +41,13 @@ export const getGeoCorridors = async (scenario_name, feeder_id, aoj_code, freque
   return response.data; // Return the data received from the API
 };
 
-export const getGeoCorridorsDiscovery = async (scenario_name, feeder_id, aoj_code) => {
+export const getGeoCorridorsDiscovery = async (scenario_name, aoj_region, feeder_id, aoj_code) => {
   const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
   const response = await axios.post(
     `${API_URL}/get_geo_corridors_discovery`,
     {
       scenario_name: scenario_name,
+      aoj_region: aoj_region,
       feeder_id: feeder_ids,
       aoj_code: aoj_code
     },
@@ -53,11 +56,12 @@ export const getGeoCorridorsDiscovery = async (scenario_name, feeder_id, aoj_cod
   return response.data; // Return the data received from the API
 };
 
-export const getGeoDevices = async (feeder_id, aoj_code, frequency) => {
+export const getGeoDevices = async (aoj_region, feeder_id, aoj_code, frequency) => {
   const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
   const response = await axios.post(
     `${API_URL}/get_geo_device`,
     {
+      aoj_region: aoj_region,
       feeder_id: feeder_ids,
       aoj_code: aoj_code,
       frequency: frequency

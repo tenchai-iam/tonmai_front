@@ -131,9 +131,9 @@ const MapG = () => {
     value: option["feeder_id"],
     label: option["feeder_id"],
   }));
-  const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedAoj, selectedFeeder);
+  const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedAoj2);
+  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedDistrict2, selectedAoj2);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
@@ -156,15 +156,16 @@ const MapG = () => {
     label: option.aoj_name,
   }));
 
-  const { data: geoAoj } = useGeoAoj(selectedAoj);
+  const { data: geoAoj } = useGeoAoj(selectedDistrict, selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
     selectedScenario1,
+    selectedDistrict,
     selectedFeeder,
     selectedAoj,
     selectedFrequency
   );
-  const { data: geoDevices } = useGeoDevices(selectedFeeder, selectedAoj, selectedFrequency);
+  const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(

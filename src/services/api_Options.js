@@ -108,25 +108,27 @@ export const getAvailableBudgetYears = async () => {
   return response.data; // Return the data received from the API
 };
 
-export const getCorridors = async (scenario_name, aoj_code) => {
+export const getCorridors = async (scenario_name, aoj_region, aoj_code) => {
   const response = await axios.post(
     `${API_URL}/get_corridor`,
     {
-      scenario_name: scenario_name, // Pass the data format value in the request body
-      aoj_code: aoj_code, // Pass the data format value in the request body
+      scenario_name: scenario_name,
+      aoj_region: aoj_region,
+      aoj_code: aoj_code,
     },
     { timeout: 5000 }
   );
   return response.data; // Return the data received from the API
 };
 
-export const getFrequency = async (scenario_name, aoj_code, feeder_id) => {
+export const getFrequency = async (scenario_name, aoj_region, aoj_code, feeder_id) => {
   const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
   const response = await axios.post(
     `${API_URL}/get_frequency`,
     {
-      scenario_name: scenario_name, // Pass the data format value in the request body
-      aoj_code: aoj_code, // Pass the data format value in the request body
+      scenario_name: scenario_name,
+      aoj_region: aoj_region,
+      aoj_code: aoj_code,
       feeder_id: feeder_ids,
     },
     { timeout: 5000 }
