@@ -23,10 +23,29 @@ const thailandOutlineLayer = {
   },
 };
 
+const aojFillLayer = {
+  id: "aoj-fill",
+  type: "fill",
+  paint: {
+    "fill-color": "#1a6fba",
+    "fill-opacity": 0.25,
+  },
+};
+
+const aojOutlineLayer = {
+  id: "aoj-outline",
+  type: "line",
+  paint: {
+    "line-color": "#1a6fba",
+    "line-width": 2,
+  },
+};
+
 const GeoMapDiscovery = ({
   geoJsonData,
   geoJsonPoints,
   geoSubPoints,
+  aojGeoJson,
   showThailand = true,
   colorMode,
   showLegend,
@@ -363,6 +382,14 @@ const GeoMapDiscovery = ({
         <Source id="geojson-source" type="geojson" data={geoJsonData}>
           <Layer {...fillLayer} />
           <Layer {...outlineLayer} />
+        </Source>
+      )}
+
+      {/* AOJ overlay */}
+      {aojGeoJson && (
+        <Source id="aoj-source" type="geojson" data={aojGeoJson}>
+          <Layer {...aojFillLayer} />
+          <Layer {...aojOutlineLayer} />
         </Source>
       )}
 

@@ -129,18 +129,18 @@ export const useValueYearOption = () => {
   });
 };
 
-export const useCorridorOption = (scenario_name, aoj_code) => {
+export const useCorridorOption = (scenario_name, aoj_region, aoj_code) => {
   return useQuery({
-    queryKey: ["corridorOption", scenario_name, aoj_code],
-    queryFn: () => getCorridors(scenario_name, aoj_code),
-    enabled: Boolean(scenario_name) && Boolean(aoj_code),
+    queryKey: ["corridorOption", scenario_name, aoj_region, aoj_code],
+    queryFn: () => getCorridors(scenario_name, aoj_region, aoj_code),
+    enabled: Boolean(scenario_name) && Boolean(aoj_region) && Boolean(aoj_code),
   });
 };
 
-export const useFrequencyOption = (scenario_name, aoj_code, feeder_id) => {
+export const useFrequencyOption = (scenario_name, aoj_region, aoj_code, feeder_id) => {
   return useQuery({
-    queryKey: ["frequencyOption", scenario_name, aoj_code, feeder_id],
-    queryFn: () => getFrequency(scenario_name, aoj_code, feeder_id),
-    enabled: Boolean(scenario_name) && Boolean(aoj_code) && (Array.isArray(feeder_id) ? feeder_id.length > 0 : Boolean(feeder_id)),
+    queryKey: ["frequencyOption", scenario_name, aoj_region, aoj_code, feeder_id],
+    queryFn: () => getFrequency(scenario_name, aoj_region, aoj_code, feeder_id),
+    enabled: Boolean(scenario_name) && Boolean(aoj_region) && Boolean(aoj_code) && (Array.isArray(feeder_id) ? feeder_id.length > 0 : Boolean(feeder_id)),
   });
 };
