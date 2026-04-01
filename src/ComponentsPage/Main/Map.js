@@ -160,10 +160,7 @@ const MapPage = () => {
   const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
-  const [currentMapView, setCurrentMapView] = useSessionStorage(
-    "currentMapView",
-    ""
-  );
+  const [showAojOverlay, setShowAojOverlay] = useState(false);
 
   const combineGeoJson = (geo1, geo2) => {
     if (!geo1 && !geo2) return null;
@@ -177,28 +174,9 @@ const MapPage = () => {
     };
   };
 
-  const mapViewConfig = {
-    aoj: {
-      isActive: currentMapView === "aoj",
-      geoJson: geoAoj,
-      required: selectedAoj,
-    },
-    // feeder: {
-    //   isActive: currentMapView === "feeder",
-    //   geoJson: geoFeeders,
-    //   required: selectedFeeder,
-    // },
-    corridor: {
-      isActive: currentMapView === "corridor",
-      geoJson: combineGeoJson(geoCorridors, geoDevices),
-      required: selectedFeeder.length > 0,
-    },
-  };
-
-  const activeMapView = Object.values(mapViewConfig).find(
-    (v) => v.isActive && v.required
-  );
-  const geoJsonToShow = activeMapView?.geoJson;
+  const corridorGeoJson = selectedFeeder.length > 0
+    ? combineGeoJson(geoCorridors, geoDevices)
+    : null;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
@@ -490,52 +468,41 @@ const MapPage = () => {
         <div className="map-button-container">
           <div className="mapview-toggle-container">
             <button
-              className={`mapview-btn ${
-                currentMapView === "aoj" ? "active" : ""
-              }`}
-              onClick={() => setCurrentMapView("aoj")}
+              className={`mapview-btn ${showAojOverlay ? "active" : ""}`}
+              onClick={() => setShowAojOverlay((v) => !v)}
             >
               แผนที่แบบ AOJ
             </button>
+          </div>
+          {/* Color mode toggle */}
+          <div className="mapview-toggle-container">
             <button
               className={`mapview-btn ${
-                currentMapView === "corridor" ? "active" : ""
+                colorMode === "frequency" ? "active" : ""
               }`}
-              onClick={() => setCurrentMapView("corridor")}
+              onClick={() => setColorMode("frequency")}
             >
-              แผนที่แบบ Corridor
+              แสดงสีตามความถี่ (Frequency)
+            </button>
+            <button
+              className={`mapview-btn ${
+                colorMode === "risk" ? "active" : ""
+              }`}
+              onClick={() => setColorMode("risk")}
+            >
+              แสดงสีตามความเสี่ยง (Risk)
             </button>
           </div>
-          {/* NEW: Color mode toggle */}
-          {currentMapView === "corridor" && (
-            <div className="mapview-toggle-container">
-              <button
-                className={`mapview-btn ${
-                  colorMode === "frequency" ? "active" : ""
-                }`}
-                onClick={() => setColorMode("frequency")}
-              >
-                แสดงสีตามความถี่ (Frequency)
-              </button>
-              <button
-                className={`mapview-btn ${
-                  colorMode === "risk" ? "active" : ""
-                }`}
-                onClick={() => setColorMode("risk")}
-              >
-                แสดงสีตามความเสี่ยง (Risk)
-              </button>
-            </div>
-          )}
         </div>
           <div className="map-container">
             {" "}
             <GeoMap
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}
-              geoJsonData={geoJsonToShow}
+              geoJsonData={corridorGeoJson}
+              aojGeoJson={showAojOverlay ? geoAoj : null}
               colorMode={colorMode}
-              showLegend={currentMapView === "corridor"}
+              showLegend={true}
             />
           </div>
 
