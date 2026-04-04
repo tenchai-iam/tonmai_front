@@ -30,8 +30,7 @@ export const useGeoCorridors = (scenario_name, aoj_region, feeder_id, aoj_code, 
   return useQuery({
     queryKey: ["geoCorridors", scenario_name, aoj_region, feeder_ids, aoj_code, frequency],
     queryFn: () => getGeoCorridors(scenario_name, aoj_region, feeder_id, aoj_code, frequency),
-    enabled: Boolean(aoj_region) && Boolean(feeder_id) && Boolean(scenario_name) &&
-             (Array.isArray(feeder_id) ? feeder_id.length > 0 : true),
+    enabled: Boolean(aoj_region) && Boolean(aoj_code) && Boolean(scenario_name),
     // staleTime: 5 * 60 * 1000,
     // keepPreviousData: true,
   });
@@ -42,8 +41,7 @@ export const useGeoCorridorsDiscovery = (scenario_name, aoj_region, feeder_id, a
   return useQuery({
     queryKey: ["geoCorridorsDiscovery", scenario_name, aoj_region, feeder_ids, aoj_code],
     queryFn: () => getGeoCorridorsDiscovery(scenario_name, aoj_region, feeder_id, aoj_code),
-    enabled: Boolean(aoj_region) && Boolean(feeder_id) && Boolean(scenario_name) &&
-             (Array.isArray(feeder_id) ? feeder_id.length > 0 : true),
+    enabled: Boolean(aoj_region) && Boolean(aoj_code) && Boolean(scenario_name),
     // staleTime: 5 * 60 * 1000,
     // keepPreviousData: true,
   });
