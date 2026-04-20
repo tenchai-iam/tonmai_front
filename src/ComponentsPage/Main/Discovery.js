@@ -139,7 +139,7 @@ const Discovery = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedDiscoveryScenario, selectedDistrict, selectedAoj);
+    useFeederOption(selectedDiscoveryScenario, convertDistrictCode(selectedDistrict), selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],

@@ -138,7 +138,7 @@ const Upgrade = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedDraftScenario, selectedDistrict, selectedAoj);
+    useFeederOption(selectedDraftScenario, convertDistrictCode(selectedDistrict), selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
