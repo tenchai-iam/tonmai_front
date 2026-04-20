@@ -80,7 +80,7 @@ const Discovery = () => {
   const [selectedDistrictE, setSelectedDistrictE] = useState("");
 
   const handleChangeDistrict = (event) => {
-    setSelectedDistrict(convertDistrictCode(event.target.value));
+    setSelectedDistrict(event.target.value);
   };
 
   const [selectedAoj, setSelectedAoj] = useState("");
@@ -139,7 +139,7 @@ const Discovery = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedDiscoveryScenario, selectedDistrict, selectedAoj);
+    useFeederOption(selectedDiscoveryScenario, convertDistrictCode(selectedDistrict), selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
@@ -155,15 +155,15 @@ const Discovery = () => {
     label: option["nearest_upstream_device"],
   }));
 
-  const { data: geoAoj } = useGeoAoj(selectedDistrict, selectedAoj);
+  const { data: geoAoj } = useGeoAoj(convertDistrictCode(selectedDistrict), selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridorsDiscovery } = useGeoCorridorsDiscovery(
     selectedDiscoveryScenario,
-    selectedDistrict,
+    convertDistrictCode(selectedDistrict),
     selectedFeeder,
     selectedAoj
   );
-  const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
+  const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [showAojOverlay, setShowAojOverlay] = useState(false);
