@@ -13,7 +13,7 @@ export const useGeoAoj = (aoj_region, aoj_code) => {
   return useQuery({
     queryKey: ["geoAoj", aoj_region, aoj_code],
     queryFn: () => getGeoAoj(aoj_region, aoj_code),
-    enabled: Boolean(aoj_region),
+    enabled: Boolean(aoj_region) && Boolean(aoj_code),
   });
 };
 
@@ -62,7 +62,7 @@ export const useGeoSub = (feeder_id, aoj_code, frequency) => {
   return useQuery({
     queryKey: ["geoSub", feeder_ids, aoj_code, frequency],
     queryFn: () => getGeoSub(feeder_id, aoj_code, frequency),
-    enabled: Boolean(aoj_region) && Boolean(feeder_id) && 
+    enabled: Boolean(aoj_code) && Boolean(feeder_id) &&
              (Array.isArray(feeder_id) ? feeder_id.length > 0 : true),
   });
 };
