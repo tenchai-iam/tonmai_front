@@ -79,7 +79,7 @@ const Upgrade = () => {
   const [selectedDistrictE, setSelectedDistrictE] = useState("");
 
   const handleChangeDistrict = (event) => {
-    setSelectedDistrict(convertDistrictCode(event.target.value));
+    setSelectedDistrict(event.target.value);
   };
 
   const [selectedAoj, setSelectedAoj] = useState("");
@@ -154,16 +154,16 @@ const Upgrade = () => {
     label: option["nearest_upstream_device"],
   }));
 
-  const { data: geoAoj } = useGeoAoj(selectedDistrict, selectedAoj);
+  const { data: geoAoj } = useGeoAoj(convertDistrictCode(selectedDistrict), selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
     selectedDraftScenario,
-    selectedDistrict,
+    convertDistrictCode(selectedDistrict),
     selectedFeeder,
     selectedAoj,
     selectedFrequency
   );
-  const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
+  const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
@@ -209,7 +209,7 @@ const Upgrade = () => {
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
   // Fetch regional budget graph data from API
-  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedDraftScenario, selectedDistrict);
+  const { data: regionBudgetGraph } = useRegionBudgetGraph(selectedDraftScenario, convertDistrictCode(selectedDistrict));
 
   const dataRegionalBudgetGraph =
     regionBudgetGraph?.map((item) => ({
@@ -220,7 +220,7 @@ const Upgrade = () => {
       budgetUpgradeAdjust: item.budget_upgrade_adjust,
     })) || [];
 
-  const { data: aojBudgetTable } = useAojBudgetTable(selectedDraftScenario, selectedDistrict);
+  const { data: aojBudgetTable } = useAojBudgetTable(selectedDraftScenario, convertDistrictCode(selectedDistrict));
 
   const dataAojBudgetTable=
     aojBudgetTable?.map((item) => ({
