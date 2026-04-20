@@ -66,30 +66,21 @@ const Discovery = () => {
   const [selectedDiscoveryEditableScenario, setSelectedDiscoveryEditableScenario] = useState("");
   const handleDiscoveryEditableScenarioSelect = (e) => setSelectedDiscoveryEditableScenario(e.target.value);
 
+  const convertDistrictCode = (districtCode) => {
+    const districtMapping = {
+      'A': 'N1', 'B': 'N2', 'C': 'N3',
+      'D': 'NE1', 'E': 'NE2', 'F': 'NE3',
+      'G': 'C1', 'H': 'C2', 'I': 'C3',
+      'J': 'S1', 'K': 'S2', 'L': 'S3'
+    };
+    return districtMapping[districtCode] || districtCode;
+  };
+
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedDistrictE, setSelectedDistrictE] = useState("");
 
   const handleChangeDistrict = (event) => {
-    setSelectedDistrict(event.target.value);
-  };
-
-  // Convert district code from A-L format to N1-S3 format for API calls
-  const convertDistrictCode = (districtCode) => {
-    const districtMapping = {
-      'A': 'N1',
-      'B': 'N2',
-      'C': 'N3',
-      'D': 'NE1',
-      'E': 'NE2',
-      'F': 'NE3',
-      'G': 'C1',
-      'H': 'C2',
-      'I': 'C3',
-      'J': 'S1',
-      'K': 'S2',
-      'L': 'S3'
-    };
-    return districtMapping[districtCode] || districtCode;
+    setSelectedDistrict(convertDistrictCode(event.target.value));
   };
 
   const [selectedAoj, setSelectedAoj] = useState("");
@@ -194,9 +185,6 @@ const Discovery = () => {
     : null;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
-
-  // Convert district code for API calls
-  const convertedDistrictCode = convertDistrictCode(selectedDistrict);
 
     const { data: corridorPlan } = useCorridorPlan(
       selectedDiscoveryEditableScenario,
