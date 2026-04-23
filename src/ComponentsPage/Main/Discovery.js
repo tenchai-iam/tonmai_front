@@ -83,6 +83,10 @@ const Discovery = () => {
     setSelectedDistrict(event.target.value);
   };
 
+  const handleChangeDistrictE = (event) => {
+    setSelectedDistrictE(event.target.value);
+  };
+
   const [selectedAoj, setSelectedAoj] = useState("");
   const [selectedAojE, setSelectedAojE] = useState("");
 
@@ -148,7 +152,7 @@ const Discovery = () => {
 
   const { data: frequencyOption } = useFrequencyOption(selectedDiscoveryScenario, selectedDistrict, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedDiscoveryEditableScenario, selectedDistrictE, selectedAojE);
+  const { data: corridorOption } = useCorridorOption(selectedDiscoveryEditableScenario, convertDistrictCode(selectedDistrictE), selectedAojE);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
@@ -509,6 +513,18 @@ const Discovery = () => {
                     {scenarioDiscoveryEditableOption?.map((option) => (
                       <option key={option.scenario_name} value={option.scenario_name}>
                         {option.scenario_name}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={selectedDistrictE}
+                    onChange={handleChangeDistrictE}
+                    className="border rounded-lg px-4 py-2"
+                  >
+                    <option value="" disabled>เลือกการไฟฟ้าเขต</option>
+                    {authorizedDistrictOption?.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
                       </option>
                     ))}
                   </select>
