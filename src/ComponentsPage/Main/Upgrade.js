@@ -133,6 +133,8 @@ const Upgrade = () => {
 
   const { data: authorizedDistrictOption } = useAuthorizedDistrictOption(sessionPEACode, selectedDraftScenario);
 
+  const { data: authorizedDistrictOptionE } = useAuthorizedDistrictOption(sessionPEACode, selectedDraftEditableScenario);
+
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
     useAuthorizedAojOption(sessionPEACode, selectedDraftScenario, selectedDistrict);
 
@@ -690,7 +692,7 @@ const Upgrade = () => {
                     className="border rounded-lg px-4 py-2"
                   >
                     <option value="" disabled>เลือกการไฟฟ้าเขต</option>
-                    {authorizedDistrictOption?.map((option) => (
+                    {authorizedDistrictOptionE?.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>

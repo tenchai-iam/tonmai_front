@@ -134,6 +134,8 @@ const Discovery = () => {
 
   const { data: authorizedDistrictOption } = useAuthorizedDistrictOption(sessionPEACode, selectedDiscoveryScenario);
 
+  const { data: authorizedDistrictOptionE } = useAuthorizedDistrictOption(sessionPEACode, selectedDiscoveryEditableScenario);
+
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
     useAuthorizedAojOption(sessionPEACode, selectedDiscoveryScenario, selectedDistrict);
 
@@ -522,7 +524,7 @@ const Discovery = () => {
                     className="border rounded-lg px-4 py-2"
                   >
                     <option value="" disabled>เลือกการไฟฟ้าเขต</option>
-                    {authorizedDistrictOption?.map((option) => (
+                    {authorizedDistrictOptionE?.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
