@@ -5,6 +5,10 @@ import bbox from "@turf/bbox";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import "../../ComponentsStyles/Map.css";
+import {
+  getCorridorPropertyLabel,
+  formatCorridorPropertyValue,
+} from "../Sub_config/GeoCorridor.js";
 
 const THAILAND_GEOJSON_URL = "/json/Thailand.geojson";
 
@@ -364,14 +368,14 @@ const GeoMap = ({
       )}
 
       {/* ✅ Devices (points) */}
-      {geoJsonPoints && (
+      {geoJsonPoints?.features?.length > 0 && (
         <Source id="geojson-points-source" type="geojson" data={geoJsonPoints}>
           <Layer {...devicePointLayer} />
         </Source>
       )}
 
       {/* ✅ Substation/Connector (square points) */}
-      {geoSubPoints && (
+      {geoSubPoints?.features?.length > 0 && (
         <Source id="geojson-sub-source" type="geojson" data={geoSubPoints}>
           <Layer {...subPointLayer} />
         </Source>
@@ -442,7 +446,8 @@ const GeoMap = ({
               .filter(([key]) => key !== "scenario_name") // ⛔ exclude this key
               .map(([key, value]) => (
                 <div key={key}>
-                  <strong>{key}</strong>: {String(value)}
+                  <strong>{getCorridorPropertyLabel(key)}</strong>:{" "}
+                  {formatCorridorPropertyValue(value)}
                 </div>
               ))}
           </div>
@@ -452,8 +457,8 @@ const GeoMap = ({
       {/* Legend inside Map */}
       {showLegend && colorMode === "frequency" && frequencyLegend}
       {showLegend && colorMode === "risk" && riskLegend}
-      {showLegend && geoJsonPoints && deviceLegend}
-      {showLegend && geoSubPoints && subLegend}
+      {showLegend && geoJsonPoints?.features?.length > 0 && deviceLegend}
+      {showLegend && geoSubPoints?.features?.length > 0 && subLegend}
     </Map>
   );
 };

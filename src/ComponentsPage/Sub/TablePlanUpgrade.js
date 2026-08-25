@@ -6,6 +6,8 @@ import {
   formatValue,
 } from "../Sub_config/Format.js";
 
+import { newCorridorColumns } from "../Sub_config/GeoCorridor.js";
+
 import "../../ComponentsStyles/table.css";
 
 const PlanUpgradeTable = ({ data, onUpdate }) => {
@@ -142,6 +144,11 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
               <th onClick={() => handleSort("frequency")}>
                จำนวนครั้งในการตัด (รายครั้ง) {renderSortArrow("frequency")}
               </th>
+              {newCorridorColumns.map((column) => (
+                <th key={column.key} onClick={() => handleSort(column.key)}>
+                  {column.label} {renderSortArrow(column.key)}
+                </th>
+              ))}
               <th onClick={() => handleSort("upgrade")}>
                 ระบุ VIP {renderSortArrow("upgrade")}
               </th>
@@ -170,6 +177,9 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                   <td>{row.outage}</td>
                   <td>{row.customer}</td>
                   <td>{row.frequency}</td>
+                  {newCorridorColumns.map((column) => (
+                    <td key={column.key}>{row[column.key]}</td>
+                  ))}
                   <td>
                     {isEditing ? (
                       <input

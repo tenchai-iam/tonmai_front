@@ -16,7 +16,8 @@ import {
   getFeeders,
   getAvailableBudgetYears,
   getCorridors,
-  getFrequency
+  getFrequency,
+  getDensitySource
 } from "../../services/api_Options";
 
 export const useDistrictOption = (scenario_name) => {
@@ -141,6 +142,14 @@ export const useFrequencyOption = (scenario_name, aoj_region, aoj_code, feeder_i
   return useQuery({
     queryKey: ["frequencyOption", scenario_name, aoj_region, aoj_code, feeder_id],
     queryFn: () => getFrequency(scenario_name, aoj_region, aoj_code, feeder_id),
+    enabled: Boolean(scenario_name) && Boolean(aoj_region) && Boolean(aoj_code) && (Array.isArray(feeder_id) ? feeder_id.length > 0 : Boolean(feeder_id)),
+  });
+};
+
+export const useDensitySourceOption = (scenario_name, aoj_region, aoj_code, feeder_id) => {
+  return useQuery({
+    queryKey: ["densitySourceOption", scenario_name, aoj_region, aoj_code, feeder_id],
+    queryFn: () => getDensitySource(scenario_name, aoj_region, aoj_code, feeder_id),
     enabled: Boolean(scenario_name) && Boolean(aoj_region) && Boolean(aoj_code) && (Array.isArray(feeder_id) ? feeder_id.length > 0 : Boolean(feeder_id)),
   });
 };

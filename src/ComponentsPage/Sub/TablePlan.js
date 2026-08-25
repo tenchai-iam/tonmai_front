@@ -6,6 +6,8 @@ import {
   formatValue,
 } from "../Sub_config/Format.js";
 
+import { newCorridorColumns } from "../Sub_config/GeoCorridor.js";
+
 import "../../ComponentsStyles/table.css";
 
 const PlanTable = ({ data, onUpdate }) => {
@@ -134,6 +136,11 @@ const PlanTable = ({ data, onUpdate }) => {
               <th onClick={() => handleSort("frequency")}>
                จำนวนครั้งในการตัด (รายครั้ง) {renderSortArrow("frequency")}
               </th>
+              {newCorridorColumns.map((column) => (
+                <th key={column.key} onClick={() => handleSort(column.key)}>
+                  {column.label} {renderSortArrow(column.key)}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -155,6 +162,9 @@ const PlanTable = ({ data, onUpdate }) => {
                   <td>{row.outage}</td>
                   <td>{row.customer}</td>
                   <td>{row.frequency}</td>
+                  {newCorridorColumns.map((column) => (
+                    <td key={column.key}>{row[column.key]}</td>
+                  ))}
                 </tr>
               );
             })}

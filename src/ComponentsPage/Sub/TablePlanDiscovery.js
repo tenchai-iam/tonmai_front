@@ -6,6 +6,8 @@ import {
   formatValue,
 } from "../Sub_config/Format.js";
 
+import { newCorridorColumns } from "../Sub_config/GeoCorridor.js";
+
 import "../../ComponentsStyles/table.css";
 
 const PlanDiscoveryTable = ({ data, onUpdate }) => {
@@ -137,6 +139,11 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
               <th onClick={() => handleSort("customer")}>
                 จำนวนลูกค้าที่ได้รับผลกระทบ {renderSortArrow("customer")}
               </th>
+              {newCorridorColumns.map((column) => (
+                <th key={column.key} onClick={() => handleSort(column.key)}>
+                  {column.label} {renderSortArrow(column.key)}
+                </th>
+              ))}
               <th onClick={() => handleSort("upgrade")}>
                 ระบุ VIP {renderSortArrow("upgrade")}
               </th>
@@ -164,6 +171,9 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
                   <td>{row.device}</td>
                   <td>{row.outage}</td>
                   <td>{row.customer}</td>
+                  {newCorridorColumns.map((column) => (
+                    <td key={column.key}>{row[column.key]}</td>
+                  ))}
                   <td>
                     {isEditing ? (
                       <input

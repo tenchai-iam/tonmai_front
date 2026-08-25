@@ -9,7 +9,12 @@ import AojBudgetTable from "../Sub/TableAojBudget.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanUpgradeTable from "../Sub/TablePlanUpgrade.js";
+import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
+import {
+  mapNewCorridorColumns,
+  newCorridorExportHeaders,
+} from "../Sub_config/GeoCorridor.js";
 
 import {
   useScenarioOption,
@@ -21,7 +26,8 @@ import {
   useAuthorizedAojOption,
   useFeederOption,
   useCorridorOption,
-  useFrequencyOption
+  useFrequencyOption,
+  useDensitySourceOption
 } from "../Sub_Query/OptionQuery.js";
 
 import { 
@@ -95,6 +101,12 @@ const Upgrade = () => {
     setSelectedFrequency(event.target.value);
   };
 
+  const [selectedDensitySource, setSelectedDensitySource] = useState("");
+
+  const handleChangeDensitySource = (event) => {
+    setSelectedDensitySource(event.target.value);
+  };
+
   const [selectedFeeder, setSelectedFeeder] = useState([]);
   const [selectedFeederE, setSelectedFeederE] = useState([]);
 
@@ -152,6 +164,7 @@ const Upgrade = () => {
   }));
 
   const { data: frequencyOption } = useFrequencyOption(selectedDraftScenario, selectedDistrict, selectedAoj, selectedFeeder);
+  const { data: densitySourceOption } = useDensitySourceOption(selectedDraftScenario, selectedDistrict, selectedAoj, selectedFeeder);
 
   const { data: corridorOption } = useCorridorOption(selectedDraftEditableScenario, convertDistrictCode(selectedDistrictE), selectedAojE);
 
@@ -167,7 +180,8 @@ const Upgrade = () => {
     convertDistrictCode(selectedDistrict),
     selectedFeeder,
     selectedAoj,
-    selectedFrequency
+    selectedFrequency,
+    selectedDensitySource
   );
   const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
@@ -182,6 +196,11 @@ const Upgrade = () => {
 
     const features1 = geo1?.features || [];
     const features2 = geo2?.features || [];
+
+    // Nothing to draw: keep returning null, as this did before the corridor
+    // endpoints' 404-on-empty became an empty FeatureCollection, so the map
+    // still falls back to the Thailand overview.
+    if (features1.length === 0 && features2.length === 0) return null;
 
     return {
       type: "FeatureCollection",
@@ -211,6 +230,13 @@ const Upgrade = () => {
     (v) => v.isActive && v.required
   );
   const geoJsonToShow = activeMapView?.geoJson;
+
+  // The corridor endpoint returns no features when the filters match
+  // nothing; say so rather than leaving the map blank without reason.
+  const hasNoCorridors =
+    currentMapView === "corridor" &&
+    selectedFeeder.length > 0 &&
+    geoCorridors?.features?.length === 0;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
@@ -267,6 +293,7 @@ const Upgrade = () => {
           outage: item.probability_of_outage_bins,
           customer: item.customers_affected_adjusted_bins,
           frequency: item.frequency_number,
+          ...mapNewCorridorColumns(item),
           upgrade: item.upgrade,
           reason: item.reason
         }));
@@ -458,6 +485,7 @@ const Upgrade = () => {
         { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
         { label: "จำนวนลูกค้าที่ได้รับผลกระทบ", key: "customer" },
         { label: "จำนวนครั้งในการตัด (รายครั้ง)", key: "frequency" },
+        ...newCorridorExportHeaders,
         { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
         { label: "เหตุผล", key: "reason" },
       ];
@@ -551,6 +579,18 @@ const Upgrade = () => {
                 </option>
               ))}
             </select>
+            <select
+              value={selectedDensitySource}
+              onChange={handleChangeDensitySource}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือกแหล่งข้อมูลความหนาแน่น</option>
+              {densitySourceOption?.map((option) => (
+                <option key={option.calibration_status} value={option.calibration_status}>
+                  {option.calibration_status}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">
@@ -596,6 +636,7 @@ const Upgrade = () => {
         </div>
           <div className="map-general-container">
             {" "}
+            <MapEmptyNotice show={hasNoCorridors} />
             <GeoMap
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}

@@ -7,7 +7,12 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMapDiscovery from "../Sub/GeoMapDiscovery.js";
 import PlanDiscoveryTable from "../Sub/TablePlanDiscovery.js";
+import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
+import {
+  mapNewCorridorColumns,
+  newCorridorExportHeaders,
+} from "../Sub_config/GeoCorridor.js";
 
 import {
   useScenarioOption,
@@ -180,6 +185,11 @@ const Discovery = () => {
     const features1 = geo1?.features || [];
     const features2 = geo2?.features || [];
 
+    // Nothing to draw: keep returning null, as this did before the corridor
+    // endpoints' 404-on-empty became an empty FeatureCollection, so the map
+    // still falls back to the Thailand overview.
+    if (features1.length === 0 && features2.length === 0) return null;
+
     return {
       type: "FeatureCollection",
       features: [...features1, ...features2],
@@ -189,6 +199,11 @@ const Discovery = () => {
   const corridorGeoJson = selectedFeeder.length > 0
     ? combineGeoJson(geoCorridorsDiscovery, geoDevices)
     : null;
+
+  // The corridor endpoint returns no features when the filters match
+  // nothing; say so rather than leaving the map blank without reason.
+  const hasNoCorridors =
+    selectedFeeder.length > 0 && geoCorridorsDiscovery?.features?.length === 0;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
@@ -221,6 +236,7 @@ const Discovery = () => {
           outage: item.probability_of_outage_bins,
           customer: item.customers_affected_adjusted_bins,
           frequency: item.frequency_number,
+          ...mapNewCorridorColumns(item),
           upgrade: item.upgrade,
           reason: item.reason
         }));
@@ -380,6 +396,7 @@ const Discovery = () => {
         { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
         { label: "จำนวนลูกค้าที่ได้รับผลกระทบ", key: "customer" },
         { label: "จำนวนครั้งในการตัด (รายครั้ง)", key: "frequency" },
+        ...newCorridorExportHeaders,
         { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
         { label: "เหตุผล", key: "reason" },
       ];
@@ -494,6 +511,7 @@ const Discovery = () => {
         </div>
           <div className="map-general-container">
             {" "}
+            <MapEmptyNotice show={hasNoCorridors} />
             <GeoMapDiscovery
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}

@@ -5,7 +5,12 @@ import NavbarComponent from "../Sub/NavbarComponent.js";
 import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanTable from "../Sub/TablePlan.js";
+import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
+import {
+  mapNewCorridorColumns,
+  newCorridorExportHeaders,
+} from "../Sub_config/GeoCorridor.js";
 
 import {
   useScenarioOption,
@@ -15,7 +20,8 @@ import {
   useAuthorizedAojOption,
   useFeederOption,
   useCorridorOption,
-  useFrequencyOption
+  useFrequencyOption,
+  useDensitySourceOption
 } from "../Sub_Query/OptionQuery.js";
 
 import {
@@ -70,6 +76,12 @@ const MapG = () => {
 
   const handleChangeFrequency = (event) => {
     setSelectedFrequency(event.target.value);
+  };
+
+  const [selectedDensitySource, setSelectedDensitySource] = useState("");
+
+  const handleChangeDensitySource = (event) => {
+    setSelectedDensitySource(event.target.value);
   };
 
   const [selectedAoj2, setSelectedAoj2] = useState("");
@@ -132,6 +144,7 @@ const MapG = () => {
     label: option["feeder_id"],
   }));
   const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
+  const { data: densitySourceOption } = useDensitySourceOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
 
   const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedDistrict2, selectedAoj2);
 
@@ -163,7 +176,8 @@ const MapG = () => {
     selectedDistrict,
     selectedFeeder,
     selectedAoj,
-    selectedFrequency
+    selectedFrequency,
+    selectedDensitySource
   );
   const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
@@ -178,6 +192,11 @@ const MapG = () => {
 
     const features1 = geo1?.features || [];
     const features2 = geo2?.features || [];
+
+    // Nothing to draw: keep returning null, as this did before the corridor
+    // endpoints' 404-on-empty became an empty FeatureCollection, so the map
+    // still falls back to the Thailand overview.
+    if (features1.length === 0 && features2.length === 0) return null;
 
     return {
       type: "FeatureCollection",
@@ -208,6 +227,13 @@ const MapG = () => {
   );
   const geoJsonToShow = activeMapView?.geoJson;
 
+  // The corridor endpoint returns no features when the filters match
+  // nothing; say so rather than leaving the map blank without reason.
+  const hasNoCorridors =
+    currentMapView === "corridor" &&
+    selectedFeeder.length > 0 &&
+    geoCorridors?.features?.length === 0;
+
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
   const { data: corridorPlan } = useCorridorPlan(
@@ -230,7 +256,8 @@ const MapG = () => {
         device: item.raw_device_type,
         outage: item.probability_of_outage_bins,
         customer: item.customers_affected_adjusted_bins,
-        frequency: item.frequency_number
+        frequency: item.frequency_number,
+        ...mapNewCorridorColumns(item),
     })) || [];
 
   const handleDataCorridorPlan = () => {
@@ -246,6 +273,7 @@ const MapG = () => {
       { label: "อุปกรณ์", key: "device" },
       { label: "ความเสี่ยงไฟดับจากต้นไม้", key: "outage" },
       { label: "จำนวนลูกค้าที่ได้ผลกระทบ", key: "customer" },
+      ...newCorridorExportHeaders,
       { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
       { label: "เหตุผล", key: "reason" },
     ];
@@ -352,6 +380,18 @@ const MapG = () => {
                 </option>
               ))}
             </select>
+            <select
+              value={selectedDensitySource}
+              onChange={handleChangeDensitySource}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือกแหล่งข้อมูลความหนาแน่น</option>
+              {densitySourceOption?.map((option) => (
+                <option key={option.calibration_status} value={option.calibration_status}>
+                  {option.calibration_status}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">
@@ -397,6 +437,7 @@ const MapG = () => {
         </div>
           <div className="map-container">
             {" "}
+            <MapEmptyNotice show={hasNoCorridors} />
             <GeoMap
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}
