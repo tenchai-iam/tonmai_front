@@ -49,6 +49,7 @@ import {
 } from "../Sub_Query/ManageQuery.js";
 
 import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList, updateUpgradeScenarioAojBudget, updateBudgetUpgradeRegionalTable } from "../../services/api_Upgrade.js";
+import { batchUpdateCorridorSelf, insertSelfCorridorList } from "../../services/api_Self.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Upgrade.css";
@@ -295,7 +296,8 @@ const Upgrade = () => {
           frequency: item.frequency_number,
           ...mapNewCorridorColumns(item),
           upgrade: item.upgrade,
-          reason: item.reason
+          reason: item.reason,
+          selfMaintained: item.self_maintained
         }));
         setEditableTableData(mappedData);
         setModifiedRows(new Map()); // Reset modified rows when data changes
@@ -405,6 +407,33 @@ const Upgrade = () => {
 
         console.log("Insert Upgrade Corridor List Response:", insertResponse);
 
+        // SELF (ดำเนินการตัดเอง): update per-row flag (zeroes budget_upgrade_adjust
+        // immediately) and sync the durable F8_self_corridor_list for the pipeline
+        const selfUpdates = Array.from(modifiedRows.values()).map((row) => ({
+          scenario_name: row.scenarioName,
+          feeder_id: row.feeder,
+          nearest_upstream_device: row.corridor,
+          self_maintained: row.selfMaintained === true
+        }));
+
+        console.log("Sending batch self update:", { updates: selfUpdates });
+        const selfResponse = await batchUpdateCorridorSelf({ updates: selfUpdates });
+        console.log("Batch Self Update Response:", selfResponse);
+
+        const selfInserts = Array.from(modifiedRows.values()).map((row) => ({
+          nearest_upstream_device: row.corridor,
+          feeder_id_traced: row.feeder,
+          region: row.district,
+          aoj_code: row.code,
+          aoj_name: row.name,
+          self: row.selfMaintained === true,
+          employee_id: employeeId
+        }));
+
+        console.log("Sending insert self corridor list:", { inserts: selfInserts });
+        const selfInsertResponse = await insertSelfCorridorList({ inserts: selfInserts });
+        console.log("Insert Self Corridor List Response:", selfInsertResponse);
+
         // Update budget for the scenario
         const scenarioName = selectedDraftEditableScenario || selectedDraftScenario;
         if (scenarioName) {
@@ -488,6 +517,7 @@ const Upgrade = () => {
         ...newCorridorExportHeaders,
         { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
         { label: "เหตุผล", key: "reason" },
+        { label: "ดำเนินการตัดเอง", key: "selfMaintained" },
       ];
 
       const fileName = selectedDraftEditableScenario
