@@ -707,6 +707,7 @@ const Upgrade = () => {
             {" "}
             <MapEmptyNotice show={hasNoCorridors} />
             <GeoMap
+              pinOnClick={true}
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}
               geoJsonData={geoJsonToShow}

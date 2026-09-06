@@ -159,7 +159,7 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                จำนวนครั้งในการตัด (รายครั้ง) {renderSortArrow("frequency")}
               </th>
               {newCorridorColumns.map((column) => (
-                <th key={column.key} onClick={() => handleSort(column.key)}>
+                <th key={column.key} className={column.className} onClick={() => handleSort(column.key)}>
                   {column.label} {renderSortArrow(column.key)}
                 </th>
               ))}
@@ -195,7 +195,7 @@ const PlanUpgradeTable = ({ data, onUpdate }) => {
                   <td>{row.customer}</td>
                   <td>{row.frequency}</td>
                   {newCorridorColumns.map((column) => (
-                    <td key={column.key}>{row[column.key]}</td>
+                    <td key={column.key} className={column.className} title={column.className ? row[column.key] : undefined}>{row[column.key]}</td>
                   ))}
                   <td>
                     {isEditing ? (

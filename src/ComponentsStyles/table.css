@@ -70,3 +70,12 @@ td {
 .number {
   text-align: right;
 }
+
+/* Long id lists (line GlobalIDs): fixed width, one line, full text on hover. */
+th.cell-ids,
+td.cell-ids {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

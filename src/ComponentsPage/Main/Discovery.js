@@ -581,6 +581,7 @@ const Discovery = () => {
             {" "}
             <MapEmptyNotice show={hasNoCorridors} />
             <GeoMapDiscovery
+              pinOnClick={true}
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}
               geoJsonData={corridorGeoJson}

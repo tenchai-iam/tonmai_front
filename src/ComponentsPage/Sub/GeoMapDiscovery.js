@@ -54,11 +54,15 @@ const GeoMapDiscovery = ({
   showThailand = true,
   colorMode,
   showLegend,
+  // Click-to-pin, same contract as GeoMap.
+  pinOnClick = false,
+  renderCorridorActions = null,
 }) => {
   const mapRef = useRef();
   const [thailandGeoJson, setThailandGeoJson] = useState(null);
   const [hasZoomedToThailand, setHasZoomedToThailand] = useState(false);
   const [deviceInfo, setDeviceInfo] = useState(null);
+  const [pinnedCorridor, setPinnedCorridor] = useState(null);
   const [subInfo, setSubInfo] = useState(null);
   const [corridorInfo, setCorridorInfo] = useState(null);
 
@@ -300,6 +304,10 @@ const GeoMapDiscovery = ({
       style={{ height: "600px", width: "100%" }}
       onLoad={handleMapLoad}
       onMouseMove={(e) => {
+        // A pinned corridor popup stays put until it is closed or another
+        // corridor is clicked.
+        if (pinnedCorridor) return;
+
         // Look for sub point first
         const subFeature = e.features?.find(
           (f) => f.layer.id === "sub-point-layer"
@@ -343,6 +351,16 @@ const GeoMapDiscovery = ({
         }
 
         // Clear all popups if none found
+        setDeviceInfo(null);
+        setSubInfo(null);
+        setCorridorInfo(null);
+      }}
+      onClick={(e) => {
+        if (!pinOnClick) return;
+        const clicked = e.features?.find((f) => f.layer.id === "geojson-outline");
+        setPinnedCorridor(
+          clicked ? { lngLat: e.lngLat, properties: clicked.properties } : null
+        );
         setDeviceInfo(null);
         setSubInfo(null);
         setCorridorInfo(null);
@@ -432,24 +450,35 @@ const GeoMapDiscovery = ({
         </Popup>
       )}
 
-      {/* Polygon feature popup */}
-      {corridorInfo && (
+      {/* Polygon feature popup - the pinned corridor wins over the hovered one */}
+      {(pinnedCorridor || corridorInfo) && (
         <Popup
           className="corridor-popup"
-          longitude={corridorInfo.lngLat.lng}
-          latitude={corridorInfo.lngLat.lat}
+          longitude={(pinnedCorridor || corridorInfo).lngLat.lng}
+          latitude={(pinnedCorridor || corridorInfo).lngLat.lat}
           closeOnClick={false}
-          onClose={() => setCorridorInfo(null)}
+          closeButton={Boolean(pinnedCorridor)}
+          onClose={() => {
+            setPinnedCorridor(null);
+            setCorridorInfo(null);
+          }}
           anchor="top"
         >
           <div>
-            {orderCorridorProperties(corridorInfo.properties)
+            {orderCorridorProperties((pinnedCorridor || corridorInfo).properties)
               .map(([key, value]) => (
                 <div key={key}>
                   <strong>{getCorridorPropertyLabel(key)}</strong>:{" "}
                   {formatCorridorPropertyValue(value)}
                 </div>
               ))}
+            {pinnedCorridor && renderCorridorActions && (
+              <div className="corridor-popup-actions">
+                {renderCorridorActions(pinnedCorridor.properties, () =>
+                  setPinnedCorridor(null)
+                )}
+              </div>
+            )}
           </div>
         </Popup>
       )}

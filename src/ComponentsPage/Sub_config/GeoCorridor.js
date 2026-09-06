@@ -29,12 +29,13 @@ export const corridorPropertyLabels = {
   // and self lists when the scenario ran ("Yes"/"No"); `upgrade` and
   // `self_maintained` are the live edits made on this scenario since.
   vip: "VIP corridor",
+  vip_reason: "เหตุผล VIP",
   self: "ดำเนินการตัดเอง (SELF)",
   self_maintained: "ประสงค์ดำเนินการตัดเอง",
   // added 2026-08 alongside the density source filter
   density_distribution_model: "ความหนาแน่นต้นไม้ (calibrated)",
   density_distribution_mjm: "ความหนาแน่นต้นไม้ (mjm)",
-  risk_customer_interruptions_bins: "ความเสี่ยงไฟดับ",
+  risk_customer_interruptions_bins: "ระดับผลกระทบจากไฟดับ",
   density_distribution_sat: "ความหนาแน่นต้นไม้ (ดาวเทียม)",
   calibration_status: "แหล่งข้อมูลความหนาแน่น",
   rate_card_thb_per_km: "ค่าตัดต่อระยะทาง (บาท/km)",
@@ -55,6 +56,8 @@ const corridorHiddenProperties = new Set([
   "self_maintained",
   "vegetation_density",
   "frequency_number",
+  // Line ids stay in the tables and the Excel export, not the hover popup.
+  "line_global_ids",
 ]);
 
 // The fields worth reading first, in this order. Anything not listed keeps its
@@ -63,10 +66,10 @@ const corridorPropertyOrder = [
   "feeder_id",
   "nearest_upstream_device",
   "corridor_length_km",
-  "line_global_ids",
   "probability_of_outage_bins",
   "risk_customer_interruptions_bins",
   "vip",
+  "vip_reason",
   "self",
   // Reads as the sum it is: cost per trim x trims per year = annual cost.
   "cost_to_trim_model",
@@ -133,8 +136,14 @@ const isEmpty = (value) =>
 const TRUE_FLAGS = new Set([true, 1, "1", "true", "True", "Yes", "yes"]);
 const FALSE_FLAGS = new Set([false, 0, "0", "false", "False", "No", "no"]);
 const isTrueFlag = (value) => TRUE_FLAGS.has(value);
-const isFlag = (value) => TRUE_FLAGS.has(value) || FALSE_FLAGS.has(value);
-const formatFlag = (value) => (isTrueFlag(value) ? "✓" : "✗");
+
+// Only these render as a tick/cross in the popup. Numbers are deliberately
+// excluded: a frequency of 1 or a count of 0 must stay a number, even though
+// the filter predicates above accept 1/0 for the upgrade flag.
+const DISPLAY_TRUE = new Set([true, "true", "True", "Yes", "yes"]);
+const DISPLAY_FALSE = new Set([false, "false", "False", "No", "no"]);
+const isFlag = (value) => DISPLAY_TRUE.has(value) || DISPLAY_FALSE.has(value);
+const formatFlag = (value) => (DISPLAY_TRUE.has(value) ? "✓" : "✗");
 
 // Flattens a dict column to "open: 0.02 km, dense: 1.4 km".
 const flattenDict = (dict) => {
@@ -182,7 +191,10 @@ export const newCorridorColumns = [
   { key: "densityMjm", field: "density_distribution_mjm" },
   { key: "densitySat", field: "density_distribution_sat" },
   { key: "rateCard", field: "rate_card_thb_per_km" },
-  { key: "lineGlobalIds", field: "line_global_ids" },
+  // The id list has no spaces, so without a cap it forces the whole table
+  // wider than the page. cell-ids fixes the width and shows the full list on
+  // hover; the Excel export still gets every id.
+  { key: "lineGlobalIds", field: "line_global_ids", className: "cell-ids" },
 ].map((column) => ({ ...column, label: getCorridorPropertyLabel(column.field) }));
 
 // Flattens the new columns off a corridor_table row into table-ready strings.
