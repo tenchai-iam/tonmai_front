@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import {
+  getCorridorSummary,
   getGeoAoj,
   getGeoFeeders,
   getGeoCorridors,
@@ -64,5 +65,16 @@ export const useGeoSub = (feeder_id, aoj_code, frequency) => {
     queryFn: () => getGeoSub(feeder_id, aoj_code, frequency),
     enabled: Boolean(aoj_code) && Boolean(feeder_id) &&
              (Array.isArray(feeder_id) ? feeder_id.length > 0 : true),
+  });
+};
+
+// Summary-card totals. Disabled until a scenario and a region are picked, which
+// is exactly when the cards start showing numbers.
+export const useCorridorSummary = (scenario_name, aoj_region, aoj_code, feeder_id) => {
+  const feeder_ids = Array.isArray(feeder_id) ? feeder_id : [feeder_id];
+  return useQuery({
+    queryKey: ["corridorSummary", scenario_name, aoj_region, aoj_code, feeder_ids],
+    queryFn: () => getCorridorSummary(scenario_name, aoj_region, aoj_code, feeder_id),
+    enabled: Boolean(scenario_name) && Boolean(aoj_region),
   });
 };

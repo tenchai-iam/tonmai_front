@@ -8,6 +8,7 @@ import "../../ComponentsStyles/Map.css";
 import {
   getCorridorPropertyLabel,
   formatCorridorPropertyValue,
+  orderCorridorProperties,
 } from "../Sub_config/GeoCorridor.js";
 
 const THAILAND_GEOJSON_URL = "/json/Thailand.geojson";
@@ -442,8 +443,7 @@ const GeoMapDiscovery = ({
           anchor="top"
         >
           <div>
-            {Object.entries(corridorInfo.properties)
-              .filter(([key]) => key !== "scenario_name") // ⛔ exclude this key
+            {orderCorridorProperties(corridorInfo.properties)
               .map(([key, value]) => (
                 <div key={key}>
                   <strong>{getCorridorPropertyLabel(key)}</strong>:{" "}

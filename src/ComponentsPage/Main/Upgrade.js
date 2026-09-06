@@ -10,6 +10,7 @@ import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanUpgradeTable from "../Sub/TablePlanUpgrade.js";
 import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
+import CorridorSummaryCards from "../Sub/CorridorSummaryCards.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
@@ -39,6 +40,7 @@ import {
  } from "../Sub_Query/BudgetQuery.js";
 
 import {
+  useCorridorSummary,
   useGeoAoj,
   useGeoCorridors,
   useGeoDevices,
@@ -191,6 +193,12 @@ const Upgrade = () => {
     selectedDensitySource
   );
   const geoCorridorsFiltered = filterGeoJsonSpecial(geoCorridors, selectedSpecial);
+  const { data: corridorSummary, isLoading: isLoadingSummary } = useCorridorSummary(
+    selectedDraftScenario,
+    convertDistrictCode(selectedDistrict),
+    selectedAoj,
+    selectedFeeder
+  );
   const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -690,6 +698,11 @@ const Upgrade = () => {
             </div>
           )}
         </div>
+          <CorridorSummaryCards
+            summary={corridorSummary}
+            hasRegion={Boolean(convertDistrictCode(selectedDistrict))}
+            isLoading={isLoadingSummary}
+          />
           <div className="map-general-container">
             {" "}
             <MapEmptyNotice show={hasNoCorridors} />

@@ -5,6 +5,7 @@ import Select from "react-select";
 import NavbarComponent from "../Sub/NavbarComponent.js";
 import GeoMap from "../Sub/GeoMap.js";
 import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
+import CorridorSummaryCards from "../Sub/CorridorSummaryCards.js";
 
 import {
   specialCorridorOptions,
@@ -19,6 +20,7 @@ import {
 } from "../Sub_Query/OptionQuery.js";
 
 import {
+  useCorridorSummary,
   useGeoAoj,
   useGeoCorridors,
   useGeoDevices,
@@ -121,6 +123,12 @@ const CorridorManage = () => {
     selectedAoj,
     "",
     ""
+  );
+  const { data: corridorSummary, isLoading: isLoadingSummary } = useCorridorSummary(
+    selectedScenario,
+    region,
+    selectedAoj,
+    selectedFeeder
   );
   const { data: geoDevices } = useGeoDevices(region, selectedFeeder, selectedAoj, "");
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, "");
@@ -406,6 +414,12 @@ const CorridorManage = () => {
             แล้วกดปุ่มในกล่องข้อมูลเพื่อนำออกจากรายการ
           </p>
         </div>
+
+        <CorridorSummaryCards
+          summary={corridorSummary}
+          hasRegion={Boolean(region)}
+          isLoading={isLoadingSummary}
+        />
 
         <div className="map-container">
           <MapEmptyNotice show={hasNoCorridors} />

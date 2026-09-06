@@ -6,6 +6,7 @@ import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMap from "../Sub/GeoMap.js";
 import PlanTable from "../Sub/TablePlan.js";
 import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
+import CorridorSummaryCards from "../Sub/CorridorSummaryCards.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
@@ -27,6 +28,7 @@ import {
 } from "../Sub_Query/OptionQuery.js";
 
 import {
+  useCorridorSummary,
   useGeoAoj,
   useGeoCorridors,
   useGeoDevices,
@@ -181,6 +183,12 @@ const MapG = () => {
     selectedDensitySource
   );
   const geoCorridorsFiltered = filterGeoJsonSpecial(geoCorridors, selectedSpecial);
+  const { data: corridorSummary, isLoading: isLoadingSummary } = useCorridorSummary(
+    selectedScenario1,
+    selectedDistrict,
+    selectedAoj,
+    selectedFeeder
+  );
   const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -449,6 +457,11 @@ const MapG = () => {
             </div>
           )}
         </div>
+          <CorridorSummaryCards
+            summary={corridorSummary}
+            hasRegion={Boolean(selectedDistrict)}
+            isLoading={isLoadingSummary}
+          />
           <div className="map-container">
             {" "}
             <MapEmptyNotice show={hasNoCorridors} />

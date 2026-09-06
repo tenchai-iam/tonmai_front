@@ -114,3 +114,24 @@ export const getGeoSub = async (feeder_id, aoj_code, frequency) => {
     return emptyOn404(error);
   }
 };
+
+/**
+ * Totals for the summary cards on the map pages.
+ * @param {string} scenario_name
+ * @param {string} aoj_region - required; the cards stay blank without it
+ * @param {string} aoj_code - optional narrowing
+ * @param {Array|string} feeder_id - optional narrowing
+ */
+export const getCorridorSummary = async (
+  scenario_name,
+  aoj_region,
+  aoj_code,
+  feeder_id
+) => {
+  const response = await axios.post(
+    `${API_URL}/get_corridor_summary`,
+    { scenario_name, aoj_region, aoj_code, feeder_id },
+    { timeout: 30000 }
+  );
+  return response.data;
+};

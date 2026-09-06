@@ -12,6 +12,12 @@ export const corridorPropertyLabels = {
   nearest_upstream_device: "รหัส Corridor",
   raw_device_type: "อุปกรณ์",
   corridor_length_km: "ระยะทาง (km)",
+  device_type: "อุปกรณ์",
+  cost_to_trim_model: "ค่าใช้จ่ายตัดต้นไม้ต่อครั้ง",
+  // Annual cost: the per-trim cost x trims per year, capped at two by design
+  // (a T3 corridor is budgeted as T2).
+  cost_to_trim_budget: "ค่าใช้จ่ายตัดต้นไม้ (บาท)",
+  customers_affected_adjusted: "จำนวนลูกค้ากระทบ",
   // planning
   frequency: "ความถี่ในการตัด",
   frequency_number: "ความถี่ในการตัด",
@@ -26,8 +32,10 @@ export const corridorPropertyLabels = {
   self: "ดำเนินการตัดเอง (SELF)",
   self_maintained: "ประสงค์ดำเนินการตัดเอง",
   // added 2026-08 alongside the density source filter
-  density_distribution_mjm: "ความหนาแน่นพืชพรรณ (MJM)",
-  density_distribution_sat: "ความหนาแน่นพืชพรรณ (ดาวเทียม)",
+  density_distribution_model: "ความหนาแน่นต้นไม้ (calibrated)",
+  density_distribution_mjm: "ความหนาแน่นต้นไม้ (mjm)",
+  risk_customer_interruptions_bins: "ความเสี่ยงไฟดับ",
+  density_distribution_sat: "ความหนาแน่นต้นไม้ (ดาวเทียม)",
   calibration_status: "แหล่งข้อมูลความหนาแน่น",
   rate_card_thb_per_km: "ค่าตัดต่อระยะทาง (บาท/km)",
   line_global_ids: "รหัสสายไฟ (GlobalID)",
@@ -35,6 +43,59 @@ export const corridorPropertyLabels = {
 
 export const getCorridorPropertyLabel = (key) =>
   corridorPropertyLabels[key] || key;
+
+// Never shown in the corridor popup: the scenario is already chosen in the
+// filters, and the office columns repeat what the office picker says.
+const corridorHiddenProperties = new Set([
+  "scenario_name",
+  "aoj_code",
+  "aoj_name",
+  // The live-edit twins of vip / self; one line each is enough.
+  "upgrade",
+  "self_maintained",
+  "vegetation_density",
+  "frequency_number",
+]);
+
+// The fields worth reading first, in this order. Anything not listed keeps its
+// original (alphabetical) position after them.
+const corridorPropertyOrder = [
+  "feeder_id",
+  "nearest_upstream_device",
+  "corridor_length_km",
+  "line_global_ids",
+  "probability_of_outage_bins",
+  "risk_customer_interruptions_bins",
+  "vip",
+  "self",
+  // Reads as the sum it is: cost per trim x trims per year = annual cost.
+  "cost_to_trim_model",
+  "frequency",
+  "cost_to_trim_budget",
+  "calibration_status",
+  "density_distribution_model",
+  "density_distribution_mjm",
+  "density_distribution_sat",
+  "device_type",
+  "customers_affected_adjusted",
+  "rate_card_thb_per_km",
+];
+
+// [key, value] pairs for the popup: hidden fields dropped, the ordered fields
+// first, the rest left as they arrive.
+export const orderCorridorProperties = (properties) => {
+  const entries = Object.entries(properties || {}).filter(
+    ([key]) => !corridorHiddenProperties.has(key)
+  );
+  const rank = (key) => {
+    const index = corridorPropertyOrder.indexOf(key);
+    return index === -1 ? corridorPropertyOrder.length : index;
+  };
+  return entries
+    .map((entry, index) => ({ entry, index }))
+    .sort((a, b) => rank(a.entry[0]) - rank(b.entry[0]) || a.index - b.index)
+    .map(({ entry }) => entry);
+};
 
 // Maximum list entries rendered inline in the popup before it is summarised.
 const MAX_LIST_PREVIEW = 3;
@@ -57,8 +118,15 @@ const parseStructured = (value) => {
   }
 };
 
+// Missing values reach the popup as null, as an absent key, or - once a
+// feature has been through MapLibre - as the strings "null"/"None"/"NaN".
+// All of them read as a dash.
+const EMPTY_STRINGS = new Set(["", "null", "none", "nan", "undefined"]);
 const isEmpty = (value) =>
-  value === null || value === undefined || value === "";
+  value === null ||
+  value === undefined ||
+  (typeof value === "number" && Number.isNaN(value)) ||
+  (typeof value === "string" && EMPTY_STRINGS.has(value.trim().toLowerCase()));
 
 // Flag columns arrive as booleans (upgrade, self_maintained), "Yes"/"No"
 // (vip, self) or, off a MapLibre feature, as the strings "true"/"false".

@@ -8,6 +8,7 @@ import useSessionStorage from "../Sub/UseSessionStorage.js";
 import GeoMapDiscovery from "../Sub/GeoMapDiscovery.js";
 import PlanDiscoveryTable from "../Sub/TablePlanDiscovery.js";
 import MapEmptyNotice from "../Sub/MapEmptyNotice.js";
+import CorridorSummaryCards from "../Sub/CorridorSummaryCards.js";
 import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
@@ -38,6 +39,7 @@ import {
  } from "../Sub_Query/BudgetQuery.js";
 
 import {
+  useCorridorSummary,
   useGeoAoj,
   useGeoCorridors,
   useGeoCorridorsDiscovery,
@@ -182,6 +184,12 @@ const Discovery = () => {
     selectedAoj
   );
   const geoCorridorsDiscoveryFiltered = filterGeoJsonSpecial(geoCorridorsDiscovery, selectedSpecial);
+  const { data: corridorSummary, isLoading: isLoadingSummary } = useCorridorSummary(
+    selectedDiscoveryScenario,
+    convertDistrictCode(selectedDistrict),
+    selectedAoj,
+    selectedFeeder
+  );
   const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -564,6 +572,11 @@ const Discovery = () => {
             </button>
           </div>
         </div>
+          <CorridorSummaryCards
+            summary={corridorSummary}
+            hasRegion={Boolean(convertDistrictCode(selectedDistrict))}
+            isLoading={isLoadingSummary}
+          />
           <div className="map-general-container">
             {" "}
             <MapEmptyNotice show={hasNoCorridors} />
