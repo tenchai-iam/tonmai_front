@@ -12,6 +12,8 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
   newCorridorExportHeaders,
+  specialCorridorOptions,
+  filterGeoJsonSpecial,
 } from "../Sub_config/GeoCorridor.js";
 
 import {
@@ -79,6 +81,8 @@ const MapPage = () => {
   };
 
   const [selectedFrequency, setSelectedFrequency] = useState("");
+  // "" | "vip" | "self" | "special" - filters the corridor layer client-side
+  const [selectedSpecial, setSelectedSpecial] = useState("");
 
   const handleChangeFrequency = (event) => {
     setSelectedFrequency(event.target.value);
@@ -171,6 +175,7 @@ const MapPage = () => {
     selectedFrequency,
     selectedDensitySource
   );
+  const geoCorridorsFiltered = filterGeoJsonSpecial(geoCorridors, selectedSpecial);
   const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -194,13 +199,13 @@ const MapPage = () => {
   };
 
   const corridorGeoJson = selectedFeeder.length > 0
-    ? combineGeoJson(geoCorridors, geoDevices)
+    ? combineGeoJson(geoCorridorsFiltered, geoDevices)
     : null;
 
   // The corridor endpoint returns no features when the filters match
   // nothing; say so rather than leaving the map blank without reason.
   const hasNoCorridors =
-    selectedFeeder.length > 0 && geoCorridors?.features?.length === 0;
+    selectedFeeder.length > 0 && geoCorridorsFiltered?.features?.length === 0;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
@@ -498,6 +503,18 @@ const MapPage = () => {
               {densitySourceOption?.map((option) => (
                 <option key={option.calibration_status} value={option.calibration_status}>
                   {option.calibration_status}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedSpecial}
+              onChange={(event) => setSelectedSpecial(event.target.value)}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือก Corridor พิเศษ (VIP/SELF)</option>
+              {specialCorridorOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
                 </option>
               ))}
             </select>

@@ -115,3 +115,17 @@ export const updateBudgetUpgradeRegionalTable = async (payload) => {
     throw error;
   }
 };
+
+/**
+ * Read the VIP (upgrade) corridor list.
+ * @param {Object} payload - optional { region, aoj_code } filters
+ * @returns {Promise<Array>} rows of F8_upgrade_corridor_list
+ */
+export const getUpgradeCorridorList = async (payload = {}) => {
+  const response = await axios.post(
+    `${API_URL}/get_upgrade_corridor_list`,
+    payload,
+    { headers: { "Content-Type": "application/json" }, timeout: 30000 }
+  );
+  return response.data;
+};

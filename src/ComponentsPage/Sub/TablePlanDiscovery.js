@@ -58,6 +58,7 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
     setEditedData({
       upgrade: row.upgrade,
       reason: row.reason,
+      selfMaintained: row.selfMaintained,
     });
   };
 
@@ -87,6 +88,19 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
       upgrade: isChecked,
       // Clear reason when upgrade is unchecked
       reason: isChecked ? editedData.reason : "",
+      // VIP and SELF are mutually exclusive (SELF corridors are not trimmed by PEA)
+      selfMaintained: isChecked ? false : editedData.selfMaintained,
+    });
+  };
+
+  const handleSelfChange = (e) => {
+    const isChecked = e.target.checked;
+    setEditedData({
+      ...editedData,
+      selfMaintained: isChecked,
+      // VIP and SELF are mutually exclusive: checking SELF clears VIP + its reason
+      upgrade: isChecked ? false : editedData.upgrade,
+      reason: isChecked ? "" : editedData.reason,
     });
   };
 
@@ -150,6 +164,9 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
               <th onClick={() => handleSort("reason")}>
                 เหตุผล {renderSortArrow("reason")}
               </th>
+              <th onClick={() => handleSort("selfMaintained")}>
+                ดำเนินการตัดเอง {renderSortArrow("selfMaintained")}
+              </th>
               <th>การจัดการ</th>
             </tr>
           </thead>
@@ -201,6 +218,17 @@ const PlanDiscoveryTable = ({ data, onUpdate }) => {
                       />
                     ) : (
                       row.reason
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="checkbox"
+                        checked={editedData.selfMaintained || false}
+                        onChange={handleSelfChange}
+                      />
+                    ) : (
+                      <span title={`self value: ${row.selfMaintained}`}>{row.selfMaintained ? "✓" : "✗"}</span>
                     )}
                   </td>
                   <td>

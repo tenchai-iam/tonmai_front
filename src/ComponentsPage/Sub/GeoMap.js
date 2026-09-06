@@ -53,11 +53,18 @@ const GeoMap = ({
   showThailand = true,
   colorMode,
   showLegend,
+  // Click-to-pin: with pinOnClick, clicking a corridor keeps its popup open
+  // instead of letting the next mouse move replace it. renderCorridorActions
+  // draws extra content (buttons) inside a pinned popup. Both are off by
+  // default, so the pages that only hover behave exactly as before.
+  pinOnClick = false,
+  renderCorridorActions = null,
 }) => {
   const mapRef = useRef();
   const [thailandGeoJson, setThailandGeoJson] = useState(null);
   const [hasZoomedToThailand, setHasZoomedToThailand] = useState(false);
   const [deviceInfo, setDeviceInfo] = useState(null);
+  const [pinnedCorridor, setPinnedCorridor] = useState(null);
   const [subInfo, setSubInfo] = useState(null);
   const [corridorInfo, setCorridorInfo] = useState(null);
 
@@ -299,6 +306,10 @@ const GeoMap = ({
       style={{ height: "600px", width: "100%" }}
       onLoad={handleMapLoad}
       onMouseMove={(e) => {
+        // A pinned corridor popup stays put until it is closed or another
+        // corridor is clicked.
+        if (pinnedCorridor) return;
+
         // Look for sub point first
         const subFeature = e.features?.find(
           (f) => f.layer.id === "sub-point-layer"
@@ -342,6 +353,17 @@ const GeoMap = ({
         }
 
         // Clear all popups if none found
+        setDeviceInfo(null);
+        setSubInfo(null);
+        setCorridorInfo(null);
+      }}
+      onClick={(e) => {
+        if (!pinOnClick) return;
+        const clicked = e.features?.find((f) => f.layer.id === "geojson-outline");
+        // Clicking the map away from a corridor releases the pinned popup.
+        setPinnedCorridor(
+          clicked ? { lngLat: e.lngLat, properties: clicked.properties } : null
+        );
         setDeviceInfo(null);
         setSubInfo(null);
         setCorridorInfo(null);
@@ -431,18 +453,22 @@ const GeoMap = ({
         </Popup>
       )}
 
-      {/* Polygon feature popup */}
-      {corridorInfo && (
+      {/* Polygon feature popup - the pinned corridor wins over the hovered one */}
+      {(pinnedCorridor || corridorInfo) && (
         <Popup
           className="corridor-popup"
-          longitude={corridorInfo.lngLat.lng}
-          latitude={corridorInfo.lngLat.lat}
+          longitude={(pinnedCorridor || corridorInfo).lngLat.lng}
+          latitude={(pinnedCorridor || corridorInfo).lngLat.lat}
           closeOnClick={false}
-          onClose={() => setCorridorInfo(null)}
+          closeButton={Boolean(pinnedCorridor)}
+          onClose={() => {
+            setPinnedCorridor(null);
+            setCorridorInfo(null);
+          }}
           anchor="top"
         >
           <div>
-            {Object.entries(corridorInfo.properties)
+            {Object.entries((pinnedCorridor || corridorInfo).properties)
               .filter(([key]) => key !== "scenario_name") // ⛔ exclude this key
               .map(([key, value]) => (
                 <div key={key}>
@@ -450,6 +476,13 @@ const GeoMap = ({
                   {formatCorridorPropertyValue(value)}
                 </div>
               ))}
+            {pinnedCorridor && renderCorridorActions && (
+              <div className="corridor-popup-actions">
+                {renderCorridorActions(pinnedCorridor.properties, () =>
+                  setPinnedCorridor(null)
+                )}
+              </div>
+            )}
           </div>
         </Popup>
       )}

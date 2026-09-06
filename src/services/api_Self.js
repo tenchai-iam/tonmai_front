@@ -64,3 +64,17 @@ export const insertSelfCorridorList = async (payload) => {
     throw error;
   }
 };
+
+/**
+ * Read the SELF corridor list.
+ * @param {Object} payload - optional { region, aoj_code } filters
+ * @returns {Promise<Array>} rows of F8_self_corridor_list
+ */
+export const getSelfCorridorList = async (payload = {}) => {
+  const response = await axios.post(
+    `${API_URL}/get_self_corridor_list`,
+    payload,
+    { headers: { "Content-Type": "application/json" }, timeout: 30000 }
+  );
+  return response.data;
+};

@@ -10,6 +10,8 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
   newCorridorExportHeaders,
+  specialCorridorOptions,
+  filterGeoJsonSpecial,
 } from "../Sub_config/GeoCorridor.js";
 
 import {
@@ -53,9 +55,6 @@ const MapG = () => {
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
 
-  const [selectedScenario2, setSelected2Scenario] = useState("");
-  const handleScenario2Select = (e) => setSelected2Scenario(e.target.value);
-
   const { data: scenarioOption } = useDraftScenarioOption();
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -73,6 +72,8 @@ const MapG = () => {
   const [selectedAoj, setSelectedAoj] = useState("");
 
   const [selectedFrequency, setSelectedFrequency] = useState("");
+  // "" | "vip" | "self" | "special" - filters the corridor layer client-side
+  const [selectedSpecial, setSelectedSpecial] = useState("");
 
   const handleChangeFrequency = (event) => {
     setSelectedFrequency(event.target.value);
@@ -146,7 +147,7 @@ const MapG = () => {
   const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
   const { data: densitySourceOption } = useDensitySourceOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedScenario2, selectedDistrict2, selectedAoj2);
+  const { data: corridorOption } = useCorridorOption(selectedScenario1, selectedDistrict2, selectedAoj2);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
@@ -179,6 +180,7 @@ const MapG = () => {
     selectedFrequency,
     selectedDensitySource
   );
+  const geoCorridorsFiltered = filterGeoJsonSpecial(geoCorridors, selectedSpecial);
   const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -217,7 +219,7 @@ const MapG = () => {
     // },
     corridor: {
       isActive: currentMapView === "corridor",
-      geoJson: combineGeoJson(geoCorridors, geoDevices),
+      geoJson: combineGeoJson(geoCorridorsFiltered, geoDevices),
       required: selectedFeeder.length > 0,
     },
   };
@@ -232,12 +234,12 @@ const MapG = () => {
   const hasNoCorridors =
     currentMapView === "corridor" &&
     selectedFeeder.length > 0 &&
-    geoCorridors?.features?.length === 0;
+    geoCorridorsFiltered?.features?.length === 0;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
   const { data: corridorPlan } = useCorridorPlan(
-    selectedScenario2,
+    selectedScenario1,
     selectedAoj2,
     selectedFeeder2,
     selectedCorridor
@@ -392,6 +394,18 @@ const MapG = () => {
                 </option>
               ))}
             </select>
+            <select
+              value={selectedSpecial}
+              onChange={(event) => setSelectedSpecial(event.target.value)}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือก Corridor พิเศษ (VIP/SELF)</option>
+              {specialCorridorOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">
@@ -450,21 +464,6 @@ const MapG = () => {
         <div className="summary-container">
           <div className="dropdown-download-container">
             <div className="dropdowngroup-container">
-              <select
-                value={selectedScenario2}
-                onChange={handleScenario2Select}
-                className="border rounded-lg px-4 py-2"
-              >
-                <option value="">เลือก Scenario แผนตัดต้นไม้/Reset</option>
-                {scenarioOption?.map((option) => (
-                  <option
-                    key={option.scenario_name}
-                    value={option.scenario_name}
-                  >
-                    {option.scenario_name}
-                  </option>
-                ))}
-              </select>
               {/* <select
                 value={selectedDistrict2}
                 onChange={handleChangeDistrict2}

@@ -129,6 +129,35 @@
   max-width: 500px;
 }
 
+/* Buttons inside a pinned corridor popup (จัดการ Corridor). */
+.corridor-popup-actions {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.corridor-popup-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.corridor-popup-buttons button {
+  padding: 4px 10px;
+  border: 1px solid #a33;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #a33;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.corridor-popup-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .map-empty-notice {
   padding: 12px 16px;
   border: 1px solid #f0c36d;

@@ -12,6 +12,9 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
   newCorridorExportHeaders,
+  specialCorridorOptions,
+  filterGeoJsonSpecial,
+  filterSpecialCorridors,
 } from "../Sub_config/GeoCorridor.js";
 
 import {
@@ -49,6 +52,7 @@ import {
 } from "../Sub_Query/ManageQuery.js";
 
 import { batchUpdateCorridorUpgrade, insertUpgradeCorridorList, updateUpgradeScenarioAojBudget, updateBudgetUpgradeRegionalTable } from "../../services/api_Upgrade.js";
+import { batchUpdateCorridorSelf, insertSelfCorridorList } from "../../services/api_Self.js";
 
 import "../../ComponentsStyles/Dashboard.css";
 import "../../ComponentsStyles/Upgrade.css";
@@ -96,6 +100,8 @@ const Discovery = () => {
   const [selectedAojE, setSelectedAojE] = useState("");
 
   const [selectedFrequency, setSelectedFrequency] = useState("");
+  // "" | "vip" | "self" | "special" - filters the corridor layer client-side
+  const [selectedSpecial, setSelectedSpecial] = useState("");
 
   const handleChangeFrequency = (event) => {
     setSelectedFrequency(event.target.value);
@@ -115,6 +121,7 @@ const Discovery = () => {
   };
 
   const [selectedCorridor, setSelectedCorridor] = useState("");
+  const [selectedSpecialE, setSelectedSpecialE] = useState("");
 
   useEffect(() => {
     // Later replace this with fetch or API call
@@ -174,6 +181,7 @@ const Discovery = () => {
     selectedFeeder,
     selectedAoj
   );
+  const geoCorridorsDiscoveryFiltered = filterGeoJsonSpecial(geoCorridorsDiscovery, selectedSpecial);
   const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -197,13 +205,13 @@ const Discovery = () => {
   };
 
   const corridorGeoJson = selectedFeeder.length > 0
-    ? combineGeoJson(geoCorridorsDiscovery, geoDevices)
+    ? combineGeoJson(geoCorridorsDiscoveryFiltered, geoDevices)
     : null;
 
   // The corridor endpoint returns no features when the filters match
   // nothing; say so rather than leaving the map blank without reason.
   const hasNoCorridors =
-    selectedFeeder.length > 0 && geoCorridorsDiscovery?.features?.length === 0;
+    selectedFeeder.length > 0 && geoCorridorsDiscoveryFiltered?.features?.length === 0;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
@@ -218,6 +226,8 @@ const Discovery = () => {
     const [editableTableData, setEditableTableData] = useState([]);
     const [modifiedRows, setModifiedRows] = useState(new Map());
     const [isSaving, setIsSaving] = useState(false);
+    // Rows shown in the table / exported, after the special-corridor filter
+    const visibleTableData = filterSpecialCorridors(editableTableData, selectedSpecialE);
 
     // Initialize editable data when corridorPlan changes (use the raw data, not the mapped version)
     useEffect(() => {
@@ -231,6 +241,7 @@ const Discovery = () => {
           feeder: item.feeder_id,
           corridor: item.nearest_upstream_device,
           vip: item.vip,
+          self: item.self,
           length: item.corridor_length_km,
           device: item.raw_device_type,
           outage: item.probability_of_outage_bins,
@@ -238,7 +249,8 @@ const Discovery = () => {
           frequency: item.frequency_number,
           ...mapNewCorridorColumns(item),
           upgrade: item.upgrade,
-          reason: item.reason
+          reason: item.reason,
+          selfMaintained: item.self_maintained
         }));
         setEditableTableData(mappedData);
         setModifiedRows(new Map()); // Reset modified rows when data changes
@@ -346,6 +358,33 @@ const Discovery = () => {
 
         console.log("Insert Upgrade Corridor List Response:", insertResponse);
 
+        // SELF (ดำเนินการตัดเอง): update per-row flag (zeroes budget_upgrade_adjust
+        // immediately) and sync the durable F8_self_corridor_list for the pipeline
+        const selfUpdates = Array.from(modifiedRows.values()).map((row) => ({
+          scenario_name: row.scenarioName,
+          feeder_id: row.feeder,
+          nearest_upstream_device: row.corridor,
+          self_maintained: row.selfMaintained === true
+        }));
+
+        console.log("Sending batch self update:", { updates: selfUpdates });
+        const selfResponse = await batchUpdateCorridorSelf({ updates: selfUpdates });
+        console.log("Batch Self Update Response:", selfResponse);
+
+        const selfInserts = Array.from(modifiedRows.values()).map((row) => ({
+          nearest_upstream_device: row.corridor,
+          feeder_id_traced: row.feeder,
+          region: row.district,
+          aoj_code: row.code,
+          aoj_name: row.name,
+          self: row.selfMaintained === true,
+          employee_id: employeeId
+        }));
+
+        console.log("Sending insert self corridor list:", { inserts: selfInserts });
+        const selfInsertResponse = await insertSelfCorridorList({ inserts: selfInserts });
+        console.log("Insert Self Corridor List Response:", selfInsertResponse);
+
         // Update budget for the scenario
         const scenarioName = selectedDiscoveryEditableScenario || selectedDiscoveryScenario;
         if (scenarioName) {
@@ -399,6 +438,7 @@ const Discovery = () => {
         ...newCorridorExportHeaders,
         { label: "ประสงค์ขอเพิ่มความถี่", key: "upgrade" },
         { label: "เหตุผล", key: "reason" },
+        { label: "ดำเนินการตัดเอง", key: "selfMaintained" },
       ];
 
       const fileName = selectedDiscoveryEditableScenario
@@ -412,7 +452,7 @@ const Discovery = () => {
         : "สรุปข้อมูลแผนการตัดต้นไม้";
 
       downloadTable({
-        data: editableTableData,
+        data: visibleTableData,
         headers: headers,
         fileName: fileName,
         title: title,
@@ -427,6 +467,8 @@ const Discovery = () => {
       <div className="main-container">
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
+            <div className="filter-field">
+            <label className="filter-label">แผนสำหรับแผนที่ (ทุกแผน)</label>
             <select
               value={selectedDiscoveryScenario}
               onChange={handleDiscoveryScenarioSelect}
@@ -439,6 +481,7 @@ const Discovery = () => {
                 </option>
               ))}
             </select>
+            </div>
             <select
               value={selectedDistrict}
               onChange={handleChangeDistrict}
@@ -478,6 +521,18 @@ const Discovery = () => {
               className="react-select-container"
               classNamePrefix="react-select"
             />
+            <select
+              value={selectedSpecial}
+              onChange={(event) => setSelectedSpecial(event.target.value)}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือก Corridor พิเศษ (VIP/SELF)</option>
+              {specialCorridorOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="map-button-container">
@@ -524,6 +579,8 @@ const Discovery = () => {
         <div className="summary-container">
           <div className="dropdown-dropdown-container">
             <div className="dropdowngroup-container">
+                  <div className="filter-field">
+                  <label className="filter-label">แผนสำหรับตารางแก้ไข (เฉพาะแผนที่เปิดให้แก้ไข)</label>
                   <select
                     value={selectedDiscoveryEditableScenario}
                     onChange={handleDiscoveryEditableScenarioSelect}
@@ -536,6 +593,7 @@ const Discovery = () => {
                       </option>
                     ))}
                   </select>
+                  </div>
                   <select
                     value={selectedDistrictE}
                     onChange={handleChangeDistrictE}
@@ -589,6 +647,18 @@ const Discovery = () => {
                     className="react-select-container"
                     classNamePrefix="react-select"
                   />
+              <select
+                value={selectedSpecialE}
+                onChange={(event) => setSelectedSpecialE(event.target.value)}
+                className="border rounded-lg px-4 py-2"
+              >
+                <option value="">เลือก Corridor พิเศษ (VIP/SELF)</option>
+                {specialCorridorOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="download-end-group-button">
                   <button
@@ -607,7 +677,7 @@ const Discovery = () => {
             </div>
           </div>
             <PlanDiscoveryTable
-              data={editableTableData}
+              data={visibleTableData}
               onUpdate={handleUpdateRow}
             />
         </div>

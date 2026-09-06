@@ -14,6 +14,9 @@ import { downloadTable } from "../Sub/DownloadXLSX.js";
 import {
   mapNewCorridorColumns,
   newCorridorExportHeaders,
+  specialCorridorOptions,
+  filterGeoJsonSpecial,
+  filterSpecialCorridors,
 } from "../Sub_config/GeoCorridor.js";
 
 import {
@@ -97,6 +100,8 @@ const Upgrade = () => {
   const [selectedAojE, setSelectedAojE] = useState("");
 
   const [selectedFrequency, setSelectedFrequency] = useState("");
+  // "" | "vip" | "self" | "special" - filters the corridor layer client-side
+  const [selectedSpecial, setSelectedSpecial] = useState("");
 
   const handleChangeFrequency = (event) => {
     setSelectedFrequency(event.target.value);
@@ -122,6 +127,7 @@ const Upgrade = () => {
   };
 
   const [selectedCorridor, setSelectedCorridor] = useState("");
+  const [selectedSpecialE, setSelectedSpecialE] = useState("");
 
   useEffect(() => {
     // Later replace this with fetch or API call
@@ -184,6 +190,7 @@ const Upgrade = () => {
     selectedFrequency,
     selectedDensitySource
   );
+  const geoCorridorsFiltered = filterGeoJsonSpecial(geoCorridors, selectedSpecial);
   const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
@@ -222,7 +229,7 @@ const Upgrade = () => {
     // },
     corridor: {
       isActive: currentMapView === "corridor",
-      geoJson: combineGeoJson(geoCorridors, geoDevices),
+      geoJson: combineGeoJson(geoCorridorsFiltered, geoDevices),
       required: selectedFeeder.length > 0,
     },
   };
@@ -237,7 +244,7 @@ const Upgrade = () => {
   const hasNoCorridors =
     currentMapView === "corridor" &&
     selectedFeeder.length > 0 &&
-    geoCorridors?.features?.length === 0;
+    geoCorridorsFiltered?.features?.length === 0;
 
   const [colorMode, setColorMode] = useSessionStorage("colorMode", "frequency");
 
@@ -277,6 +284,8 @@ const Upgrade = () => {
     const [editableTableData, setEditableTableData] = useState([]);
     const [modifiedRows, setModifiedRows] = useState(new Map());
     const [isSaving, setIsSaving] = useState(false);
+    // Rows shown in the table / exported, after the special-corridor filter
+    const visibleTableData = filterSpecialCorridors(editableTableData, selectedSpecialE);
 
     // Initialize editable data when corridorPlan changes (use the raw data, not the mapped version)
     useEffect(() => {
@@ -289,6 +298,8 @@ const Upgrade = () => {
           name: item.aoj_name,
           feeder: item.feeder_id,
           corridor: item.nearest_upstream_device,
+          vip: item.vip,
+          self: item.self,
           length: item.corridor_length_km,
           device: item.raw_device_type,
           outage: item.probability_of_outage_bins,
@@ -531,7 +542,7 @@ const Upgrade = () => {
         : "สรุปข้อมูลแผนการตัดต้นไม้";
 
       downloadTable({
-        data: editableTableData,
+        data: visibleTableData,
         headers: headers,
         fileName: fileName,
         title: title,
@@ -546,6 +557,8 @@ const Upgrade = () => {
       <div className="main-container">
         <div className="dropdown-dropdown-container">
           <div className="dropdowngroup-container">
+            <div className="filter-field">
+            <label className="filter-label">แผนสำหรับแผนที่ (ทุกแผน)</label>
             <select
               value={selectedDraftScenario}
               onChange={handleDraftScenarioSelect}
@@ -558,6 +571,7 @@ const Upgrade = () => {
                 </option>
               ))}
             </select>
+            </div>
             <select
               value={selectedDistrict}
               onChange={handleChangeDistrict}
@@ -618,6 +632,18 @@ const Upgrade = () => {
               {densitySourceOption?.map((option) => (
                 <option key={option.calibration_status} value={option.calibration_status}>
                   {option.calibration_status}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedSpecial}
+              onChange={(event) => setSelectedSpecial(event.target.value)}
+              className="border rounded-lg px-4 py-2"
+            >
+              <option value="">เลือก Corridor พิเศษ (VIP/SELF)</option>
+              {specialCorridorOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
                 </option>
               ))}
             </select>
@@ -745,6 +771,8 @@ const Upgrade = () => {
         <div className="summary-container">
           <div className="dropdown-dropdown-container">
             <div className="dropdowngroup-container">
+                  <div className="filter-field">
+                  <label className="filter-label">แผนสำหรับตารางแก้ไข (เฉพาะแผนที่เปิดให้แก้ไข)</label>
                   <select
                     value={selectedDraftEditableScenario}
                     onChange={handleDraftEditableScenarioSelect}
@@ -757,6 +785,7 @@ const Upgrade = () => {
                       </option>
                     ))}
                   </select>
+                  </div>
                   <select
                     value={selectedDistrictE}
                     onChange={handleChangeDistrictE}
@@ -810,6 +839,18 @@ const Upgrade = () => {
                     className="react-select-container"
                     classNamePrefix="react-select"
                   />
+              <select
+                value={selectedSpecialE}
+                onChange={(event) => setSelectedSpecialE(event.target.value)}
+                className="border rounded-lg px-4 py-2"
+              >
+                <option value="">เลือก Corridor พิเศษ (VIP/SELF)</option>
+                {specialCorridorOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="download-end-group-button">
                   <button
@@ -831,7 +872,7 @@ const Upgrade = () => {
               <p>ไม่สามารถปรับปรุงการตัดมากกว่า 2 ครั้งได้ในระบบ TonmAI โดยจะต้องไปทำการเปลี่ยนเป็นรายปีและเลือกเป็น 3 ครั้งในระบบ MJM </p>
             </div>
             <PlanUpgradeTable
-              data={editableTableData}
+              data={visibleTableData}
               onUpdate={handleUpdateRow}
             />
         </div>

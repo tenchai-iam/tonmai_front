@@ -19,6 +19,12 @@ export const corridorPropertyLabels = {
   customers_affected_adjusted_bins: "จำนวนลูกค้าที่ได้ผลกระทบ",
   upgrade: "ประสงค์ขอเพิ่มความถี่",
   reason: "เหตุผล",
+  // VIP / SELF. `vip` and `self` are what the pipeline saw in the F8 upgrade
+  // and self lists when the scenario ran ("Yes"/"No"); `upgrade` and
+  // `self_maintained` are the live edits made on this scenario since.
+  vip: "VIP corridor",
+  self: "ดำเนินการตัดเอง (SELF)",
+  self_maintained: "ประสงค์ดำเนินการตัดเอง",
   // added 2026-08 alongside the density source filter
   density_distribution_mjm: "ความหนาแน่นพืชพรรณ (MJM)",
   density_distribution_sat: "ความหนาแน่นพืชพรรณ (ดาวเทียม)",
@@ -54,6 +60,14 @@ const parseStructured = (value) => {
 const isEmpty = (value) =>
   value === null || value === undefined || value === "";
 
+// Flag columns arrive as booleans (upgrade, self_maintained), "Yes"/"No"
+// (vip, self) or, off a MapLibre feature, as the strings "true"/"false".
+const TRUE_FLAGS = new Set([true, 1, "1", "true", "True", "Yes", "yes"]);
+const FALSE_FLAGS = new Set([false, 0, "0", "false", "False", "No", "no"]);
+const isTrueFlag = (value) => TRUE_FLAGS.has(value);
+const isFlag = (value) => TRUE_FLAGS.has(value) || FALSE_FLAGS.has(value);
+const formatFlag = (value) => (isTrueFlag(value) ? "✓" : "✗");
+
 // Flattens a dict column to "open: 0.02 km, dense: 1.4 km".
 const flattenDict = (dict) => {
   const entries = Object.entries(dict).filter(([, v]) => !isEmpty(v));
@@ -79,6 +93,7 @@ export const formatCorridorCellValue = (value) => {
 // with many line_global_ids cannot stretch the hover popup down the map.
 export const formatCorridorPropertyValue = (value) => {
   if (isEmpty(value)) return "-";
+  if (isFlag(value)) return formatFlag(value);
 
   const structured = parseStructured(value);
   if (Array.isArray(structured)) {
@@ -115,3 +130,55 @@ export const mapNewCorridorColumns = (item) =>
 export const newCorridorExportHeaders = newCorridorColumns.map(
   ({ label, key }) => ({ label, key })
 );
+
+// ---------------------------------------------------------------------------
+// Special corridors (VIP / SELF)
+//
+// A corridor counts as VIP when the pipeline flagged it (`vip` = "Yes") or a
+// user has requested the upgrade on this scenario since (`upgrade`), and as
+// SELF when the pipeline flagged it (`self` = "Yes") or a user has marked it
+// self-maintained since (`self_maintained`, `selfMaintained` on table rows).
+// The same predicates serve GeoJSON feature properties and corridor_table rows.
+// True for a flag column in any of the shapes the API and MapLibre produce.
+export const isFlagOn = (value) => isTrueFlag(value);
+
+export const isVipCorridor = (item) =>
+  Boolean(item) && (isTrueFlag(item.vip) || isTrueFlag(item.upgrade));
+
+export const isSelfCorridor = (item) =>
+  Boolean(item) &&
+  (isTrueFlag(item.self) ||
+    isTrueFlag(item.self_maintained) ||
+    isTrueFlag(item.selfMaintained));
+
+// Options for the "special corridor" filter. "" (no filter) is the page's own
+// placeholder option.
+export const specialCorridorOptions = [
+  { value: "vip", label: "VIP" },
+  { value: "self", label: "ดำเนินการตัดเอง (SELF)" },
+  { value: "special", label: "VIP หรือ SELF" },
+];
+
+export const matchesSpecialCorridor = (item, mode) => {
+  if (!mode) return true;
+  if (mode === "vip") return isVipCorridor(item);
+  if (mode === "self") return isSelfCorridor(item);
+  return isVipCorridor(item) || isSelfCorridor(item);
+};
+
+export const filterSpecialCorridors = (rows, mode) =>
+  !mode || !Array.isArray(rows)
+    ? rows
+    : rows.filter((row) => matchesSpecialCorridor(row, mode));
+
+// Keeps only matching corridor features; devices are combined in afterwards
+// by the pages, so they are never filtered here.
+export const filterGeoJsonSpecial = (geojson, mode) => {
+  if (!mode || !geojson?.features) return geojson;
+  return {
+    ...geojson,
+    features: geojson.features.filter((feature) =>
+      matchesSpecialCorridor(feature.properties || {}, mode)
+    ),
+  };
+};

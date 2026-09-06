@@ -28,6 +28,20 @@
   z-index: 99;
 }
 
+/* A dropdown with its own caption, used where two similar pickers sit on the
+   same page and need telling apart. Column so the row layout is unchanged. */
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.filter-label {
+  font-size: 0.75rem;
+  color: #555;
+  white-space: nowrap;
+}
+
 .map-button-container {
   display: flex;
   flex-direction: row; /* Default to row layout */

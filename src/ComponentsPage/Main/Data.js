@@ -44,6 +44,12 @@ const Data = () => {
       downloadEndpoint: `${API_URL}/upgrade_corridor_list_download`, // Add a download API
       filename: "upgrade_corridor_list.xlsx",
     },
+    {
+      title: "ข้อมูล Corridor ที่ดำเนินการตัดเอง (SELF)",
+      endpoint: `${API_URL}/self_corridor_list_upload`,
+      downloadEndpoint: `${API_URL}/self_corridor_list_download`, // Add a download API
+      filename: "self_corridor_list.xlsx",
+    },
   ];
 
   const uploadSectionsTransformer = [];

@@ -58,11 +58,11 @@ function NavbarComponent() {
               หน้าหลัก
             </Nav.Link>
             <Nav.Link as={Link} to="/discovery">
-              สำรวจ VIP Corridor
+              สำรวจ Corridor
             </Nav.Link>
-            {/* <Nav.Link as={Link} to="/mapG">
+            <Nav.Link as={Link} to="/mapG">
               แผนการตัดต้นไม้
-            </Nav.Link> */}
+            </Nav.Link>
             <Nav.Link as={Link} to="/upgrade">
               ตรวจทานแผนการตัดต้นไม้
             </Nav.Link>
@@ -81,6 +81,9 @@ function NavbarComponent() {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/manage">
                   จัดการแผน
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/corridor">
+                  จัดการ Corridor
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/value">
                   ติดตามมูลค่า Stage 5

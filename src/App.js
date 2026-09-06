@@ -9,8 +9,9 @@ import {
 
 import Home from "./Home";
 import Discovery from "./ComponentsPage/Main/Discovery.js";
-// import MapG from "./ComponentsPage/Main/MapGeneral.js";
+import MapG from "./ComponentsPage/Main/MapGeneral.js";
 import Upgrade from "./ComponentsPage/Main/Upgrade.js";
+import CorridorManage from "./ComponentsPage/Main/CorridorManage.js";
 import Map from "./ComponentsPage/Main/Map.js";
 import Create from "./ComponentsPage/Main/Create.js";
 import CreateR from "./ComponentsPage/Main/CreateR.js";
@@ -49,52 +50,47 @@ export default function App() {
 
               {/* <Route path="/mapG" element={<MapG />} /> */}
 
-                            <Route path="/map" element={<Map />} />
-              
-
               <Route path="/" element={<ProtectedRoute element={Home} />} />
               <Route path="/discovery" element={<ProtectedRoute element={Discovery} />} />
-              {/* <Route path="/mapG" element={<ProtectedRoute element={MapG} />} /> */}
+              <Route path="/mapG" element={<ProtectedRoute element={MapG} />} />
               <Route path="/upgrade" element={<ProtectedRoute element={Upgrade} />} />
-              {/* <Route
-                path="/Map"
-                element={<ProtectedRoute element={Map} />}
-                allowedLevels={["B", "C"]}
-              /> */}
+              <Route
+                path="/corridor"
+                element={
+                  <ProtectedRoute element={CorridorManage} allowedLevels={["B", "C"]} />
+                }
+              />
+              <Route
+                path="/map"
+                element={<ProtectedRoute element={Map} allowedLevels={["B", "C"]} />}
+              />
               <Route
                 path="/create"
-                element={<ProtectedRoute element={Create} />}
-                allowedLevels={["B", "C"]}
+                element={<ProtectedRoute element={Create} allowedLevels={["B", "C"]} />}
               />
               <Route
                 path="/createR"
-                element={<ProtectedRoute element={CreateR} />}
-                allowedLevels={["B", "C"]}
+                element={<ProtectedRoute element={CreateR} allowedLevels={["B", "C"]} />}
               />
               <Route
                 path="/manage"
-                element={<ProtectedRoute element={Manage} />}
-                allowedLevels={["B", "C"]}
+                element={<ProtectedRoute element={Manage} allowedLevels={["B", "C"]} />}
               />
               <Route
                 path="/value"
-                element={<ProtectedRoute element={Value} />}
-                allowedLevels={["B", "C"]}
+                element={<ProtectedRoute element={Value} allowedLevels={["B", "C"]} />}
               />
               <Route
                 path="/budget"
-                element={<ProtectedRoute element={Budget} />}
-                allowedLevels={["B", "C"]}
+                element={<ProtectedRoute element={Budget} allowedLevels={["B", "C"]} />}
               />
               <Route
                 path="/data"
-                element={<ProtectedRoute element={Data} />}
-                allowedLevels={["B", "C"]}
+                element={<ProtectedRoute element={Data} allowedLevels={["B", "C"]} />}
               />
               <Route
                 path="/admin"
-                element={<ProtectedRoute element={Admin} />}
-                allowedLevels={["C"]}
+                element={<ProtectedRoute element={Admin} allowedLevels={["C"]} />}
               />
 
               <Route path="/callback" element={<Callback />} />
