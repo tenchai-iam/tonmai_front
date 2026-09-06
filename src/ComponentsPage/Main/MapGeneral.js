@@ -18,8 +18,7 @@ import {
 import {
   useScenarioOption,
   useDraftScenarioOption,
-  useDistrictOption,
-  useAojOption,
+  useAuthorizedDistrictOption,
   useAuthorizedAojOption,
   useFeederOption,
   useCorridorOption,
@@ -53,6 +52,18 @@ const MapG = () => {
   const [lineData, setLineData] = useState([]);
 
   const sessionPEACode = sessionStorage.getItem("pea_code");
+
+  // The authorized-district options are single letters; the corridor data is
+  // keyed by region code.
+  const convertDistrictCode = (districtCode) => {
+    const districtMapping = {
+      A: "N1", B: "N2", C: "N3",
+      D: "NE1", E: "NE2", F: "NE3",
+      G: "C1", H: "C2", I: "C3",
+      J: "S1", K: "S2", L: "S3",
+    };
+    return districtMapping[districtCode] || districtCode;
+  };
 
   const [selectedScenario1, setSelected1Scenario] = useState("");
   const handleScenario1Select = (e) => setSelected1Scenario(e.target.value);
@@ -121,18 +132,11 @@ const MapG = () => {
     setLineData(dummyData);
   }, []);
 
-  const { data: districtOption } = useDistrictOption();
-
-  const { data: aojOption, isLoadingAojOption } =
-    useAojOption(selectedDistrict);
-
-  const aojOptionFormatted = aojOption?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
+  const { data: authorizedDistrictOption } =
+    useAuthorizedDistrictOption(sessionPEACode, selectedScenario1);
 
   const { data: authorizedAojOption, isLoadingAuthorizedAojOption } =
-    useAuthorizedAojOption(sessionPEACode, selectedScenario1);
+    useAuthorizedAojOption(sessionPEACode, selectedScenario1, selectedDistrict);
 
   const authorizedAojOptionFormatted = authorizedAojOption?.map((option) => ({
     value: option.aoj_code,
@@ -140,7 +144,7 @@ const MapG = () => {
   }));
 
   const { data: feederOption, isLoadingFeederOption } =
-    useFeederOption(selectedScenario1, selectedDistrict, selectedAoj);
+    useFeederOption(selectedScenario1, convertDistrictCode(selectedDistrict), selectedAoj);
 
   const feederOptionFormatted = feederOption?.feeder_list?.map((option) => ({
     value: option["feeder_id"],
@@ -149,34 +153,27 @@ const MapG = () => {
   const { data: frequencyOption } = useFrequencyOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
   const { data: densitySourceOption } = useDensitySourceOption(selectedScenario1, selectedDistrict, selectedAoj, selectedFeeder);
 
-  const { data: corridorOption } = useCorridorOption(selectedScenario1, selectedDistrict2, selectedAoj2);
+  const { data: corridorOption } = useCorridorOption(selectedScenario1, convertDistrictCode(selectedDistrict2), selectedAoj2);
 
   const corridorOptionFormatted = corridorOption?.map((option) => ({
     value: option["nearest_upstream_device"],
     label: option["nearest_upstream_device"],
   }));
 
-  const { data: aojOption2, isLoadingAojOption2 } =
-    useAojOption(selectedDistrict2);
-
-  const aojOptionFormatted2 = aojOption2?.map((option) => ({
-    value: option.aoj_code,
-    label: option.aoj_name,
-  }));
-
+  // Office list for the corridor table, driven by the table's own region picker
   const { data: authorizedAojOption2, isLoadingAuthorizedAojOption2 } =
-    useAuthorizedAojOption(sessionPEACode);
+    useAuthorizedAojOption(sessionPEACode, selectedScenario1, selectedDistrict2);
 
   const authorizedAojOptionFormatted2 = authorizedAojOption2?.map((option) => ({
     value: option.aoj_code,
     label: option.aoj_name,
   }));
 
-  const { data: geoAoj } = useGeoAoj(selectedDistrict, selectedAoj);
+  const { data: geoAoj } = useGeoAoj(convertDistrictCode(selectedDistrict), selectedAoj);
   // const { data: geoFeeders } = useGeoFeeders(selectedFeeder);
   const { data: geoCorridors } = useGeoCorridors(
     selectedScenario1,
-    selectedDistrict,
+    convertDistrictCode(selectedDistrict),
     selectedFeeder,
     selectedAoj,
     selectedFrequency,
@@ -185,11 +182,11 @@ const MapG = () => {
   const geoCorridorsFiltered = filterGeoJsonSpecial(geoCorridors, selectedSpecial);
   const { data: corridorSummary, isLoading: isLoadingSummary } = useCorridorSummary(
     selectedScenario1,
-    selectedDistrict,
+    convertDistrictCode(selectedDistrict),
     selectedAoj,
     selectedFeeder
   );
-  const { data: geoDevices } = useGeoDevices(selectedDistrict, selectedFeeder, selectedAoj, selectedFrequency);
+  const { data: geoDevices } = useGeoDevices(convertDistrictCode(selectedDistrict), selectedFeeder, selectedAoj, selectedFrequency);
   const { data: geoSub } = useGeoSub(selectedFeeder, selectedAoj, selectedFrequency);
 
   const [currentMapView, setCurrentMapView] = useSessionStorage(
@@ -339,23 +336,25 @@ const MapG = () => {
                 </option>
               ))}
             </select>
-            {/* <select
+            <select
               value={selectedDistrict}
               onChange={handleChangeDistrict}
               className="border rounded-lg px-4 py-2"
             >
               <option value="">เลือกการไฟฟ้าเขต</option>
-              {districtOption?.map((option) => (
-                <option key={option.aoj_region} value={option.aoj_region}>
-                  {option.aoj_region}
+              {authorizedDistrictOption?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
                 </option>
               ))}
-            </select> */}
+            </select>
             <Select
               options={authorizedAojOptionFormatted}
-              value={authorizedAojOptionFormatted?.find(
-                (opt) => opt.value === sessionPEACode
-              )}
+              value={
+                authorizedAojOptionFormatted?.find(
+                  (opt) => opt.value === selectedAoj
+                ) || null
+              }
               onChange={(selectedOption) =>
                 setSelectedAoj(selectedOption?.value || "")
               }
@@ -478,23 +477,25 @@ const MapG = () => {
         <div className="summary-container">
           <div className="dropdown-download-container">
             <div className="dropdowngroup-container">
-              {/* <select
+              <select
                 value={selectedDistrict2}
                 onChange={handleChangeDistrict2}
                 className="border rounded-lg px-4 py-2"
               >
                 <option value="">เลือกการไฟฟ้าเขต</option>
-                {districtOption?.map((option) => (
-                  <option key={option.aoj_region} value={option.aoj_region}>
-                    {option.aoj_region}
+                {authorizedDistrictOption?.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
                   </option>
                 ))}
-              </select> */}
+              </select>
               <Select
                 options={authorizedAojOptionFormatted2}
-                value={authorizedAojOptionFormatted2?.find(
-                  (opt) => opt.value === selectedAoj2
-                )}
+                value={
+                  authorizedAojOptionFormatted2?.find(
+                    (opt) => opt.value === selectedAoj2
+                  ) || null
+                }
                 onChange={(selectedOption) =>
                   setSelectedAoj2(selectedOption?.value || "")
                 }
@@ -530,21 +531,24 @@ const MapG = () => {
           </div>
           <div className="remark">
             <p>
-              customers_affected_adjusted (จำนวนลูกค้าที่ได้รับผลกระทบ) Low:
-              น้อยกว่า 1000 ราย, Medium: 1,000-10,000 ราย, High: มากกว่า 10,000
-              ราย
+              ระดับ Low / Medium / High ทั้งสามค่าเป็นการจัดอันดับเทียบกับ corridor
+              ทั้งหมดในแผนเดียวกันทั่วประเทศ ไม่ใช่เกณฑ์ตัวเลขคงที่: Low = 40%
+              ล่างสุด, Medium = 30% ถัดมา, High = 30% บนสุด
+              (ค่าตัดจะเปลี่ยนทุกครั้งที่ประมวลผลแผนใหม่)
             </p>
             <p>
-              probability_of_outage_bins (ความเสี่ยงไฟดับจากต้นไม้): Low:
-              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
-              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
-              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
+              ความเสี่ยงไฟดับจากต้นไม้ (probability_of_outage_bins):
+              โอกาสที่ corridor นี้จะเกิดไฟฟ้าดับจากต้นไม้ในหนึ่งปี ตามแบบจำลอง
             </p>
             <p>
-              risk_customer_interruptions_bins (ความเสี่ยงในการกระทบกับลูกค้า):
-              Low: ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ 0.00 ถึง 0.04, Medium:
-              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ: 0.05 ถึง 0.16, High:
-              ช่วงความความน่าจะเป็นการเกิดไฟฟ้าดับ มากกว่า 0.16
+              จำนวนลูกค้ากระทบ (customers_affected_adjusted):
+              จำนวนผู้ใช้ไฟที่จะดับเมื่อ corridor นี้เกิดเหตุ
+              นับรวมสายแยกที่รับไฟต่อจาก corridor นี้ทั้งหมด
+            </p>
+            <p>
+              ระดับผลกระทบจากไฟดับ (risk_customer_interruptions_bins):
+              จำนวนครั้งที่คาดว่าจะเกิดไฟดับ x จำนวนลูกค้ากระทบ
+              = จำนวนราย-ครั้งที่ผู้ใช้ไฟจะได้รับผลกระทบต่อปี แล้วจัดอันดับตามข้างต้น
             </p>
           </div>
           <PlanTable data={dataCorridorPlan} />

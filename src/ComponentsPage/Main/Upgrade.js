@@ -164,6 +164,16 @@ const Upgrade = () => {
     label: option.aoj_name,
   }));
 
+  // Office list for the corridor table, driven by the table's own scenario and
+  // region pickers rather than the map's.
+  const { data: authorizedAojOptionE } =
+    useAuthorizedAojOption(sessionPEACode, selectedDraftEditableScenario, selectedDistrictE);
+
+  const authorizedAojOptionFormattedE = authorizedAojOptionE?.map((option) => ({
+    value: option.aoj_code,
+    label: option.aoj_name,
+  }));
+
   const { data: feederOption, isLoadingFeederOption } =
     useFeederOption(selectedDraftScenario, convertDistrictCode(selectedDistrict), selectedAoj);
 
@@ -594,9 +604,11 @@ const Upgrade = () => {
             </select>
             <Select
               options={authorizedAojOptionFormatted}
-              value={authorizedAojOptionFormatted?.find(
-                (opt) => opt.value === sessionPEACode
-              )}
+              value={
+                authorizedAojOptionFormatted?.find(
+                  (opt) => opt.value === selectedAoj
+                ) || null
+              }
               onChange={(selectedOption) =>
                 setSelectedAoj(selectedOption?.value || "")
               }
@@ -813,10 +825,12 @@ const Upgrade = () => {
                     ))}
                   </select>
                   <Select
-                    options={authorizedAojOptionFormatted}
-                    value={authorizedAojOptionFormatted?.find(
-                      (opt) => opt.value === sessionPEACode
-                    )}
+                    options={authorizedAojOptionFormattedE}
+                    value={
+                      authorizedAojOptionFormattedE?.find(
+                        (opt) => opt.value === selectedAojE
+                      ) || null
+                    }
                     onChange={(selectedOption) =>
                       setSelectedAojE(selectedOption?.value || "")
                     }

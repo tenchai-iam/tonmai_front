@@ -66,7 +66,9 @@ const corridorPropertyOrder = [
   "feeder_id",
   "nearest_upstream_device",
   "corridor_length_km",
+  // Likelihood, then who is affected, then the product of the two.
   "probability_of_outage_bins",
+  "customers_affected_adjusted",
   "risk_customer_interruptions_bins",
   "vip",
   "vip_reason",
@@ -80,7 +82,6 @@ const corridorPropertyOrder = [
   "density_distribution_mjm",
   "density_distribution_sat",
   "device_type",
-  "customers_affected_adjusted",
   "rate_card_thb_per_km",
 ];
 
