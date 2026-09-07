@@ -25,9 +25,10 @@ export const corridorPropertyLabels = {
   customers_affected_adjusted_bins: "จำนวนลูกค้าที่ได้ผลกระทบ",
   upgrade: "ประสงค์ขอเพิ่มความถี่",
   reason: "เหตุผล",
-  // VIP / SELF. `vip` and `self` are what the pipeline saw in the F8 upgrade
-  // and self lists when the scenario ran ("Yes"/"No"); `upgrade` and
-  // `self_maintained` are the live edits made on this scenario since.
+  // VIP / SELF. `vip` and `self` ("Yes"/"No") start as what the pipeline saw in
+  // the F8 upgrade and self lists when the scenario ran, and the update
+  // endpoints move them with `upgrade` / `self_maintained`, the live edits made
+  // on this scenario since.
   vip: "VIP corridor",
   vip_reason: "เหตุผล VIP",
   self: "ดำเนินการตัดเอง (SELF)",

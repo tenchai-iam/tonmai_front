@@ -16,11 +16,12 @@ import {
   specialCorridorOptions,
   filterGeoJsonSpecial,
   filterSpecialCorridors,
+  isVipCorridor,
+  isSelfCorridor,
 } from "../Sub_config/GeoCorridor.js";
 
 import {
   useScenarioOption,
-  useDiscoveryScenarioOption,
   useDiscoveryEditableScenarioOption,
   useDraftScenarioOption,
   useDraftEditableScenarioOption,
@@ -67,7 +68,10 @@ const Discovery = () => {
 
   const sessionPEACode = sessionStorage.getItem("pea_code");
 
-  const { data: scenarioDiscoveryOption } = useDiscoveryScenarioOption();
+  // Both pickers on this page follow the เปิด/ปิด switch for แผน Discovery on
+  // จัดการแผน (F8_discovery_scenario.editable): a plan closed there drops out
+  // of the map's list, not just the editable table's.
+  const { data: scenarioDiscoveryOption } = useDiscoveryEditableScenarioOption();
 
   const [selectedDiscoveryScenario, setSelectedDiscoveryScenario] = useState("");
   const handleDiscoveryScenarioSelect = (e) => setSelectedDiscoveryScenario(e.target.value);
@@ -439,6 +443,146 @@ const Discovery = () => {
       }
     };
 
+  // ยกเลิก VIP / SELF จาก popup บนแผนที่
+  //
+  // Same contract as the corridor-management page: clicking a corridor pins its
+  // popup and the popup carries the buttons that take the corridor off
+  // whichever list it is on. Here the buttons run against the map's own
+  // scenario picker (แผนที่), not the editable table's.
+  //
+  // A corridor reads as VIP or SELF from the properties the popup already
+  // shows - the pipeline snapshot (vip / self) or the live edit made on this
+  // scenario since (upgrade / self_maintained) - so a button appears on exactly
+  // the corridors this map draws as special.
+  const employeeId = sessionStorage.getItem("user") || "700001";
+
+  // Removing a corridor changes budget_upgrade_adjust, so the AOJ and regional
+  // budget tables are recomputed the same way the table's batch save does
+  // before anything on the page is refetched.
+  const refreshAfterCorridorChange = async () => {
+    if (selectedDiscoveryScenario) {
+      await updateUpgradeScenarioAojBudget({
+        scenario_name: selectedDiscoveryScenario,
+      });
+      await updateBudgetUpgradeRegionalTable({
+        scenario_name: selectedDiscoveryScenario,
+      });
+    }
+    queryClient.invalidateQueries(["geoCorridorsDiscovery"]);
+    queryClient.invalidateQueries(["corridorSummary"]);
+    queryClient.invalidateQueries(["corridorPlan"]);
+    queryClient.invalidateQueries(["regionBudgetGraph"]);
+    queryClient.invalidateQueries(["aojBudgetTable"]);
+  };
+
+  // Remove VIP: clear the flag on this scenario and delete the row from
+  // F8_upgrade_corridor_list, which is what the pipeline reads.
+  const removeVip = async (properties, closePopup) => {
+    const device = properties.nearest_upstream_device;
+    const feeder = properties.feeder_id;
+    if (!window.confirm(`ยกเลิก VIP ของ corridor ${device} ?`)) return;
+
+    setIsSaving(true);
+    try {
+      await batchUpdateCorridorUpgrade({
+        updates: [
+          {
+            scenario_name: properties.scenario_name || selectedDiscoveryScenario,
+            feeder_id: feeder,
+            nearest_upstream_device: device,
+            upgrade: 0,
+            reason: "",
+          },
+        ],
+      });
+      await insertUpgradeCorridorList({
+        inserts: [
+          {
+            nearest_upstream_device: device,
+            feeder_id_traced: feeder,
+            upgrade: false,
+            employee_id: employeeId,
+          },
+        ],
+      });
+      await refreshAfterCorridorChange();
+      closePopup();
+      alert(`ยกเลิก VIP ของ ${device} เรียบร้อย`);
+    } catch (error) {
+      console.error("Remove VIP failed:", error);
+      alert("เกิดข้อผิดพลาดระหว่างยกเลิก VIP");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Remove SELF: same shape against F8_self_corridor_list.
+  const removeSelf = async (properties, closePopup) => {
+    const device = properties.nearest_upstream_device;
+    const feeder = properties.feeder_id;
+    if (!window.confirm(`ยกเลิกการตัดเอง (SELF) ของ corridor ${device} ?`)) return;
+
+    setIsSaving(true);
+    try {
+      await batchUpdateCorridorSelf({
+        updates: [
+          {
+            scenario_name: properties.scenario_name || selectedDiscoveryScenario,
+            feeder_id: feeder,
+            nearest_upstream_device: device,
+            self_maintained: false,
+          },
+        ],
+      });
+      await insertSelfCorridorList({
+        inserts: [
+          {
+            nearest_upstream_device: device,
+            feeder_id_traced: feeder,
+            self: false,
+            employee_id: employeeId,
+          },
+        ],
+      });
+      await refreshAfterCorridorChange();
+      closePopup();
+      alert(`ยกเลิกการตัดเอง (SELF) ของ ${device} เรียบร้อย`);
+    } catch (error) {
+      console.error("Remove SELF failed:", error);
+      alert("เกิดข้อผิดพลาดระหว่างยกเลิก SELF");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const renderCorridorActions = (properties, closePopup) => {
+    const vip = isVipCorridor(properties);
+    const self = isSelfCorridor(properties);
+    return (
+      <div className="corridor-popup-buttons">
+        {vip && (
+          <button
+            type="button"
+            disabled={isSaving}
+            onClick={() => removeVip(properties, closePopup)}
+          >
+            {isSaving ? "กำลังบันทึก..." : "ยกเลิก VIP"}
+          </button>
+        )}
+        {self && (
+          <button
+            type="button"
+            disabled={isSaving}
+            onClick={() => removeSelf(properties, closePopup)}
+          >
+            {isSaving ? "กำลังบันทึก..." : "ยกเลิกการตัดเอง (SELF)"}
+          </button>
+        )}
+        {!vip && !self && <span>ไม่ได้อยู่ในรายการ VIP หรือ SELF</span>}
+      </div>
+    );
+  };
+
     const handleDataCorridorPlan = () => {
       const headers = [
         { label: "ปีงบประมาณ", key: "year" },
@@ -594,6 +738,7 @@ const Discovery = () => {
             <MapEmptyNotice show={hasNoCorridors} />
             <GeoMapDiscovery
               pinOnClick={true}
+              renderCorridorActions={renderCorridorActions}
               geoJsonPoints={geoDevices}
               geoSubPoints={geoSub}
               geoJsonData={corridorGeoJson}

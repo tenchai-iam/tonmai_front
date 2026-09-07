@@ -150,10 +150,10 @@ const CorridorManage = () => {
   );
 
   // Membership comes from the two lists plus the live per-scenario edits
-  // (upgrade / self_maintained). The pipeline's own vip/self columns are
-  // deliberately ignored here: they are a snapshot of the lists taken when the
-  // scenario ran, so a corridor removed today would otherwise stay on this map
-  // until the next pipeline run.
+  // (upgrade / self_maintained). The scenario's own vip/self columns are
+  // deliberately ignored here: they describe only the scenario this page is
+  // pointed at, while the lists are what the pipeline reads, so a corridor put
+  // on a list outside this scenario still shows up.
   const corridorStatus = (properties) => {
     const key = listKey(
       properties.nearest_upstream_device,
